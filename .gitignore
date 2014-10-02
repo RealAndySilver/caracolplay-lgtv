@@ -1,0 +1,7 @@
+node_modules/
+vendor/
+bin/
+build/
+npm-debug.log
+logfile.log
+.DS_Store
