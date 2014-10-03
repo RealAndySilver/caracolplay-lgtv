@@ -1,0 +1,108 @@
+{
+"featured":[
+{
+"name":"La Teacher de Ingl\u00e9s",
+"type":"Telenovelas",
+"feature_text":"'Kike' es un gran empresario y decide exportar y en la embajada conoce a 'Pili', quien habla ingl\u00e9s pero no obtiene la visa. 'Kike' viaja a Miami y dif\u00edcilmente logra comunicarse, as\u00ed que regresa al pa\u00eds a estudiar ingl\u00e9s.",
+"id":"18",
+"rate":"100",
+"category_id":"258",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/640x640\/public\/640_teacher.jpg",
+"is_campaing":false,
+"campaing_url":"",
+"is_3g":"1",
+"free":"0"
+},
+{
+"name":"Escobar, el patr\u00f3n del mal",
+"type":"Series",
+"feature_text":"Pablo es un hombre que desde muy ni\u00f1o ya mostraba dotes para los negocios, al crecer comienza  a trabajar con el \u2018Alguacil\u2019 llevando mercanc\u00eda de contrabando y as\u00ed conoce el negocio de la coca\u00edna.",
+"id":"38",
+"rate":"76.6667",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/640x640\/public\/escobar_75.jpg",
+"is_campaing":false,
+"campaing_url":"",
+"is_3g":"1",
+"free":"0"
+},
+{
+"name":"Rafael Orozco, El \u00eddolo",
+"type":"Telenovelas",
+"feature_text":"Rafael es herido de bala, mientras habla con 'Cobi' y William frente a su casa. A\u00f1os atr\u00e1s, Rafael llega con su hermano Juli\u00e1n a casa y descubren que \u00e9sta les ser\u00e1 embargada, Rafael decide trabajar con 'Teto' trayendo mercanc\u00eda de contrabando.",
+"id":"67",
+"rate":"100",
+"category_id":"258",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/640x640\/public\/orozco_640x640.jpg",
+"is_campaing":false,
+"campaing_url":"",
+"is_3g":"1",
+"free":"0"
+},
+{
+"name":"Tierra de Cantores",
+"type":"Series",
+"feature_text":"Emiliano defiende a los obreros del trabajo tan arduo y extenso. Blanca recibe una carta de su padre, en la que la que es nombrada administradora de la hacienda. Emiliano conoce a Blanca en circunstancias dif\u00edciles y all\u00ed se enamoran.",
+"id":"34",
+"rate":null,
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/640x640\/public\/tierra_de_cantores_640x640.jpg",
+"is_campaing":false,
+"campaing_url":"",
+"is_3g":"1",
+"free":"0"
+},
+{
+"name":"La Selecci\u00f3n",
+"type":"Series",
+"feature_text":"'El Pibe', 'El Tino', Fredy Rinc\u00f3n y Ren\u00e9 Higuita son cuatro de los jugadores de la Selecci\u00f3n Colombia, que recuerdan sus inicios como futbolistas minutos antes de enfrentar a Argentina en un partido de las eliminatorias al mundial de U.S.A 94.",
+"id":"198",
+"rate":null,
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/640x640\/public\/la_seleccion640.jpg",
+"is_campaing":false,
+"campaing_url":"",
+"is_3g":"1",
+"free":"0"
+},
+{
+"name":"Fugitivos",
+"type":"Series",
+"feature_text":"Julian acude al llamado de angustia de su amiga pero al llegar la encuentra sin vida, en ese momento llega la polic\u00eda y es acusado de haberla asesinado. La lucha por demostrar su inocencia lo llevar\u00e1 a conocer su verdadero amor.",
+"id":"402",
+"rate":null,
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/640x640\/public\/destacado_internacional.jpg",
+"is_campaing":false,
+"campaing_url":"",
+"is_3g":"1",
+"free":"0"
+},
+{
+"name":"Leche ",
+"type":"Telenovelas",
+"feature_text":"Despu\u00e9s de muchos a\u00f1os, los hermanos  Acercandro y Alejandro se re\u00fanen en un emotivo encuentro. La llega de Acercandro derrumba los planes construidos en su ausencia. Un forastero, Zoroastro, llega a la regi\u00f3n en busca de su madre.",
+"id":"427",
+"rate":null,
+"category_id":"258",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/640x640\/public\/leche_640_x_640_0.jpg",
+"is_campaing":false,
+"campaing_url":"",
+"is_3g":"1",
+"free":"0"
+},
+{
+"name":"La Viuda Negra ",
+"type":"Telenovelas",
+"feature_text":"'La Viuda Negra'  es condenada a la silla el\u00e9ctrica, y en su carrera para evitarla, crea un plan para secuestrar al hijo de un expresidente.",
+"id":"439",
+"rate":null,
+"category_id":"258",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/640x640\/public\/la_viuda_640_x_640_0.jpg",
+"is_campaing":false,
+"campaing_url":"",
+"is_3g":"1",
+"free":"0"
+}
+]
+}

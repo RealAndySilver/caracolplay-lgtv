@@ -1,7 +1,7 @@
 (function(app) {
 
     app.config(function ($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise('/home');
+        $urlRouterProvider.otherwise('/dashboard');
     });
 
     app.run(function () {});
@@ -17,4 +17,8 @@
     'templates-common',
     'ui.router.state',
     'ui.router',
+    'ui.bootstrap',
+    'caracolplaylgtvapp.dashboard',
+    'caracolplaylgtvapp.ServerCommunicator',
+    'caracolplaylgtvapp.ProductsContainer',
 ])));
