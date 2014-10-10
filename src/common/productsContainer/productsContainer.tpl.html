@@ -1,0 +1,14 @@
+<div>
+	<div class="slider-container">
+		<h2 class="slider-title">{{title}} </h2>
+		<div class="ProductionList" id="{{title + 'Slider'}}">
+			<ul class="list-inline">
+				<li class="ProductionItem" ng-repeat="slide in slides">
+					<div class="cover" popover="{{slide.feature_text}}" popover-title="{{slide.name}}" popover-trigger="mouseenter" ng-class="{selected : slide.active}" Popover-animation="true" focusable tag="record" >
+						<img ng-src="{{slide.image_url}}">
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

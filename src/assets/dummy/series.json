@@ -1,0 +1,279 @@
+{
+"products":[
+{
+"name":"Confidencial",
+"type":"Series",
+"feature_text":"Alejandra es v\u00edctima de los celos, el control y la desconfianza de su esposo, quien encuentra en la violencia la \u00fanica soluci\u00f3n a los problemas. \u00bfHasta d\u00f3nde ser\u00e1 capaz de llegar este hombre con tal de evitar una supuesta infidelidad?",
+"rate":"100",
+"id":"1",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/confidencial_0.jpg",
+"is_3g":"1",
+"free":"0"
+},
+{
+"name":"La Bruja",
+"type":"Series",
+"feature_text":"Conjuros, encantos y pociones formaban la estrategia de una mujer que logr\u00f3 convencer de su extra\u00f1o poder a pol\u00edticos reconocidos y a un importante jefe del narcotr\u00e1fico colombiano. Una historia real de los a\u00f1os 80 escrita por Germ\u00e1n Castro Caicedo y llevada a la pantalla con la mejor producci\u00f3n. \r\n",
+"rate":"85",
+"id":"3",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/bruja.jpg",
+"is_3g":"0",
+"free":"0"
+},
+{
+"name":"Los Canarios",
+"type":"Series",
+"feature_text":"\u00bfSe ha preguntado c\u00f3mo es el d\u00eda a d\u00eda de un taxista? \u2018Los canarios\u2019 le mostrar\u00e1n que este es un oficio para los que tienen vocaci\u00f3n de cura en confesi\u00f3n y, sobre todo, para aquellos que sobreviven al mal humor de don Evaristo, el ventajoso patr\u00f3n. \r\n",
+"rate":"100",
+"id":"5",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/canarios.jpg",
+"is_3g":"0",
+"free":"0"
+},
+{
+"name":"El Cartel ",
+"type":"Series",
+"feature_text":"La ambici\u00f3n y el poder se apoderan de diez amigos dedicados al negocio de la droga, haciendo que la traici\u00f3n reine entre ellos. La carrera por conseguir sus m\u00e1s oscuros objetivos se convierte en una lucha diaria en su agitada y tormentosa vida. \r\n",
+"rate":"100",
+"id":"6",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/cartel.jpg",
+"is_3g":"0",
+"free":"0"
+},
+{
+"name":"El Cartel II, La Guerra Total",
+"type":"Series",
+"feature_text":"El narco Pepe Cadena es el hilo conductor de una historia llena de sangre y adrenalina. En ella cuenta c\u00f3mo logr\u00f3 salir de la c\u00e1rcel en Nueva York, c\u00f3mo se convirti\u00f3 en informante y de qu\u00e9 manera logr\u00f3 huir a Colombia para esconderse entre los suyos. \r\n",
+"rate":"82",
+"id":"7",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/cartel_2.jpg",
+"is_3g":"0",
+"free":"0"
+},
+{
+"name":"Criminal",
+"type":"Series",
+"feature_text":"Cuando a un hombre bueno y noble le asesinan a su padre, el odio se apodera de sus acciones, convirti\u00e9ndolo en un ser vengativo que no descansar\u00e1 hasta saciar su dolor.\r\n",
+"rate":"100",
+"id":"8",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/criminal.jpg",
+"is_3g":"0",
+"free":"0"
+},
+{
+"name":"Infiltrados",
+"type":"Series",
+"feature_text":"Los integrantes del Grupo de Inteligencia Conjunta (GIC) demostrar\u00e1n una y otra vez, que cuentan con las capacidades y la suspicacia necesarias para suplantar a todo tipo de personajes hasta resolver los casos m\u00e1s peligrosos e incre\u00edbles de delincuencia y violencia que se viven en Colombia.\r\n",
+"rate":"90",
+"id":"14",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/infiltrados.jpg",
+"is_3g":"0",
+"free":"0"
+},
+{
+"name":"El Laberinto",
+"type":"Series",
+"feature_text":"Quince a\u00f1os despu\u00e9s, las tormentas del pasado reviven en la vida de Carlos Alberto Buend\u00eda. El error fue creer que los problemas hab\u00edan desaparecido cuando ahora \u00e9l es el presidente y su mujer es la que sufre por las amenazas en contra de la tranquilidad de su familia. \r\n",
+"rate":"100",
+"id":"19",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/laberinto.jpg",
+"is_3g":"0",
+"free":"0"
+},
+{
+"name":"La Mujer del Presidente",
+"type":"Series",
+"feature_text":"El d\u00eda que Carlos Alberto Buend\u00eda se deja seducir por la mujer del presidente de su empresa, ella cae muerta sin raz\u00f3n aparente. A \u00e9l lo acusan de haberla asesinado y para demostrar su inocencia tendr\u00e1 que hacer lo inimaginable. ",
+"rate":"100",
+"id":"22",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/mujer_presidente.jpg",
+"is_3g":"0",
+"free":"0"
+},
+{
+"name":"Las Mu\u00f1ecas de la Mafia",
+"type":"Series",
+"feature_text":"Dinero, tr\u00e1fico y silicona son las palabras clave de esta entretenida y cruda historia en donde las protagonistas son cinco mujeres que tienen que vivir una carrera por ser la m\u00e1s bella, la oficial, la mujer del \u2018patr\u00f3n\u2019, el mismo que les dar\u00e1 su amor enchapado en oro. \r\n",
+"rate":"100",
+"id":"23",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/munecas.jpg",
+"is_3g":"0",
+"free":"0"
+},
+{
+"name":"La Saga, Negocio de Familia",
+"type":"Series",
+"feature_text":"\u201cNinguno de los Manrique morir\u00e1 de viejo\u201d, fue la maldici\u00f3n que bot\u00f3 sobre su familia Tom\u00e1s, un burgu\u00e9s de cuna que decidi\u00f3 tomar el f\u00e1cil pero escabroso camino del robo, transmitiendo as\u00ed por generaciones un sucio negocio de familia.\r\n",
+"rate":"100",
+"id":"28",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/saga.jpg",
+"is_3g":"0",
+"free":"0"
+},
+{
+"name":"Sin Tetas No Hay Para\u00edso",
+"type":"Series",
+"feature_text":"Unos senos grandes son la puerta de entrada a un mundo de lujos y extravagancias. Conozca la historia de Catalina, una joven que cegada por su ambici\u00f3n y las malas influencias llegar\u00e1 a un para\u00edso al que jam\u00e1s desear\u00eda haber entrado.\r\n",
+"rate":"80",
+"id":"32",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/sin_tetas.jpg",
+"is_3g":"0",
+"free":"0"
+},
+{
+"name":"Tierra de Cantores",
+"type":"Series",
+"feature_text":"La historia del vallenato, contada a trav\u00e9s de la  leyenda del acorde\u00f3n, est\u00e1 marcada por la sangre y pasi\u00f3n de hombres que pisaron tierras invadidas de melod\u00edas. Sea testigo de c\u00f3mo la tradici\u00f3n de una cultura musical pasa generaci\u00f3n tras generaci\u00f3n. \r\n",
+"rate":"0",
+"id":"34",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/tierra.jpg",
+"is_3g":"1",
+"free":"0"
+},
+{
+"name":"El Ventilador",
+"type":"Series",
+"feature_text":"Narcotr\u00e1fico y pol\u00edtica viven un idilio secreto, pero dos periodistas osados har\u00e1n hasta lo imposible por sacar a la luz p\u00fablica los hechos que  todos desconocen. \r\n",
+"rate":"100",
+"id":"36",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/ventilador.jpg",
+"is_3g":"0",
+"free":"0"
+},
+{
+"name":"Escobar, el patr\u00f3n del mal",
+"type":"Series",
+"feature_text":"La intimidad delincuencial del personaje que marco la historia de los colombianos en los a\u00f1os 80, es hoy protagonista de esta serie que retrata toda una \u00e9poca de terror. Conozca los detalles de un mundo de l\u00e1pidas, narcotr\u00e1fico y poder, que hicieron de Pablo Escobar uno de los hombres m\u00e1s ricos y temidos del mundo. ",
+"rate":"97",
+"id":"38",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/escobar.jpg",
+"is_3g":"0",
+"free":"0"
+},
+{
+"name":"La Promesa",
+"type":"Series",
+"feature_text":"Creer en falsas promesas para cumplir sue\u00f1os rotos, es la triste realidad que viven las mujeres de esta historia. Conozca el oscuro mundo de la trata de personas a trav\u00e9s de las experiencias de Seleni, Ana y Frida, tres j\u00f3venes que sin quererlo, terminan compartiendo el mismo destino.",
+"rate":"96",
+"id":"108",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/genpromesa.jpg",
+"is_3g":"1",
+"free":"0"
+},
+{
+"name":"El Encantador",
+"type":"Series",
+"feature_text":"Esta es la historia de un hombre de origen humilde que llega a convertirse en el m\u00e1s grande estafador en la historia del pa\u00eds. Rolando Casta\u00f1o es entrador, h\u00e1bil con los negocios y encantador con las mujeres. Con su personalidad desparpajada, logra ganarse r\u00e1pidamente la confianza de todos aquellos que se le cruzan por el camino. Pero, nadie sabe si su deseo desmedido por conseguir dinero, estatus e influencia tendr\u00e1 alg\u00fan d\u00eda un l\u00edmite.",
+"rate":"90",
+"id":"129",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/generalelencantador.jpg",
+"is_3g":"1",
+"free":"0"
+},
+{
+"name":"La Pasi\u00f3n seg\u00fan nuestros d\u00edas",
+"type":"Series",
+"feature_text":"Misteriosas se\u00f1ales est\u00e1n llegando a San Roque. Hablan de la llegada de un elegido que vendr\u00e1 con un mensaje de Justicia y Paz; que ser\u00e1 inc\u00f3modo para quienes han establecido en esta regi\u00f3n un imperio de abuso y violencia. Camilo M\u00e1rquez nace y con \u00e9l, el cumplimiento de una serie de profec\u00edas para liberar a su pueblo, misi\u00f3n que le ha sido demandada desde antes de su nacimiento.",
+"rate":"0",
+"id":"130",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/internalapasion1.jpg",
+"is_3g":"1",
+"free":"0"
+},
+{
+"name":"La Selecci\u00f3n",
+"type":"Series",
+"feature_text":"Cuatro hombres se vistieron de h\u00e9roes cuando consiguieron lo que parec\u00eda imposible: el regreso a un mundial despu\u00e9s de 30 a\u00f1os de ausencia, una Copa Libertadores de Am\u00e9rica, contratos para jugar en clubes europeos y, sobre todo, una identidad en nuestra manera de jugar. Una historia real del momento en que Colombia coloniz\u00f3 el f\u00fatbol en el mundo.",
+"rate":"0",
+"id":"198",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/generalseleccion_0.jpg",
+"is_3g":"1",
+"free":"0"
+},
+{
+"name":"La Ronca de Oro ",
+"type":"Series",
+"feature_text":"En una \u00e9poca donde las mujeres ten\u00edan m\u00e1s deberes que derechos,  Helena Vargas dej\u00f3 una huella como persona y como cantante y, con su voz de oro, demostr\u00f3 que la m\u00fasica popular no tiene edad, sexo, ni clase. ",
+"rate":"85",
+"id":"203",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/caratula_ronca_de_oro_general.jpg",
+"is_3g":"0",
+"free":"0"
+},
+{
+"name":"Bazurto - Made in Cartagena",
+"type":"Series",
+"feature_text":"En medio de baile y la champeta, la poderosa banda de Harvey se dispone a robar el 'Santa Helena', tesoro precolombino encontrado en aguas del Caribe y propiedad del Banco Colombo-Espa\u00f1ol presidido por Vicente Dom\u00ednguez de Alba. Al fracasar en dicho robo, Noriega decide infiltrar a su ahijada en la vida de Vicente, ignorando que algunas veces, el enga\u00f1o y el amor pueden salirse de las manos.",
+"rate":"0",
+"id":"294",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/caratulabazurtogeneral.jpg",
+"is_3g":"1",
+"free":"0"
+},
+{
+"name":"La Selecci\u00f3n 2",
+"type":"Series",
+"feature_text":"En un periodo glorioso del f\u00fatbol colombiano, cinco jugadores se encargan de hacer historia por su estilo de juego y vida. Una serie que repasa esta \u00e9poca, con un toque de ficci\u00f3n por las agitadas vidas de cinco jugadores emblem\u00e1ticos de la mejor Selecci\u00f3n Colombia de todos los tiempos: el cerebral y malgeniado Pibe; el aguerrido y t\u00edmido Rinc\u00f3n; el genial y generoso Higuita; el habilidoso y siempre d\u00edscolo Tino; y el desordenado, pero demoledor Bombardero Valenciano.",
+"rate":"0",
+"id":"302",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/laseleccion2generalestreno.jpg",
+"is_3g":"1",
+"free":"0"
+},
+{
+"name":"Mentiras Perfectas",
+"type":"Series",
+"feature_text":"Dilemas morales, mujeres hermosas, pacientes peligrosos, y pasiones encontradas, ser\u00e1n los ingredientes de la historia de Crist\u00f3bal y Santiago, dos amigos que son socios en la medicina  y rivales en el amor. Disfruta esta serie dotada de un car\u00e1cter provocador y audaz, nunca antes visto en la televisi\u00f3n colombiana.",
+"rate":"0",
+"id":"352",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/mentirasgeneral_0.jpg",
+"is_3g":"1",
+"free":"0"
+},
+{
+"name":"Fugitivos",
+"type":"Series",
+"feature_text":"Juli\u00e1n Duarte es un reconocido ingeniero civil, felizmente casado y con un hijo; es una persona que da todo por su familia. Un d\u00eda, Camila, esposa de su gran amigo Ricardo Pradilla, lo cita a su casa para ponerlo al tanto de unos hechos terribles. Juli\u00e1n llega a la cita y entra a la casa en el preciso instante en que un sicario le quita la vida a la mujer. ",
+"rate":"100",
+"id":"402",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/caratula_general.jpg",
+"is_3g":"1",
+"free":"0"
+},
+{
+"name":"Leche ",
+"type":"Series",
+"feature_text":"Una miniserie colombiana que se desarrolla en un ambiente rural, y cuya trama se desarrolla en una finca lechera, de ah\u00ed su nombre. En este escenario se desarrolla una historia de amor que conmover\u00e1 los corazones de los colombianos.",
+"rate":"0",
+"id":"427",
+"category_id":"274",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/leche_internaok.jpg",
+"is_3g":"1",
+"free":"0"
+}
+]
+}

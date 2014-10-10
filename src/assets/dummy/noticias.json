@@ -1,0 +1,48 @@
+{
+"products":[
+{
+"name":"Septiembre 22 del 2014",
+"type":"Noticias",
+"feature_text":"Noticias Caracol, primero en noticias.\r\n",
+"rate":"0",
+"id":"465",
+"category_id":"254",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/portada_noticias_3.jpg",
+"is_3g":"1",
+"free":"0"
+},
+{
+"name":"Septiembre 23 del 2014",
+"type":"Noticias",
+"feature_text":"Noticias Caracol, primero en noticias.\r\n",
+"rate":"0",
+"id":"466",
+"category_id":"254",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/portada_noticias_1.jpg",
+"is_3g":"1",
+"free":"0"
+},
+{
+"name":"Septiembre 24 del 2014",
+"type":"Noticias",
+"feature_text":"Noticias Caracol, primero en noticias.\r\n",
+"rate":"0",
+"id":"467",
+"category_id":"254",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/portada_noticias.jpg",
+"is_3g":"1",
+"free":"0"
+},
+{
+"name":"Septiembre 25 del 2014",
+"type":"Noticias",
+"feature_text":"Noticias Caracol, primero en noticias.\r\n",
+"rate":"0",
+"id":"468",
+"category_id":"254",
+"image_url":"http:\/\/www.caracolplay.com\/sites\/default\/files\/styles\/256x386\/public\/producciones\/portada_noticias_0.jpg",
+"is_3g":"1",
+"free":"0"
+}
+]
+}

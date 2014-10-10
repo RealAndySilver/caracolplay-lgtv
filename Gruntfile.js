@@ -77,7 +77,8 @@ module.exports = function(grunt) {
         vendor_files: {
             js: [
                 'vendor/angular/angular.js',
-                
+                'vendor/jquery-modern/dist/jquery.min.js',
+                'vendor/angular-hotkeys/build/hotkeys.min.js',
                 'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
                 'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',
                 'vendor/angular-ui-router/release/angular-ui-router.js',
@@ -352,7 +353,7 @@ module.exports = function(grunt) {
                 },
                 src: [ '<%= app_files.commonTemplates %>' ],
                 dest: '<%= build_dir %>/templates-common.js'
-            }
+            },
         },
 
         /**
@@ -518,7 +519,7 @@ module.exports = function(grunt) {
             tpls: {
                 files: [
                     '<%= app_files.appTemplates %>',
-                    '<%= app_files.commonTemplates %>'
+                    '<%= app_files.commonTemplates %>',
                 ],
                 tasks: [ 'html2js' ]
             },

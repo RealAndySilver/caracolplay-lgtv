@@ -1,56 +1,92 @@
 (function(app) {
 
-    app.config(['$stateProvider', function ($stateProvider) {
-        $stateProvider.state('dashboard', {
-            url: '/dashboard',
-            views: {
-                "main": {
-                    controller: 'DashboardController',
-                    controllerAs: 'dashCtrl',
-                    templateUrl: 'dashboard/dashboard.tpl.html'
-                }
-            },
-            data:{ pageTitle: 'Dashboard' }
-        });
-    }]);
+	app.config(['$stateProvider', function ($stateProvider) {
+		$stateProvider.state('dashboard', {
+			url: '/dashboard',
+			views: {
+				"main": {
+					controller: 'DashboardController',
+					controllerAs: 'dashCtrl',
+					templateUrl: 'dashboard/dashboard.tpl.html'
+				}
+			},
+			data:{ pageTitle: 'Dashboard' }
+		});
+	}]);
 
-    app.controller('DashboardController', ['$scope', 'ProductService', function ($scope, ProductService) {
+	app.controller('DashboardController', ['$scope', 'ProductService', 'hotkeys', function ($scope, ProductService, hotkeys) {
+		var self = this;
 
-        var self = this;
+		self.slides = [];
+		self.series = [];
+		self.movies = [];
+		self.telenovelas = [];
+		self.news = [];
 
-        self.slides = [];
+		self.active = 0;
 
-        (function init() {
+		hotkeys.add({
+			combo:'down',
+			callback: function(event) {
+				event.preventDefault();
+				if(self.active + 1 > 5) { return; }
+				self.active++;
+			}
+		});
 
-            var pfPromise = ProductService.getFeatured();
+		hotkeys.add({
+			combo:'up',
+			callback: function() {
+				event.preventDefault();
+				if(self.active - 1 < 1) { return; }
+				self.active--;
+			}
+		});
 
-            pfPromise.then(function(response){
+		self.isKeyboardActive = function(pos) {
+			return pos === self.active;
+		};
 
-                var featuredArray = [],
-                    temporalSlides = [];
+		(function init() {
+			var featuredPromise = ProductService.getFeatured();
+			var seriesPromise = ProductService.getSeries();
+			var moviesPromise = ProductService.getMovies();
+			var telenovelasPromise = ProductService.getTelenovelas();
+			var newsPromise = ProductService.getNews();
 
-                featuredArray = response.data.featured;
+			featuredPromise.then(function(response) {
+				var featuredArray = response.data.featured;
 
-                for(var i = 0; i < featuredArray.length; i++){
-                    console.log(featuredArray[i].name + ': '+Math.ceil(featuredArray[i].rate/2)/10);
-                    temporalSlides.push({
-                        image: featuredArray[i].image_url,
-                        text: featuredArray[i].feature_text,
-                        rate: (featuredArray[i].rate/2)/10,
-                        name: featuredArray[i].name,
-                    });
-                }
-                
-                self.slides = temporalSlides;
+				for(var i in featuredArray) {
+					//console.log(featuredArray[i].name + ': '+Math.ceil(featuredArray[i].rate/2)/10);
+					self.slides.push({
+						image: featuredArray[i].image_url,
+						text: featuredArray[i].feature_text,
+						rate: (featuredArray[i].rate/2)/10,
+						name: featuredArray[i].name,
+					});
+				}
+			});
 
-                self.dummy = {
-                    title:'featured',
-                    slides: temporalSlides
-                };
-            });
-        })();
-    }]);
+			seriesPromise.then(function(response) {
+				self.series = response.data.products;
+			});
+
+			moviesPromise.then(function(response) {
+				self.movies = response.data.products;
+			});
+
+			telenovelasPromise.then(function(response) {
+				self.telenovelas = response.data.products;
+			});
+
+			newsPromise.then(function(response) {
+				self.news = response.data.products;
+			});
+		})();
+	}]);
 
 }(angular.module("caracolplaylgtvapp.dashboard", [
-    'ui.router'
+	'ui.router',
+	'cfp.hotkeys'
 ])));
