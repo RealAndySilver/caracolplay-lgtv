@@ -38,4 +38,5 @@
 	'caracolplaylgtvapp.previewView',
 	'caracolplaylgtvapp.previewButton',
 	'caracolplaylgtvapp.previewList',
+    'caracolplaylgtvapp.seriesProduct',
 ])));

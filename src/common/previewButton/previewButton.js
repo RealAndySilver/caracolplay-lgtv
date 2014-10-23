@@ -5,8 +5,17 @@
 		self.element = {};
 
 		$scope.setElement = function(element) {
-			console.log('element' + self.element);
 			self.element = element;
+			if($scope.active) {
+				self.element.addClass('button-active');
+				self.element.removeClass('button-deactive');
+			} else {
+				self.element.addClass('button-deactive');
+				self.element.removeClass('button-active');
+			}
+		};
+		
+		var activeWatcherFunction = function(newValue, oldValue) {
 			if(newValue) {
 				self.element.addClass('button-active');
 				self.element.removeClass('button-deactive');
@@ -17,16 +26,7 @@
 		};
 
 		var init = function() {
-			$scope.$watch('active', function(newValue, oldValue) {
-				console.log('active: ' + newValue);
-				if(newValue) {
-					self.element.addClass('button-active');
-					self.element.removeClass('button-deactive');
-				} else {
-					self.element.addClass('button-deactive');
-					self.element.removeClass('button-active');
-				}
-			});
+			$scope.$watch('active', activeWatcherFunction);
 		};
 
 		init();

@@ -1,19 +1,7 @@
 <div class="cp-preview-father" ng-show="show"></div>
 <div ng-show="previewViewCtrl.isNews()"></div>
 <div ng-show="previewViewCtrl.isSeries()">
-	<div class="series-description" ng-show="show">
-		<h2>{{selected.name}}</h2>
-		<center><img class="preview-image" ng-src="{{selected.image_url}}"></center>
-		<preview-list list="previewViewCtrl.seriesOptions"></preview-list>
-	</div>
-	<div class="preview-season" ng-show="show">
-		<preview-list list="previewViewCtrl.seasonsButtons"></preview-list>
-	</div>
-	<div class="chapters-season" ng-show="show">
-		<h5>Season {{previewViewCtrl.seasonSelected + 1}} - {{previewViewCtrl.episodesButtons.length}} Chapters</h5>
-		<preview-list list="previewViewCtrl.episodesButtons"></preview-list>
-		
-	</div>
+	<series-product selected-item="selected" ng-show="show"></series-product>
 </div>
 <div ng-show="previewViewCtrl.isTelenovelas()">
 	<div class="series-description" ng-show="show">

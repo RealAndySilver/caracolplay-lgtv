@@ -1,0 +1,12 @@
+<div class="series-description">
+	<h2>{{selected.name}}</h2>
+	<center><img class="preview-image" ng-src="{{selected.image_url}}"></center>
+	<preview-list list="seriesProductCtrl.options"></preview-list>
+</div>
+<div class="preview-season">
+	<preview-list list="seriesProductCtrl.seasonsButtons"></preview-list>
+</div>
+<div class="chapters-season">
+	<h5>Season {{seriesProductCtrl.seasonSelected + 1}} - {{seriesProductCtrl.episodesButtons.length}} Chapters</h5>
+	<preview-list list="seriesProductCtrl.episodesButtons"></preview-list>
+</div>
