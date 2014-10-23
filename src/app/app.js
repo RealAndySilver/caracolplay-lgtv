@@ -4,11 +4,23 @@
 		$urlRouterProvider.otherwise('/dashboard');
 	});
 
-	app.run(function () {});
+	var init = function() {
 
-	app.controller('AppController', function ($scope) {
+	};
 
-	});
+	app.run(init);
+
+	var AppController = function($scope) {
+		var self = this;
+
+		var init = function() {
+
+		};
+
+		init();
+	};
+
+	app.controller('AppController', ['$scope', AppController]);
 
 }(angular.module("caracolplaylgtvapp", [
 	'caracolplaylgtvapp.home',
@@ -22,5 +34,8 @@
 	'caracolplaylgtvapp.ServerCommunicator',
 	'caracolplaylgtvapp.ProductsContainer',
 	'cfp.hotkeys',
-    'caracolplaylgtvapp.carouselContainer',
+	'caracolplaylgtvapp.carouselContainer',
+	'caracolplaylgtvapp.previewView',
+	'caracolplaylgtvapp.previewButton',
+	'caracolplaylgtvapp.previewList',
 ])));

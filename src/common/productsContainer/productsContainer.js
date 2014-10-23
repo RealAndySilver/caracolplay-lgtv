@@ -1,6 +1,6 @@
 (function(app) {
 
-	var ProductsContainerController = function($scope, hotkeys) {
+	var ProductsContainerController = function($scope, hotkeys, ProductService) {
 		var self = this;
 
 		var active = 0;
@@ -9,7 +9,8 @@
 				cover = {};
 
 		var onChangeActive = function() {
-			console.log('width:' + cover.width());
+			$scope.selected = $scope.slides[active];
+			console.log($scope.selected);
 			slider.animate({
 				scrollLeft: active*cover.width()
       }, 500);
@@ -29,9 +30,21 @@
 			onChangeActive();
 		};
 
+		var enterCallback = function() {
+			var productPremise = ProductService.getProductWithID($scope.slides[active].id, '');
+
+			productPremise.then(function(res) {
+				console.log(res.data.products['0'][0]);
+
+				$scope.selected = res.data.products['0'][0];
+			});
+			$scope.preview();
+		};
+
 		var watchCallback = function(newValue, oldValue) {
 			if(newValue) {
 				$scope.slides[active].active = true;
+				$scope.selected = $scope.slides[active];
 
 				slider = $('#' + $scope.title + 'Slider');
 				cover = $('.cover');
@@ -49,6 +62,10 @@
 				hotkeys.add({
 					combo: 'left',
 					callback: leftCallback
+				});
+				hotkeys.add({
+					combo: 'enter',
+					callback: enterCallback
 				});
 			} else {
 				if($scope.slides[active]) {
@@ -74,11 +91,13 @@
 				slides: '=',
 				title: '@',
 				active: '=',
+				preview: '&',
+				selected: '=itemSelected',
 			}
 		};
 	};
 
-	app.controller('ProductsContainerController', ['$scope', 'hotkeys', ProductsContainerController]);
+	app.controller('ProductsContainerController', ['$scope', 'hotkeys', 'ProductService', ProductsContainerController]);
 	app.directive('productsContainer', ProductsContainer);
 
 }(angular.module("caracolplaylgtvapp.ProductsContainer", [

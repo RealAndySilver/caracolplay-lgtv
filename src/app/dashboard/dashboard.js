@@ -14,45 +14,88 @@
 		});
 	}]);
 
-	app.controller('DashboardController', ['$scope', 'ProductService', 'hotkeys', function ($scope, ProductService, hotkeys) {
+	var DashboardController = function($scope, ProductService, hotkeys) {
 		var self = this;
 
 		self.slides = [];
-		self.series = [];
-		self.movies = [];
-		self.telenovelas = [];
-		self.news = [];
+		self.list = [];
 
 		self.active = 0;
+		self.isPreviewActive = false;
+		self.isShowInfo = false;
 
-		hotkeys.add({
-			combo:'down',
-			callback: function(event) {
-				event.preventDefault();
-				if(self.active + 1 > 5) { return; }
-				self.active++;
-			}
-		});
-
-		hotkeys.add({
-			combo:'up',
-			callback: function() {
-				event.preventDefault();
-				if(self.active - 1 < 1) { return; }
-				self.active--;
-			}
-		});
+		self.selectedItem = {};
 
 		self.isKeyboardActive = function(pos) {
 			return pos === self.active;
 		};
 
+		self.showPreview = function() {
+			return self.isPreviewActive;
+		};
+
+		self.showInfo = function() {
+			return self.isShowInfo;
+		};
+
+		self.activePreview = function() {
+			self.isPreviewActive = true;
+		};
+
+		var inAnimation = function() {
+			if(!self.isShowInfo) {
+				$('.preview-cover').animate({
+					right: 0,
+				}, 1000, 'swing');
+			}
+			self.isShowInfo = true;
+			
+		};
+
+		var outAnimation = function() {
+			$('.preview-cover').animate({
+				right: '-=' + ($('.preview-cover').width() + 200),
+			}, 1000, 'swing', function() {
+				self.isShowInfo = false;
+			});
+		};
+
+		(function keyboardInit() {
+			hotkeys.add({
+				combo:'down',
+				callback: function(event) {
+					event.preventDefault();
+					if(self.active + 1 >= self.slides.length - 2) { return; }
+					self.active++;
+					if(self.active === 1) {
+						outAnimation();
+					} else {
+						inAnimation();
+					}
+				}
+			});
+
+			outAnimation();
+
+			hotkeys.add({
+				combo:'up',
+				callback: function() {
+					event.preventDefault();
+					if(self.active - 1 < 1) { return; }
+					self.active--;
+					if(self.active === 1) {
+						outAnimation();
+					} else {
+						inAnimation();
+					}
+				}
+			});
+		})();
+		
 		(function init() {
 			var featuredPromise = ProductService.getFeatured();
-			var seriesPromise = ProductService.getSeries();
-			var moviesPromise = ProductService.getMovies();
-			var telenovelasPromise = ProductService.getTelenovelas();
-			var newsPromise = ProductService.getNews();
+
+			var categoriesPromise = ProductService.getCategories();
 
 			featuredPromise.then(function(response) {
 				var featuredArray = response.data.featured;
@@ -68,23 +111,31 @@
 				}
 			});
 
-			seriesPromise.then(function(response) {
-				self.series = response.data.products;
+			categoriesPromise.then(function(response) {
+				var list = response.data.categories;
+				var promise = {};
+				var pos = 0;
+
+				console.log(list);
+
+				var promiseFunction = function(pos) {
+					return function(res) {
+						if(res.data.products && res.data.products.length > 0) {
+							self.list.push({ name: list[pos].name, products: res.data.products });
+						}
+					};
+				};
+				for(var i in list) {
+					pos = i;
+					promise = ProductService.getListFromCategoryId(list[i].id);
+					promise.then(promiseFunction(i));
+				}
 			});
 
-			moviesPromise.then(function(response) {
-				self.movies = response.data.products;
-			});
-
-			telenovelasPromise.then(function(response) {
-				self.telenovelas = response.data.products;
-			});
-
-			newsPromise.then(function(response) {
-				self.news = response.data.products;
-			});
 		})();
-	}]);
+	};
+
+	app.controller('DashboardController', ['$scope', 'ProductService', 'hotkeys', DashboardController]);
 
 }(angular.module("caracolplaylgtvapp.dashboard", [
 	'ui.router',

@@ -1,11 +1,16 @@
-<div class="dashboard">
+<header class="toolbar">
+	<div id="logo"></div>
+</header>
+
+<preview-view ng-show="dashCtrl.showInfo()" on-show="dashCtrl.showPreview()" selected-item="dashCtrl.selectedItem"></preview-view>
+
+<div class="dashboard container">
 
 	<div style="height:134px; width: 100%;"></div>
 
-	<carousel-container id="Cover" href="#Cover" slides="dashCtrl.slides" title="Cover" active="dashCtrl.isKeyboardActive(1)"></carousel-container>
-	<products-container id="Series" href="#Series" slides="dashCtrl.series" title="Series" active="dashCtrl.isKeyboardActive(2)"></products-container>
-	<products-container id="Peliculas" href="#Peliculas" slides="dashCtrl.movies" title="Peliculas" active="dashCtrl.isKeyboardActive(3)"></products-container>
-	<products-container id="Telenovelas" href="#Telenovelas" slides="dashCtrl.telenovelas" title="Telenovelas" active="dashCtrl.isKeyboardActive(4)"></products-container>
-	<products-container id="Noticias" href="#Noticias" slides="dashCtrl.news" title="Noticias" active="dashCtrl.isKeyboardActive(5)"></products-container>
+	<carousel-container id="Cover" href="#Cover" slides="dashCtrl.slides" title="Cover" active="dashCtrl.isKeyboardActive(1)" preview="dashCtrl.activePreview()"></carousel-container>
 
+	<div ng-repeat="item in dashCtrl.list" ng-show="item.products.length !== 0">
+		<products-container id="{{item.name}}" href="{{'#' + item.name}}" slides="item.products" title="{{item.name}}" active="dashCtrl.isKeyboardActive($index + 2)" preview="dashCtrl.activePreview()" item-selected="dashCtrl.selectedItem"></products-container>
+	</div>
 </div>

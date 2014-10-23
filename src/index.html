@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="caracolplaylgtvapp" ng-controller="AppController">
 <head>
+	<meta charset="utf-8">
 	<title ng-bind="pageTitle"></title>
 
 	<!-- font awesome from BootstrapCDN -->
@@ -13,11 +14,7 @@
 	<script type="text/javascript" src="<%= file %>"></script><% }); %>
 </head>
 <body>
-	<header class="toolbar">
-		<div id="logo"></div>
-	</header>
-
-	<div class="container" ui-view="main"></div>
+	<div ui-view="main"></div>
 
 	<footer class="container">
 		(c) <%= date %> <%= author %>

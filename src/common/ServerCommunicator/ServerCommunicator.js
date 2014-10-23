@@ -1,24 +1,52 @@
 (function(app) {
-
+	
 	var ProductService =  function($http) {
-		this.getFeatured = function() {
-			return $http.get('assets/dummy/featured.json');
+		var self = this;
+		self.END_POINT = 'http://apps.caracolplay.com/';
+
+		self.getFeatured = function() {
+			return $http.get(self.END_POINT + 'GetFeatured');
 		};
 
-		this.getSeries = function() {
-			return $http.get('assets/dummy/series.json');
+		self.getCategories = function() {
+			return $http.get(self.END_POINT + 'GetCategories');
 		};
 
-		this.getMovies = function() {
-			return $http.get('assets/dummy/peliculas.json');
+		self.getListFromCategoryId = function(id, filter) {
+			var url = self.END_POINT;
+			if(filter) {
+				filter = 1;
+			}
+			
+			return $http.get(self.END_POINT + 'GetListFromCategoryId/' + id + '/' + filter);
 		};
 
-		this.getTelenovelas = function() {
-			return $http.get('assets/dummy/telenovelas.json');
-		};
+		self.getProductWithID = function(id, uid) {
+			if(!uid || uid === '') {
+				uid = '0';
+			}
 
-		this.getNews = function() {
-			return $http.get('assets/dummy/noticias.json');
+			var encode = function() {
+				var user = '', password = '', session = '';
+				var time = new Date().getTime();
+				var encodeKey = 'aREwKMVVmjA81aea0mVNFh';
+
+				var auth = window.btoa(window.btoa(user + ':' + password + ':' + session));
+
+				var token = window.btoa(time + encodeKey);
+
+				return {
+					auth: auth,
+					TS70: time,
+					token: token,
+				};
+			};
+
+			return $http({
+				headers: encode(),
+				method: 'GET',
+				url: self.END_POINT + 'GetProductWithID/' + id + '/' + uid,
+			});
 		};
 	};
 
