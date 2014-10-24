@@ -10,3 +10,12 @@
 	<h5>Season {{seriesProductCtrl.seasonSelected + 1}} - {{seriesProductCtrl.episodesButtons.length}} Chapters</h5>
 	<preview-list list="seriesProductCtrl.episodesButtons"></preview-list>
 </div>
+<div class="preview-chapter">
+	<div class="season-highlight">
+		<h5 class="btn">Season {{seriesProductCtrl.seasonSelected + 1}}</h5>
+	</div>
+	<div class="chapter-info">
+		<h5>Chapter {{seriesProductCtrl.episodeSelected + 1}} - {{seriesProductCtrl.chapterSelected.duration}}</h5>
+	</div>
+	<h4>{{seriesProductCtrl.chapterSelected.description}}</h4>
+</div>

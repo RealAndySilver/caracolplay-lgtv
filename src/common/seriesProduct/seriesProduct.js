@@ -20,6 +20,8 @@
 		self.seasonSelected = 0;
 		self.episodeSelected = -1;
 
+		self.chapterSelected = {};
+
 		self.sectionActive = self.SEASONS_SECTION;
 
 		var setSeasonSelected = function(selected, position) {
@@ -72,6 +74,9 @@
 
 							if(self.sectionActive === self.SEASONS_SECTION) {
 								setSeasonSelected($scope.selected, parseInt(i) - 1);
+							} else if(self.sectionActive === self.EPISODES_SECTION) {
+								self.episodeSelected = parseInt(i) - 1;
+								self.chapterSelected = $scope.selected.season_list[self.seasonSelected].episodes[parseInt(i) - 1];
 							}
 							return;
 						}
@@ -105,6 +110,9 @@
 
 							if(self.sectionActive === self.SEASONS_SECTION) {
 								setSeasonSelected($scope.selected, parseInt(i) + 1);
+							} else if(self.sectionActive === self.EPISODES_SECTION) {
+								self.episodeSelected = parseInt(i) + 1;
+								self.chapterSelected = $scope.selected.season_list[self.seasonSelected].episodes[parseInt(i) + 1];
 							}
 							return;
 						}
@@ -121,10 +129,13 @@
 							self.sectionActive = self.SEASONS_SECTION;
 							break;
 						case self.SEASONS_SECTION:
-							if(self.episodeSelected === -1) {
-								self.episodesButtons[0].active = true;
-							}
+							self.episodesButtons[0].active = true;
+							self.episodeSelected = 0;
+							self.chapterSelected = $scope.selected.season_list[self.seasonSelected].episodes[0];
 							self.sectionActive = self.EPISODES_SECTION;
+							$('.chapters-season').animate({
+								right: '25%',
+							}, 1000, 'swing');
 							break;
 						case self.EPISODES_SECTION:
 							break;
@@ -143,6 +154,10 @@
 							break;
 						case self.EPISODES_SECTION:
 							self.sectionActive = self.SEASONS_SECTION;
+							$('.chapters-season').animate({
+								right: '0',
+							}, 1000, 'swing');
+							self.episodesButtons[self.episodeSelected].active = false;
 							break;
 					}
 				},
