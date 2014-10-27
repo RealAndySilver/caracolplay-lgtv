@@ -22,7 +22,7 @@
 			{ label: 'Añadir a mi lista', active: false },
 		];
 
-		self.telenovelasOptions = [
+		$scope.telenovelasOptions = [
 			{ label: 'Capitulos', active: true },
 			{ label: 'Calificar', active: false },
 			{ label: 'Trailer', active: false },
@@ -37,8 +37,7 @@
 		];
 
 		$scope.newsOptions = [
-			{ label: 'Capitulos', active: true },
-			{ label: 'Calificar', active: false },
+			{ label: 'Ultimas Noticias', active: true },
 			{ label: 'Trailer', active: false },
 			{ label: 'Añadir a mi lista', active: false },
 		];

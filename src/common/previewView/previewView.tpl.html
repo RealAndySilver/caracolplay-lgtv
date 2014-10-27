@@ -6,11 +6,7 @@
 	<series-product selected-item="previewViewCtrl.getSelected('Series')" display-options="seriesOptions" ng-show="show"></series-product>
 </div>
 <div ng-show="previewViewCtrl.isTelenovelas()">
-	<div class="series-description" ng-show="show">
-		<h2>{{selected.name}}</h2>
-		<center><img class="preview-image" ng-src="{{selected.image_url}}"></center>
-		<preview-list list="previewViewCtrl.telenovelasOptions"></preview-list>
-	</div>
+	<series-product selected-item="previewViewCtrl.getSelected('Telenovelas')" display-options="telenovelasOptions" ng-show="show"></series-product>
 </div>
 <div ng-show="previewViewCtrl.isMovie()">
 	<div class="preview-description" ng-show="show">
