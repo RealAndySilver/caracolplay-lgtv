@@ -1,21 +1,21 @@
 <div class="series-description">
 	<h2>{{selected.name}}</h2>
 	<center><img class="preview-image" ng-src="{{selected.image_url}}"></center>
-	<preview-list list="seriesProductCtrl.options"></preview-list>
+	<preview-list list="options"></preview-list>
 </div>
 <div class="preview-season">
 	<preview-list list="seriesProductCtrl.seasonsButtons"></preview-list>
 </div>
 <div class="chapters-season">
-	<h5>Season {{seriesProductCtrl.seasonSelected + 1}} - {{seriesProductCtrl.episodesButtons.length}} Chapters</h5>
+	<h5>{{getSeasonLabel()}}</h5>
 	<preview-list list="seriesProductCtrl.episodesButtons"></preview-list>
 </div>
 <div class="preview-chapter">
 	<div class="season-highlight">
-		<h5 class="btn">Season {{seriesProductCtrl.seasonSelected + 1}}</h5>
+		<h5 class="btn">{{getSeasonButtonLabel()}}</h5>
 	</div>
 	<div class="chapter-info">
-		<h5>Chapter {{seriesProductCtrl.episodeSelected + 1}} - {{seriesProductCtrl.chapterSelected.duration}}</h5>
+		<h5>{{getChapterName()}}</h5>
 	</div>
 	<h4>{{seriesProductCtrl.chapterSelected.description}}</h4>
 </div>

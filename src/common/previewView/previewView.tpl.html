@@ -1,7 +1,9 @@
 <div class="cp-preview-father" ng-show="show"></div>
-<div ng-show="previewViewCtrl.isNews()"></div>
+<div ng-show="previewViewCtrl.isNews()">
+	<series-product selected-item="previewViewCtrl.getSelected('Noticias')" display-options="newsOptions" ng-show="show"></series-product>
+</div>
 <div ng-show="previewViewCtrl.isSeries()">
-	<series-product selected-item="selected" ng-show="show"></series-product>
+	<series-product selected-item="previewViewCtrl.getSelected('Series')" display-options="seriesOptions" ng-show="show"></series-product>
 </div>
 <div ng-show="previewViewCtrl.isTelenovelas()">
 	<div class="series-description" ng-show="show">

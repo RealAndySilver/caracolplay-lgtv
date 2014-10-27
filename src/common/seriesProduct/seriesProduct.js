@@ -7,13 +7,6 @@
 		self.SEASONS_SECTION = 1;
 		self.EPISODES_SECTION = 2;
 
-		self.options = [
-			{ label: 'Capitulos', active: true },
-			{ label: 'Calificar', active: false },
-			{ label: 'Trailer', active: false },
-			{ label: 'Añadir a mi lista', active: false },
-		];
-
 		self.seasonsButtons = [];
 		self.episodesButtons = [];
 
@@ -22,7 +15,46 @@
 
 		self.chapterSelected = {};
 
-		self.sectionActive = self.SEASONS_SECTION;
+		self.sectionActive = self.OPTIONS_SECTION;
+
+		$scope.getSeasonLabel = function() {
+			if(!$scope.selected) {
+				return '';
+			}
+			if(!$scope.selected.season_list) {
+				return '';
+			}
+			if($scope.selected.type === 'Noticias') {
+				return $scope.selected.season_list[self.seasonSelected].season_name;
+			}
+			return 'Season ' + (self.seasonSelected + 1) + ' - ' + (self.episodesButtons.length) + ' Chapters';
+		};
+
+		$scope.getSeasonButtonLabel = function() {
+			if(!$scope.selected) {
+				return '';
+			}
+			if(!$scope.selected.season_list) {
+				return '';
+			}
+			if($scope.selected.type === 'Noticias') {
+				return $scope.selected.season_list[self.seasonSelected].season_name;
+			}
+			return 'Season ' + (self.seasonSelected + 1);
+		};
+
+		$scope.getChapterName = function() {
+			if(!$scope.selected) {
+				return '';
+			}
+			if(!$scope.selected.season_list) {
+				return '';
+			}
+			if($scope.selected.type === 'Noticias') {
+				return self.chapterSelected.episode_name + ' - ' + self.chapterSelected.duration;
+			}
+			return 'Chapter ' + (self.episodeSelected + 1) + ' - ' + self.chapterSelected.duration;
+		};
 
 		var setSeasonSelected = function(selected, position) {
 			if(position >= 0) {
@@ -35,15 +67,22 @@
 				}
 			}
 
-			self.episodesButtons = [];
+			self.episodesButtons.length = 0;
 			var episodes = [];
 			if(selected && selected.season_list) {
 				episodes = selected.season_list[self.seasonSelected].episodes;
 			}
 
 			for(var i in episodes) {
+				var label = '';
+				if(selected.type === 'Noticias') {
+					label = episodes[i].episode_name;
+				} else {
+					label = episodes[i].episode_number + '. ' + episodes[i].episode_name;
+				}
+
 				self.episodesButtons.push({
-					label: episodes[i].episode_number + ') ' + episodes[i].episode_name,
+					label: label,
 					active: false,
 				});
 			}
@@ -57,7 +96,7 @@
 
 					switch(self.sectionActive) {
 						case self.OPTIONS_SECTION:
-							buttons = self.options;
+							buttons = $scope.options;
 							break;
 						case self.SEASONS_SECTION:
 							buttons = self.seasonsButtons;
@@ -93,7 +132,7 @@
 
 					switch(self.sectionActive) {
 						case self.OPTIONS_SECTION:
-							buttons = self.options;
+							buttons = $scope.options;
 							break;
 						case self.SEASONS_SECTION:
 							buttons = self.seasonsButtons;
@@ -117,6 +156,7 @@
 							return;
 						}
 					}
+
 					buttons[buttons.length - 1].active = true;
 				},
 			});
@@ -169,11 +209,17 @@
 				return;
 			}
 
-			self.seasonsButtons = [];
+			self.seasonsButtons.length = 0;
 			var seasons = newValue.season_list;
 			for(var i in seasons) {
+				var label = '';
+				if(newValue.type === 'Noticias') {
+					label = seasons[i].season_name;
+				} else {
+					label = 'Season ' + (parseInt(i) + 1);
+				}
 				self.seasonsButtons.push({
-					label: 'Season ' + (parseInt(i) + 1),
+					label: label,
 					active: false,
 				});
 			}
@@ -181,7 +227,6 @@
 			setSeasonSelected(newValue, 0);
 
 			if(seasons) {
-				console.log('config hotkeys');
 				configHotkeys();
 			}
 		};
@@ -203,6 +248,7 @@
 			templateUrl: 'seriesProduct/seriesProduct.tpl.html',
 			scope: {
 				selected: '=selectedItem',
+				options: '=displayOptions'
 			}
 		};
 	};

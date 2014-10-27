@@ -29,6 +29,27 @@
 			{ label: 'Añadir a mi lista', active: false },
 		];
 
+		$scope.seriesOptions = [
+			{ label: 'Capitulos', active: true },
+			{ label: 'Calificar', active: false },
+			{ label: 'Trailer', active: false },
+			{ label: 'Añadir a mi lista', active: false },
+		];
+
+		$scope.newsOptions = [
+			{ label: 'Capitulos', active: true },
+			{ label: 'Calificar', active: false },
+			{ label: 'Trailer', active: false },
+			{ label: 'Añadir a mi lista', active: false },
+		];
+
+		self.getSelected = function(type) {
+			if($scope.selected.type === type) {
+				return $scope.selected;
+			}
+			return null;
+		};
+
 		self.isMovie = function() {
 			return $scope.selected.type === 'Películas';
 		};
