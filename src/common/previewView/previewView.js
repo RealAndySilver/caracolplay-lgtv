@@ -15,7 +15,7 @@
 	var PreviewViewController = function($scope) {
 		var self = this;
 
-		self.moviesOptions = [
+		$scope.moviesOptions = [
 			{ label: 'Reproducir', active: true },
 			{ label: 'Calificar', active: false },
 			{ label: 'Trailer', active: false },
@@ -66,6 +66,9 @@
 		};
 
 		var init = function() {
+			$scope.$watch('selected', function(newValue, oldValue) {
+				$scope.selected.feature_text = newValue.description;
+			});
 		};
 
 		init();

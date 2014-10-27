@@ -242,14 +242,30 @@
 				if(seasons.length) {
 					if(seasons.length === 1) {
 						$('.chapters-season').css("right", '25%');
+						self.sections.length = 0;
 						self.sections.push(self.OPTIONS_SECTION);
 						self.sections.push(self.EPISODES_SECTION);
 					} else {
+						self.sections.length = 0;
 						self.sections.push(self.OPTIONS_SECTION);
 						self.sections.push(self.SEASONS_SECTION);
 						self.sections.push(self.EPISODES_SECTION);
 					}
 				}
+			}
+
+			if(newValue.type === 'Películas') {
+				self.sections.length = 0;
+				$('.preview-season').addClass('ng-hide');
+				$('.chapters-season').addClass('ng-hide');
+				$('.preview-chapter').addClass('ng-hide');
+				$('.series-description').css("right", '25%');
+				self.sections.push(self.OPTIONS_SECTION);
+			} else {
+				$('.preview-season').removeClass('ng-hide');
+				$('.chapters-season').removeClass('ng-hide');
+				$('.preview-chapter').removeClass('ng-hide');
+				$('.series-description').css("right", '70%');
 			}
 
 			for(var i in seasons) {
@@ -265,14 +281,14 @@
 				});
 			}
 
-			setSeasonSelected(newValue, 0);
 			if(self.seasons) {
 				if(self.seasons.length) {
 					self.chapterSelected = seasons[self.seasonSelected].episodes[0];
+					setSeasonSelected(newValue, 0);
 				}
 			}
 
-			if(seasons) {
+			if(newValue.trailer) {
 				configHotkeys();
 			}
 		};
