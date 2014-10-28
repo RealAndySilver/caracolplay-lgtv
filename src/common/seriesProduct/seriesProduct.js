@@ -281,10 +281,10 @@
 				});
 			}
 
-			if(self.seasons) {
-				if(self.seasons.length) {
-					self.chapterSelected = seasons[self.seasonSelected].episodes[0];
+			if(seasons) {
+				if(seasons.length) {
 					setSeasonSelected(newValue, 0);
+					self.chapterSelected = seasons[self.seasonSelected].episodes[0];
 				}
 			}
 
