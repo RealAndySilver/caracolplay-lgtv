@@ -67,7 +67,10 @@
 
 		var init = function() {
 			$scope.$watch('selected', function(newValue, oldValue) {
-				$scope.selected.feature_text = newValue.description;
+				if(newValue.description) {
+					$scope.selected.feature_text = newValue.description;
+				}
+				
 			});
 		};
 
