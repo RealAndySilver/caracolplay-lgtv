@@ -110,8 +110,10 @@
 		var configHotkeys = function() {
 			hotkeys.add({
 				combo: 'up',
-				callback: function() {
+				callback: function(event) {
 					var buttons = [];
+
+					event.preventDefault();
 
 					switch(self.sections[self.sectionActive]) {
 						case self.OPTIONS_SECTION:
@@ -149,8 +151,10 @@
 
 			hotkeys.add({
 				combo: 'down',
-				callback: function() {
+				callback: function(event) {
 					var buttons = [];
+
+					event.preventDefault();
 
 					switch(self.sections[self.sectionActive]) {
 						case self.OPTIONS_SECTION:

@@ -11,7 +11,7 @@
 		var onChangeActive = function() {
 			$scope.selected = $scope.slides[active];
 			console.log($scope.selected);
-			slider.animate({
+			slider.stop().animate({
 				scrollLeft: active*cover.width()
       }, 500);
 		};
@@ -50,7 +50,7 @@
 				cover = $('.cover');
 
 				var div = $('#' + $scope.title).attr('href');
-				$('html, body').animate({
+				$('html, body').stop().animate({
 					scrollTop: $(div).offset().top - 134
 				}, 500);
 

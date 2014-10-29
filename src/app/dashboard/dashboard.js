@@ -43,19 +43,21 @@
 		};
 
 		var inAnimation = function() {
-			if(!self.isShowInfo) {
-				$('.preview-cover').animate({
-					right: 0,
-				}, 1000, 'swing');
-			}
+			//if(!self.isShowInfo) {
+				$('.preview-cover').stop().animate({
+					right: '0%',
+				}, 500, 'swing', function() {
+					self.isShowInfo = true;
+				});
+			//}
 			self.isShowInfo = true;
 			
 		};
 
 		var outAnimation = function() {
-			$('.preview-cover').animate({
-				right: '-=' + ($('.preview-cover').width() + 200),
-			}, 1000, 'swing', function() {
+			$('.preview-cover').stop().animate({
+				right: '-25%',
+			}, 500, 'swing', function() {
 				self.isShowInfo = false;
 			});
 		};
@@ -74,8 +76,6 @@
 					}
 				}
 			});
-
-			outAnimation();
 
 			hotkeys.add({
 				combo:'up',
