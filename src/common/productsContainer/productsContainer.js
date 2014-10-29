@@ -38,7 +38,11 @@
 
 				$scope.selected = res.data.products['0'][0];
 			});
-			$scope.preview();
+			$scope.preview({value: true});
+		};
+
+		var escCallback = function() {
+			$scope.preview({value: false});
 		};
 
 		var watchCallback = function(newValue, oldValue) {
@@ -66,6 +70,10 @@
 				hotkeys.add({
 					combo: 'enter',
 					callback: enterCallback
+				});
+				hotkeys.add({
+					combo: 'esc',
+					callback: escCallback,
 				});
 			} else {
 				if($scope.slides[active]) {

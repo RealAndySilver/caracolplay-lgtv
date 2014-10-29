@@ -16,6 +16,7 @@
 
 	var DashboardController = function($scope, ProductService, hotkeys) {
 		var self = this;
+		var keyboardInit = {};
 
 		self.slides = [];
 		self.list = [];
@@ -38,18 +39,20 @@
 			return self.isShowInfo;
 		};
 
-		self.activePreview = function() {
-			self.isPreviewActive = true;
+		self.activePreview = function(value) {
+			console.log(value);
+			self.isPreviewActive = value;
+			if(!value) {
+				keyboardInit();
+			}
 		};
 
 		var inAnimation = function() {
-			//if(!self.isShowInfo) {
-				$('.preview-cover').stop().animate({
-					right: '0%',
-				}, 500, 'swing', function() {
-					self.isShowInfo = true;
-				});
-			//}
+			$('.preview-cover').stop().animate({
+				right: '0%',
+			}, 500, 'swing', function() {
+				self.isShowInfo = true;
+			});
 			self.isShowInfo = true;
 			
 		};
@@ -62,7 +65,7 @@
 			});
 		};
 
-		(function keyboardInit() {
+		keyboardInit = function() {
 			hotkeys.add({
 				combo:'down',
 				callback: function(event) {
@@ -90,7 +93,8 @@
 					}
 				}
 			});
-		})();
+		};
+		keyboardInit();
 		
 		(function init() {
 			var featuredPromise = ProductService.getFeatured();
