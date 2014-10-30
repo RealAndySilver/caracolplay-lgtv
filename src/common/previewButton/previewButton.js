@@ -17,6 +17,15 @@
 		
 		var activeWatcherFunction = function(newValue, oldValue) {
 			if(newValue) {
+				var div = '#button' + $scope.id + 0;
+
+				console.log($(div).height());
+				console.log($scope.index);
+				console.log($(div).height() * $scope.index);
+
+				$('.chapters-season').stop().animate({
+					scrollTop: ($(div).height() + 14) * $scope.index
+				});
 				self.element.addClass('button-active');
 				self.element.removeClass('button-deactive');
 			} else {
@@ -41,6 +50,8 @@
 			scope: {
 				active: '=isActive',
 				text: '@label',
+				index: '=position',
+				id: '@',
 			},
 			link: function(scope, element, attrs) {
 				scope.setElement(element.find('div'));

@@ -314,7 +314,7 @@
 			templateUrl: 'seriesProduct/seriesProduct.tpl.html',
 			scope: {
 				selected: '=selectedItem',
-				options: '=displayOptions'
+				options: '=displayOptions',
 			}
 		};
 	};
