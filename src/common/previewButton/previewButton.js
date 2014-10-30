@@ -19,10 +19,6 @@
 			if(newValue) {
 				var div = '#button' + $scope.id + 0;
 
-				console.log($(div).height());
-				console.log($scope.index);
-				console.log($(div).height() * $scope.index);
-
 				$('.chapters-season').stop().animate({
 					scrollTop: ($(div).height() + 14) * $scope.index
 				});

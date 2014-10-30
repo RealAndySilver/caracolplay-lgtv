@@ -26,6 +26,11 @@
 		self.isShowInfo = false;
 
 		self.selectedItem = {};
+		$scope.restartConfigKeyboard = {
+			restart: function() {
+
+			}
+		};
 
 		self.isKeyboardActive = function(pos) {
 			return pos === self.active;
@@ -44,6 +49,9 @@
 			self.isPreviewActive = value;
 			if(!value) {
 				keyboardInit();
+				if($scope.restartConfigKeyboard.restart) {
+					$scope.restartConfigKeyboard.restart();
+				}
 			}
 		};
 

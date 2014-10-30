@@ -8,6 +8,26 @@
 		var slider = {},
 				cover = {};
 
+		var configHotkeys = function() {
+			hotkeys.add({
+				combo: 'right',
+				callback: rightCallback
+			});
+
+			hotkeys.add({
+				combo: 'left',
+				callback: leftCallback
+			});
+			hotkeys.add({
+				combo: 'enter',
+				callback: enterCallback
+			});
+			hotkeys.add({
+				combo: 'esc',
+				callback: escCallback,
+			});
+		};
+
 		var onChangeActive = function() {
 			$scope.selected = $scope.slides[active];
 			console.log($scope.selected);
@@ -38,10 +58,16 @@
 
 				$scope.selected = res.data.products['0'][0];
 			});
+			$scope.configKeyboard.restart = function() {
+				configHotkeys();
+			};
 			$scope.preview({value: true});
 		};
 
 		var escCallback = function() {
+			$scope.configKeyboard.restart = function() {
+				configHotkeys();
+			};
 			$scope.preview({value: false});
 		};
 
@@ -58,23 +84,7 @@
 					scrollTop: $(div).offset().top - 134
 				}, 500);
 
-				hotkeys.add({
-					combo: 'right',
-					callback: rightCallback
-				});
-
-				hotkeys.add({
-					combo: 'left',
-					callback: leftCallback
-				});
-				hotkeys.add({
-					combo: 'enter',
-					callback: enterCallback
-				});
-				hotkeys.add({
-					combo: 'esc',
-					callback: escCallback,
-				});
+				configHotkeys();
 			} else {
 				if($scope.slides[active]) {
 					$scope.slides[active].active = false;
@@ -101,6 +111,7 @@
 				active: '=',
 				preview: '&',
 				selected: '=itemSelected',
+				configKeyboard: '=restartKeyboard'
 			}
 		};
 	};
