@@ -1,5 +1,15 @@
 <header class="toolbar">
 	<div id="logo"></div>
+		<div class="search-bar">
+			<div class="input-group">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button">
+						<span class="glyphicon glyphicon-search"></span>
+					</button>
+				</span>
+				<input type="text" class="form-control">
+			</div><!-- /input-group -->
+		</div>
 </header>
 
 <preview-view ng-show="dashCtrl.showInfo()" on-show="dashCtrl.showPreview()" selected-item="dashCtrl.selectedItem"></preview-view>
