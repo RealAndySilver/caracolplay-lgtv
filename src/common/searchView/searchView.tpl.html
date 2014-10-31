@@ -1,1 +1,11 @@
-<h1>SearchView</h1>
+<div class="search-results">
+	<h5>{{getTitle()}}</h5>
+	<preview-list list="searchViewCtrl.resultButtons" id="chapters"></preview-list>
+</div>
+<div class="preview-cover-search">
+	<h2>{{selected.name}}</h2>
+	<h6>2012</h6>
+	<rating class="pull-left" ng-model="slide.rate" max="5" readonly="true" style="color:orange; font-size:16px; width: 100px;"></rating>
+	<br/>
+	<h4>{{selected.feature_text}}</h4>
+</div>

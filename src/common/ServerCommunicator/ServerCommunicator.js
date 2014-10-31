@@ -21,6 +21,10 @@
 			return $http.get(self.END_POINT + 'GetListFromCategoryId/' + id + '/' + filter);
 		};
 
+		self.getListFromSearchWithKey = function(keyword) {
+			return $http.get(self.END_POINT + 'GetListFromSearchWithKey/' + keyword);
+		};
+
 		self.getProductWithID = function(id, uid) {
 			if(!uid || uid === '') {
 				uid = '0';
