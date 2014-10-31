@@ -11,7 +11,7 @@
 			restrict: 'E',
 			controller: 'SearchViewController',
 			controllerAs: 'searchViewCtrl',
-			templateUrl: 'seriesView/seriesView.tpl.html',
+			templateUrl: 'searchView/searchView.tpl.html',
 			scope: {
 			},
 		}
