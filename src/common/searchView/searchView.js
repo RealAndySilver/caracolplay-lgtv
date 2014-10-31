@@ -1,26 +1,25 @@
 (function(app) {
+	var SearchViewController = function($scope) {
+		var init = function() {
+		};
 
-    app.config(['$stateProvider', function ($stateProvider) {
-        $stateProvider.state('searchView', {
-            url: '/searchview',
-            views: {
-                "main": {
-                    controller: 'SearchViewController',
-                    templateUrl: 'searchView/searchView.tpl.html'
-                }
-            },
-            data:{ pageTitle: 'SearchView' }
-        });
-    }]);
+		init();
+	};
 
-    app.controller('SearchViewController', ['$scope', function ($scope) {
+	var SearchViewDirective = function() {
+		return {
+			restrict: 'E',
+			controller: 'SearchViewController',
+			controllerAs: 'searchViewCtrl',
+			templateUrl: 'seriesView/seriesView.tpl.html',
+			scope: {
+			},
+		}
+	}
 
-        var init = function() {
-        };
-
-        init();
-    }]);
+	app.controller('SearchViewController', ['$scope', SearchViewController]);
+	app.directive('searchView', SearchViewDirectives);
 
 }(angular.module("caracolplaylgtvapp.searchView", [
-    'ui.router'
+	'ui.router'
 ])));
