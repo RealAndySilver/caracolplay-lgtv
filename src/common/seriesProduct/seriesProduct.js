@@ -303,10 +303,7 @@
 			$scope.$watch('selected', selectedWatcherMethod);
 		};
 
-		$scope.restart.restartHotkeysSeriesProduct = function() {
-			configHotkeys();
-			console.log('configHotkeys');
-		};
+		
 
 		init();
 	};
@@ -320,7 +317,6 @@
 			scope: {
 				selected: '=selectedItem',
 				options: '=displayOptions',
-				restart: '=restartKeyboard'
 			}
 		};
 	};

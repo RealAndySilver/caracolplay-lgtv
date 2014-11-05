@@ -8,7 +8,6 @@
 			scope: {
 				show: '=onShow',
 				selected: '=selectedItem',
-				restart: '=restartKeyboard',
 			}
 		};
 	};

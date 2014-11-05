@@ -12,10 +12,6 @@
 		self.isItemSelected = false;
 		self.itemSelected = 0;
 
-		$scope.restart.searchRestart = function() {
-			configHotkeys();
-		};
-
 		var configHotkeys = function() {
 			hotkeys.add({
 				combo: 'up',
@@ -94,7 +90,6 @@
 			templateUrl: 'searchView/searchView.tpl.html',
 			scope: {
 				keyword: '@',
-				restart: '=onVisible',
 			}
 		};
 	};
