@@ -303,6 +303,11 @@
 			$scope.$watch('selected', selectedWatcherMethod);
 		};
 
+		$scope.restart.restartHotkeysSeriesProduct = function() {
+			configHotkeys();
+			console.log('configHotkeys');
+		};
+
 		init();
 	};
 
@@ -315,12 +320,19 @@
 			scope: {
 				selected: '=selectedItem',
 				options: '=displayOptions',
+				restart: '=restartKeyboard'
 			}
 		};
 	};
 
 	app.controller('SeriesProductController', ['$scope', 'hotkeys', SeriesProductController]);
 	app.directive('seriesProduct', SeriesProductDirective);
+
+	app.filter('unsafe', function($sce) {
+		return function(val) {
+				return $sce.trustAsHtml(val);
+			};
+	});
 
 }(angular.module("caracolplaylgtvapp.seriesProduct", [
 	'ui.router'

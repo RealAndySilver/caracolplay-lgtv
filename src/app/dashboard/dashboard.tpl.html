@@ -12,8 +12,8 @@
 		</div>
 </header>
 
-<search-view keyword="{{keywordToSearch}}"></search-view>
-<preview-view ng-show="dashCtrl.showInfo()" on-show="dashCtrl.showPreview()" selected-item="dashCtrl.selectedItem"></preview-view>
+<search-view keyword="{{keywordToSearch}}" ng-show="dashCtrl.isInSearch" on-visible="restartConfigKeyboard"></search-view>
+<preview-view ng-show="dashCtrl.showInfo()" on-show="dashCtrl.showPreview()" selected-item="dashCtrl.selectedItem" restart-keyboard="restartConfigKeyboard" ></preview-view>
 
 <div class="dashboard container">
 

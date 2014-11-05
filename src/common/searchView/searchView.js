@@ -12,7 +12,11 @@
 		self.isItemSelected = false;
 		self.itemSelected = 0;
 
-		var init = function() {
+		$scope.restart.searchRestart = function() {
+			configHotkeys();
+		};
+
+		var configHotkeys = function() {
 			hotkeys.add({
 				combo: 'up',
 				callback: function(event) {
@@ -40,8 +44,15 @@
 					event.preventDefault();
 				}
 			});
+		};
+
+		var init = function() {
+			configHotkeys();
 
 			$scope.$watch('keyword', function(newValue, oldValue) {
+				if(newValue === undefined || newValue === '') {
+					return;
+				}
 				var searchPremise = ProductService.getListFromSearchWithKey(newValue);
 
 				searchPremise.then(function(res) {
@@ -83,6 +94,7 @@
 			templateUrl: 'searchView/searchView.tpl.html',
 			scope: {
 				keyword: '@',
+				restart: '=onVisible',
 			}
 		};
 	};

@@ -26,11 +26,49 @@
 		self.isShowInfo = false;
 
 		self.selectedItem = {};
-		$scope.restartConfigKeyboard = {
-			restart: function() {
+		self.isInSearch = false;
 
+		self.beforeSearchIsPreviewActive = false;
+
+		$scope.$watch('keywordToSearch', function(newValue, oldValue) {
+			console.log(newValue);
+			if(newValue !== undefined && newValue !== '') {
+				self.isInSearch = true;
+				console.log('In search!');
+
+				if($scope.restartConfigKeyboard.searchRestart) {
+					$scope.restartConfigKeyboard.searchRestart();
+				}
+
+				if(self.isPreviewActive) {
+					self.beforeSearchIsPreviewActive = true;
+					self.isPreviewActive = false;
+				}
+			} else {
+				self.isInSearch = false;
+				console.log('No search!');
+
+				keyboardInit();
+
+				/*
+				if(self.beforeSearchIsPreviewActive) {
+					self.isPreviewActive = true;
+					self.beforeSearchIsPreviewActive = false;
+
+					if($scope.restartConfigKeyboard.restart) {
+						$scope.restartConfigKeyboard.restart();
+					}
+
+					if($scope.restartConfigKeyboard.restartHotkeysSeriesProduct) {
+						$scope.restartConfigKeyboard.restartHotkeysSeriesProduct();
+					}
+					
+				}
+				*/
 			}
-		};
+		});
+
+		$scope.restartConfigKeyboard = {};
 
 		self.isKeyboardActive = function(pos) {
 			return pos === self.active;
