@@ -1,6 +1,42 @@
 (function(app) {
-	var PurchaseViewController = function($scope, $modal) {
+	var PurchaseViewController = function($scope, hotkeys) {
+		var itemSelected = 0;
+
+		var configHotkeys = function() {
+			hotkeys.add({
+				combo: 'up',
+				callback: function() {
+
+				},
+			});
+
+			hotkeys.add({
+				combo: 'down',
+				callback: function() {
+
+				},
+				
+			});
+
+			hotkeys.add({
+				combo: 'right',
+				callback: function() {
+					$scope.options[itemSelected++].active = false;
+					$scope.options[itemSelected].active = true;
+				},
+			});
+
+			hotkeys.add({
+				combo: 'left',
+				callback: function() {
+					$scope.options[itemSelected--].active = false;
+					$scope.options[itemSelected].active = true;
+				},
+			});
+		};
+
 		var init = function() {
+			configHotkeys();
 		};
 
 		init();
@@ -13,7 +49,7 @@
 		];
 	};
 
-	app.controller('PurchaseViewController', ['$scope', '$modal', PurchaseViewController]);
+	app.controller('PurchaseViewController', ['$scope', 'hotkeys', PurchaseViewController]);
 
 }(angular.module("caracolplaylgtvapp.purchaseView", [
 	'ui.router'
