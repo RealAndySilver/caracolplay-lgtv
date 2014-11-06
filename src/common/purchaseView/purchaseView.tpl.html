@@ -1,1 +1,20 @@
-<h1>PurchaseView</h1>
+<div class="container-purchase">
+	<div id="purchase-logo"></div>
+	<div id="purchase-title">
+		<h1>Reproducir contenido</h1>
+	</div>
+	<div class="purchase-content">
+		<div id="purchase-description">
+			<center><h4>Para reproducir este contenido puedes usar una de las siguientes opciones</h4></center>
+		</div>
+
+		<div class="purchase-buttons">
+			<div class="button-container" ng-class="{ 'active':item.active }" ng-repeat="item in options">
+				<img ng-src="{{item.image}}">
+
+				<center><h3>{{item.title}}</h3></center>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>

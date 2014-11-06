@@ -1,6 +1,6 @@
 (function(app) {
 
-	var SeriesProductController = function($scope, hotkeys) {
+	var SeriesProductController = function($scope, hotkeys, $modal) {
 		var self = this;
 
 		self.OPTIONS_SECTION = 0;
@@ -73,6 +73,24 @@
 				default:
 					return 'Chapter ' + (self.episodeSelected + 1) + ' - ' + self.chapterSelected.duration;
 			}
+		};
+
+		$scope.open = function(size) {
+			var modalInstance = $modal.open({
+				templateUrl: 'purchaseView/purchaseView.tpl.html',
+				controller: 'PurchaseViewController',
+				size: size,
+				resolve: {
+					items: function () {
+						return $scope.items;
+					}
+				}
+			});
+
+			modalInstance.result.then(function (selectedItem) {
+				$scope.selected = selectedItem;
+			}, function () {
+			});
 		};
 
 		var setSeasonSelected = function(selected, position) {
@@ -232,6 +250,13 @@
 					}
 				},
 			});
+
+			hotkeys.add({
+				combo: 'enter',
+				callback: function() {
+					$scope.open('lg');
+				}
+			});
 		};
 
 		var selectedWatcherMethod = function(newValue, oldValue) {
@@ -321,7 +346,7 @@
 		};
 	};
 
-	app.controller('SeriesProductController', ['$scope', 'hotkeys', SeriesProductController]);
+	app.controller('SeriesProductController', ['$scope', 'hotkeys', '$modal', SeriesProductController]);
 	app.directive('seriesProduct', SeriesProductDirective);
 
 	app.filter('unsafe', function($sce) {
