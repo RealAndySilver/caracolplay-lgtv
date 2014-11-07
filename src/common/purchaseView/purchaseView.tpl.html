@@ -1,20 +1,64 @@
 <div class="container-purchase">
 	<div id="purchase-logo"></div>
 	<div id="purchase-title">
-		<h1>Reproducir contenido</h1>
+		<h1>{{title}}</h1>
 	</div>
 	<div class="purchase-content">
 		<div id="purchase-description">
-			<center><h4>Para reproducir este contenido puedes usar una de las siguientes opciones</h4></center>
+			<div class="row">
+				<div class="col-lg-1"></div>
+				<div class="col-lg-10">
+					<center><h4>{{description}}</h4></center>
+				</div>
+				<div class="col-lg-1"></div>
+			</div>
 		</div>
 
-		<div class="purchase-buttons">
+		<div class="purchase-buttons" ng-show="showOptions">
 			<div class="button-container" ng-class="{ 'active':item.active }" ng-repeat="item in options">
 				<img ng-src="{{item.image}}">
-
 				<center><h3>{{item.title}}</h3></center>
 			</div>
 			<div class="clear"></div>
+		</div>
+		<div class="login-container" ng-show="loginVisible">
+			<div class="row">
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="name">User</label>  
+					<div class="col-md-6">
+						<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.name">
+					</div>
+				</div>
+			</div>
+			<br/>
+			<div class="row">
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="name">Password</label>  
+					<div class="col-md-6">
+						<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.name">
+					</div>
+				</div>
+			</div>
+			<br/>
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="col-lg-3"></div>
+					<button class="btn btn-default col-lg-9">Back</button>
+				</div>
+				<div class="col-lg-6">
+					<button class="btn btn-default col-lg-9">Confirm</button>
+					<div class="col-lg-3"></div>
+				</div>
+			</div>
+		</div>
+		<div class="purchase-support">
+			<div class="row">
+				<div class="col-lg-1"></div>
+				<div class="col-lg-10">
+					<center><h4>{{support}}</h4></center>
+				</div>
+				<div class="col-lg-1"></div>
+			</div>
 		</div>
 	</div>
 </div>
