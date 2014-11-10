@@ -22,32 +22,35 @@
 			<div class="clear"></div>
 		</div>
 		<div class="login-container" ng-show="loginVisible">
-			<div class="row">
-				<div class="form-group">
-					<label class="col-md-4 control-label" for="name">User</label>  
-					<div class="col-md-6">
-						<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.name">
+			<div class="form-login-container">
+				<div class="row">
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="name">User</label>  
+						<div class="col-md-6">
+							<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.name">
+						</div>
+					</div>
+				</div>
+				<br/>
+				<div class="row">
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="name">Password</label>  
+						<div class="col-md-6">
+							<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.name">
+						</div>
 					</div>
 				</div>
 			</div>
-			<br/>
-			<div class="row">
-				<div class="form-group">
-					<label class="col-md-4 control-label" for="name">Password</label>  
-					<div class="col-md-6">
-						<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.name">
+			<div class="buttons-login-container">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="col-lg-3"></div>
+						<button class="btn btn-default col-lg-9" ng-click="onBack()">Back</button>
 					</div>
-				</div>
-			</div>
-			<br/>
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="col-lg-3"></div>
-					<button class="btn btn-default col-lg-9">Back</button>
-				</div>
-				<div class="col-lg-6">
-					<button class="btn btn-default col-lg-9">Confirm</button>
-					<div class="col-lg-3"></div>
+					<div class="col-lg-6">
+						<button class="btn btn-default col-lg-9">Confirm</button>
+						<div class="col-lg-3"></div>
+					</div>
 				</div>
 			</div>
 		</div>

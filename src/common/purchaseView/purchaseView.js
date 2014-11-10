@@ -2,8 +2,8 @@
 	var PurchaseViewController = function($scope, hotkeys) {
 		var itemSelected = 0;
 
-		$scope.showOptions = false;
-		$scope.loginVisible = true;
+		$scope.showOptions = true;
+		$scope.loginVisible = false;
 
 		$scope.menu = {
 			title: 'Reproducir contenido',
@@ -59,6 +59,23 @@
 					$scope.options[itemSelected].active = true;
 				},
 			});
+
+			hotkeys.add({
+				combo: 'enter',
+				callback: function() {
+					switch(itemSelected) {
+						case 0:
+							$scope.showOptions = false;
+							$scope.loginVisible = true;
+							break;
+					}
+				}
+			});
+		};
+
+		$scope.onBack = function() {
+			$scope.loginVisible = false;
+			$scope.showOptions = true;
 		};
 
 		var init = function() {
