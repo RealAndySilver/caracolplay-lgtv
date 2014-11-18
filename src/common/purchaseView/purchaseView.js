@@ -4,6 +4,69 @@
 
 		$scope.showOptions = true;
 		$scope.loginVisible = false;
+		$scope.subscribeVisible = false;
+
+		$scope.subscribeStep = 0;
+		$scope.defaultDocumentTypeIndex = 1;
+		$scope.defaultCreditcardIndex = 0;
+
+		$scope.months = [
+			{ name:'Enero', id: 0 },
+			{ name:'Febrero', id: 1 },
+			{ name:'Marzo', id: 2 },
+			{ name:'Abril', id: 3 },
+			{ name:'Mayo', id: 4 },
+			{ name:'Junio', id: 5 },
+			{ name:'Julio', id: 6 },
+			{ name:'Agosto', id: 7 },
+			{ name:'Septiembre', id: 8 },
+			{ name:'Octubre', id: 9 },
+			{ name:'Noviembre', id: 10 },
+			{ name:'Diciembre', id: 11 },
+		];
+
+		$scope.years = [
+			{ name: '2014', id: 0 },
+			{ name: '2015', id: 1 },
+			{ name: '2016', id: 2 },
+			{ name: '2017', id: 3 },
+			{ name: '2018', id: 4 },
+			{ name: '2019', id: 5 },
+			{ name: '2020', id: 6 },
+			{ name: '2021', id: 7 },
+			{ name: '2022', id: 8 },
+		];
+
+		$scope.parcels = [
+			{ name: '1 x $58.000' },
+			{ name: '2 x $116.000' },
+			{ name: '3 x $174.000' },
+			{ name: '4 x $232.000' },
+			{ name: '5 x $280.000' },
+		];
+
+		$scope.parcel = $scope.parcels[0];
+
+		$scope.creditcards = [
+			{ type: 'VISA', id: 1 },
+			{ type: 'Mastercard', id: 2 },
+		];
+
+		$scope.documentTypes = [
+			{ type: 'Tarjeta de Identidad', id: 1 },
+			{ type: 'Cedula de ciudadania', id: 2 },
+		];
+
+		$scope.documentType = $scope.documentTypes[$scope.defaultDocumentTypeIndex];
+
+		$scope.isStepActive = function(item) {
+			console.log(item);
+			console.log($scope.subscribeStep);
+			if(item <= $scope.subscribeStep) {
+				return true;
+			}
+			return false;
+		};
 
 		$scope.menu = {
 			title: 'Reproducir contenido',
@@ -14,6 +77,12 @@
 		$scope.login = {
 			title: 'Login account',
 			description: 'Ingresa los datos si ya tienes un nombre de usuario y una contraseña en CaracolPlay o en nuestra red de portales',
+			support: 'Si tienes problemas para ver este contenido contáctanos a soporte@caracolplay.com',
+		};
+
+		$scope.register = {
+			title: 'Subscribe $58.000 per year',
+			description: '',
 			support: 'Si tienes problemas para ver este contenido contáctanos a soporte@caracolplay.com',
 		};
 
@@ -68,18 +137,62 @@
 							$scope.showOptions = false;
 							$scope.loginVisible = true;
 							break;
+						case 1:
+							$scope.showOptions = false;
+							$scope.subscribeVisible = true;
+							break;
 					}
-				}
+				},
 			});
+		};
+
+		$scope.onNext = function() {
+			$scope.subscribeStep++;
+		};
+
+		$scope.onBackSuscription = function() {
+			if($scope.subscribeStep - 1 >= 0) {
+				$scope.subscribeStep--;
+				return;
+			}
+			$scope.onBack();
 		};
 
 		$scope.onBack = function() {
 			$scope.loginVisible = false;
+			$scope.subscribeVisible = false;
 			$scope.showOptions = true;
+		};
+
+		var setEssentialData = function(object) {
+			$scope.title = object.title;
+			$scope.description = object.description;
+			$scope.support = object.support;
 		};
 
 		var init = function() {
 			configHotkeys();
+
+			$scope.expireDate = new Date();
+			$scope.expireDate.setFullYear($scope.expireDate.getFullYear() + 1);
+
+			$scope.$watch('loginVisible', function(newValue, oldValue) {
+				if(newValue) {
+					setEssentialData($scope.login);
+				}
+			});
+
+			$scope.$watch('showOptions', function(newValue, oldValue) {
+				if(newValue) {
+					setEssentialData($scope.menu);
+				}
+			});
+
+			$scope.$watch('subscribeVisible', function(newValue, oldValue) {
+				if(newValue) {
+					setEssentialData($scope.register);
+				}
+			});
 		};
 
 		init();

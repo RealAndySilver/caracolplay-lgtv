@@ -14,6 +14,7 @@
 			</div>
 		</div>
 
+		<!-- options div -->
 		<div class="purchase-buttons" ng-show="showOptions">
 			<div class="button-container" ng-class="{ 'active':item.active }" ng-repeat="item in options">
 				<img ng-src="{{item.image}}">
@@ -21,6 +22,7 @@
 			</div>
 			<div class="clear"></div>
 		</div>
+		<!-- login div -->
 		<div class="login-container" ng-show="loginVisible">
 			<div class="form-login-container">
 				<div class="row">
@@ -53,6 +55,295 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<!-- subscribe div -->
+		<div class="subscribe-container" ng-show="subscribeVisible">
+			<div class="state-container">
+				<center>
+					<div class="circle" ng-class="{ 'active' : isStepActive(0), 'deactive' : !isStepActive(0) }"></div>
+					<label>Create account</label>
+				</center>
+			</div>
+			<div class="state-container">
+				<center>
+					<div class="circle" ng-class="{ 'active' : isStepActive(1), 'deactive' : !isStepActive(1) }"></div>
+					<label>Billing address</label>
+				</center>
+			</div>
+			<div class="state-container">
+				<center>
+					<div class="circle" ng-class="{ 'active' : isStepActive(2), 'deactive' : !isStepActive(2) }"></div>
+					<label>Payment</label>
+				</center>
+			</div>
+			<div class="clear"></div>
+
+			<!-- Subscription steps -->
+			<div class="steps-container">
+				<!-- Step 1 -->
+				<div class="step-one-container" ng-show="subscribeStep == 0">
+					<div>
+						<br/>
+						<br/>
+						<div class="row">
+							<div class="form-group">
+								<label class="col-md-4 control-label" for="name">User</label>  
+								<div class="col-md-6">
+									<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.name">
+								</div>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="form-group">
+								<label class="col-md-4 control-label" for="name">Password</label>  
+								<div class="col-md-6">
+									<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.name">
+								</div>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="form-group">
+								<label class="col-md-4 control-label" for="name">Re-type password</label>  
+								<div class="col-md-6">
+									<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.name">
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<br/>
+					<form>
+						<div class="row">
+							<div class="col-lg-1"></div>
+							<div class="col-lg-5">
+								<div class="checkbox">
+									<input type="checkbox"><label>Accept Terms and Conditions</label>
+								</div>
+							</div>
+							<div class="col-lg-5">
+								<div class="checkbox">
+									<input type="checkbox"><label>Accept Privacy Policy</label>
+								</div>
+							</div>
+							<div class="col-lg-1"></div>
+						</div>
+						<div class="row">
+							<div class="col-lg-1"></div>
+							<div class="col-lg-5">
+								<div class="checkbox">
+									<input type="checkbox"><label>Accept video player requeriments</label>
+								</div>
+							</div>
+							<div class="col-lg-5">
+								<div class="checkbox">
+									<input type="checkbox"><label>Receive publish informations</label>
+								</div>
+							</div>
+							<div class="col-lg-1"></div>
+						</div>
+					</form>
+				</div>
+
+				<!-- Step 2 -->
+				<div class="step-two-container" ng-show="subscribeStep == 1">
+					<br/>
+					<div class="row">
+						<div class="col-lg-1"></div>
+						<div class="col-lg-5">
+							<div class="row">
+								<div class="col-lg-1"></div>
+								<label class="col-lg-11">Name:</label><br/>
+							</div>
+							<div class="row">
+								<div class="col-lg-1"></div>
+								<div class="col-lg-11">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<div class="row">
+								<label class="col-lg-11">Last Name:</label><br/>
+							</div>
+							<div class="row">
+								<div class="col-lg-11">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-1"></div>
+					</div>
+
+					<div class="row my-row-step">
+						<div class="col-lg-1"></div>
+						<div class="col-lg-5">
+							<div class="row">
+								<div class="col-lg-1"></div>
+								<label class="col-lg-11">City:</label><br/>
+							</div>
+							<div class="row">
+								<div class="col-lg-1"></div>
+								<div class="col-lg-11">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<div class="row">
+								<label class="col-lg-11">Email:</label><br/>
+							</div>
+							<div class="row">
+								<div class="col-lg-11">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row my-row-step">
+						<div class="col-lg-1"></div>
+						<div class="col-lg-5">
+							<div class="row">
+								<div class="col-lg-1"></div>
+								<label class="col-lg-11">Document type:</label><br/>
+							</div>
+							<div class="row">
+								<div class="col-lg-1"></div>
+								<div class="col-lg-11">
+									<select type="text" class="form-control" ng-model="documentType" ng-options="document.type for document in documentTypes">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<div class="row">
+								<label class="col-lg-11">Document number:</label><br/>
+							</div>
+							<div class="row">
+								<div class="col-lg-11">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br/>
+
+				<!-- Step 3 -->
+				<div class="step-three-container" ng-show="subscribeStep == 2">
+					<div class="row">
+						<div class="col-lg-1"></div>
+						<div class="col-lg-5">
+							<div class="row">
+								<div class="col-lg-1"></div>
+								<label class="col-lg-11">Select credit card:</label><br/>
+							</div>
+							<div class="row">
+								<div class="col-lg-1"></div>
+								<div class="col-lg-11">
+									<select type="text" class="form-control" ng-model="creditcard" ng-options="card.type for card in creditcards">
+										<option value="">Select</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<div class="row">
+								<label class="col-lg-11">Card Number:</label><br/>
+							</div>
+							<div class="row">
+								<div class="col-lg-11">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-1"></div>
+					</div>
+
+					<div class="row my-row-step">
+						<div class="col-lg-1"></div>
+						<div class="col-lg-5">
+							<div class="row">
+								<div class="col-lg-1"></div>
+								<label class="col-lg-11">Expire Date:</label><br/>
+							</div>
+							<div class="row">
+								<div class="col-lg-1"></div>
+								<div class="col-lg-11">
+									<div class="row">
+										<div class="col-lg-6">
+											<select type="expire.month" class="form-control" ng-model="parcel" ng-options="month.name for month in months">
+												<option value="">Month</option>
+											</select>
+										</div>
+										<div class="col-lg-6">
+											<select type="expire.year" class="form-control" ng-model="parcel" ng-options="year.name for year in years">
+												<option value="">Year</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<div class="row">
+								<label class="col-lg-11">Security code:</label><br/>
+							</div>
+							<div class="row">
+								<div class="col-lg-3">
+									<input type="text" class="form-control">
+								</div>
+								<div class="col-lg-8">
+									<p><small>El codigo de seguridad se encuentra en la parte posterior de la tarjeta de credito.</small></p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row my-row-step">
+						<div class="col-lg-1"></div>
+						<div class="col-lg-5">
+							<div class="row">
+								<div class="col-lg-1"></div>
+								<label class="col-lg-11">Number of parcels:</label><br/>
+							</div>
+							<div class="row">
+								<div class="col-lg-1"></div>
+								<div class="col-lg-11">
+									<select type="text" class="form-control" ng-model="parcel" ng-options="p.name for p in parcels"></select>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<div class="row">
+								<div class="col-lg-11">
+									<div class="checkbox">
+										<input type="checkbox">Automatic renewal<br/>
+										Su plan se renovara automaticamente el {{expireDate | date:'dd/MM/yyyy'}}.
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<br/>
+			<div>
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="col-lg-3"></div>
+						<button class="btn btn-default col-lg-9" ng-click="onBackSuscription()">Back</button>
+					</div>
+					<div class="col-lg-6">
+						<button class="btn btn-default col-lg-9" ng-click="onNext()">Next</button>
+						<div class="col-lg-3"></div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 		<div class="purchase-support">
 			<div class="row">
