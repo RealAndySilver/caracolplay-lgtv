@@ -331,7 +331,7 @@
 			</div>
 
 			<br/>
-			<div>
+			<div class="buttons-container">
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="col-lg-3"></div>
@@ -343,8 +343,33 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
+
+		<!-- Redeem container -->
+		<div class="redeem-container" ng-show="redeemVisible">
+			<div class="row redeem-code-container">
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="name">Code:</label>  
+					<div class="col-md-6">
+						<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.name">
+					</div>
+				</div>
+			</div>
+
+			<div class="buttons-container">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="col-lg-3"></div>
+						<button class="btn btn-default col-lg-9" ng-click="onBackSuscription()">Back</button>
+					</div>
+					<div class="col-lg-6">
+						<button class="btn btn-default col-lg-9" ng-click="onNext()">Redeem</button>
+						<div class="col-lg-3"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="purchase-support">
 			<div class="row">
 				<div class="col-lg-1"></div>

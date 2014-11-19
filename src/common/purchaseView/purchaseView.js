@@ -5,6 +5,7 @@
 		$scope.showOptions = true;
 		$scope.loginVisible = false;
 		$scope.boughtVisible = false;
+		$scope.redeemVisible = false;
 
 		$scope.isSubscription = false;
 		$scope.isRent = false;
@@ -103,6 +104,12 @@
 			support: 'Si tienes problemas para ver este contenido contáctanos a soporte@caracolplay.com',
 		};
 
+		$scope.redeem = {
+			title: 'Redeem Code',
+			description: 'Ingresa el codigo para disfrutar el contenido',
+			support: 'Si tienes problemas para ver este contenido contáctanos a soporte@caracolplay.com',
+		};
+
 		$scope.title = $scope.login.title;
 		$scope.description = $scope.login.description;
 		$scope.support = $scope.login.support;
@@ -153,18 +160,28 @@
 						case 0:
 							$scope.showOptions = false;
 							$scope.loginVisible = true;
+							$scope.redeemVisible = false;
 							break;
 						case 1:
 							$scope.isSubscription = true;
 							$scope.isRent = false;
 							$scope.showOptions = false;
 							$scope.boughtVisible = true;
+							$scope.redeemVisible = false;
 							break;
 						case 2:
 							$scope.showOptions = false;
 							$scope.isRent = true;
 							$scope.isSubscription = false;
 							$scope.boughtVisible = true;
+							$scope.redeemVisible = false;
+							break;
+						case 3:
+							$scope.showOptions = false;
+							$scope.isRent = false;
+							$scope.isSubscription = false;
+							$scope.boughtVisible = false;
+							$scope.redeemVisible = true;
 							break;
 					}
 				},
@@ -186,6 +203,7 @@
 		$scope.onBack = function() {
 			$scope.loginVisible = false;
 			$scope.boughtVisible = false;
+			$scope.redeemVisible = false;
 			$scope.showOptions = true;
 		};
 
@@ -210,6 +228,12 @@
 			$scope.$watch('showOptions', function(newValue, oldValue) {
 				if(newValue) {
 					setEssentialData($scope.menu);
+				}
+			});
+
+			$scope.$watch('redeemVisible', function(newValue, oldValue) {
+				if(newValue) {
+					setEssentialData($scope.redeem);
 				}
 			});
 
