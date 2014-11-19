@@ -56,8 +56,8 @@
 				</div>
 			</div>
 		</div>
-		<!-- subscribe div -->
-		<div class="subscribe-container" ng-show="subscribeVisible">
+		<!-- bought div -->
+		<div class="subscribe-container" ng-show="boughtVisible">
 			<div class="state-container">
 				<center>
 					<div class="circle" ng-class="{ 'active' : isStepActive(0), 'deactive' : !isStepActive(0) }"></div>
@@ -319,7 +319,7 @@
 						<div class="col-lg-5">
 							<div class="row">
 								<div class="col-lg-11">
-									<div class="checkbox">
+									<div class="checkbox" ng-show="isSubscription">
 										<input type="checkbox">Automatic renewal<br/>
 										Su plan se renovara automaticamente el {{expireDate | date:'dd/MM/yyyy'}}.
 									</div>

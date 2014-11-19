@@ -4,7 +4,10 @@
 
 		$scope.showOptions = true;
 		$scope.loginVisible = false;
-		$scope.subscribeVisible = false;
+		$scope.boughtVisible = false;
+
+		$scope.isSubscription = false;
+		$scope.isRent = false;
 
 		$scope.subscribeStep = 0;
 		$scope.defaultDocumentTypeIndex = 1;
@@ -37,7 +40,9 @@
 			{ name: '2022', id: 8 },
 		];
 
-		$scope.parcels = [
+		$scope.parcels = [];
+
+		$scope.subscribeParcels = [
 			{ name: '1 x $58.000' },
 			{ name: '2 x $116.000' },
 			{ name: '3 x $174.000' },
@@ -45,7 +50,13 @@
 			{ name: '5 x $280.000' },
 		];
 
-		$scope.parcel = $scope.parcels[0];
+		$scope.rentParcels = [
+			{ name: '1 x $34.800' },
+			{ name: '2 x $69.600' },
+			{ name: '3 x $104.400' },
+			{ name: '4 x $139.200' },
+			{ name: '5 x $174.000' },
+		];
 
 		$scope.creditcards = [
 			{ type: 'VISA', id: 1 },
@@ -82,6 +93,12 @@
 
 		$scope.register = {
 			title: 'Subscribe $58.000 per year',
+			description: '',
+			support: 'Si tienes problemas para ver este contenido contáctanos a soporte@caracolplay.com',
+		};
+
+		$scope.rent = {
+			title: 'Rent for $34.800',
 			description: '',
 			support: 'Si tienes problemas para ver este contenido contáctanos a soporte@caracolplay.com',
 		};
@@ -138,8 +155,16 @@
 							$scope.loginVisible = true;
 							break;
 						case 1:
+							$scope.isSubscription = true;
+							$scope.isRent = false;
 							$scope.showOptions = false;
-							$scope.subscribeVisible = true;
+							$scope.boughtVisible = true;
+							break;
+						case 2:
+							$scope.showOptions = false;
+							$scope.isRent = true;
+							$scope.isSubscription = false;
+							$scope.boughtVisible = true;
 							break;
 					}
 				},
@@ -160,7 +185,7 @@
 
 		$scope.onBack = function() {
 			$scope.loginVisible = false;
-			$scope.subscribeVisible = false;
+			$scope.boughtVisible = false;
 			$scope.showOptions = true;
 		};
 
@@ -188,9 +213,16 @@
 				}
 			});
 
-			$scope.$watch('subscribeVisible', function(newValue, oldValue) {
+			$scope.$watch('boughtVisible', function(newValue, oldValue) {
 				if(newValue) {
-					setEssentialData($scope.register);
+					if($scope.isSubscription) {
+						setEssentialData($scope.register);
+						$scope.parcels = $scope.subscribeParcels;
+					} else {
+						setEssentialData($scope.rent);
+						$scope.parcels = $scope.rentParcels;
+					}
+					$scope.parcel = $scope.parcels[0];
 				}
 			});
 		};
