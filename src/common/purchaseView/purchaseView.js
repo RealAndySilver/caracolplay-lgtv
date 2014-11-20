@@ -188,6 +188,18 @@
 			});
 		};
 
+		$scope.onRedeem = function() {
+			// check if user is login
+
+			$scope.showOptions = true;
+			$scope.isRent = false;
+			$scope.isSubscription = false;
+			$scope.boughtVisible = false;
+			$scope.redeemVisible = false;
+
+			$scope.options.length = 2;
+		};
+
 		$scope.onNext = function() {
 			$scope.subscribeStep++;
 		};
@@ -227,6 +239,13 @@
 
 			$scope.$watch('showOptions', function(newValue, oldValue) {
 				if(newValue) {
+					configHotkeys();
+					$scope.options = $scope.noLoggedOptions;
+					if(itemSelected < $scope.options.length) {
+						$scope.options[itemSelected].active = false;
+					}
+					itemSelected = 0;
+					$scope.options[itemSelected].active = true;
 					setEssentialData($scope.menu);
 				}
 			});
@@ -253,12 +272,13 @@
 
 		init();
 
-		$scope.options = [
+		$scope.noLoggedOptions = [
 			{ 'title': 'User Login', 'image': 'http://a762.phobos.apple.com/us/r30/Purple6/v4/a7/83/db/a783db58-cb4d-601c-2739-66ab0b48b2d8/mzl.gmnvztdf.png', active: true },
 			{ 'title': 'Subscribe to CaracolPlay', 'image': 'http://a762.phobos.apple.com/us/r30/Purple6/v4/a7/83/db/a783db58-cb4d-601c-2739-66ab0b48b2d8/mzl.gmnvztdf.png', active: false },
 			{ 'title': 'Rent the content', 'image': 'http://a762.phobos.apple.com/us/r30/Purple6/v4/a7/83/db/a783db58-cb4d-601c-2739-66ab0b48b2d8/mzl.gmnvztdf.png', active: false },
 			{ 'title': 'Redeem code', 'image': 'http://a762.phobos.apple.com/us/r30/Purple6/v4/a7/83/db/a783db58-cb4d-601c-2739-66ab0b48b2d8/mzl.gmnvztdf.png', active: false }
 		];
+
 	};
 
 	app.controller('PurchaseViewController', ['$scope', 'hotkeys', PurchaseViewController]);

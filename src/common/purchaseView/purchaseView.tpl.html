@@ -27,7 +27,7 @@
 			<div class="form-login-container">
 				<div class="row">
 					<div class="form-group">
-						<label class="col-md-4 control-label" for="name">User</label>  
+						<label class="col-md-4 control-label" for="name">Usuario:</label>  
 						<div class="col-md-6">
 							<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.name">
 						</div>
@@ -36,7 +36,7 @@
 				<br/>
 				<div class="row">
 					<div class="form-group">
-						<label class="col-md-4 control-label" for="name">Password</label>  
+						<label class="col-md-4 control-label" for="name">Contraseña:</label>  
 						<div class="col-md-6">
 							<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.name">
 						</div>
@@ -47,10 +47,10 @@
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="col-lg-3"></div>
-						<button class="btn btn-default col-lg-9" ng-click="onBack()">Back</button>
+						<button class="btn btn-default col-lg-9" ng-click="onBack()">Volver</button>
 					</div>
 					<div class="col-lg-6">
-						<button class="btn btn-default col-lg-9">Confirm</button>
+						<button class="btn btn-default col-lg-9">Confirmar</button>
 						<div class="col-lg-3"></div>
 					</div>
 				</div>
@@ -61,19 +61,19 @@
 			<div class="state-container">
 				<center>
 					<div class="circle" ng-class="{ 'active' : isStepActive(0), 'deactive' : !isStepActive(0) }"></div>
-					<label>Create account</label>
+					<label>Crear una cuenta</label>
 				</center>
 			</div>
 			<div class="state-container">
 				<center>
 					<div class="circle" ng-class="{ 'active' : isStepActive(1), 'deactive' : !isStepActive(1) }"></div>
-					<label>Billing address</label>
+					<label>Datos de facturación</label>
 				</center>
 			</div>
 			<div class="state-container">
 				<center>
 					<div class="circle" ng-class="{ 'active' : isStepActive(2), 'deactive' : !isStepActive(2) }"></div>
-					<label>Payment</label>
+					<label>Pago</label>
 				</center>
 			</div>
 			<div class="clear"></div>
@@ -84,28 +84,33 @@
 				<div class="step-one-container" ng-show="subscribeStep == 0">
 					<div>
 						<br/>
-						<br/>
 						<div class="row">
 							<div class="form-group">
-								<label class="col-md-4 control-label" for="name">User</label>  
+								<label class="col-md-4 control-label" for="name">Email:</label>  
 								<div class="col-md-6">
 									<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.name">
 								</div>
 							</div>
 						</div>
-						<br/>
 						<div class="row">
 							<div class="form-group">
-								<label class="col-md-4 control-label" for="name">Password</label>  
+								<label class="col-md-4 control-label" for="name">Usuario:</label>  
 								<div class="col-md-6">
 									<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.name">
 								</div>
 							</div>
 						</div>
-						<br/>
 						<div class="row">
 							<div class="form-group">
-								<label class="col-md-4 control-label" for="name">Re-type password</label>  
+								<label class="col-md-4 control-label" for="name">Contraseña:</label>  
+								<div class="col-md-6">
+									<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.name">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group">
+								<label class="col-md-4 control-label" for="name">Confirmar contraseña</label>  
 								<div class="col-md-6">
 									<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.name">
 								</div>
@@ -119,12 +124,12 @@
 							<div class="col-lg-1"></div>
 							<div class="col-lg-5">
 								<div class="checkbox">
-									<input type="checkbox"><label>Accept Terms and Conditions</label>
+									<input type="checkbox"><label>Acepto terminos y condiciones</label>
 								</div>
 							</div>
 							<div class="col-lg-5">
 								<div class="checkbox">
-									<input type="checkbox"><label>Accept Privacy Policy</label>
+									<input type="checkbox"><label>Acepto politicas de privacidad</label>
 								</div>
 							</div>
 							<div class="col-lg-1"></div>
@@ -133,12 +138,12 @@
 							<div class="col-lg-1"></div>
 							<div class="col-lg-5">
 								<div class="checkbox">
-									<input type="checkbox"><label>Accept video player requeriments</label>
+									<input type="checkbox"><label>Acepto requerimientos para reproducir video</label>
 								</div>
 							</div>
 							<div class="col-lg-5">
 								<div class="checkbox">
-									<input type="checkbox"><label>Receive publish informations</label>
+									<input type="checkbox"><label>Deseo recibir información comercial</label>
 								</div>
 							</div>
 							<div class="col-lg-1"></div>
@@ -154,7 +159,7 @@
 						<div class="col-lg-5">
 							<div class="row">
 								<div class="col-lg-1"></div>
-								<label class="col-lg-11">Name:</label><br/>
+								<label class="col-lg-11">Nombres:</label><br/>
 							</div>
 							<div class="row">
 								<div class="col-lg-1"></div>
@@ -165,7 +170,7 @@
 						</div>
 						<div class="col-lg-5">
 							<div class="row">
-								<label class="col-lg-11">Last Name:</label><br/>
+								<label class="col-lg-11">Apellidos:</label><br/>
 							</div>
 							<div class="row">
 								<div class="col-lg-11">
@@ -181,7 +186,7 @@
 						<div class="col-lg-5">
 							<div class="row">
 								<div class="col-lg-1"></div>
-								<label class="col-lg-11">City:</label><br/>
+								<label class="col-lg-11">Ciudad:</label><br/>
 							</div>
 							<div class="row">
 								<div class="col-lg-1"></div>
@@ -192,11 +197,11 @@
 						</div>
 						<div class="col-lg-5">
 							<div class="row">
-								<label class="col-lg-11">Email:</label><br/>
+								<label class="col-lg-11">Tipo de documento:</label><br/>
 							</div>
 							<div class="row">
 								<div class="col-lg-11">
-									<input type="text" class="form-control">
+									<select type="text" class="form-control" ng-model="documentType" ng-options="document.type for document in documentTypes"></select>
 								</div>
 							</div>
 						</div>
@@ -207,21 +212,10 @@
 						<div class="col-lg-5">
 							<div class="row">
 								<div class="col-lg-1"></div>
-								<label class="col-lg-11">Document type:</label><br/>
+								<label class="col-lg-11">Número de documento:</label><br/>
 							</div>
 							<div class="row">
 								<div class="col-lg-1"></div>
-								<div class="col-lg-11">
-									<select type="text" class="form-control" ng-model="documentType" ng-options="document.type for document in documentTypes">
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-5">
-							<div class="row">
-								<label class="col-lg-11">Document number:</label><br/>
-							</div>
-							<div class="row">
 								<div class="col-lg-11">
 									<input type="text" class="form-control">
 								</div>
@@ -363,7 +357,7 @@
 						<button class="btn btn-default col-lg-9" ng-click="onBackSuscription()">Back</button>
 					</div>
 					<div class="col-lg-6">
-						<button class="btn btn-default col-lg-9" ng-click="onNext()">Redeem</button>
+						<button class="btn btn-default col-lg-9" ng-click="onRedeem()">Redeem</button>
 						<div class="col-lg-3"></div>
 					</div>
 				</div>

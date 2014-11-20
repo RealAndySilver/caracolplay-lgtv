@@ -40,7 +40,9 @@
 
 	position: relative;
 
-	float: left;
+	//float: left;
+
+	display: inline-block;
 
 	color: #e6e6e6;
 
@@ -52,6 +54,10 @@
 		width: 180px;
 		height: 180px;
 	}
+
+	h3{
+		display: table;
+	}
 }
 
 .button-container.active{
@@ -60,7 +66,8 @@
 
 .purchase-buttons{
 	margin: 0 auto;
-	width: 856px;
+	display: table;
+	//width: 856px;
 }
 
 .clear{
@@ -114,11 +121,13 @@
 	height: 20px;
 
 	&.active{
-		background-color: #ee8b00;
+		background-color: rgb(255, 255, 255);
+		color: rgb(255, 255, 255);
 	}
 
 	&.deactive{
-		background-color: rgb(200, 200, 200);
+		background-color: rgb(160, 160, 160);
+		color: rgb(160, 160, 160);
 	}
 }
 
