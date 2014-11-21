@@ -29,7 +29,7 @@
 					<div class="form-group">
 						<label class="col-md-4 control-label" for="name">Usuario:</label>  
 						<div class="col-md-6">
-							<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.name">
+							<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="loginData.username">
 						</div>
 					</div>
 				</div>
@@ -38,7 +38,7 @@
 					<div class="form-group">
 						<label class="col-md-4 control-label" for="name">Contraseña:</label>  
 						<div class="col-md-6">
-							<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.name">
+							<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="loginData.password">
 						</div>
 					</div>
 				</div>
@@ -50,7 +50,7 @@
 						<button class="btn caracol-btn col-lg-9" ng-click="onBack()">Volver</button>
 					</div>
 					<div class="col-lg-6">
-						<button class="btn caracol-btn col-lg-9">Confirmar</button>
+						<button class="btn caracol-btn col-lg-9" ng-click="onLogin()">Confirmar</button>
 						<div class="col-lg-3"></div>
 					</div>
 				</div>

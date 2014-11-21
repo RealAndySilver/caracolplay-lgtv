@@ -4,6 +4,25 @@
 		var self = this;
 		self.END_POINT = 'http://apps.caracolplay.com/';
 
+		var encode = function(user, password, session) {
+			var time = new Date().getTime();
+			var encodeKey = 'aREwKMVVmjA81aea0mVNFh';
+
+			var auth = window.btoa(window.btoa(user + ':' + password + ':' + session));
+
+			var token = window.btoa(time + encodeKey);
+
+			console.log(time);
+			console.log(auth);
+			console.log(token);
+
+			return {
+				auth: auth,
+				TS70: time,
+				token: token,
+			};
+		};
+
 		self.getFeatured = function() {
 			return $http.get(self.END_POINT + 'GetFeatured');
 		};
@@ -25,29 +44,21 @@
 			return $http.get(self.END_POINT + 'GetListFromSearchWithKey/' + keyword);
 		};
 
+		self.authenticateUser = function(username, password) {
+			return $http({
+				headers: encode(username, password, ''),
+				method: 'GET',
+				url: self.END_POINT + 'AuthenticateUser',
+			});
+		};
+
 		self.getProductWithID = function(id, uid) {
 			if(!uid || uid === '') {
 				uid = '0';
 			}
 
-			var encode = function() {
-				var user = '', password = '', session = '';
-				var time = new Date().getTime();
-				var encodeKey = 'aREwKMVVmjA81aea0mVNFh';
-
-				var auth = window.btoa(window.btoa(user + ':' + password + ':' + session));
-
-				var token = window.btoa(time + encodeKey);
-
-				return {
-					auth: auth,
-					TS70: time,
-					token: token,
-				};
-			};
-
 			return $http({
-				headers: encode(),
+				headers: encode('', '', ''),
 				method: 'GET',
 				url: self.END_POINT + 'GetProductWithID/' + id + '/' + uid,
 			});

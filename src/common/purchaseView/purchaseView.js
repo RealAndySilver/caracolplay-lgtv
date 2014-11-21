@@ -1,6 +1,8 @@
 (function(app) {
-	var PurchaseViewController = function($scope, hotkeys) {
+	var PurchaseViewController = function($scope, hotkeys, ProductService) {
 		var itemSelected = 0;
+
+		var self = this;
 
 		$scope.showOptions = true;
 		$scope.loginVisible = false;
@@ -13,6 +15,8 @@
 		$scope.subscribeStep = 0;
 		$scope.defaultDocumentTypeIndex = 1;
 		$scope.defaultCreditcardIndex = 0;
+
+		$scope.loginData = {};
 
 		$scope.months = [
 			{ name:'Enero', id: 0 },
@@ -72,8 +76,6 @@
 		$scope.documentType = $scope.documentTypes[$scope.defaultDocumentTypeIndex];
 
 		$scope.isStepActive = function(item) {
-			console.log(item);
-			console.log($scope.subscribeStep);
 			if(item <= $scope.subscribeStep) {
 				return true;
 			}
@@ -219,6 +221,26 @@
 			$scope.showOptions = true;
 		};
 
+		$scope.onLogin = function() {
+			console.log('name: ' + $scope.loginData.username);
+			console.log('password: ' + $scope.loginData.password);
+
+			var authPromise = ProductService.authenticateUser($scope.loginData.username, $scope.loginData.password);
+
+			authPromise.then(function(response) {
+				var resObj = response.data;
+
+				console.log(resObj);
+
+				if(resObj.status) {
+					
+				} else {
+					alert(resObj.response);
+				}
+			});
+
+		};
+
 		var setEssentialData = function(object) {
 			$scope.title = object.title;
 			$scope.description = object.description;
@@ -278,10 +300,10 @@
 			{ 'title': 'Alquilar este contenido', 'image': 'assets/img/rent-icon.png', active: false },
 			{ 'title': 'Redimir codigo', 'image': 'assets/img/redeem-icon.png', active: false }
 		];
-		
+
 	};
 
-	app.controller('PurchaseViewController', ['$scope', 'hotkeys', PurchaseViewController]);
+	app.controller('PurchaseViewController', ['$scope', 'hotkeys', 'ProductService', PurchaseViewController]);
 
 }(angular.module("caracolplaylgtvapp.purchaseView", [
 	'ui.router'
