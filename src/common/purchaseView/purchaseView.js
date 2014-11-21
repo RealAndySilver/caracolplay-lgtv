@@ -87,25 +87,25 @@
 		};
 
 		$scope.login = {
-			title: 'Login account',
+			title: 'Ingresar a la cuenta',
 			description: 'Ingresa los datos si ya tienes un nombre de usuario y una contraseña en CaracolPlay o en nuestra red de portales',
 			support: 'Si tienes problemas para ver este contenido contáctanos a soporte@caracolplay.com',
 		};
 
 		$scope.register = {
-			title: 'Subscribe $58.000 per year',
+			title: 'Suscríbase por $58.000 el año',
 			description: '',
 			support: 'Si tienes problemas para ver este contenido contáctanos a soporte@caracolplay.com',
 		};
 
 		$scope.rent = {
-			title: 'Rent for $34.800',
+			title: 'Alquiler por $34.800',
 			description: '',
 			support: 'Si tienes problemas para ver este contenido contáctanos a soporte@caracolplay.com',
 		};
 
 		$scope.redeem = {
-			title: 'Redeem Code',
+			title: 'Redimir código',
 			description: 'Ingresa el codigo para disfrutar el contenido',
 			support: 'Si tienes problemas para ver este contenido contáctanos a soporte@caracolplay.com',
 		};
@@ -273,12 +273,12 @@
 		init();
 
 		$scope.noLoggedOptions = [
-			{ 'title': 'User Login', 'image': 'http://a762.phobos.apple.com/us/r30/Purple6/v4/a7/83/db/a783db58-cb4d-601c-2739-66ab0b48b2d8/mzl.gmnvztdf.png', active: true },
-			{ 'title': 'Subscribe to CaracolPlay', 'image': 'http://a762.phobos.apple.com/us/r30/Purple6/v4/a7/83/db/a783db58-cb4d-601c-2739-66ab0b48b2d8/mzl.gmnvztdf.png', active: false },
-			{ 'title': 'Rent the content', 'image': 'http://a762.phobos.apple.com/us/r30/Purple6/v4/a7/83/db/a783db58-cb4d-601c-2739-66ab0b48b2d8/mzl.gmnvztdf.png', active: false },
-			{ 'title': 'Redeem code', 'image': 'http://a762.phobos.apple.com/us/r30/Purple6/v4/a7/83/db/a783db58-cb4d-601c-2739-66ab0b48b2d8/mzl.gmnvztdf.png', active: false }
+			{ 'title': 'Ingresar como usuario', 'image': 'assets/img/login-icon.png', active: true },
+			{ 'title': 'Suscribirse a CaracolPlay', 'image': 'assets/img/subscribe-icon.png', active: false },
+			{ 'title': 'Alquilar este contenido', 'image': 'assets/img/rent-icon.png', active: false },
+			{ 'title': 'Redimir codigo', 'image': 'assets/img/redeem-icon.png', active: false }
 		];
-
+		
 	};
 
 	app.controller('PurchaseViewController', ['$scope', 'hotkeys', PurchaseViewController]);

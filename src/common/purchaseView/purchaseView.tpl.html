@@ -1,7 +1,7 @@
 <div class="container-purchase">
 	<div id="purchase-logo"></div>
 	<div id="purchase-title">
-		<h1>{{title}}</h1>
+		<h2>{{title}}</h2>
 	</div>
 	<div class="purchase-content">
 		<div id="purchase-description">
@@ -18,7 +18,7 @@
 		<div class="purchase-buttons" ng-show="showOptions">
 			<div class="button-container" ng-class="{ 'active':item.active }" ng-repeat="item in options">
 				<img ng-src="{{item.image}}">
-				<center><h3>{{item.title}}</h3></center>
+				<center><h3 class="item-title">{{item.title}}</h3></center>
 			</div>
 			<div class="clear"></div>
 		</div>
@@ -47,10 +47,10 @@
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="col-lg-3"></div>
-						<button class="btn btn-default col-lg-9" ng-click="onBack()">Volver</button>
+						<button class="btn caracol-btn col-lg-9" ng-click="onBack()">Volver</button>
 					</div>
 					<div class="col-lg-6">
-						<button class="btn btn-default col-lg-9">Confirmar</button>
+						<button class="btn caracol-btn col-lg-9">Confirmar</button>
 						<div class="col-lg-3"></div>
 					</div>
 				</div>
@@ -61,19 +61,19 @@
 			<div class="state-container">
 				<center>
 					<div class="circle" ng-class="{ 'active' : isStepActive(0), 'deactive' : !isStepActive(0) }"></div>
-					<label>Crear una cuenta</label>
+					<label class="circle-title" ng-class="{ 'active' : isStepActive(0), 'deactive' : !isStepActive(0) }">Crear una cuenta</label>
 				</center>
 			</div>
 			<div class="state-container">
 				<center>
 					<div class="circle" ng-class="{ 'active' : isStepActive(1), 'deactive' : !isStepActive(1) }"></div>
-					<label>Datos de facturación</label>
+					<label class="circle-title" ng-class="{ 'active' : isStepActive(1), 'deactive' : !isStepActive(1) }">Datos de facturación</label>
 				</center>
 			</div>
 			<div class="state-container">
 				<center>
 					<div class="circle" ng-class="{ 'active' : isStepActive(2), 'deactive' : !isStepActive(2) }"></div>
-					<label>Pago</label>
+					<label class="circle-title" ng-class="{ 'active' : isStepActive(2), 'deactive' : !isStepActive(2) }">Pago</label>
 				</center>
 			</div>
 			<div class="clear"></div>
@@ -124,12 +124,12 @@
 							<div class="col-lg-1"></div>
 							<div class="col-lg-5">
 								<div class="checkbox">
-									<input type="checkbox"><label>Acepto terminos y condiciones</label>
+									<input type="checkbox"><label>Acepto <a href="">terminos y condiciones</a></label>
 								</div>
 							</div>
 							<div class="col-lg-5">
 								<div class="checkbox">
-									<input type="checkbox"><label>Acepto politicas de privacidad</label>
+									<input type="checkbox"><label>Acepto <a href="">politicas de privacidad</a></label>
 								</div>
 							</div>
 							<div class="col-lg-1"></div>
@@ -138,7 +138,7 @@
 							<div class="col-lg-1"></div>
 							<div class="col-lg-5">
 								<div class="checkbox">
-									<input type="checkbox"><label>Acepto requerimientos para reproducir video</label>
+									<input type="checkbox"><label>Acepto <a href="">requerimientos para reproducir video</a></label>
 								</div>
 							</div>
 							<div class="col-lg-5">
@@ -329,10 +329,10 @@
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="col-lg-3"></div>
-						<button class="btn btn-default col-lg-9" ng-click="onBackSuscription()">Back</button>
+						<button class="btn caracol-btn col-lg-9" ng-click="onBackSuscription()">Back</button>
 					</div>
 					<div class="col-lg-6">
-						<button class="btn btn-default col-lg-9" ng-click="onNext()">Next</button>
+						<button class="btn caracol-btn col-lg-9" ng-click="onNext()">Next</button>
 						<div class="col-lg-3"></div>
 					</div>
 				</div>
@@ -354,10 +354,10 @@
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="col-lg-3"></div>
-						<button class="btn btn-default col-lg-9" ng-click="onBackSuscription()">Back</button>
+						<button class="btn caracol-btn col-lg-9" ng-click="onBackSuscription()">Back</button>
 					</div>
 					<div class="col-lg-6">
-						<button class="btn btn-default col-lg-9" ng-click="onRedeem()">Redeem</button>
+						<button class="btn caracol-btn col-lg-9" ng-click="onRedeem()">Redeem</button>
 						<div class="col-lg-3"></div>
 					</div>
 				</div>

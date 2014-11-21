@@ -1,6 +1,6 @@
 /* Less file for purchaseView*/
 .container-purchase{
-	background-color: rgb(100, 100, 100);
+	background-color: rgba(37, 36, 36, 0.9);
 	height: 570px;
 }
 
@@ -19,15 +19,36 @@
 	color: rgb(230, 230, 230);
 }
 
+.modal-content{
+	background-color: transparent;
+}
+
 .purchase-content{
 	position: fixed;
 	top: 134px;
 	right: 0;
 	left: 0;
+	bottom: 0;
+	background-color: rgba(56, 56, 56, 0.5);
+}
+
+.item-title{
+	margin-top: -4px;
+}
+
+.caracol-btn {
+  //.button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
+  .button-variant(white; rgb(253, 131, 36); rgb(253, 131, 36));
 }
 
 #purchase-description{
 	color: #e6e6e6;
+}
+
+textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {   
+    border-color: rgba(253, 131, 36, 0.8);
+    box-shadow: 0 1px 1px rgba(253, 131, 36, 0.075) inset, 0 0 8px rgba(253, 131, 36, 0.6);
+    outline: 0 none;
 }
 
 .button-container{
@@ -36,7 +57,7 @@
 	margin-top: 10px;
 	height: 304px;
 	width: 204px;
-	background-color: #353535;
+	background-color: rgb(112, 110, 108);
 
 	position: relative;
 
@@ -46,7 +67,9 @@
 
 	color: #e6e6e6;
 
-	border: 2px solid #353535;
+	border: 2px double #353535;
+
+	border-radius: 8px;
 
 	img{
 		margin-left: 10px;
@@ -58,10 +81,15 @@
 	h3{
 		display: table;
 	}
-}
 
-.button-container.active{
-	border: 2px solid #ee8b00;
+	&.active{
+		background-color: rgb(253, 131, 36);
+		border: 2px double rgb(52, 94, 171);
+
+		-webkit-box-shadow: 0px 0px 20px 2px rgba(52,94,171,1);
+		-moz-box-shadow: 0px 0px 20px 2px rgba(52,94,171,1);
+		box-shadow: 0px 0px 20px 2px rgba(52,94,171,1);
+	}
 }
 
 .purchase-buttons{
@@ -122,12 +150,20 @@
 
 	&.active{
 		background-color: rgb(255, 255, 255);
+	}
+
+	&.deactive{
+		background-color: rgb(102, 102, 102);
+	}
+}
+
+.circle-title{
+	&.active {
 		color: rgb(255, 255, 255);
 	}
 
 	&.deactive{
-		background-color: rgb(160, 160, 160);
-		color: rgb(160, 160, 160);
+		color: rgb(102, 102, 102);
 	}
 }
 
@@ -135,9 +171,7 @@
 	width: 33.33%;
 	float: left;
 
-	label{
-		color: rgb(240, 240, 240);
-	}
+	color: rgb(240, 240, 240);
 }
 
 .subscribe-container{
@@ -172,7 +206,7 @@
 
 .buttons-container{
 	position: absolute;
-	bottom: 45px;
+	bottom: 70px;
 	left: 0;
 	right: 0;
 }
