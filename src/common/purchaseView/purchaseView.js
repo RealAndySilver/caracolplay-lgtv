@@ -1,5 +1,5 @@
 (function(app) {
-	var PurchaseViewController = function($scope, hotkeys, ProductService) {
+	var PurchaseViewController = function($scope, hotkeys, ProductService, UserService) {
 		var itemSelected = 0;
 
 		var self = this;
@@ -203,6 +203,15 @@
 		};
 
 		$scope.onNext = function() {
+			switch($scope.subscribeStep) {
+				case 0:
+					var validatePromise = UserService.validateUser('siri@dakota.com', 'idontknow','abc');
+
+					validatePromise.then(function(response) {
+						console.log(response.data);
+					});
+					break;
+			}
 			$scope.subscribeStep++;
 		};
 
@@ -303,7 +312,7 @@
 
 	};
 
-	app.controller('PurchaseViewController', ['$scope', 'hotkeys', 'ProductService', PurchaseViewController]);
+	app.controller('PurchaseViewController', ['$scope', 'hotkeys', 'ProductService', 'UserService', PurchaseViewController]);
 
 }(angular.module("caracolplaylgtvapp.purchaseView", [
 	'ui.router'
