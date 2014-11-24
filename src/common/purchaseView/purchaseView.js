@@ -295,10 +295,10 @@
 		init();
 
 		$scope.noLoggedOptions = [
-			{ 'title': 'Ingresar como usuario', 'image': 'assets/img/login-icon.png', active: true },
-			{ 'title': 'Suscribirse a CaracolPlay', 'image': 'assets/img/subscribe-icon.png', active: false },
-			{ 'title': 'Alquilar este contenido', 'image': 'assets/img/rent-icon.png', active: false },
-			{ 'title': 'Redimir codigo', 'image': 'assets/img/redeem-icon.png', active: false }
+			{ 'title': 'Ingresar como usuario', 'image': 'assets/img/login-logo.png', active: true },
+			{ 'title': 'Suscribirse a CaracolPlay', 'image': 'assets/img/subscribe-logo.png', active: false },
+			{ 'title': 'Alquilar este contenido', 'image': 'assets/img/rent-logo.png', active: false },
+			{ 'title': 'Redimir codigo', 'image': 'assets/img/redeem-logo.png', active: false }
 		];
 
 	};
