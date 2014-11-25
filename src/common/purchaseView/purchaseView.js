@@ -210,8 +210,12 @@
 			name: '',
 			lastname: '',
 			city: '',
-			documentType: '',
+			documentType: $scope.documentTypes[$scope.defaultDocumentTypeIndex],
 			documentNumber: '',
+			creditcard: $scope.creditcards[$scope.defaultCreditcardIndex],
+			creditNumber: '',
+			parcel: $scope.parcels[0],
+			securityCode: '',
 		};
 
 		$scope.validateStepOne = function() {
@@ -286,6 +290,39 @@
 			return true;
 		};
 
+		$scope.validateStepThree = function() {
+			if(!$scope.subscription.creditcard) {
+				alert('El campo de tipo de tarjeta de credito no puede estar vacio');
+				return false;
+			}
+
+			if(!$scope.subscription.creditNumber) {
+				alert('El campo de numero de tarjeta de credito no puede estar vacio');
+				return false;
+			}
+
+			if(!$scope.subscription.month) {
+				alert('El campo de mes de expiracion no puede estar vacio');
+				return false;
+			}
+
+			if(!$scope.subscription.year) {
+				alert('El campo de año de expiracion no puede estar vacio');
+				return false;
+			}
+
+			if(!$scope.subscription.securityCode) {
+				alert('El campo de codigo de seguridad no puede estar vacio');
+				return false;
+			}
+
+			if(!$scope.subscription.parcel) {
+				alert('El campo de parcel no puede estar vacio');
+				return false;
+			}
+			return true;
+		};
+
 		$scope.onNext = function() {
 			switch($scope.subscribeStep) {
 				case 0:
@@ -321,6 +358,12 @@
 						break; 
 					}
 					$scope.subscribeStep++;
+					break;
+
+				case 2:
+					if($scope.validateStepThree()) {
+
+					}
 					break;
 			}
 		};
@@ -406,7 +449,7 @@
 						setEssentialData($scope.rent);
 						$scope.parcels = $scope.rentParcels;
 					}
-					$scope.parcel = $scope.parcels[0];
+					$scope.subscription.parcel = $scope.parcels[0];
 				}
 			});
 		};

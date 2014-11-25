@@ -237,7 +237,7 @@
 							<div class="row">
 								<div class="col-lg-1"></div>
 								<div class="col-lg-11">
-									<select type="text" class="form-control" ng-model="creditcard" ng-options="card.type for card in creditcards">
+									<select type="text" class="form-control" ng-model="subscription.creditcard" ng-options="card.type for card in creditcards">
 										<option value="">Select</option>
 									</select>
 								</div>
@@ -249,7 +249,7 @@
 							</div>
 							<div class="row">
 								<div class="col-lg-11">
-									<input type="text" class="form-control">
+									<input type="text" ng-model="subscription.creditNumber" class="form-control">
 								</div>
 							</div>
 						</div>
@@ -268,12 +268,12 @@
 								<div class="col-lg-11">
 									<div class="row">
 										<div class="col-lg-6">
-											<select type="expire.month" class="form-control" ng-model="parcel" ng-options="month.name for month in months">
+											<select type="expire.month" class="form-control" ng-model="subscription.month" ng-options="month.name for month in months">
 												<option value="">Month</option>
 											</select>
 										</div>
 										<div class="col-lg-6">
-											<select type="expire.year" class="form-control" ng-model="parcel" ng-options="year.name for year in years">
+											<select type="expire.year" class="form-control" ng-model="subscription.year" ng-options="year.name for year in years">
 												<option value="">Year</option>
 											</select>
 										</div>
@@ -287,7 +287,7 @@
 							</div>
 							<div class="row">
 								<div class="col-lg-3">
-									<input type="text" class="form-control">
+									<input type="text" class="form-control" ng-model="subscription.securityCode">
 								</div>
 								<div class="col-lg-8">
 									<p><small>El codigo de seguridad se encuentra en la parte posterior de la tarjeta de credito.</small></p>
@@ -306,7 +306,7 @@
 							<div class="row">
 								<div class="col-lg-1"></div>
 								<div class="col-lg-11">
-									<select type="text" class="form-control" ng-model="parcel" ng-options="p.name for p in parcels"></select>
+									<select type="text" class="form-control" ng-model="subscription.parcel" ng-options="p.name for p in parcels"></select>
 								</div>
 							</div>
 						</div>
@@ -314,7 +314,7 @@
 							<div class="row">
 								<div class="col-lg-11">
 									<div class="checkbox" ng-show="isSubscription">
-										<input type="checkbox">Automatic renewal<br/>
+										<input type="checkbox" ng-model="subscription.renewal">Automatic renewal<br/>
 										Su plan se renovara automaticamente el {{expireDate | date:'dd/MM/yyyy'}}.
 									</div>
 								</div>
