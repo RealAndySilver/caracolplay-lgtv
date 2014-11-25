@@ -50,14 +50,6 @@
 			return $http.get(module.END_POINT + 'GetListFromSearchWithKey/' + keyword);
 		};
 
-		self.authenticateUser = function(username, password) {
-			return $http({
-				headers: module.encode(username, password, ''),
-				method: 'GET',
-				url: module.END_POINT + 'AuthenticateUser',
-			});
-		};
-
 		self.getProductWithID = function(id, uid) {
 			if(!uid || uid === '') {
 				uid = '0';
@@ -73,6 +65,14 @@
 
 	var UserService = function($http) {
 		var self = this;
+
+		self.authenticateUser = function(username, password) {
+			return $http({
+				headers: module.encode(username, password, ''),
+				method: 'GET',
+				url: module.END_POINT + 'AuthenticateUser',
+			});
+		};
 
 		self.validateUser = function(mail, alias, password) {
 			var json = {

@@ -1,5 +1,5 @@
 (function(app) {
-	var PurchaseViewController = function($scope, hotkeys, ProductService, UserService) {
+	var PurchaseViewController = function($scope, hotkeys, UserService) {
 		var itemSelected = 0;
 
 		var self = this;
@@ -344,7 +344,7 @@
 			console.log('name: ' + $scope.loginData.username);
 			console.log('password: ' + $scope.loginData.password);
 
-			var authPromise = ProductService.authenticateUser($scope.loginData.username, $scope.loginData.password);
+			var authPromise = UserService.authenticateUser($scope.loginData.username, $scope.loginData.password);
 
 			authPromise.then(function(response) {
 				var resObj = response.data;
@@ -422,7 +422,7 @@
 
 	};
 
-	app.controller('PurchaseViewController', ['$scope', 'hotkeys', 'ProductService', 'UserService', PurchaseViewController]);
+	app.controller('PurchaseViewController', ['$scope', 'hotkeys', 'UserService', PurchaseViewController]);
 
 }(angular.module("caracolplaylgtvapp.purchaseView", [
 	'ui.router'
