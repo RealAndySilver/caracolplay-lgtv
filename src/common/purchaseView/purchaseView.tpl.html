@@ -88,7 +88,7 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label" for="name">Email:</label>  
 								<div class="col-md-6">
-									<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.name">
+									<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="subscription.email">
 								</div>
 							</div>
 						</div>
@@ -96,7 +96,7 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label" for="name">Usuario:</label>  
 								<div class="col-md-6">
-									<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.name">
+									<input id="user" name="user" type="text" placeholder="" class="form-control input-md" ng-model="subscription.user">
 								</div>
 							</div>
 						</div>
@@ -104,7 +104,7 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label" for="name">Contraseña:</label>  
 								<div class="col-md-6">
-									<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.name">
+									<input id="password" name="name" type="text" placeholder="" class="form-control input-md" ng-model="subscription.password">
 								</div>
 							</div>
 						</div>
@@ -112,7 +112,7 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label" for="name">Confirmar contraseña</label>  
 								<div class="col-md-6">
-									<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.name">
+									<input id="pasword" name="name" type="text" placeholder="" class="form-control input-md" ng-model="subscription.confirmPassword">
 								</div>
 							</div>
 						</div>
@@ -124,12 +124,12 @@
 							<div class="col-lg-1"></div>
 							<div class="col-lg-5">
 								<div class="checkbox">
-									<input type="checkbox"><label>Acepto <a href="">terminos y condiciones</a></label>
+									<input type="checkbox" ng-model="subscription.terms"><label>Acepto <a href="">terminos y condiciones</a></label>
 								</div>
 							</div>
 							<div class="col-lg-5">
 								<div class="checkbox">
-									<input type="checkbox"><label>Acepto <a href="">politicas de privacidad</a></label>
+									<input type="checkbox" ng-model="subscription.politics"><label>Acepto <a href="">politicas de privacidad</a></label>
 								</div>
 							</div>
 							<div class="col-lg-1"></div>
@@ -138,12 +138,12 @@
 							<div class="col-lg-1"></div>
 							<div class="col-lg-5">
 								<div class="checkbox">
-									<input type="checkbox"><label>Acepto <a href="">requerimientos para reproducir video</a></label>
+									<input type="checkbox" ng-model="subscription.requirements"><label>Acepto <a href="">requerimientos para reproducir video</a></label>
 								</div>
 							</div>
 							<div class="col-lg-5">
 								<div class="checkbox">
-									<input type="checkbox"><label>Deseo recibir información comercial</label>
+									<input type="checkbox" ng-model="subscription.information"><label>Deseo recibir información comercial</label>
 								</div>
 							</div>
 							<div class="col-lg-1"></div>

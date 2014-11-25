@@ -202,17 +202,71 @@
 			$scope.options.length = 2;
 		};
 
+		$scope.subscription = {
+			email: '',
+			user: '',
+			password: '',
+			confirmPassword: ''
+		};
+
 		$scope.onNext = function() {
 			switch($scope.subscribeStep) {
 				case 0:
-					var validatePromise = UserService.validateUser('siri@dakota.com', 'idontknow','abc');
+					console.log($scope.subscription);
+
+					if($scope.subscription.email === '') {
+						alert('El campo de email no puede estar vacio');
+						break;
+					}
+
+					if($scope.subscription.user === '') {
+						alert('El campo de usuario no puede estar vacio');
+						break;
+					}
+
+					if($scope.subscription.password === '') {
+						alert('El campo de contraseña no puede estar vacio');
+						break;
+					}
+
+					if($scope.subscription.confirmPassword === '') {
+						alert('El campo de confirmar contraseña no puede estar vacio');
+						break;
+					}
+
+					if($scope.subscription.password !== $scope.subscription.confirmPassword) {
+						alert('Las contraseñas no coiciden');
+						break;
+					}
+
+					if(!$scope.subscription.terms) {
+						alert('Debes aceptar los terminos y condiciones');
+						break;
+					}
+
+					if(!$scope.subscription.politics) {
+						alert('Debes aceptar los politicas de privacidad');
+						break;
+					}
+
+					if(!$scope.subscription.requirements) {
+						alert('Debes aceptar los requerimientos para reproducir video');
+						break;
+					}
+
+					var validatePromise = UserService.validateUser($scope.subscription.email, $scope.subscription.user, $scope.subscription.password);
 
 					validatePromise.then(function(response) {
 						console.log(response.data);
+
+						if(response.data.status) {
+							$scope.subscribeStep++;
+						} else {
+							alert(response.data.error); 
+						}
 					});
 					break;
 			}
-			$scope.subscribeStep++;
 		};
 
 		$scope.onBackSuscription = function() {
