@@ -164,7 +164,7 @@
 							<div class="row">
 								<div class="col-lg-1"></div>
 								<div class="col-lg-11">
-									<input type="text" class="form-control">
+									<input type="text" ng-model="subscription.name" class="form-control">
 								</div>
 							</div>
 						</div>
@@ -174,7 +174,7 @@
 							</div>
 							<div class="row">
 								<div class="col-lg-11">
-									<input type="text" class="form-control">
+									<input type="text" ng-model="subscription.lastname" class="form-control">
 								</div>
 							</div>
 						</div>
@@ -191,7 +191,7 @@
 							<div class="row">
 								<div class="col-lg-1"></div>
 								<div class="col-lg-11">
-									<input type="text" class="form-control">
+									<input type="text" ng-model="subscription.city" class="form-control">
 								</div>
 							</div>
 						</div>
@@ -201,7 +201,7 @@
 							</div>
 							<div class="row">
 								<div class="col-lg-11">
-									<select type="text" class="form-control" ng-model="documentType" ng-options="document.type for document in documentTypes"></select>
+									<select type="text" class="form-control" ng-model="subscription.documentType" ng-model="documentType" ng-options="document.type for document in documentTypes"></select>
 								</div>
 							</div>
 						</div>
@@ -217,7 +217,7 @@
 							<div class="row">
 								<div class="col-lg-1"></div>
 								<div class="col-lg-11">
-									<input type="text" class="form-control">
+									<input type="text" ng-model="subscription.documentNumber" class="form-control">
 								</div>
 							</div>
 						</div>

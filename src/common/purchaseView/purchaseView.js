@@ -206,7 +206,84 @@
 			email: '',
 			user: '',
 			password: '',
-			confirmPassword: ''
+			confirmPassword: '',
+			name: '',
+			lastname: '',
+			city: '',
+			documentType: '',
+			documentNumber: '',
+		};
+
+		$scope.validateStepOne = function() {
+			if($scope.subscription.email === '') {
+				alert('El campo de email no puede estar vacio');
+				return false;
+			}
+
+			if($scope.subscription.user === '') {
+				alert('El campo de usuario no puede estar vacio');
+				return false;
+			}
+
+			if($scope.subscription.password === '') {
+				alert('El campo de contraseña no puede estar vacio');
+				return false;
+			}
+
+			if($scope.subscription.confirmPassword === '') {
+				alert('El campo de confirmar contraseña no puede estar vacio');
+				return false;
+			}
+
+			if($scope.subscription.password !== $scope.subscription.confirmPassword) {
+				alert('Las contraseñas no coiciden');
+				return false;
+			}
+
+			if(!$scope.subscription.terms) {
+				alert('Debes aceptar los terminos y condiciones');
+				return false;
+			}
+
+			if(!$scope.subscription.politics) {
+				alert('Debes aceptar los politicas de privacidad');
+				return false;
+			}
+
+			if(!$scope.subscription.requirements) {
+				alert('Debes aceptar los requerimientos para reproducir video');
+				return false;
+			}
+
+			return true;
+		};
+
+		$scope.validateStepTwo = function() {
+			if(!$scope.subscription.name) {
+				alert('El campo de nombres no puede estar vacio');
+				return false;
+			}
+
+			if(!$scope.subscription.lastname) {
+				alert('El campo de apellidos no puede estar vacio');
+				return false;
+			}
+
+			if(!$scope.subscription.city) {
+				alert('El campo de ciudad no puede estar vacio');
+				return false;
+			}
+
+			if(!$scope.subscription.documentType) {
+				alert('El campo de tipo de documento no puede estar vacio');
+				return false;
+			}
+
+			if(!$scope.subscription.documentNumber) {
+				alert('El campo de numero de documento no puede estar vacio');
+				return false;
+			}
+			return true;
 		};
 
 		$scope.onNext = function() {
@@ -214,43 +291,7 @@
 				case 0:
 					console.log($scope.subscription);
 
-					if($scope.subscription.email === '') {
-						alert('El campo de email no puede estar vacio');
-						break;
-					}
-
-					if($scope.subscription.user === '') {
-						alert('El campo de usuario no puede estar vacio');
-						break;
-					}
-
-					if($scope.subscription.password === '') {
-						alert('El campo de contraseña no puede estar vacio');
-						break;
-					}
-
-					if($scope.subscription.confirmPassword === '') {
-						alert('El campo de confirmar contraseña no puede estar vacio');
-						break;
-					}
-
-					if($scope.subscription.password !== $scope.subscription.confirmPassword) {
-						alert('Las contraseñas no coiciden');
-						break;
-					}
-
-					if(!$scope.subscription.terms) {
-						alert('Debes aceptar los terminos y condiciones');
-						break;
-					}
-
-					if(!$scope.subscription.politics) {
-						alert('Debes aceptar los politicas de privacidad');
-						break;
-					}
-
-					if(!$scope.subscription.requirements) {
-						alert('Debes aceptar los requerimientos para reproducir video');
+					if(!$scope.validateStepOne()) {
 						break;
 					}
 
@@ -259,12 +300,27 @@
 					validatePromise.then(function(response) {
 						console.log(response.data);
 
+						/*
+						 * start Dev testing
+						 */
+						response.data.status = true;
+						/*
+						 * end Dev testing
+						 */
+
 						if(response.data.status) {
 							$scope.subscribeStep++;
 						} else {
 							alert(response.data.error); 
 						}
 					});
+					break;
+
+				case 1:
+					if(!$scope.validateStepTwo()) {
+						break; 
+					}
+					$scope.subscribeStep++;
 					break;
 			}
 		};
