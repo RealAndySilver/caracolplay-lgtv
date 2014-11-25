@@ -93,8 +93,13 @@
 		};
 	};
 
+	var PurchaseService = function($http) {
+		var self = this;
+	};
+
 	app.service('ProductService',['$http', ProductService]);
 	app.service('UserService', ['$http', UserService]);
+	app.service('PurchaseService', ['$http', PurchaseService]);
 
 } (angular.module("caracolplaylgtvapp.ServerCommunicator", [
 	'ui.router'
