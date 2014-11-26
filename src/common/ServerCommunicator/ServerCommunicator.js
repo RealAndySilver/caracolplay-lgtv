@@ -95,6 +95,47 @@
 
 	var PurchaseService = function($http) {
 		var self = this;
+
+		self.getProduct = function(id, type, action) {
+			return $http({
+				headers: encode('', '', ''),
+				method: 'POST',
+				data: {
+					'Id': id,
+					'Type': type,
+					'Action': action,
+				},
+				url: module.END_POINT + 'Get_Product',
+			});
+		};
+
+		self.createOrder = function(productId, userId) {
+			return $http({
+				method: 'POST',
+				headers: encode('', '', ''),
+				data: {
+					'Id_Producto': productId,
+					'Id_user': userId,
+				},
+				url: module.END_POINT + 'Create_Order',
+			});
+		};
+
+		self.payment = function(orderId, userId, tokenCard, expirationDate, cvv, recurrence) {
+			return $http({
+				method: 'POST',
+				headers: encode('', '', ''),
+				data: {
+					'Id_Order': orderId,
+					'Id_User': userId,
+					'Token_card': tokenCard,
+					'Exp_Date': expirationDate,
+					'CVV': cvv,
+					'Recurrencia': recurrence,
+				},
+				url: module.END_POINT + 'Payment',
+			});
+		};
 	};
 
 	app.service('ProductService',['$http', ProductService]);

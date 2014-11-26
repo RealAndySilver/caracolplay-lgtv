@@ -1,6 +1,13 @@
 (function(app) {
-	var PurchaseViewController = function($scope, hotkeys, UserService) {
+	var PurchaseViewController = function($scope, hotkeys, UserService, PurchaseService) {
 		var itemSelected = 0;
+
+		var purchasePromise = PurchaseService.getProduct(1,1,1);
+
+		purchasePromise.then(function(res) {
+			console.log('test get_product');
+			console.log(res.data);
+		});
 
 		var self = this;
 
@@ -465,7 +472,7 @@
 
 	};
 
-	app.controller('PurchaseViewController', ['$scope', 'hotkeys', 'UserService', PurchaseViewController]);
+	app.controller('PurchaseViewController', ['$scope', 'hotkeys', 'UserService', 'PurchaseService', PurchaseViewController]);
 
 }(angular.module("caracolplaylgtvapp.purchaseView", [
 	'ui.router'
