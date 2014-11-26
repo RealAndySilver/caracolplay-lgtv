@@ -136,6 +136,13 @@
 				url: module.END_POINT + 'Payment',
 			});
 		};
+
+		self.validateCode = function(code) {
+			return $http({
+				method:'GET',
+				url: module.END_POINT + 'ValidateCode/' + code,
+			})
+		};
 	};
 
 	app.service('ProductService',['$http', ProductService]);
