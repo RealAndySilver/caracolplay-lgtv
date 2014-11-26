@@ -21,6 +21,14 @@
 	};
 
 	app.controller('AppController', ['$scope', AppController]);
+	app.constant('UserInfo', {
+		name: '',
+		lastname: '',
+		alias: '',
+		mail: '',
+		password: '',
+		session: '',
+	});
 
 }(angular.module("caracolplaylgtvapp", [
 	'caracolplaylgtvapp.home',
