@@ -143,10 +143,6 @@
 				url: module.END_POINT + 'ValidateCode/' + code,
 			});
 		};
-
-		self.redeemCode = function() {
-
-		};
 	};
 
 	app.service('ProductService',['$http', ProductService]);

@@ -192,16 +192,36 @@
 
 		$scope.onRedeem = function() {
 			// check if user is login
+			if(!$scope.redeemCode) {
+				alert('el codigo para redimir no puede estar vacio');
+				return;
+			}
 
-			
+			var redeemPromise = PurchaseService.validateCode($scope.redeemCode);
 
-			$scope.showOptions = true;
-			$scope.isRent = false;
-			$scope.isSubscription = false;
-			$scope.boughtVisible = false;
-			$scope.redeemVisible = false;
+			redeemPromise.then(function(response) {
+				console.log(response.data);
+				response.data.status = true;
+				if(response.data.status) {
+					if(response.data.info_code) {
+						if(response.data.info_code.type) {
+							if(response.data.info_code.type === 'ev') {
+								alert('Developer notes: put source code to play video');
+							}
+						} else {
+							$scope.showOptions = true;
+							$scope.isRent = false;
+							$scope.isSubscription = false;
+							$scope.boughtVisible = false;
+							$scope.redeemVisible = false;
 
-			$scope.options.length = 2;
+							$scope.options.length = 2;
+						}
+					}
+				} else {
+					alert(response.data.response);
+				}
+			});
 		};
 
 		$scope.subscription = {
