@@ -2,13 +2,6 @@
 	var PurchaseViewController = function($scope, hotkeys, UserService, PurchaseService) {
 		var itemSelected = 0;
 
-		var purchasePromise = PurchaseService.getProduct(1,1,1);
-
-		purchasePromise.then(function(res) {
-			console.log('test get_product');
-			console.log(res.data);
-		});
-
 		var self = this;
 
 		$scope.showOptions = true;
@@ -368,9 +361,15 @@
 					break;
 
 				case 2:
-					if($scope.validateStepThree()) {
-
+					if(!$scope.validateStepThree()) {
+						break;
 					}
+					var purchasePromise = PurchaseService.getProduct(1,1,1);
+
+					purchasePromise.then(function(res) {
+						console.log('test get_product');
+						alert(res.data);
+					});
 					break;
 			}
 		};
