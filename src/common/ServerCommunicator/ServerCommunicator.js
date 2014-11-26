@@ -141,7 +141,11 @@
 			return $http({
 				method:'GET',
 				url: module.END_POINT + 'ValidateCode/' + code,
-			})
+			});
+		};
+
+		self.redeemCode = function() {
+
 		};
 	};
 

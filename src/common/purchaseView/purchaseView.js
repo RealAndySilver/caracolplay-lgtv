@@ -193,6 +193,8 @@
 		$scope.onRedeem = function() {
 			// check if user is login
 
+			
+
 			$scope.showOptions = true;
 			$scope.isRent = false;
 			$scope.isSubscription = false;
