@@ -26,7 +26,7 @@
 		};
 	};
 	
-	var ProductService =  function($http) {
+	var ProductService = function($http, UserInfo) {
 		var self = this;
 
 		self.getFeatured = function() {
@@ -56,14 +56,14 @@
 			}
 
 			return $http({
-				headers: module.encode('', '', ''),
+				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'GET',
 				url: module.END_POINT + 'GetProductWithID/' + id + '/' + uid,
 			});
 		};
 	};
 
-	var UserService = function($http) {
+	var UserService = function($http, UserInfo) {
 		var self = this;
 
 		self.authenticateUser = function(username, password) {
@@ -93,12 +93,12 @@
 		};
 	};
 
-	var PurchaseService = function($http) {
+	var PurchaseService = function($http, UserInfo) {
 		var self = this;
 
 		self.getProduct = function(id, type, action) {
 			return $http({
-				headers: encode('', '', ''),
+				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'POST',
 				data: {
 					'Id': id,
@@ -112,7 +112,7 @@
 		self.createOrder = function(productId, userId) {
 			return $http({
 				method: 'POST',
-				headers: encode('', '', ''),
+				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				data: {
 					'Id_Producto': productId,
 					'Id_user': userId,
@@ -124,7 +124,7 @@
 		self.payment = function(orderId, userId, tokenCard, expirationDate, cvv, recurrence) {
 			return $http({
 				method: 'POST',
-				headers: encode('', '', ''),
+				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				data: {
 					'Id_Order': orderId,
 					'Id_User': userId,
@@ -145,9 +145,9 @@
 		};
 	};
 
-	app.service('ProductService',['$http', ProductService]);
-	app.service('UserService', ['$http', UserService]);
-	app.service('PurchaseService', ['$http', PurchaseService]);
+	app.service('ProductService',['$http', 'UserInfo', ProductService]);
+	app.service('UserService', ['$http', 'UserInfo', UserService]);
+	app.service('PurchaseService', ['$http', 'UserInfo', PurchaseService]);
 
 } (angular.module("caracolplaylgtvapp.ServerCommunicator", [
 	'ui.router'

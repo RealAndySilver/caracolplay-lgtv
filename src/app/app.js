@@ -27,7 +27,7 @@
 		alias: '',
 		mail: '',
 		password: '',
-		session: '',
+		session: 0,
 	});
 
 }(angular.module("caracolplaylgtvapp", [
