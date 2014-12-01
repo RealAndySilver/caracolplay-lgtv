@@ -6,7 +6,7 @@
 
 	module.encode = function(user, password, session) {
 		var time = new Date();
-		var utcTime = new Date(time.getUTCFullYear(), time.getUTCMonth(), time.getUTCDate(),  time.getUTCHours(), time.getUTCMinutes(), time.getUTCSeconds(), time.getUTCMilliseconds());
+		var utcTime = new Date(time.getUTCFullYear(), time.getUTCMonth(), time.getUTCDate(), time.getUTCHours(), time.getUTCMinutes(), time.getUTCSeconds(), time.getUTCMilliseconds());
 		var encodeKey = 'aREwKMVVmjA81aea0mVNFh';
 
 		var utc = time.getTime();
@@ -25,7 +25,7 @@
 			token: token,
 		};
 	};
-	
+
 	var ProductService = function($http, UserInfo) {
 		var self = this;
 
@@ -39,10 +39,10 @@
 
 		self.getListFromCategoryId = function(id, filter) {
 			var url = module.END_POINT;
-			if(filter) {
+			if (filter) {
 				filter = 1;
 			}
-			
+
 			return $http.get(module.END_POINT + 'GetListFromCategoryId/' + id + '/' + filter);
 		};
 
@@ -51,7 +51,7 @@
 		};
 
 		self.getProductWithID = function(id, uid) {
-			if(!uid || uid === '') {
+			if (!uid || uid === '') {
 				uid = '0';
 			}
 
@@ -87,7 +87,9 @@
 			return $http({
 				//headers: module.encode('', '', ''),
 				method: 'POST',
-				data: { 'user_info': encodedJson },
+				data: {
+					'user_info': encodedJson
+				},
 				url: module.END_POINT + "ValidateUser"
 			});
 		};
@@ -139,16 +141,16 @@
 
 		self.validateCode = function(code) {
 			return $http({
-				method:'GET',
+				method: 'GET',
 				url: module.END_POINT + 'ValidateCode/' + code,
 			});
 		};
 	};
 
-	app.service('ProductService',['$http', 'UserInfo', ProductService]);
+	app.service('ProductService', ['$http', 'UserInfo', ProductService]);
 	app.service('UserService', ['$http', 'UserInfo', UserService]);
 	app.service('PurchaseService', ['$http', 'UserInfo', PurchaseService]);
 
-} (angular.module("caracolplaylgtvapp.ServerCommunicator", [
+}(angular.module("caracolplaylgtvapp.ServerCommunicator", [
 	'ui.router'
 ])));

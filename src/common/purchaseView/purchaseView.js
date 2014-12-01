@@ -18,65 +18,119 @@
 
 		$scope.loginData = {};
 
-		$scope.months = [
-			{ name:'Enero', id: 0 },
-			{ name:'Febrero', id: 1 },
-			{ name:'Marzo', id: 2 },
-			{ name:'Abril', id: 3 },
-			{ name:'Mayo', id: 4 },
-			{ name:'Junio', id: 5 },
-			{ name:'Julio', id: 6 },
-			{ name:'Agosto', id: 7 },
-			{ name:'Septiembre', id: 8 },
-			{ name:'Octubre', id: 9 },
-			{ name:'Noviembre', id: 10 },
-			{ name:'Diciembre', id: 11 },
-		];
+		$scope.months = [{
+			name: 'Enero',
+			id: 0
+		}, {
+			name: 'Febrero',
+			id: 1
+		}, {
+			name: 'Marzo',
+			id: 2
+		}, {
+			name: 'Abril',
+			id: 3
+		}, {
+			name: 'Mayo',
+			id: 4
+		}, {
+			name: 'Junio',
+			id: 5
+		}, {
+			name: 'Julio',
+			id: 6
+		}, {
+			name: 'Agosto',
+			id: 7
+		}, {
+			name: 'Septiembre',
+			id: 8
+		}, {
+			name: 'Octubre',
+			id: 9
+		}, {
+			name: 'Noviembre',
+			id: 10
+		}, {
+			name: 'Diciembre',
+			id: 11
+		}, ];
 
-		$scope.years = [
-			{ name: '2014', id: 0 },
-			{ name: '2015', id: 1 },
-			{ name: '2016', id: 2 },
-			{ name: '2017', id: 3 },
-			{ name: '2018', id: 4 },
-			{ name: '2019', id: 5 },
-			{ name: '2020', id: 6 },
-			{ name: '2021', id: 7 },
-			{ name: '2022', id: 8 },
-		];
+		$scope.years = [{
+			name: '2014',
+			id: 0
+		}, {
+			name: '2015',
+			id: 1
+		}, {
+			name: '2016',
+			id: 2
+		}, {
+			name: '2017',
+			id: 3
+		}, {
+			name: '2018',
+			id: 4
+		}, {
+			name: '2019',
+			id: 5
+		}, {
+			name: '2020',
+			id: 6
+		}, {
+			name: '2021',
+			id: 7
+		}, {
+			name: '2022',
+			id: 8
+		}, ];
 
 		$scope.parcels = [];
 
-		$scope.subscribeParcels = [
-			{ name: '1 x $58.000' },
-			{ name: '2 x $116.000' },
-			{ name: '3 x $174.000' },
-			{ name: '4 x $232.000' },
-			{ name: '5 x $280.000' },
-		];
+		$scope.subscribeParcels = [{
+			name: '1 x $58.000'
+		}, {
+			name: '2 x $116.000'
+		}, {
+			name: '3 x $174.000'
+		}, {
+			name: '4 x $232.000'
+		}, {
+			name: '5 x $280.000'
+		}, ];
 
-		$scope.rentParcels = [
-			{ name: '1 x $34.800' },
-			{ name: '2 x $69.600' },
-			{ name: '3 x $104.400' },
-			{ name: '4 x $139.200' },
-			{ name: '5 x $174.000' },
-		];
+		$scope.rentParcels = [{
+			name: '1 x $34.800'
+		}, {
+			name: '2 x $69.600'
+		}, {
+			name: '3 x $104.400'
+		}, {
+			name: '4 x $139.200'
+		}, {
+			name: '5 x $174.000'
+		}, ];
 
-		$scope.creditcards = [
-			{ type: 'VISA', id: 1 },
-			{ type: 'Mastercard', id: 2 },
-		];
+		$scope.creditcards = [{
+			type: 'VISA',
+			id: 1
+		}, {
+			type: 'Mastercard',
+			id: 2
+		}, ];
 
-		$scope.documentTypes = [
-			{ type: 'Tarjeta de Identidad', id: 1 },
-			{ type: 'Cedula de ciudadania', id: 2 },
-		];
+		$scope.documentTypes = [{
+			type: 'Tarjeta de Identidad',
+			id: 1
+		}, {
+			type: 'Cedula de ciudadania',
+			id: 2
+		}, ];
 
 		$scope.documentType = $scope.documentTypes[$scope.defaultDocumentTypeIndex];
 
 		$scope.isStepActive = function(item) {
-			if(item <= $scope.subscribeStep) {
+			if (item <= $scope.subscribeStep) {
 				return true;
 			}
 			return false;
@@ -134,7 +188,7 @@
 			hotkeys.add({
 				combo: 'right',
 				callback: function() {
-					if(itemSelected + 1 >= $scope.options.length) {
+					if (itemSelected + 1 >= $scope.options.length) {
 						return;
 					}
 
@@ -146,7 +200,7 @@
 			hotkeys.add({
 				combo: 'left',
 				callback: function() {
-					if(itemSelected - 1 < 0) {
+					if (itemSelected - 1 < 0) {
 						return;
 					}
 
@@ -158,7 +212,7 @@
 			hotkeys.add({
 				combo: 'enter',
 				callback: function() {
-					switch(itemSelected) {
+					switch (itemSelected) {
 						case 0:
 							$scope.showOptions = false;
 							$scope.loginVisible = true;
@@ -192,7 +246,7 @@
 
 		$scope.onRedeem = function() {
 			// check if user is login
-			if(!$scope.redeemCode) {
+			if (!$scope.redeemCode) {
 				alert('el codigo para redimir no puede estar vacio');
 				return;
 			}
@@ -202,10 +256,10 @@
 			redeemPromise.then(function(response) {
 				console.log(response.data);
 				response.data.status = true;
-				if(response.data.status) {
-					if(response.data.info_code) {
-						if(response.data.info_code.type) {
-							if(response.data.info_code.type === 'ev') {
+				if (response.data.status) {
+					if (response.data.info_code) {
+						if (response.data.info_code.type) {
+							if (response.data.info_code.type === 'ev') {
 								alert('Developer notes: put source code to play video');
 							}
 						} else {
@@ -241,42 +295,42 @@
 		};
 
 		$scope.validateStepOne = function() {
-			if($scope.subscription.email === '') {
+			if ($scope.subscription.email === '') {
 				alert('El campo de email no puede estar vacio');
 				return false;
 			}
 
-			if($scope.subscription.user === '') {
+			if ($scope.subscription.user === '') {
 				alert('El campo de usuario no puede estar vacio');
 				return false;
 			}
 
-			if($scope.subscription.password === '') {
+			if ($scope.subscription.password === '') {
 				alert('El campo de contraseña no puede estar vacio');
 				return false;
 			}
 
-			if($scope.subscription.confirmPassword === '') {
+			if ($scope.subscription.confirmPassword === '') {
 				alert('El campo de confirmar contraseña no puede estar vacio');
 				return false;
 			}
 
-			if($scope.subscription.password !== $scope.subscription.confirmPassword) {
+			if ($scope.subscription.password !== $scope.subscription.confirmPassword) {
 				alert('Las contraseñas no coiciden');
 				return false;
 			}
 
-			if(!$scope.subscription.terms) {
+			if (!$scope.subscription.terms) {
 				alert('Debes aceptar los terminos y condiciones');
 				return false;
 			}
 
-			if(!$scope.subscription.politics) {
+			if (!$scope.subscription.politics) {
 				alert('Debes aceptar los politicas de privacidad');
 				return false;
 			}
 
-			if(!$scope.subscription.requirements) {
+			if (!$scope.subscription.requirements) {
 				alert('Debes aceptar los requerimientos para reproducir video');
 				return false;
 			}
@@ -285,27 +339,27 @@
 		};
 
 		$scope.validateStepTwo = function() {
-			if(!$scope.subscription.name) {
+			if (!$scope.subscription.name) {
 				alert('El campo de nombres no puede estar vacio');
 				return false;
 			}
 
-			if(!$scope.subscription.lastname) {
+			if (!$scope.subscription.lastname) {
 				alert('El campo de apellidos no puede estar vacio');
 				return false;
 			}
 
-			if(!$scope.subscription.city) {
+			if (!$scope.subscription.city) {
 				alert('El campo de ciudad no puede estar vacio');
 				return false;
 			}
 
-			if(!$scope.subscription.documentType) {
+			if (!$scope.subscription.documentType) {
 				alert('El campo de tipo de documento no puede estar vacio');
 				return false;
 			}
 
-			if(!$scope.subscription.documentNumber) {
+			if (!$scope.subscription.documentNumber) {
 				alert('El campo de numero de documento no puede estar vacio');
 				return false;
 			}
@@ -313,32 +367,32 @@
 		};
 
 		$scope.validateStepThree = function() {
-			if(!$scope.subscription.creditcard) {
+			if (!$scope.subscription.creditcard) {
 				alert('El campo de tipo de tarjeta de credito no puede estar vacio');
 				return false;
 			}
 
-			if(!$scope.subscription.creditNumber) {
+			if (!$scope.subscription.creditNumber) {
 				alert('El campo de numero de tarjeta de credito no puede estar vacio');
 				return false;
 			}
 
-			if(!$scope.subscription.month) {
+			if (!$scope.subscription.month) {
 				alert('El campo de mes de expiracion no puede estar vacio');
 				return false;
 			}
 
-			if(!$scope.subscription.year) {
+			if (!$scope.subscription.year) {
 				alert('El campo de año de expiracion no puede estar vacio');
 				return false;
 			}
 
-			if(!$scope.subscription.securityCode) {
+			if (!$scope.subscription.securityCode) {
 				alert('El campo de codigo de seguridad no puede estar vacio');
 				return false;
 			}
 
-			if(!$scope.subscription.parcel) {
+			if (!$scope.subscription.parcel) {
 				alert('El campo de parcel no puede estar vacio');
 				return false;
 			}
@@ -346,11 +400,11 @@
 		};
 
 		$scope.onNext = function() {
-			switch($scope.subscribeStep) {
+			switch ($scope.subscribeStep) {
 				case 0:
 					console.log($scope.subscription);
 
-					if(!$scope.validateStepOne()) {
+					if (!$scope.validateStepOne()) {
 						break;
 					}
 
@@ -367,26 +421,26 @@
 						 * end Dev testing
 						 */
 
-						if(response.data.status) {
+						if (response.data.status) {
 							$scope.subscribeStep++;
 						} else {
-							alert(response.data.error); 
+							alert(response.data.error);
 						}
 					});
 					break;
 
 				case 1:
-					if(!$scope.validateStepTwo()) {
-						break; 
+					if (!$scope.validateStepTwo()) {
+						break;
 					}
 					$scope.subscribeStep++;
 					break;
 
 				case 2:
-					if(!$scope.validateStepThree()) {
+					if (!$scope.validateStepThree()) {
 						break;
 					}
-					var purchasePromise = PurchaseService.getProduct(1,1,1);
+					var purchasePromise = PurchaseService.getProduct(1, 1, 1);
 
 					purchasePromise.then(function(res) {
 						console.log('test get_product');
@@ -397,7 +451,7 @@
 		};
 
 		$scope.onBackSuscription = function() {
-			if($scope.subscribeStep - 1 >= 0) {
+			if ($scope.subscribeStep - 1 >= 0) {
 				$scope.subscribeStep--;
 				return;
 			}
@@ -422,8 +476,8 @@
 
 				console.log(resObj);
 
-				if(resObj.status) {
-					
+				if (resObj.status) {
+
 				} else {
 					alert(resObj.response);
 				}
@@ -444,16 +498,16 @@
 			$scope.expireDate.setFullYear($scope.expireDate.getFullYear() + 1);
 
 			$scope.$watch('loginVisible', function(newValue, oldValue) {
-				if(newValue) {
+				if (newValue) {
 					setEssentialData($scope.login);
 				}
 			});
 
 			$scope.$watch('showOptions', function(newValue, oldValue) {
-				if(newValue) {
+				if (newValue) {
 					configHotkeys();
 					$scope.options = $scope.noLoggedOptions;
-					if(itemSelected < $scope.options.length) {
+					if (itemSelected < $scope.options.length) {
 						$scope.options[itemSelected].active = false;
 					}
 					itemSelected = 0;
@@ -463,14 +517,14 @@
 			});
 
 			$scope.$watch('redeemVisible', function(newValue, oldValue) {
-				if(newValue) {
+				if (newValue) {
 					setEssentialData($scope.redeem);
 				}
 			});
 
 			$scope.$watch('boughtVisible', function(newValue, oldValue) {
-				if(newValue) {
-					if($scope.isSubscription) {
+				if (newValue) {
+					if ($scope.isSubscription) {
 						setEssentialData($scope.register);
 						$scope.parcels = $scope.subscribeParcels;
 					} else {
@@ -484,12 +538,23 @@
 
 		init();
 
-		$scope.noLoggedOptions = [
-			{ 'title': 'Ingresar como usuario', 'image': 'assets/img/login-logo.png', active: true },
-			{ 'title': 'Suscribirse a CaracolPlay', 'image': 'assets/img/subscribe-logo.png', active: false },
-			{ 'title': 'Alquilar este contenido', 'image': 'assets/img/rent-logo.png', active: false },
-			{ 'title': 'Redimir codigo', 'image': 'assets/img/redeem-logo.png', active: false }
-		];
+		$scope.noLoggedOptions = [{
+			'title': 'Ingresar como usuario',
+			'image': 'assets/img/login-logo.png',
+			active: true
+		}, {
+			'title': 'Suscribirse a CaracolPlay',
+			'image': 'assets/img/subscribe-logo.png',
+			active: false
+		}, {
+			'title': 'Alquilar este contenido',
+			'image': 'assets/img/rent-logo.png',
+			active: false
+		}, {
+			'title': 'Redimir codigo',
+			'image': 'assets/img/redeem-logo.png',
+			active: false
+		}];
 
 	};
 
