@@ -6,7 +6,7 @@
 
 		$scope.setElement = function(element) {
 			self.element = element;
-			if($scope.active) {
+			if ($scope.active) {
 				self.element.addClass('button-active');
 				self.element.removeClass('button-deactive');
 			} else {
@@ -14,9 +14,9 @@
 				self.element.removeClass('button-active');
 			}
 		};
-		
+
 		var activeWatcherFunction = function(newValue, oldValue) {
-			if(newValue) {
+			if (newValue) {
 				var div = '#button' + $scope.id + 0;
 
 				$('.chapters-season').stop().animate({

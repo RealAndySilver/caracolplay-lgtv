@@ -1,6 +1,6 @@
 (function(app) {
 
-	app.config(['$stateProvider', function ($stateProvider) {
+	app.config(['$stateProvider', function($stateProvider) {
 		$stateProvider.state('dashboard', {
 			url: '/dashboard',
 			views: {
@@ -10,7 +10,9 @@
 					templateUrl: 'dashboard/dashboard.tpl.html'
 				}
 			},
-			data:{ pageTitle: 'Dashboard' }
+			data: {
+				pageTitle: 'Dashboard'
+			}
 		});
 	}]);
 
@@ -32,15 +34,15 @@
 
 		$scope.$watch('keywordToSearch', function(newValue, oldValue) {
 			console.log(newValue);
-			if(newValue !== undefined && newValue !== '') {
+			if (newValue !== undefined && newValue !== '') {
 				self.isInSearch = true;
 				console.log('In search!');
 
-				if($scope.restartConfigKeyboard.searchRestart) {
+				if ($scope.restartConfigKeyboard.searchRestart) {
 					$scope.restartConfigKeyboard.searchRestart();
 				}
 
-				if(self.isPreviewActive) {
+				if (self.isPreviewActive) {
 					self.beforeSearchIsPreviewActive = true;
 					self.isPreviewActive = false;
 				}
@@ -85,9 +87,9 @@
 		self.activePreview = function(value) {
 			console.log(value);
 			self.isPreviewActive = value;
-			if(!value) {
+			if (!value) {
 				keyboardInit();
-				if($scope.restartConfigKeyboard.restart) {
+				if ($scope.restartConfigKeyboard.restart) {
 					$scope.restartConfigKeyboard.restart();
 				}
 			}
@@ -100,7 +102,7 @@
 				self.isShowInfo = true;
 			});
 			self.isShowInfo = true;
-			
+
 		};
 
 		var outAnimation = function() {
@@ -113,12 +115,14 @@
 
 		keyboardInit = function() {
 			hotkeys.add({
-				combo:'down',
+				combo: 'down',
 				callback: function(event) {
 					event.preventDefault();
-					if(self.active + 1 >= self.slides.length - 2) { return; }
+					if (self.active + 1 >= self.slides.length - 2) {
+						return;
+					}
 					self.active++;
-					if(self.active === 1) {
+					if (self.active === 1) {
 						outAnimation();
 					} else {
 						inAnimation();
@@ -127,12 +131,14 @@
 			});
 
 			hotkeys.add({
-				combo:'up',
+				combo: 'up',
 				callback: function() {
 					event.preventDefault();
-					if(self.active - 1 < 1) { return; }
+					if (self.active - 1 < 1) {
+						return;
+					}
 					self.active--;
-					if(self.active === 1) {
+					if (self.active === 1) {
 						outAnimation();
 					} else {
 						inAnimation();
@@ -141,7 +147,7 @@
 			});
 		};
 		keyboardInit();
-		
+
 		(function init() {
 			var featuredPromise = ProductService.getFeatured();
 
@@ -150,12 +156,12 @@
 			featuredPromise.then(function(response) {
 				var featuredArray = response.data.featured;
 
-				for(var i in featuredArray) {
+				for (var i in featuredArray) {
 					//console.log(featuredArray[i].name + ': '+Math.ceil(featuredArray[i].rate/2)/10);
 					self.slides.push({
 						image: featuredArray[i].image_url,
 						text: featuredArray[i].feature_text,
-						rate: (featuredArray[i].rate/2)/10,
+						rate: (featuredArray[i].rate / 2) / 10,
 						name: featuredArray[i].name,
 					});
 				}
@@ -170,12 +176,15 @@
 
 				var promiseFunction = function(pos) {
 					return function(res) {
-						if(res.data.products && res.data.products.length > 0) {
-							self.list.push({ name: list[pos].name, products: res.data.products });
+						if (res.data.products && res.data.products.length > 0) {
+							self.list.push({
+								name: list[pos].name,
+								products: res.data.products
+							});
 						}
 					};
 				};
-				for(var i in list) {
+				for (var i in list) {
 					pos = i;
 					promise = ProductService.getListFromCategoryId(list[i].id);
 					promise.then(promiseFunction(i));

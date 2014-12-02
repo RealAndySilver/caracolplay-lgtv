@@ -10,19 +10,18 @@
 			controller: 'PurchaseViewController',
 			size: 'lg',
 			resolve: {
-				items: function () {
+				items: function() {
 					return [];
 				}
 			}
 		});
 
-		modalInstance.result.then(function (selectedItem) {
+		modalInstance.result.then(function(selectedItem) {
 			$scope.selected = selectedItem;
-		}, function () {
-		});
+		}, function() {});
 	}]);
 
-	app.config(['$stateProvider', function ($stateProvider) {
+	app.config(['$stateProvider', function($stateProvider) {
 		$stateProvider.state('dialog', {
 			url: '/dialog',
 			views: {
@@ -32,7 +31,9 @@
 					template: '<h1>test</h1>'
 				}
 			},
-			data:{ pageTitle: 'Dialog' }
+			data: {
+				pageTitle: 'Dialog'
+			}
 		});
 	}]);
 
@@ -60,14 +61,14 @@
 		self.sectionActive = 0;
 
 		$scope.getSeasonLabel = function() {
-			if(!$scope.selected) {
+			if (!$scope.selected) {
 				return '';
 			}
-			if(!$scope.selected.season_list) {
+			if (!$scope.selected.season_list) {
 				return '';
 			}
 
-			switch($scope.selected.type) {
+			switch ($scope.selected.type) {
 				case 'Noticias':
 					return $scope.selected.season_list[self.seasonSelected].season_name;
 				case 'Telenovelas':
@@ -78,14 +79,14 @@
 		};
 
 		$scope.getSeasonButtonLabel = function() {
-			if(!$scope.selected) {
+			if (!$scope.selected) {
 				return '';
 			}
-			if(!$scope.selected.season_list) {
+			if (!$scope.selected.season_list) {
 				return '';
 			}
 
-			switch($scope.selected.type) {
+			switch ($scope.selected.type) {
 				case 'Noticias':
 					return $scope.selected.season_list[self.seasonSelected].season_name;
 				case 'Telenovelas':
@@ -94,20 +95,20 @@
 					return 'Season ' + (self.seasonSelected + 1);
 			}
 
-			if($scope.selected.type === 'Noticias') {
+			if ($scope.selected.type === 'Noticias') {
 				return $scope.selected.season_list[self.seasonSelected].season_name;
 			}
 			return 'Season ' + (self.seasonSelected + 1);
 		};
 
 		$scope.getChapterName = function() {
-			if(!$scope.selected) {
+			if (!$scope.selected) {
 				return '';
 			}
-			if(!$scope.selected.season_list) {
+			if (!$scope.selected.season_list) {
 				return '';
 			}
-			switch($scope.selected.type) {
+			switch ($scope.selected.type) {
 				case 'Noticias':
 					return self.chapterSelected.episode_name + ' - ' + self.chapterSelected.duration;
 				default:
@@ -121,38 +122,37 @@
 				controller: 'PurchaseViewController',
 				size: size,
 				resolve: {
-					items: function () {
+					items: function() {
 						return $scope.items;
 					}
 				}
 			});
 
-			modalInstance.result.then(function (selectedItem) {
+			modalInstance.result.then(function(selectedItem) {
 				$scope.selected = selectedItem;
-			}, function () {
-			});
+			}, function() {});
 		};
 
 		var setSeasonSelected = function(selected, position) {
-			if(position >= 0) {
-				if(self.seasonsButtons && self.seasonsButtons.length !== 0) {
+			if (position >= 0) {
+				if (self.seasonsButtons && self.seasonsButtons.length !== 0) {
 					self.seasonsButtons[self.seasonSelected].active = false;
 				}
 				self.seasonSelected = position;
-				if(self.seasonsButtons && self.seasonsButtons.length !== 0) {
+				if (self.seasonsButtons && self.seasonsButtons.length !== 0) {
 					self.seasonsButtons[self.seasonSelected].active = true;
 				}
 			}
 
 			self.episodesButtons.length = 0;
 			var episodes = [];
-			if(selected && selected.season_list) {
+			if (selected && selected.season_list) {
 				episodes = selected.season_list[self.seasonSelected].episodes;
 			}
 
-			for(var i in episodes) {
+			for (var i in episodes) {
 				var label = '';
-				if(selected.type === 'Noticias') {
+				if (selected.type === 'Noticias') {
 					label = episodes[i].episode_name;
 				} else {
 					label = episodes[i].episode_number + '. ' + episodes[i].episode_name;
@@ -173,7 +173,7 @@
 
 					event.preventDefault();
 
-					switch(self.sections[self.sectionActive]) {
+					switch (self.sections[self.sectionActive]) {
 						case self.OPTIONS_SECTION:
 							buttons = $scope.options;
 							break;
@@ -181,16 +181,16 @@
 							buttons = self.seasonsButtons;
 							break;
 						case self.EPISODES_SECTION:
-							buttons =  self.episodesButtons;
+							buttons = self.episodesButtons;
 							break;
 					}
 
-					for(var i in buttons) {
-						if(buttons[i].active && buttons[parseInt(i) - 1]) {
+					for (var i in buttons) {
+						if (buttons[i].active && buttons[parseInt(i) - 1]) {
 							buttons[i].active = false;
 							buttons[parseInt(i) - 1].active = true;
 
-							switch(self.sections[self.sectionActive]) {
+							switch (self.sections[self.sectionActive]) {
 								case self.SEASONS_SECTION:
 									setSeasonSelected($scope.selected, parseInt(i) - 1);
 									break;
@@ -214,7 +214,7 @@
 
 					event.preventDefault();
 
-					switch(self.sections[self.sectionActive]) {
+					switch (self.sections[self.sectionActive]) {
 						case self.OPTIONS_SECTION:
 							buttons = $scope.options;
 							break;
@@ -222,16 +222,16 @@
 							buttons = self.seasonsButtons;
 							break;
 						case self.EPISODES_SECTION:
-							buttons =  self.episodesButtons;
+							buttons = self.episodesButtons;
 							break;
 					}
 
-					for(var i in buttons) {
-						if(buttons[i].active && buttons[parseInt(i) + 1]) {
+					for (var i in buttons) {
+						if (buttons[i].active && buttons[parseInt(i) + 1]) {
 							buttons[i].active = false;
 							buttons[parseInt(i) + 1].active = true;
 
-							switch(self.sections[self.sectionActive]) {
+							switch (self.sections[self.sectionActive]) {
 								case self.SEASONS_SECTION:
 									setSeasonSelected($scope.selected, parseInt(i) + 1);
 									break;
@@ -251,13 +251,13 @@
 			hotkeys.add({
 				combo: 'right',
 				callback: function() {
-					if(self.sectionActive + 1 >= self.sections.length) {
+					if (self.sectionActive + 1 >= self.sections.length) {
 						return;
 					}
 
 					self.sectionActive++;
 
-					switch(self.sections[self.sectionActive]) {
+					switch (self.sections[self.sectionActive]) {
 						case self.EPISODES_SECTION:
 							self.episodesButtons[0].active = true;
 							self.episodeSelected = 0;
@@ -274,13 +274,13 @@
 				combo: 'left',
 				callback: function() {
 
-					if(self.sectionActive - 1 < 0) {
+					if (self.sectionActive - 1 < 0) {
 						return;
 					}
 
 					self.sectionActive--;
 
-					switch(self.sections[self.sectionActive]) {
+					switch (self.sections[self.sectionActive]) {
 						case self.SEASONS_SECTION:
 							$('.chapters-season').animate({
 								right: '0',
@@ -300,16 +300,16 @@
 		};
 
 		var selectedWatcherMethod = function(newValue, oldValue) {
-			if(!newValue) {
+			if (!newValue) {
 				return;
 			}
 
 			self.seasonsButtons.length = 0;
 			var seasons = newValue.season_list;
 
-			if(seasons) {
-				if(seasons.length) {
-					if(seasons.length === 1) {
+			if (seasons) {
+				if (seasons.length) {
+					if (seasons.length === 1) {
 						$('.chapters-season').css("right", '25%');
 						self.sections.length = 0;
 						self.sections.push(self.OPTIONS_SECTION);
@@ -323,7 +323,7 @@
 				}
 			}
 
-			if(newValue.type === 'Películas') {
+			if (newValue.type === 'Películas') {
 				self.sections.length = 0;
 				$('.preview-season').addClass('ng-hide');
 				$('.chapters-season').addClass('ng-hide');
@@ -337,9 +337,9 @@
 				$('.series-description').css("right", '70%');
 			}
 
-			for(var i in seasons) {
+			for (var i in seasons) {
 				var label = '';
-				if(newValue.type === 'Noticias') {
+				if (newValue.type === 'Noticias') {
 					label = seasons[i].season_name;
 				} else {
 					label = 'Season ' + (parseInt(i) + 1);
@@ -350,14 +350,14 @@
 				});
 			}
 
-			if(seasons) {
-				if(seasons.length) {
+			if (seasons) {
+				if (seasons.length) {
 					setSeasonSelected(newValue, 0);
 					self.chapterSelected = seasons[self.seasonSelected].episodes[0];
 				}
 			}
 
-			if(newValue.trailer) {
+			if (newValue.trailer) {
 				configHotkeys();
 			}
 		};
@@ -368,7 +368,7 @@
 			$scope.$watch('selected', selectedWatcherMethod);
 		};
 
-		
+
 
 		init();
 	};
@@ -391,8 +391,8 @@
 
 	app.filter('unsafe', function($sce) {
 		return function(val) {
-				return $sce.trustAsHtml(val);
-			};
+			return $sce.trustAsHtml(val);
+		};
 	});
 
 }(angular.module("caracolplaylgtvapp.seriesProduct", [

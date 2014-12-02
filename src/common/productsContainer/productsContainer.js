@@ -6,7 +6,7 @@
 		var active = 0;
 
 		var slider = {},
-				cover = {};
+			cover = {};
 
 		var configHotkeys = function() {
 			hotkeys.add({
@@ -32,19 +32,23 @@
 			$scope.selected = $scope.slides[active];
 			console.log($scope.selected);
 			slider.stop().animate({
-				scrollLeft: active*cover.width()
-      }, 500);
+				scrollLeft: active * cover.width()
+			}, 500);
 		};
 
 		var rightCallback = function() {
-			if(active + 1 > $scope.slides.length - 1) { return; }
+			if (active + 1 > $scope.slides.length - 1) {
+				return;
+			}
 			$scope.slides[active++].active = false;
 			$scope.slides[active].active = true;
 			onChangeActive();
 		};
 
 		var leftCallback = function() {
-			if(active - 1 < 0) { return; }
+			if (active - 1 < 0) {
+				return;
+			}
 			$scope.slides[active--].active = false;
 			$scope.slides[active].active = true;
 			onChangeActive();
@@ -61,18 +65,22 @@
 			$scope.configKeyboard.restart = function() {
 				configHotkeys();
 			};
-			$scope.preview({value: true});
+			$scope.preview({
+				value: true
+			});
 		};
 
 		var escCallback = function() {
 			$scope.configKeyboard.restart = function() {
 				configHotkeys();
 			};
-			$scope.preview({value: false});
+			$scope.preview({
+				value: false
+			});
 		};
 
 		var watchCallback = function(newValue, oldValue) {
-			if(newValue) {
+			if (newValue) {
 				$scope.slides[active].active = true;
 				$scope.selected = $scope.slides[active];
 
@@ -86,7 +94,7 @@
 
 				configHotkeys();
 			} else {
-				if($scope.slides[active]) {
+				if ($scope.slides[active]) {
 					$scope.slides[active].active = false;
 				}
 			}
@@ -105,7 +113,7 @@
 			templateUrl: 'productsContainer/productsContainer.tpl.html',
 			controller: 'ProductsContainerController',
 			controllerAs: 'ProductsContainerCtrl',
-			scope : {
+			scope: {
 				slides: '=',
 				title: '@',
 				active: '=',

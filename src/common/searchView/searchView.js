@@ -16,13 +16,13 @@
 			hotkeys.add({
 				combo: 'up',
 				callback: function(event) {
-					if(self.itemSelected - 1 >= 0) {
+					if (self.itemSelected - 1 >= 0) {
 						self.resultButtons[self.itemSelected--].active = false;
 						self.resultButtons[self.itemSelected].active = true;
 
 						$scope.selected = self.results[self.itemSelected];
 					}
-					
+
 					event.preventDefault();
 				}
 			});
@@ -30,7 +30,7 @@
 			hotkeys.add({
 				combo: 'down',
 				callback: function(event) {
-					if(self.itemSelected + 1 < self.resultButtons.length) {
+					if (self.itemSelected + 1 < self.resultButtons.length) {
 						self.resultButtons[self.itemSelected++].active = false;
 						self.resultButtons[self.itemSelected].active = true;
 
@@ -46,7 +46,7 @@
 			configHotkeys();
 
 			$scope.$watch('keyword', function(newValue, oldValue) {
-				if(newValue === undefined || newValue === '') {
+				if (newValue === undefined || newValue === '') {
 					return;
 				}
 				var searchPremise = ProductService.getListFromSearchWithKey(newValue);
@@ -58,7 +58,7 @@
 
 					self.resultButtons = [];
 
-					for(var i in self.results) {
+					for (var i in self.results) {
 						var label = self.results[i].name;
 						self.resultButtons.push({
 							label: label,
@@ -66,7 +66,7 @@
 						});
 					}
 
-					if(self.results.length !== 0) {
+					if (self.results.length !== 0) {
 						self.itemSelected = 0;
 						self.resultButtons[self.itemSelected].active = true;
 						$scope.selected = self.results[0];
@@ -74,7 +74,7 @@
 					} else {
 						self.isItemSelected = false;
 					}
-					
+
 				});
 			});
 		};

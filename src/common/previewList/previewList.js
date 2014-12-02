@@ -1,8 +1,7 @@
 (function(app) {
 	var PreviewListController = function($scope) {
 
-		var init = function() {
-		};
+		var init = function() {};
 
 		init();
 	};
