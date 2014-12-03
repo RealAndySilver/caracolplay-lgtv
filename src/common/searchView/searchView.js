@@ -2,47 +2,47 @@
 	var SearchViewController = function($scope, ProductService, hotkeys) {
 		var self = this;
 
-		$scope.getTitle = function() {
-			return $scope.keyword + ' - ' + self.results.length + ' results found';
-		};
-
-		self.results = [];
-		self.resultButtons = [];
-
-		self.isItemSelected = false;
-		self.itemSelected = 0;
-
-		var configHotkeys = function() {
-			hotkeys.add({
-				combo: 'up',
-				callback: function(event) {
-					if (self.itemSelected - 1 >= 0) {
-						self.resultButtons[self.itemSelected--].active = false;
-						self.resultButtons[self.itemSelected].active = true;
-
-						$scope.selected = self.results[self.itemSelected];
-					}
-
-					event.preventDefault();
-				}
-			});
-
-			hotkeys.add({
-				combo: 'down',
-				callback: function(event) {
-					if (self.itemSelected + 1 < self.resultButtons.length) {
-						self.resultButtons[self.itemSelected++].active = false;
-						self.resultButtons[self.itemSelected].active = true;
-
-						$scope.selected = self.results[self.itemSelected];
-					}
-
-					event.preventDefault();
-				}
-			});
-		};
-
 		var init = function() {
+			$scope.getTitle = function() {
+				return $scope.keyword + ' - ' + self.results.length + ' results found';
+			};
+
+			self.results = [];
+			self.resultButtons = [];
+
+			self.isItemSelected = false;
+			self.itemSelected = 0;
+
+			var configHotkeys = function() {
+				hotkeys.add({
+					combo: 'up',
+					callback: function(event) {
+						if (self.itemSelected - 1 >= 0) {
+							self.resultButtons[self.itemSelected--].active = false;
+							self.resultButtons[self.itemSelected].active = true;
+
+							$scope.selected = self.results[self.itemSelected];
+						}
+
+						event.preventDefault();
+					}
+				});
+
+				hotkeys.add({
+					combo: 'down',
+					callback: function(event) {
+						if (self.itemSelected + 1 < self.resultButtons.length) {
+							self.resultButtons[self.itemSelected++].active = false;
+							self.resultButtons[self.itemSelected].active = true;
+
+							$scope.selected = self.results[self.itemSelected];
+						}
+
+						event.preventDefault();
+					}
+				});
+			};
+
 			configHotkeys();
 
 			$scope.$watch('keyword', function(newValue, oldValue) {

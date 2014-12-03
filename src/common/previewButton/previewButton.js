@@ -4,33 +4,33 @@
 
 		self.element = {};
 
-		$scope.setElement = function(element) {
-			self.element = element;
-			if ($scope.active) {
-				self.element.addClass('button-active');
-				self.element.removeClass('button-deactive');
-			} else {
-				self.element.addClass('button-deactive');
-				self.element.removeClass('button-active');
-			}
-		};
-
-		var activeWatcherFunction = function(newValue, oldValue) {
-			if (newValue) {
-				var div = '#button' + $scope.id + 0;
-
-				$('.chapters-season').stop().animate({
-					scrollTop: ($(div).height() + 14) * $scope.index
-				});
-				self.element.addClass('button-active');
-				self.element.removeClass('button-deactive');
-			} else {
-				self.element.addClass('button-deactive');
-				self.element.removeClass('button-active');
-			}
-		};
-
 		var init = function() {
+			$scope.setElement = function(element) {
+				self.element = element;
+				if ($scope.active) {
+					self.element.addClass('button-active');
+					self.element.removeClass('button-deactive');
+				} else {
+					self.element.addClass('button-deactive');
+					self.element.removeClass('button-active');
+				}
+			};
+
+			var activeWatcherFunction = function(newValue, oldValue) {
+				if (newValue) {
+					var div = '#button' + $scope.id + 0;
+
+					$('.chapters-season').stop().animate({
+						scrollTop: ($(div).height() + 14) * $scope.index
+					});
+					self.element.addClass('button-active');
+					self.element.removeClass('button-deactive');
+				} else {
+					self.element.addClass('button-deactive');
+					self.element.removeClass('button-active');
+				}
+			};
+
 			$scope.$watch('active', activeWatcherFunction);
 		};
 
