@@ -56,7 +56,7 @@
 			};
 
 			var enterCallback = function() {
-				console.log($scope.slides[active]);
+				//console.log($scope.slides[active]);
 
 				if ($scope.slides[active]['progress_sec'] !== undefined) {
 					alert("show video");
@@ -65,7 +65,7 @@
 				var productPremise = ProductService.getProductWithID($scope.slides[active].id, '');
 
 				productPremise.then(function(res) {
-					console.log(res.data);
+					//console.log(res.data);
 
 					$scope.selected = res.data.products['0'][0];
 				});
@@ -91,7 +91,7 @@
 					$scope.slides[active].active = true;
 					$scope.selected = $scope.slides[active];
 
-					console.log('#' + $scope.title.replace(/ /g, '') + 'Slider');
+					//console.log('#' + $scope.title.replace(/ /g, '') + 'Slider');
 					slider = $('#' + $scope.title.replace(/ /g, '') + 'Slider');
 					cover = $('.cover');
 

@@ -22,15 +22,15 @@
 
 	app.controller('AppController', ['$scope', AppController]);
 	app.value('UserInfo', {
-		name: 'daniel',
-		lastname: 'iam',
-		alias: 'iAmTest',
-		mail: 'daniel.daza@iam.co',
-		password: 'iam123',
-		session: '142649',
-		uid: '142649',
-		isSubscription: true,
-		timeEnds: '2015-12-09',
+		name: '',
+		lastname: '',
+		alias: '',
+		mail: '',
+		password: '',
+		session: '',
+		uid: '',
+		isSubscription: false,
+		timeEnds: '',
 	});
 
 	app.filter('nospace', function() {

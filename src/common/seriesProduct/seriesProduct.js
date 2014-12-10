@@ -43,7 +43,7 @@
 	 * End code to Provicional with no internet conection
 	 */
 
-	var SeriesProductController = function($scope, hotkeys, $modal) {
+	var SeriesProductController = function($scope, hotkeys, $modal, UserService, UserInfo) {
 		var self = this;
 
 		var init = function() {
@@ -119,23 +119,41 @@
 				}
 			};
 
-			$scope.open = function(size) {
-				var modalInstance = $modal.open({
-					templateUrl: 'purchaseView/purchaseView.tpl.html',
-					controller: 'PurchaseViewController',
-					size: size,
-					resolve: {
-						items: function() {
-							return $scope.items;
-						}
-					}
-				});
+			$scope.getChapterId = function() {
+				if (self.chapterSelected) {
+					return self.chapterSelected.id;
+				} else if (self.episodeSelected) {
+					return self.episodeSelected.id;
+				}
+				return 2048;
+			};
 
-				modalInstance.result.then(function(selectedItem) {
-					$scope.selected = selectedItem;
-					configHotkeys();
-				}, function() {
-					configHotkeys();
+			$scope.open = function(size) {
+				var promiseIsContentAvaliable = UserService.isContentAvailableForUser($scope.getChapterId());
+
+				promiseIsContentAvaliable.then(function(response) {
+
+					if (response.data.status) {
+						alert('Show video');
+					} else {
+						var modalInstance = $modal.open({
+							templateUrl: 'purchaseView/purchaseView.tpl.html',
+							controller: 'PurchaseViewController',
+							size: size,
+							resolve: {
+								items: function() {
+									return $scope.items;
+								}
+							}
+						});
+
+						modalInstance.result.then(function(selectedItem) {
+							$scope.selected = selectedItem;
+							configHotkeys();
+						}, function() {
+							configHotkeys();
+						});
+					}
 				});
 			};
 
@@ -391,7 +409,7 @@
 		};
 	};
 
-	app.controller('SeriesProductController', ['$scope', 'hotkeys', '$modal', SeriesProductController]);
+	app.controller('SeriesProductController', ['$scope', 'hotkeys', '$modal', 'UserService', 'UserInfo', SeriesProductController]);
 	app.directive('seriesProduct', SeriesProductDirective);
 
 	app.filter('unsafe', function($sce) {

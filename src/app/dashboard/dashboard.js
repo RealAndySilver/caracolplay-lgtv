@@ -115,12 +115,9 @@
 		};
 
 		self.activePreview = function(value) {
-			console.log(value);
 			self.isPreviewActive = value;
 			if (!value) {
 				keyboardInit();
-				console.log(self.list);
-				//init();
 
 				self.getUserRecentlyWatched();
 
@@ -153,9 +150,6 @@
 				combo: 'down',
 				callback: function(event) {
 					event.preventDefault();
-					console.log('active: ' + self.active);
-					console.log('slices length: ' + self.slides.length);
-					console.log('list length: ' + self.list.length);
 					if (self.active + 1 > self.list.length + 1) {
 						return;
 					}
@@ -228,7 +222,7 @@
 				};
 				for (var i in list) {
 					pos = i;
-					console.log(list[i].id + ": " + i);
+					//console.log(list[i].id + ": " + i);
 					if (list[i].id === '1') {
 						self.getUserRecentlyWatched();
 					} else {

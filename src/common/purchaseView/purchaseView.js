@@ -477,7 +477,7 @@
 
 				console.log(resObj);
 
-				if(resObj.status) {
+				if (resObj.status) {
 					UserInfo.name = resObj.user.data.nombres;
 					UserInfo.lastname = resObj.user.data.apellidos;
 					UserInfo.alias = resObj.user.data.alias;
@@ -491,8 +491,8 @@
 					console.log(UserInfo);
 
 					/**
-						* DEVELOPER NOTES: ADD CODE TO SHOW VIDEO
-						*/	
+					 * DEVELOPER NOTES: ADD CODE TO SHOW VIDEO
+					 */
 					alert('Show Video');
 					$modalInstance.dismiss('cancel');
 				} else {
@@ -523,7 +523,12 @@
 			$scope.$watch('showOptions', function(newValue, oldValue) {
 				if (newValue) {
 					configHotkeys();
-					$scope.options = $scope.noLoggedOptions;
+					if (UserInfo.alias !== '' && UserInfo.password !== '' && UserInfo.session !== '' && !UserInfo.isSubscription) {
+						$scope.options = $scope.loggedOptions;
+					} else {
+						$scope.options = $scope.noLoggedOptions;
+					}
+
 					if (itemSelected < $scope.options.length) {
 						$scope.options[itemSelected].active = false;
 					}
@@ -573,11 +578,19 @@
 			active: false
 		}];
 
-		console.log('video watched');
-		UserService.videoWatched(2059, 1000).then(function(response) {
-			console.log('video watched');
-			console.log(response.data);
-		});
+		$scope.loggedOptions = [{
+			'title': 'Suscribirse a CaracolPlay',
+			'image': 'assets/img/subscribe-logo.png',
+			active: false
+		}, {
+			'title': 'Alquilar este contenido',
+			'image': 'assets/img/rent-logo.png',
+			active: false
+		}, {
+			'title': 'Redimir codigo',
+			'image': 'assets/img/redeem-logo.png',
+			active: false
+		}];
 
 	};
 

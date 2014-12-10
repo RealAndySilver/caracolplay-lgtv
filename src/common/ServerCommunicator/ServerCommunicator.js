@@ -14,7 +14,7 @@
 		var token = btoa(unescape(encodeURIComponent(utc + encodeKey)));
 
 		var encodeStr = user + ':' + password + (session === '' ? '' : ':' + session);
-		console.log('auth: ' + encodeStr);
+		//console.log('auth: ' + encodeStr);
 
 		var headers = {
 			//'Content-Type': 'application/json',
@@ -23,7 +23,7 @@
 			token: token,
 		};
 
-		console.log(headers);
+		//console.log(headers);
 		return headers;
 	};
 
@@ -83,6 +83,14 @@
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'GET',
 				url: module.END_POINT + 'VideoWatched/' + productId + '/' + time,
+			});
+		};
+
+		self.isContentAvailableForUser = function(episodeId) {
+			return $http({
+				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+				method: 'GET',
+				url: module.END_POINT + 'IsContentAvailableForUser/' + episodeId,
 			});
 		};
 
