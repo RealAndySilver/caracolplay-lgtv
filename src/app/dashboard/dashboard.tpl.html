@@ -22,6 +22,6 @@
 	<carousel-container id="Cover" href="#Cover" slides="dashCtrl.slides" title="Cover" active="dashCtrl.isKeyboardActive(1)" preview="dashCtrl.activePreview(value)" restart-keyboard="restartConfigKeyboard"></carousel-container>
 
 	<div ng-repeat="item in dashCtrl.list" ng-show="item.products.length !== 0">
-		<products-container id="{{item.name}}" href="{{'#' + item.name}}" slides="item.products" title="{{item.name}}" active="dashCtrl.isKeyboardActive($index + 2)" preview="dashCtrl.activePreview(value)" item-selected="dashCtrl.selectedItem" restart-keyboard="restartConfigKeyboard"></products-container>
+		<products-container id="{{item.name | nospace}}" href="{{'#' + item.name | nospace}}" slides="item.products" title="{{item.name}}" active="dashCtrl.isKeyboardActive($index + 2)" preview="dashCtrl.activePreview(value)" item-selected="dashCtrl.selectedItem" restart-keyboard="restartConfigKeyboard"></products-container>
 	</div>
 </div>

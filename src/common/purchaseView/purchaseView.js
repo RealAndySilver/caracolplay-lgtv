@@ -1,5 +1,5 @@
 (function(app) {
-	var PurchaseViewController = function($scope, hotkeys, UserService, PurchaseService) {
+	var PurchaseViewController = function($scope, hotkeys, UserService, PurchaseService, UserInfo, $modalInstance) {
 		var itemSelected = 0;
 
 		var self = this;
@@ -411,6 +411,7 @@
 					var validatePromise = UserService.validateUser($scope.subscription.email, $scope.subscription.user, $scope.subscription.password);
 
 					validatePromise.then(function(response) {
+						console.log(response);
 						console.log(response.data);
 
 						/*
@@ -476,8 +477,24 @@
 
 				console.log(resObj);
 
-				if (resObj.status) {
+				if(resObj.status) {
+					UserInfo.name = resObj.user.data.nombres;
+					UserInfo.lastname = resObj.user.data.apellidos;
+					UserInfo.alias = resObj.user.data.alias;
+					UserInfo.mail = resObj.user.data.mail;
+					UserInfo.password = $scope.loginData.password;
+					UserInfo.session = resObj.session;
+					UserInfo.uid = resObj.uid;
+					UserInfo.isSubscription = resObj.user.is_suscription;
+					UserInfo.timeEnds = resObj.user.time_ends;
 
+					console.log(UserInfo);
+
+					/**
+						* DEVELOPER NOTES: ADD CODE TO SHOW VIDEO
+						*/	
+					alert('Show Video');
+					$modalInstance.dismiss('cancel');
 				} else {
 					alert(resObj.response);
 				}
@@ -556,9 +573,15 @@
 			active: false
 		}];
 
+		console.log('video watched');
+		UserService.videoWatched(2059, 1000).then(function(response) {
+			console.log('video watched');
+			console.log(response.data);
+		});
+
 	};
 
-	app.controller('PurchaseViewController', ['$scope', 'hotkeys', 'UserService', 'PurchaseService', PurchaseViewController]);
+	app.controller('PurchaseViewController', ['$scope', 'hotkeys', 'UserService', 'PurchaseService', 'UserInfo', '$modalInstance', PurchaseViewController]);
 
 }(angular.module("caracolplaylgtvapp.purchaseView", [
 	'ui.router'

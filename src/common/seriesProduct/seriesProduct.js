@@ -18,7 +18,9 @@
 
 		modalInstance.result.then(function(selectedItem) {
 			$scope.selected = selectedItem;
-		}, function() {});
+		}, function() {
+
+		});
 	}]);
 
 	app.config(['$stateProvider', function($stateProvider) {
@@ -131,7 +133,10 @@
 
 				modalInstance.result.then(function(selectedItem) {
 					$scope.selected = selectedItem;
-				}, function() {});
+					configHotkeys();
+				}, function() {
+					configHotkeys();
+				});
 			};
 
 			var setSeasonSelected = function(selected, position) {

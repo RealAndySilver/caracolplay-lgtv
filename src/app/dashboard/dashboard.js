@@ -16,7 +16,7 @@
 		});
 	}]);
 
-	var DashboardController = function($scope, ProductService, hotkeys) {
+	var DashboardController = function($scope, ProductService, UserInfo, hotkeys) {
 		var self = this;
 		var keyboardInit = {};
 
@@ -31,6 +31,15 @@
 		self.isInSearch = false;
 
 		self.beforeSearchIsPreviewActive = false;
+
+		$scope.mkmejd = UserInfo;
+
+		/*
+				$scope.$watch('mkmejd', function(newValue, oldValue) {
+					if(newValue === oldValue) {return;}
+					init();
+				});
+		*/
 
 		$scope.$watch('keywordToSearch', function(newValue, oldValue) {
 			console.log(newValue);
@@ -84,11 +93,37 @@
 			return self.isShowInfo;
 		};
 
+		self.getUserRecentlyWatched = function() {
+			var promiseRecentWatched = ProductService.getUserRecentlyWatched();
+			promiseRecentWatched.then(function(response) {
+				if(response.data.length === 0) {
+					return;
+				}
+
+				for (var list in self.list) {
+					if (list.name === 'Ultimos vistos') {
+						list.products = response.data;
+						return;
+					}
+				}
+
+				self.list.push({
+					name: 'Ultimos vistos',
+					products: response.data
+				});
+			});
+		};
+
 		self.activePreview = function(value) {
 			console.log(value);
 			self.isPreviewActive = value;
 			if (!value) {
 				keyboardInit();
+				console.log(self.list);
+				//init();
+
+				self.getUserRecentlyWatched();
+
 				if ($scope.restartConfigKeyboard.restart) {
 					$scope.restartConfigKeyboard.restart();
 				}
@@ -118,7 +153,10 @@
 				combo: 'down',
 				callback: function(event) {
 					event.preventDefault();
-					if (self.active + 1 >= self.slides.length - 2) {
+					console.log('active: ' + self.active);
+					console.log('slices length: ' + self.slides.length);
+					console.log('list length: ' + self.list.length);
+					if (self.active + 1 > self.list.length + 1) {
 						return;
 					}
 					self.active++;
@@ -148,10 +186,12 @@
 		};
 		keyboardInit();
 
-		(function init() {
+		var init = function() {
 			var featuredPromise = ProductService.getFeatured();
-
 			var categoriesPromise = ProductService.getCategories();
+
+			self.slides.length = 0;
+			self.list.length = 0;
 
 			featuredPromise.then(function(response) {
 				var featuredArray = response.data.featured;
@@ -172,10 +212,12 @@
 				var promise = {};
 				var pos = 0;
 
-				console.log(list);
+				//console.log(JSON.stringify(response.data));
 
 				var promiseFunction = function(pos) {
 					return function(res) {
+						//console.log('pos: ' + pos);
+						//console.log(res.data);
 						if (res.data.products && res.data.products.length > 0) {
 							self.list.push({
 								name: list[pos].name,
@@ -186,15 +228,22 @@
 				};
 				for (var i in list) {
 					pos = i;
-					promise = ProductService.getListFromCategoryId(list[i].id);
-					promise.then(promiseFunction(i));
+					console.log(list[i].id + ": " + i);
+					if (list[i].id === '1') {
+						self.getUserRecentlyWatched();
+					} else {
+						promise = ProductService.getListFromCategoryId(list[i].id);
+						promise.then(promiseFunction(i));
+					}
 				}
 			});
 
-		})();
+		};
+
+		init();
 	};
 
-	app.controller('DashboardController', ['$scope', 'ProductService', 'hotkeys', DashboardController]);
+	app.controller('DashboardController', ['$scope', 'ProductService', 'UserInfo', 'hotkeys', DashboardController]);
 
 }(angular.module("caracolplaylgtvapp.dashboard", [
 	'ui.router',

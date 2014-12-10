@@ -85,10 +85,11 @@
 					$scope.slides[active].active = true;
 					$scope.selected = $scope.slides[active];
 
-					slider = $('#' + $scope.title + 'Slider');
+					console.log('#' + $scope.title.replace(/ /g, '') + 'Slider');
+					slider = $('#' + $scope.title.replace(/ /g, '') + 'Slider');
 					cover = $('.cover');
 
-					var div = $('#' + $scope.title).attr('href');
+					var div = $('#' + $scope.title.replace(/ /g, '')).attr('href');
 					$('html, body').stop().animate({
 						scrollTop: $(div).offset().top - 134
 					}, 500);
@@ -123,6 +124,18 @@
 			}
 		};
 	};
+
+	app.directive('errSrc', function() {
+		return {
+			link: function(scope, element, attrs) {
+				element.bind('error', function() {
+					if (attrs.src != attrs.errSrc) {
+						attrs.$set('src', attrs.errSrc);
+					}
+				});
+			}
+		};
+	});
 
 	app.controller('ProductsContainerController', ['$scope', 'hotkeys', 'ProductService', ProductsContainerController]);
 	app.directive('productsContainer', ProductsContainer);

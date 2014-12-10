@@ -21,13 +21,22 @@
 	};
 
 	app.controller('AppController', ['$scope', AppController]);
-	app.constant('UserInfo', {
-		name: '',
-		lastname: '',
-		alias: '',
-		mail: '',
-		password: '',
-		session: 0,
+	app.value('UserInfo', {
+		name: 'daniel',
+		lastname: 'iam',
+		alias: 'iAmTest',
+		mail: 'daniel.daza@iam.co',
+		password: 'iam123',
+		session: '142649',
+		uid: '142649',
+		isSubscription: true,
+		timeEnds: '2015-12-09',
+	});
+
+	app.filter('nospace', function() {
+		return function(value) {
+			return (!value) ? '' : value.replace(/ /g, '');
+		};
 	});
 
 }(angular.module("caracolplaylgtvapp", [
