@@ -144,7 +144,8 @@
 
 		$scope.login = {
 			title: 'Ingresar a la cuenta',
-			description: 'Ingresa los datos si ya tienes un nombre de usuario y una contraseña en CaracolPlay o en nuestra red de portales',
+			description: 'Ingresa los datos si ya tienes un nombre de usuario y una contraseña ' +
+				'en CaracolPlay o en nuestra red de portales',
 			support: 'Si tienes problemas para ver este contenido contáctanos a soporte@caracolplay.com',
 		};
 
@@ -260,7 +261,7 @@
 					if (response.data.info_code) {
 						if (response.data.info_code.type) {
 							if (response.data.info_code.type === 'ev') {
-								alert('Developer notes: put source code to play video');
+								alert('Show video');
 							}
 						} else {
 							$scope.showOptions = true;
@@ -402,27 +403,17 @@
 		$scope.onNext = function() {
 			switch ($scope.subscribeStep) {
 				case 0:
-					console.log($scope.subscription);
-
 					if (!$scope.validateStepOne()) {
 						break;
 					}
 
-					var validatePromise = UserService.validateUser($scope.subscription.email, $scope.subscription.user, $scope.subscription.password);
+					var validatePromise = UserService.validateUser(
+						$scope.subscription.email,
+						$scope.subscription.user,
+						$scope.subscription.password);
 
 					validatePromise.then(function(response) {
-						console.log(response);
-						console.log(response.data);
-
-						/*
-						 * start Dev testing
-						 */
-						response.data.status = true;
-						/*
-						 * end Dev testing
-						 */
-
-						if (response.data.status) {
+						if (response.data.response) {
 							$scope.subscribeStep++;
 						} else {
 							alert(response.data.error);
@@ -560,6 +551,21 @@
 
 		init();
 
+		/*
+				var createUserPromise = PurchaseService.createUser(
+					'user_ws_iam_6',
+					'123',
+					'Dp1yTwumd6LY6@iam.com',
+					true,
+					true,
+					true
+				);
+
+				createUserPromise.then(function(response) {
+					console.log(response.data);
+				});
+		*/
+
 		$scope.noLoggedOptions = [{
 			'title': 'Ingresar como usuario',
 			'image': 'assets/img/login-logo.png',
@@ -594,7 +600,15 @@
 
 	};
 
-	app.controller('PurchaseViewController', ['$scope', 'hotkeys', 'UserService', 'PurchaseService', 'UserInfo', '$modalInstance', PurchaseViewController]);
+	app.controller('PurchaseViewController', [
+		'$scope',
+		'hotkeys',
+		'UserService',
+		'PurchaseService',
+		'UserInfo',
+		'$modalInstance',
+		PurchaseViewController
+	]);
 
 }(angular.module("caracolplaylgtvapp.purchaseView", [
 	'ui.router'

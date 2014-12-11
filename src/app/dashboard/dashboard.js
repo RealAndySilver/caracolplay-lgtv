@@ -191,7 +191,6 @@
 				var featuredArray = response.data.featured;
 
 				for (var i in featuredArray) {
-					//console.log(featuredArray[i].name + ': '+Math.ceil(featuredArray[i].rate/2)/10);
 					self.slides.push({
 						image: featuredArray[i].image_url,
 						text: featuredArray[i].feature_text,
@@ -206,12 +205,8 @@
 				var promise = {};
 				var pos = 0;
 
-				//console.log(JSON.stringify(response.data));
-
 				var promiseFunction = function(pos) {
 					return function(res) {
-						//console.log('pos: ' + pos);
-						//console.log(res.data);
 						if (res.data.products && res.data.products.length > 0) {
 							self.list.push({
 								name: list[pos].name,
@@ -222,7 +217,6 @@
 				};
 				for (var i in list) {
 					pos = i;
-					//console.log(list[i].id + ": " + i);
 					if (list[i].id === '1') {
 						self.getUserRecentlyWatched();
 					} else {
@@ -233,7 +227,6 @@
 			});
 
 		};
-
 		init();
 	};
 

@@ -1,29 +1,58 @@
 (function(app) {
 
 	var module = this;
+	var ssl = {};
 
 	module.END_POINT = 'http://appsbetadev.caracolplay.com/';
-	module.TEST_END_POINT = 'http://192.168.1.123:1414/';
+	module.TEST_END_POINT = 'http://192.168.1.127:1414/';
 
-	module.encode = function(user, password, session) {
-		var time = new Date();
-		var encodeKey = 'aREwKMVVmjA81aea0mVNFh';
+	ssl.END_POINT = 'http://operacionesplay.icck.net/api/';
+	ssl.user = 'icck';
+	ssl.password = 'K1qf(w#:';
 
-		var utc = /*1417716661130/*/time.getTime()/**/;
-		var auth = btoa(unescape(encodeURIComponent(btoa(unescape(encodeURIComponent(user + ':' + password + (session === '' ? '' : ':' + session)))))));
-		var token = btoa(unescape(encodeURIComponent(utc + encodeKey)));
+	module.jsonTransform = function(obj) {
+		var str = [];
+		for (var p in obj) {
+			str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+		}
+		return str.join("&");
+	};
 
-		var encodeStr = user + ':' + password + (session === '' ? '' : ':' + session);
-		//console.log('auth: ' + encodeStr);
+	module.encode = function(param1, param2, param3) {
+		var headers = {};
 
-		var headers = {
-			//'Content-Type': 'application/json',
-			auth: auth,
-			TS70: '' + utc,
-			token: token,
-		};
+		var sslHeaders = false;
+		var user = '',
+			password = '',
+			session = '';
 
-		//console.log(headers);
+		if (typeof param1 === 'boolean') {
+			sslHeaders = param1;
+
+		} else {
+			user = param1;
+			password = param2;
+			session = param3;
+		}
+
+		if (sslHeaders) {
+			var sslAuth = btoa(unescape(encodeURIComponent(ssl.user + ':' + ssl.password)));
+			headers.Authorization = 'Basic ' + sslAuth;
+		} else {
+			var time = new Date();
+			var encodeKey = 'aREwKMVVmjA81aea0mVNFh';
+
+			var utc = time.getTime();
+			var auth = btoa(unescape(encodeURIComponent(btoa(unescape(encodeURIComponent(user + ':' + password + (session === '' ? '' : ':' + session)))))));
+			var token = btoa(unescape(encodeURIComponent(utc + encodeKey)));
+
+			var encodeStr = user + ':' + password + (session === '' ? '' : ':' + session);
+
+			headers.auth = auth;
+			headers.TS70 = '' + utc;
+			headers.token = token;
+		}
+
 		return headers;
 	};
 
@@ -31,12 +60,12 @@
 		var self = this;
 
 		self.getFeatured = function() {
-			return $http.get(module.END_POINT + 'GetFeatured');
+			return $http.get(module.END_POINT + 'GetFeatured?provider=aim');
 			//return $http.get('assets/dummy/featured.json');
 		};
 
 		self.getCategories = function() {
-			return $http.get(module.END_POINT + 'GetCategories');
+			return $http.get(module.END_POINT + 'GetCategories?provider=aim');
 			//return $http.get('assets/dummy/categories.json');
 		};
 
@@ -46,20 +75,21 @@
 				filter = 1;
 			}
 
-			return $http.get(module.END_POINT + 'GetListFromCategoryId/' + id + '/' + filter);
+			return $http.get(module.END_POINT + 'GetListFromCategoryId/' + id + '/' + filter + '?provider=aim');
 			//return $http.get('assets/dummy/telenovelas.json');
 		};
 
 		self.getUserRecentlyWatched = function() {
 			return $http({
+				crossDomain: true,
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'GET',
-				url: module.END_POINT + 'GetUserRecentlyWatched',
+				url: module.END_POINT + 'GetUserRecentlyWatched?provider=aim',
 			});
 		};
 
 		self.getListFromSearchWithKey = function(keyword) {
-			return $http.get(module.END_POINT + 'GetListFromSearchWithKey/' + keyword);
+			return $http.get(module.END_POINT + 'GetListFromSearchWithKey/' + keyword + '?provider=aim');
 		};
 
 		self.getProductWithID = function(id, uid) {
@@ -68,9 +98,10 @@
 			}
 
 			return $http({
+				crossDomain: true,
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'GET',
-				url: module.END_POINT + 'GetProductWithID/' + id + '/' + uid,
+				url: module.END_POINT + 'GetProductWithID/' + id + '/' + uid + '?provider=aim',
 			});
 		};
 	};
@@ -80,54 +111,48 @@
 
 		self.videoWatched = function(productId, time) {
 			return $http({
+				crossDomain: true,
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'GET',
-				url: module.END_POINT + 'VideoWatched/' + productId + '/' + time,
+				url: module.END_POINT + 'VideoWatched/' + productId + '/' + time + '?provider=aim',
 			});
 		};
 
 		self.isContentAvailableForUser = function(episodeId) {
 			return $http({
+				crossDomain: true,
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'GET',
-				url: module.END_POINT + 'IsContentAvailableForUser/' + episodeId,
+				url: module.END_POINT + 'IsContentAvailableForUser/' + episodeId + '?provider=aim',
 			});
 		};
 
 		self.authenticateUser = function(username, password) {
 			return $http({
+				crossDomain: true,
 				headers: module.encode(username, password, ''),
 				method: 'GET',
-				url: module.END_POINT + 'AuthenticateUser',
+				url: module.END_POINT + 'AuthenticateUser?provider=aim',
 			});
 		};
 
 		self.validateUser = function(mail, alias, password) {
 			var json = {
-				'name': 'dazuku',
-				'lastname': 'dazuku',
-				'genero': 'Masculino',
-				'fecha_de_nacimiento': 1417582800,
-				'email': 'dazuku@dazuku.co',
-				'alias': 'dazuku',
-				'password': 'dazuku',
-				//email: mail,
-				//alias: alias,
-				//password: password,
+				email: mail,
+				alias: alias,
+				password: password,
 			};
-			console.log(JSON.stringify(json));
 			var encodedJson = btoa(unescape(encodeURIComponent(JSON.stringify(json).trim()))).trim();
-			console.log(encodedJson);
-
-			encodedJson = 'eyJuYW1lIjoiZGF6dWt1IiwibGFzdG5hbWUiOiJkYXp1a3UiLCJnZW5lcm8iOiJNYXNjdWxpbm8iLCJmZWNoYV9kZV9uYWNpbWllbnRvIjoxNDE3NTgyODAwLCJlbWFpbCI6ImRhenVrdUBkYXp1a3UuY28iLCJhbGlhcyI6ImRhenVrdSIsInBhc3N3b3JkIjoiZGF6dWt1In0=';
-
-			$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 
 			return $http({
-				headers: module.encode('', '', ''),
+				//crossDomain: true,
+				headers: {
+					'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+				},
 				method: 'POST',
+				transformRequest: module.jsonTransform,
 				data: {
-					'user_info': encodedJson
+					user_info: encodedJson
 				},
 				url: module.END_POINT + "ValidateUser"
 			});
@@ -137,8 +162,25 @@
 	var PurchaseService = function($http, UserInfo) {
 		var self = this;
 
+		self.createUser = function(name, password, mail, privacyPolicity, termsAndConditions, bussinessInfo) {
+			return $http({
+				headers: encode(true),
+				method: 'POST',
+				url: ssl.END_POINT + 'common/commerce/user.json',
+				data: JSON.stringify({
+					'name': name,
+					'pass': password,
+					'mail': mail,
+					'privacy_policy': privacyPolicity ? 1 : 0,
+					'terms_and_conditions': termsAndConditions ? 1 : 0,
+					'business_inf': bussinessInfo ? 1 : 0,
+				})
+			});
+		};
+
 		self.getProduct = function(id, type, action) {
 			return $http({
+				crossDomain: true,
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'POST',
 				data: {
@@ -146,24 +188,26 @@
 					'Type': type,
 					'Action': action,
 				},
-				url: module.END_POINT + 'Get_Product',
+				url: module.END_POINT + 'Get_Product?provider=aim',
 			});
 		};
 
 		self.createOrder = function(productId, userId) {
 			return $http({
+				crossDomain: true,
 				method: 'POST',
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				data: {
 					'Id_Producto': productId,
 					'Id_user': userId,
 				},
-				url: module.END_POINT + 'Create_Order',
+				url: module.END_POINT + 'Create_Order?provider=aim',
 			});
 		};
 
 		self.payment = function(orderId, userId, tokenCard, expirationDate, cvv, recurrence) {
 			return $http({
+				crossDomain: true,
 				method: 'POST',
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				data: {
@@ -174,19 +218,21 @@
 					'CVV': cvv,
 					'Recurrencia': recurrence,
 				},
-				url: module.END_POINT + 'Payment',
+				url: module.END_POINT + 'Payment?provider=aim',
 			});
 		};
 
 		self.validateCode = function(code) {
 			return $http({
+				crossDomain: true,
 				method: 'GET',
-				url: module.END_POINT + 'ValidateCode/' + code,
+				url: module.END_POINT + 'ValidateCode/' + code + '?provider=aim',
 			});
 		};
 
 		self.test = function() {
 			return $http({
+				crossDomain: true,
 				method: 'POST',
 				headers: module.encode('', '', ''),
 				url: module.TEST_END_POINT + 'dazuku',
