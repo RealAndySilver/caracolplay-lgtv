@@ -4,7 +4,7 @@
 	var ssl = {};
 
 	module.END_POINT = 'http://appsbetadev.caracolplay.com/';
-	module.TEST_END_POINT = 'http://192.168.1.127:1414/';
+	module.TEST_END_POINT = 'http://192.168.1.129:1414/';
 
 	ssl.END_POINT = 'http://operacionesplay.icck.net/api/';
 	ssl.user = 'icck';
@@ -22,6 +22,7 @@
 		var headers = {};
 
 		var sslHeaders = false;
+		var isWithToken = false, sslToken = '';
 		var user = '',
 			password = '',
 			session = '';
@@ -29,6 +30,10 @@
 		if (typeof param1 === 'boolean') {
 			sslHeaders = param1;
 
+			if(param2) {
+				isWithToken = true;
+				sslToken = param2;
+			}
 		} else {
 			user = param1;
 			password = param2;
@@ -38,6 +43,11 @@
 		if (sslHeaders) {
 			var sslAuth = btoa(unescape(encodeURIComponent(ssl.user + ':' + ssl.password)));
 			headers.Authorization = 'Basic ' + sslAuth;
+			headers['Content-Type'] = 'application/json; charset=UTF-8';
+
+			if(isWithToken) {
+				headers['X-CSRF-Token'] = sslToken;
+			}
 		} else {
 			var time = new Date();
 			var encodeKey = 'aREwKMVVmjA81aea0mVNFh';
@@ -175,6 +185,46 @@
 					'terms_and_conditions': termsAndConditions ? 1 : 0,
 					'business_inf': bussinessInfo ? 1 : 0,
 				})
+			});
+		};
+
+		self.getToken = function() {
+			return $http({
+				headers: encode(true),
+				method: 'POST',
+				data: '',
+				url: ssl.END_POINT + 'common/user/token.json',
+			});
+		};
+
+		self.loginPaymentUser = function(username, password, token) {
+			return $http({
+				headers: encode(true, token),
+				method: 'POST',
+				url: ssl.END_POINT + 'common/user/login.json',
+				data: JSON.stringify({
+					'username': username,
+					'password': password,
+				}),
+			});
+		};
+
+		self.loginPaymentUserFlow = function(username, password) {
+			var asyncResponse = function(makeFunction) {
+				this.then = function(success, error) {
+					makeFunction(success, error);
+				};
+
+				return { then: this.then };
+			};
+
+			return asyncResponse(function(sucessCallback, errorCallback) {
+				var tokenPromise = self.getToken();
+				tokenPromise.then(function(response) {
+					var token = response.data.token;
+
+					self.loginPaymentUser(username, password, token).then(sucessCallback, errorCallback);
+				}, errorCallback);
 			});
 		};
 

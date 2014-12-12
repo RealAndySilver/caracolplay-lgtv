@@ -551,6 +551,12 @@
 
 		init();
 
+		PurchaseService.loginPaymentUserFlow('user_ws_iam_6', '123').then(function(response) {
+			console.log(response.data);
+		}, function(error) {
+			console.log(error);
+		});
+
 		/*
 				var createUserPromise = PurchaseService.createUser(
 					'user_ws_iam_6',
