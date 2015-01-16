@@ -94,6 +94,7 @@
 			};
 
 			$scope.$watch('selected', function(newValue, oldValue) {
+				console.log('type: ' + $scope.selected.type);
 				if (newValue.description) {
 					$scope.selected.feature_text = newValue.description;
 				}

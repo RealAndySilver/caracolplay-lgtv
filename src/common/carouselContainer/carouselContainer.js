@@ -1,6 +1,6 @@
 (function(app) {
 
-	var CarouselContainerController = function($scope, hotkeys) {
+	var CarouselContainerController = function($scope, hotkeys, ProductService) {
 		var self = this;
 
 		var init = function() {
@@ -22,6 +22,38 @@
 				} else {
 					$scope.slides[active + 1].active = true;
 				}
+			};
+
+			var enterCallback = function() {
+				var active = getSlideActive();
+
+				if ($scope.slides[active]['progress_sec'] !== undefined) {
+					alert("show video");
+					return;
+				}
+				console.log($scope.slides[active]);
+				var productPremise = ProductService.getProductWithID($scope.slides[active].id, '');
+
+				productPremise.then(function(res) {
+					console.log(res.data);
+
+					$scope.selected = res.data.products['0'][0];
+				});
+				$scope.configKeyboard.restart = function() {
+					configHotkeys();
+				};
+				$scope.preview({
+					value: true
+				});
+			};
+
+			var escCallback = function() {
+				$scope.configKeyboard.restart = function() {
+					configHotkeys();
+				};
+				$scope.preview({
+					value: false
+				});
 			};
 
 			var leftCallback = function() {
@@ -49,6 +81,15 @@
 						combo: 'left',
 						callback: leftCallback
 					});
+
+					hotkeys.add({
+						combo: 'enter',
+						callback: enterCallback,
+					});
+					hotkeys.add({
+						combo: 'esc',
+						callback: escCallback,
+					});
 				}
 			};
 
@@ -68,11 +109,14 @@
 				slides: '=',
 				title: '@',
 				active: '=',
+				preview: '&',
+				selected: '=itemSelected',
+				configKeyboard: '=restartKeyboard',
 			}
 		};
 	};
 
-	app.controller('CarouselContainerController', ['$scope', 'hotkeys', CarouselContainerController]);
+	app.controller('CarouselContainerController', ['$scope', 'hotkeys', 'ProductService',CarouselContainerController]);
 	app.directive('carouselContainer', CarouselContainer);
 
 }(angular.module("caracolplaylgtvapp.carouselContainer", [

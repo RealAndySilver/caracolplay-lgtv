@@ -31,16 +31,7 @@
 		self.isInSearch = false;
 
 		self.beforeSearchIsPreviewActive = false;
-
-		$scope.mkmejd = UserInfo;
-
-		/*
-				$scope.$watch('mkmejd', function(newValue, oldValue) {
-					if(newValue === oldValue) {return;}
-					init();
-				});
-		*/
-
+		
 		$scope.$watch('keywordToSearch', function(newValue, oldValue) {
 			console.log(newValue);
 			if (newValue !== undefined && newValue !== '') {
@@ -115,6 +106,7 @@
 		};
 
 		self.activePreview = function(value) {
+			self.isShowInfo = value;
 			self.isPreviewActive = value;
 			if (!value) {
 				keyboardInit();
@@ -208,6 +200,7 @@
 
 				for (var i in featuredArray) {
 					self.slides.push({
+						id: featuredArray[i].id,
 						image: featuredArray[i].image_url,
 						text: featuredArray[i].feature_text,
 						rate: (featuredArray[i].rate / 2) / 10,
