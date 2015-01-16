@@ -1,3 +1,11 @@
+<div class="background-series"></div>
+<!-- <div class="background-image-container">
+	<div class="background-container">
+		<div class="img-container">
+			<img ng-src="{{selected.image_url}}">
+		</div>
+	</div>
+</div> -->
 <div class="series-description">
 	<h2>{{selected.name}}</h2>
 	<center><img class="preview-image" ng-src="{{selected.image_url}}"></center>
@@ -7,7 +15,8 @@
 	<preview-list list="seriesProductCtrl.seasonsButtons" id="season"></preview-list>
 </div>
 <div class="chapters-season">
-	<h5>{{getSeasonLabel()}}</h5>
+	<h3 class="title">{{getSeasonLabel()}}</h3>
+	<div class="separator"></div>
 	<preview-list list="seriesProductCtrl.episodesButtons" id="chapters"></preview-list>
 </div>
 <div class="preview-chapter">

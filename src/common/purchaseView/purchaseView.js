@@ -479,7 +479,7 @@
 					UserInfo.isSubscription = resObj.user.is_suscription;
 					UserInfo.timeEnds = resObj.user.time_ends;
 
-					console.log(UserInfo);
+					localStorage.setItem('userInfo', JSON.stringify(UserInfo));
 
 					/**
 					 * DEVELOPER NOTES: ADD CODE TO SHOW VIDEO

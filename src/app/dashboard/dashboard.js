@@ -187,6 +187,22 @@
 			self.slides.length = 0;
 			self.list.length = 0;
 
+			var userInfoStr = localStorage.getItem('userInfo');
+			
+			if(userInfoStr) {
+				var userInfo = JSON.parse(userInfoStr);
+
+				UserInfo.name = userInfo.name;
+				UserInfo.lastname = userInfo.lastname;
+				UserInfo.alias = userInfo.alias;
+				UserInfo.mail = userInfo.mail;
+				UserInfo.password = userInfo.password;
+				UserInfo.session = userInfo.session;
+				UserInfo.uid = userInfo.uid;
+				UserInfo.isSubscription = userInfo.isSubscription;
+				UserInfo.timeEnds = userInfo.timeEnds;
+			}
+
 			featuredPromise.then(function(response) {
 				var featuredArray = response.data.featured;
 

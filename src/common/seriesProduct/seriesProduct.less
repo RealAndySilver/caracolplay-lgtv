@@ -1,19 +1,78 @@
 /* Less file for seriesProduct*/
+@normal-background: #1B1B1B;
+@dark-background: #000000;
+@inner-shadow: #000;
 
-.series-description{
-	background-color: #585858;
+.background-series{
+	background-color: @dark-background;
+
 	position: fixed;
 	width: 25%;
 	z-index: 91;
+	right: 25%;
+	top: 134px;
+	bottom: 0;
+}
+
+.background-image-container{
+  overflow: hidden;
+
+  position: fixed;
+  top: 134px;
+  right: 25%;
+  width: 25%;
+  bottom: 0;
+
+  z-index: 92;
+
+  .background-container{
+  	-webkit-filter: blur(30px);
+	  -moz-filter: blur(30px);
+	  -o-filter: blur(30px);
+	  -ms-filter: blur(30px);
+	  filter: blur(30px);
+
+	  width: 100%;
+
+	  position: relative;
+
+	  margin: -1px -1px -1px -1px;
+
+	  .img-container{
+	  	position: absolute;
+	  	top: 0;
+	  	bottom: 0;
+	  	right: 0;
+	  	left: 0;
+
+	  	background-color: @dark-background;
+
+	  	img{
+		  	
+		  	width: 100%;
+		  }
+	  }
+  }
+}
+
+.series-description{
+	background-color: @dark-background;
+	position: fixed;
+	width: 25%;
+	z-index: 100;
 	right: 70%;
-	top: 0;
+	top: 134px;
 	bottom: 0;
 	padding-left: 14px;
 	padding-bottom: 14px;
 	padding-right: 14px;
-	padding-top: 140px;
+	padding-top: 20px;
 
 	color: #f0f0f0;
+
+	.button-active{
+		background-color: #6F6E6C;
+	}
 
 	.preview-image {
 		margin-bottom: 20px;
@@ -32,38 +91,52 @@
 }
 
 .preview-season{
-	background-color: #9a9a9a;
+	box-shadow: inset 4px 4px 6px @inner-shadow;
+	background-color: @normal-background;
 	position: fixed;
 	width: 25%;
 	z-index: 91;
 	right: 45%;
-	top: 0;
+	top: 134px;
 	bottom: 0;
-	padding-left: 14px;
+	padding-left: 20px;
 	padding-bottom: 14px;
 	padding-right: 14px;
-	padding-top: 140px;
+	padding-top: 20px;
 
 	color: #f0f0f0;
 }
 
 .chapters-season{
-	background-color: #1f1f1f;
+	box-shadow: inset 4px 4px 6px @inner-shadow;
+	background-color: @normal-background;
 	position: fixed;
 	width: 45%;
 	z-index: 92;
 	right: 0;
 	top: 134px;
 	bottom: 0;
-	padding-left: 14px;
+	padding-left: 20px;
 	padding-bottom: 14px;
 	padding-right: 14px;
-	padding-top: 0px;
+	padding-top: 10px;
 
 	overflow-y: scroll;
 	overflow-x: hidden;
 
 	color: #f0f0f0;
+
+	.title{
+		padding-left: 14px;
+		color: #9A9A9A;
+	}
+
+	.separator{
+		margin-top: 20px;
+		margin-bottom: 10px;
+		height: 2px;
+		background: linear-gradient(to right, rgba(0,0,0,0) 0%,#2A2A2A 50%,rgba(0,0,0,0) 100%);
+	}
 }
 
 ::-webkit-scrollbar{
