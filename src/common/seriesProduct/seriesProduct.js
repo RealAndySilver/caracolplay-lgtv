@@ -132,15 +132,19 @@
 				var promiseIsContentAvaliable = UserService.isContentAvailableForUser($scope.getChapterId());
 
 				promiseIsContentAvaliable.then(function(response) {
-
 					if (response.data.status) {
 						alert('Show video');
 					} else {
+						console.log(response.data);
+
 						var modalInstance = $modal.open({
 							templateUrl: 'purchaseView/purchaseView.tpl.html',
 							controller: 'PurchaseViewController',
 							size: size,
 							resolve: {
+								typeView: function() {
+									return $scope.selected.type_view;
+								},
 								items: function() {
 									return $scope.items;
 								}

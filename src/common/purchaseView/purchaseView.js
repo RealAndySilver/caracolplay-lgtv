@@ -1,5 +1,5 @@
 (function(app) {
-	var PurchaseViewController = function($scope, hotkeys, UserService, PurchaseService, UserInfo, $modalInstance) {
+	var PurchaseViewController = function($scope, hotkeys, UserService, PurchaseService, UserInfo, $modalInstance, typeView) {
 		var itemSelected = 0;
 
 		var self = this;
@@ -499,6 +499,24 @@
 			$scope.support = object.support;
 		};
 
+		var setOptionsByTypeView = function() {
+			switch(typeView) {
+				case 1:
+					$scope.options.push($scope.rentOptions);
+					$scope.options.push($scope.redeemOptions);
+					break;
+				case 2:
+					$scope.options.push($scope.subscriptionOption);
+					$scope.options.push($scope.redeemOptions);
+					break;
+				case 3:
+					$scope.options.push($scope.rentOptions);
+					$scope.options.push($scope.subscriptionOption);
+					$scope.options.push($scope.redeemOptions);
+					break;
+			}
+		};
+
 		var init = function() {
 			configHotkeys();
 
@@ -515,9 +533,12 @@
 				if (newValue) {
 					configHotkeys();
 					if (UserInfo.alias !== '' && UserInfo.password !== '' && UserInfo.session !== '' && !UserInfo.isSubscription) {
-						$scope.options = $scope.loggedOptions;
+						$scope.options = [];
+						setOptionsByTypeView();
 					} else {
-						$scope.options = $scope.noLoggedOptions;
+						$scope.options = [];
+						$scope.options.push($scope.loginOptions);
+						setOptionsByTypeView();
 					}
 
 					if (itemSelected < $scope.options.length) {
@@ -572,37 +593,29 @@
 				});
 		*/
 
-		$scope.noLoggedOptions = [{
+		$scope.subscriptionOption = {
+			'title': 'Suscribirse a CaracolPlay',
+			'image': 'assets/img/subscribe-logo.png',
+			active: false
+		};
+
+		$scope.rentOptions = {
+			'title': 'Alquilar este contenido',
+			'image': 'assets/img/rent-logo.png',
+			active: false
+		};
+
+		$scope.redeemOptions = {
+			'title': 'Redimir codigo',
+			'image': 'assets/img/redeem-logo.png',
+			active: false
+		};
+
+		$scope.loginOptions = {
 			'title': 'Ingresar como usuario',
 			'image': 'assets/img/login-logo.png',
 			active: true
-		}, {
-			'title': 'Suscribirse a CaracolPlay',
-			'image': 'assets/img/subscribe-logo.png',
-			active: false
-		}, {
-			'title': 'Alquilar este contenido',
-			'image': 'assets/img/rent-logo.png',
-			active: false
-		}, {
-			'title': 'Redimir codigo',
-			'image': 'assets/img/redeem-logo.png',
-			active: false
-		}];
-
-		$scope.loggedOptions = [{
-			'title': 'Suscribirse a CaracolPlay',
-			'image': 'assets/img/subscribe-logo.png',
-			active: false
-		}, {
-			'title': 'Alquilar este contenido',
-			'image': 'assets/img/rent-logo.png',
-			active: false
-		}, {
-			'title': 'Redimir codigo',
-			'image': 'assets/img/redeem-logo.png',
-			active: false
-		}];
+		};
 
 	};
 
@@ -613,6 +626,7 @@
 		'PurchaseService',
 		'UserInfo',
 		'$modalInstance',
+		'typeView',
 		PurchaseViewController
 	]);
 
