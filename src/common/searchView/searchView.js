@@ -13,6 +13,10 @@
 			self.isItemSelected = false;
 			self.itemSelected = 0;
 
+			$scope.isShowingPreview = true;
+
+			var slider = {};
+
 			var configHotkeys = function() {
 				hotkeys.add({
 					combo: 'up',
@@ -24,7 +28,55 @@
 							$scope.selected = self.results[self.itemSelected];
 						}
 
+						var div = $('#buttonchapters' + self.itemSelected);
+
+						slider = $('.search-results');
+						slider.stop().animate({
+							scrollTop: (div.height() + 14) * self.itemSelected,
+						});
+
 						event.preventDefault();
+					}
+				});
+
+				hotkeys.add({
+					combo: 'enter',
+					callback: function(event) {
+						//$scope.selected = self.results[self.itemSelected];
+
+						console.log($scope.selected);
+						var productPremise = ProductService.getProductWithID($scope.selected.id, '');
+
+						productPremise.then(function(res) {
+							//console.log(res.data);
+
+							$scope.selected = res.data.products['0'][0];
+						});
+						$scope.configKeyboard.restart = function() {
+							configHotkeys();
+						};
+						$scope.preview({
+							value: true
+						});
+
+						$scope.isShowingPreview = false;
+					}
+				});
+
+				hotkeys.add({
+					combo: 'esc',
+					callback: function(event) {
+						if($scope.isShowingPreview) {
+							$scope.visible({
+								value: false
+							});
+						} else {
+							$scope.isShowingPreview = true;
+
+							$scope.preview({
+								value: false
+							});
+						}
 					}
 				});
 
@@ -36,6 +88,13 @@
 							self.resultButtons[self.itemSelected].active = true;
 
 							$scope.selected = self.results[self.itemSelected];
+
+							var div = $('#buttonchapters' + self.itemSelected);
+
+							slider = $('.search-results');
+							slider.stop().animate({
+								scrollTop: (div.height() + 14) * self.itemSelected,
+							});
 						}
 
 						event.preventDefault();
@@ -50,6 +109,8 @@
 					return;
 				}
 				var searchPremise = ProductService.getListFromSearchWithKey(newValue);
+
+				configHotkeys();
 
 				searchPremise.then(function(res) {
 					self.results = res.data.products;
@@ -74,7 +135,6 @@
 					} else {
 						self.isItemSelected = false;
 					}
-
 				});
 			});
 		};
@@ -89,7 +149,11 @@
 			controllerAs: 'searchViewCtrl',
 			templateUrl: 'searchView/searchView.tpl.html',
 			scope: {
+				visible: '&onShow',
 				keyword: '@',
+				preview: '&',
+				selected: '=itemSelected',
+				configKeyboard: '=restartKeyboard'
 			}
 		};
 	};

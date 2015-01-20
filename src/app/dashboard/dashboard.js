@@ -105,6 +105,18 @@
 			});
 		};
 
+		self.showSearch = function(value) {
+			self.isInSearch = value;
+
+			if(!value) {
+				keyboardInit();
+
+				if($scope.restartConfigKeyboard.restart) {
+					$scope.restartConfigKeyboard.restart();
+				}
+			}
+		};
+
 		self.activePreview = function(value) {
 			self.isShowInfo = value;
 			self.isPreviewActive = value;

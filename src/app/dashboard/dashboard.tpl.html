@@ -12,7 +12,7 @@
 		</div>
 </header>
 
-<search-view keyword="{{keywordToSearch}}" ng-show="dashCtrl.isInSearch"></search-view>
+<search-view keyword="{{keywordToSearch}}" ng-show="dashCtrl.isInSearch" on-show="dashCtrl.showSearch(value)" preview="dashCtrl.activePreview(value)" item-selected="dashCtrl.selectedItem" restart-keyboard="restartConfigKeyboard"></search-view>
 <preview-view ng-show="dashCtrl.showInfo()" on-show="dashCtrl.showPreview()" selected-item="dashCtrl.selectedItem"></preview-view>
 
 {{dashCtrl.showInfo()}}

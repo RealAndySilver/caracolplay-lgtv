@@ -2,7 +2,7 @@
 	<h5>{{getTitle()}}</h5>
 	<preview-list list="searchViewCtrl.resultButtons" id="chapters"></preview-list>
 </div>
-<div class="preview-cover-search">
+<div class="preview-cover-search" ng-show="isShowingPreview">
 	<div ng-show="searchViewCtrl.isItemSelected">
 		<h2>{{selected.name}}</h2>
 		<center><img  class="preview-image" ng-src="{{selected.image_url}}"></center>
