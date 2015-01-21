@@ -407,6 +407,25 @@
 						break;
 					}
 
+					var createUserPromise = PurchaseService.createUser(
+						$scope.subscription.user,
+						$scope.subscription.password,
+						$scope.subscription.email,
+						$scope.subscription.politics,
+						$scope.subscription.terms,
+						$scope.subscription.comertial);
+
+					createUserPromise.then(function(response) {
+						console.log(response.data);
+
+						if(response.data.status == 1) {
+							$scope.subscribeStep++;
+						} else {
+							alert(response.data.form_errors[0]);
+						}
+					});
+
+					/*
 					var validatePromise = UserService.validateUser(
 						$scope.subscription.email,
 						$scope.subscription.user,
@@ -419,6 +438,7 @@
 							alert(response.data.error);
 						}
 					});
+					*/
 					break;
 
 				case 1:

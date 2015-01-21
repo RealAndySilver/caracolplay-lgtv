@@ -174,6 +174,14 @@
 		var self = this;
 
 		self.createUser = function(name, password, mail, privacyPolicity, termsAndConditions, bussinessInfo) {
+			console.log({
+					'name': name,
+					'pass': password,
+					'mail': mail,
+					'privacy_policy': privacyPolicity ? 1 : 0,
+					'terms_and_conditions': termsAndConditions ? 1 : 0,
+					'business_inf': bussinessInfo ? 1 : 0,
+				});
 			return $http({
 				headers: encode(true),
 				method: 'POST',

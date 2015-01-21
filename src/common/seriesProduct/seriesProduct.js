@@ -290,9 +290,15 @@
 								self.episodesButtons[0].active = true;
 								self.episodeSelected = 0;
 								self.chapterSelected = $scope.selected.season_list[self.seasonSelected].episodes[0];
+
+								var div = $('.chapters-season');
+
+								div.css('right', '25%');
+								/*
 								$('.chapters-season').animate({
 									right: '25%',
 								}, 1000, 'swing');
+								*/
 								break;
 						}
 					},
@@ -310,9 +316,13 @@
 
 						switch (self.sections[self.sectionActive]) {
 							case self.SEASONS_SECTION:
-								$('.chapters-season').animate({
-									right: '0',
+								var div = $('.chapters-season');
+								div.css('right', '0%');
+								/*
+								$('.chapters-season').stop().animate({
+									right: '0%',
 								}, 1000, 'swing');
+								*/
 								self.episodesButtons[self.episodeSelected].active = false;
 								break;
 						}
