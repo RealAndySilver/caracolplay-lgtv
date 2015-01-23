@@ -6,12 +6,6 @@
 		init();
 
 		function init() {
-			$scope.items = items;
-			
-			$scope.selected = {
-				item: $scope.items[0]
-			};
-			
 
 			$scope.ok = function() {
 				$modalInstance.close($scope.selected.item);
@@ -19,6 +13,15 @@
 
 			$scope.cancel = function() {
 				$modalInstance.dismiss('cancel');
+			};
+
+			$scope.rate = 2;
+			$scope.max = 5;
+			$scope.isReadonly = false;
+
+			$scope.hoveringOver = function(value) {
+				$scope.overStar = value;
+				$scope.percent = 100 * (value / $scope.max);
 			};
 		}
 	}]);

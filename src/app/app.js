@@ -1,10 +1,9 @@
 (function(app) {
 
-	/*
+	
 	app.config(function($stateProvider, $urlRouterProvider) {
-		$urlRouterProvider.otherwise('/videoController');
+		$urlRouterProvider.otherwise('/');
 	});
-	*/
 
 	var init = function() {
 
@@ -62,4 +61,5 @@
 	'caracolplaylgtvapp.purchaseView',
 	'caracolplaylgtvapp.alertDialogView',
 	'caracolplaylgtvapp.videoController',
+	'caracolplaylgtvapp.rateAlert',
 ])));

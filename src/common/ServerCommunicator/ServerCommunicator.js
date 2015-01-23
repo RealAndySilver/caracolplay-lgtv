@@ -71,13 +71,13 @@
 		var self = this;
 
 		self.getFeatured = function() {
-			return $http.get(module.END_POINT + 'GetFeatured?provider=aim');
-			//return $http.get('assets/dummy/featured.json');
+			//return $http.get(module.END_POINT + 'GetFeatured' /*+ '?player_br=aim'*/);
+			return $http.get('assets/dummy/featured.json');
 		};
 
 		self.getCategories = function() {
-			return $http.get(module.END_POINT + 'GetCategories?provider=aim');
-			//return $http.get('assets/dummy/categories.json');
+			//return $http.get(module.END_POINT + 'GetCategories' /*+ '?player_br=aim'*/);
+			return $http.get('assets/dummy/categories.json');
 		};
 
 		self.getListFromCategoryId = function(id, filter) {
@@ -86,8 +86,8 @@
 				filter = 1;
 			}
 
-			return $http.get(module.END_POINT + 'GetListFromCategoryId/' + id + '/' + filter + '?provider=aim');
-			//return $http.get('assets/dummy/telenovelas.json');
+			//return $http.get(module.END_POINT + 'GetListFromCategoryId/' + id + '/' + filter + '?player_br=aim');
+			return $http.get('assets/dummy/telenovelas.json');
 		};
 
 		self.getUserRecentlyWatched = function() {
@@ -95,12 +95,12 @@
 				crossDomain: true,
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'GET',
-				url: module.END_POINT + 'GetUserRecentlyWatched?provider=aim',
+				url: module.END_POINT + 'GetUserRecentlyWatched?player_br=aim',
 			});
 		};
 
 		self.getListFromSearchWithKey = function(keyword) {
-			return $http.get(module.END_POINT + 'GetListFromSearchWithKey/' + keyword + '?provider=aim');
+			return $http.get(module.END_POINT + 'GetListFromSearchWithKey/' + keyword + '?player_br=aim');
 		};
 
 		self.getProductWithID = function(id, uid) {
@@ -112,7 +112,7 @@
 				crossDomain: true,
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'GET',
-				url: module.END_POINT + 'GetProductWithID/' + id + '/' + uid + '?provider=aim',
+				url: module.END_POINT + 'GetProductWithID/' + id + '/' + uid + '?player_br=aim',
 			});
 		};
 	};
@@ -125,7 +125,7 @@
 				crossDomain: true,
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'GET',
-				url: module.END_POINT + 'VideoWatched/' + productId + '/' + time + '?provider=aim',
+				url: module.END_POINT + 'VideoWatched/' + productId + '/' + time + '?player_br=aim',
 			});
 		};
 
@@ -134,7 +134,7 @@
 				crossDomain: true,
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'GET',
-				url: module.END_POINT + 'IsContentAvailableForUser/' + episodeId + '?provider=aim',
+				url: module.END_POINT + 'IsContentAvailableForUser/' + episodeId + '?player_br=aim',
 			});
 		};
 
@@ -143,7 +143,7 @@
 				crossDomain: true,
 				headers: module.encode(username, password, ''),
 				method: 'GET',
-				url: module.END_POINT + 'AuthenticateUser?provider=aim',
+				url: module.END_POINT + 'AuthenticateUser?player_br=aim',
 			});
 		};
 
@@ -247,7 +247,7 @@
 					'Type': type,
 					'Action': action,
 				},
-				url: module.END_POINT + 'Get_Product?provider=aim',
+				url: module.END_POINT + 'Get_Product?player_br=aim',
 			});
 		};
 
@@ -260,7 +260,7 @@
 					'Id_Producto': productId,
 					'Id_user': userId,
 				},
-				url: module.END_POINT + 'Create_Order?provider=aim',
+				url: module.END_POINT + 'Create_Order?player_br=aim',
 			});
 		};
 
@@ -277,7 +277,7 @@
 					'CVV': cvv,
 					'Recurrencia': recurrence,
 				},
-				url: module.END_POINT + 'Payment?provider=aim',
+				url: module.END_POINT + 'Payment?player_br=aim',
 			});
 		};
 
@@ -285,7 +285,7 @@
 			return $http({
 				crossDomain: true,
 				method: 'GET',
-				url: module.END_POINT + 'ValidateCode/' + code + '?provider=aim',
+				url: module.END_POINT + 'ValidateCode/' + code + '?player_br=aim',
 			});
 		};
 

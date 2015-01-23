@@ -12,11 +12,31 @@
 		};
 	};
 
-	var PreviewViewController = function($scope) {
+	var PreviewViewController = function($scope, $modal) {
 		var self = this;
 
 		var init = function() {
-			
+			$scope.items = ['item1', 'item2', 'item3'];
+
+			$scope.onRate = function() {
+				var modalInstance = $modal.open({
+					templateUrl: 'rateAlert/rateAlert.tpl.html',
+					controller: 'RateAlertController',
+					size: 'sm',
+					resolve: {
+						items: function() {
+							return $scope.items;
+						}
+					}
+				});
+
+				modalInstance.result.then(function(selectedItem) {
+					$scope.selected = selectedItem;
+				}, function() {
+					$log.info('Modal dismissed at: ' + new Date());
+				});
+			};
+
 			$scope.moviesOptions = [{
 				label: 'Reproducir',
 				active: true
@@ -105,7 +125,7 @@
 		init();
 	};
 
-	app.controller('PreviewViewController', ['$scope', PreviewViewController]);
+	app.controller('PreviewViewController', ['$scope', '$modal', PreviewViewController]);
 	app.directive('previewView', PreviewViewDirective);
 
 }(angular.module("caracolplaylgtvapp.previewView", [

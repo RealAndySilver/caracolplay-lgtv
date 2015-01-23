@@ -95,9 +95,10 @@
 					slider = $('#' + $scope.title.replace(/ /g, '') + 'Slider');
 					cover = $('.cover');
 
-					var div = $('#' + $scope.title.replace(/ /g, '')).attr('href');
-					$('html, body').stop().animate({
-						scrollTop: $(div).offset().top - 134
+					var div = $('#' + $scope.title.replace(/ /g, ''))/*.attr('href')*/;
+					console.log(div.position.top);
+					$('.scroll-area').stop().animate({
+						scrollTop: $(div).position().top - 134
 					}, 500);
 
 					configHotkeys();

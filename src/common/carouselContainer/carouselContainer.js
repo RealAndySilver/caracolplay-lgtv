@@ -67,9 +67,9 @@
 
 			var watchCallback = function(newValue, oldValue) {
 				if (newValue) {
-					var div = $('#' + $scope.title).attr('href');
-					$('html, body').animate({
-						scrollTop: $(div).offset().top - 134
+					var div = $('#' + $scope.title)/*.attr('href')*/;
+					$('.scroll-area').stop().animate({
+						scrollTop: $(div).position().top - 134
 					}, 500);
 
 					hotkeys.add({
