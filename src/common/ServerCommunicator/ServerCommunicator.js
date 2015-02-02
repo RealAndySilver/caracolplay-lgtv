@@ -7,7 +7,7 @@
 	//module.END_POINT = 'http://appsbetadev.caracolplay.com/';
 	module.TEST_END_POINT = 'http://192.168.1.129:1414/';
 
-	ssl.END_POINT = 'http://operacionesplay.icck.net/api/';
+	ssl.END_POINT = 'http://premium.icck.net/api/';
 	ssl.user = 'icck';
 	ssl.password = 'K1qf(w#:';
 
@@ -71,12 +71,12 @@
 		var self = this;
 
 		self.getFeatured = function() {
-			//return $http.get(module.END_POINT + 'GetFeatured' /*+ '?player_br=aim'*/);
+			//return $http.get(module.END_POINT + 'GetFeatured' /*+ '?provider=aim'*/);
 			return $http.get('assets/dummy/featured.json');
 		};
 
 		self.getCategories = function() {
-			//return $http.get(module.END_POINT + 'GetCategories' /*+ '?player_br=aim'*/);
+			//return $http.get(module.END_POINT + 'GetCategories' /*+ '?provider=aim'*/);
 			return $http.get('assets/dummy/categories.json');
 		};
 
@@ -86,7 +86,7 @@
 				filter = 1;
 			}
 
-			//return $http.get(module.END_POINT + 'GetListFromCategoryId/' + id + '/' + filter + '?player_br=aim');
+			//return $http.get(module.END_POINT + 'GetListFromCategoryId/' + id + '/' + filter + '?provider=aim');
 			return $http.get('assets/dummy/telenovelas.json');
 		};
 
@@ -95,25 +95,27 @@
 				crossDomain: true,
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'GET',
-				url: module.END_POINT + 'GetUserRecentlyWatched?player_br=aim',
+				url: module.END_POINT + 'GetUserRecentlyWatched?provider=aim',
 			});
 		};
 
 		self.getListFromSearchWithKey = function(keyword) {
-			return $http.get(module.END_POINT + 'GetListFromSearchWithKey/' + keyword + '?player_br=aim');
+			return $http.get(module.END_POINT + 'GetListFromSearchWithKey/' + keyword + '?provider=aim');
 		};
 
 		self.getProductWithID = function(id, uid) {
 			if (!uid || uid === '') {
 				uid = '0';
 			}
-
+			/*
 			return $http({
 				crossDomain: true,
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'GET',
-				url: module.END_POINT + 'GetProductWithID/' + id + '/' + uid + '?player_br=aim',
+				url: module.END_POINT + 'GetProductWithID/' + id + '/' + uid + '?provider=aim',
 			});
+			*/
+			return $http.get('assets/dummy/product.json');
 		};
 	};
 
@@ -125,17 +127,20 @@
 				crossDomain: true,
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'GET',
-				url: module.END_POINT + 'VideoWatched/' + productId + '/' + time + '?player_br=aim',
+				url: module.END_POINT + 'VideoWatched/' + productId + '/' + time + '?provider=aim',
 			});
 		};
 
 		self.isContentAvailableForUser = function(episodeId) {
+			/*
 			return $http({
 				crossDomain: true,
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'GET',
-				url: module.END_POINT + 'IsContentAvailableForUser/' + episodeId + '?player_br=aim',
+				url: module.END_POINT + 'IsContentAvailableForUser/' + episodeId + '?provider=aim',
 			});
+			*/
+			return $http.get('assets/dummy/validateUserReponse.json');
 		};
 
 		self.authenticateUser = function(username, password) {
@@ -143,7 +148,7 @@
 				crossDomain: true,
 				headers: module.encode(username, password, ''),
 				method: 'GET',
-				url: module.END_POINT + 'AuthenticateUser?player_br=aim',
+				url: module.END_POINT + 'AuthenticateUser?provider=aim',
 			});
 		};
 
@@ -237,6 +242,83 @@
 			});
 		};
 
+		self.searchCity = function(city, token) {
+			return $http({
+				headers: encode(true, token),
+				method: 'POST',
+				url: ssl.END_POINT + 'commerce/payment/cities.json',
+				data: JSON.stringify({
+					'city': city,
+				}),
+			});
+		};
+
+		self.searchCityFlow = function(city) {
+			var asyncResponse = function(makeFunction) {
+				this.then = function(success, error) {
+					return makeFunction(success, error);
+				};
+
+				return { then: this.then };
+			};
+
+			return asyncResponse(function(sucessCallback, errorCallback) {
+				var tokenPromise = self.getToken();
+				return tokenPromise.then(function(response) {
+					var token = response.data.token;
+
+					return self.searchCity(city, token).then(sucessCallback, errorCallback);
+					}, errorCallback);
+			});
+		};
+
+		self.executeTransactionWithCard = function(paymentInfo, token) {
+			var encryptedJson = btoa(unescape(encodeURIComponent(btoa(unescape(encodeURIComponent(paymentInfo))))));
+			return {
+				headers: encode(true, token),
+				method: 'POST',
+				url: ssl.END_POINT + 'commerce/payment/transaction.json',
+				data: JSON.stringify({
+					'info_tx': encryptedJson,
+				}),
+			};
+		};
+
+		self.createSubscriptionOrder = function(token) {
+			return {
+				headers: encode(true, token),
+				method: 'POST',
+				url: ssl.END_POINT + 'commerce/payment/order_subscription.json',
+			};
+		};
+
+		self.createRentOrder = function(token) {
+			return {
+				headers: encode(true, token),
+				method: 'POST',
+				url: ssl.END_POINT + 'commerce/payment/order_rent.json',
+			};
+		};
+
+		self.executeTransactionWithCardFlow = function(paymentInfo) {
+			var asyncResponse = function(makeFunction) {
+				this.then = function(success, error) {
+					return makeFunction(success, error);
+				};
+
+				return { then: this.then };
+			};
+
+			return asyncResponse(function(sucessCallback, errorCallback) {
+				var tokenPromise = self.getToken();
+				return tokenPromise.then(function(response) {
+					var token = response.data.token;
+
+					return self.executeTransactionWithCard(paymentInfo, token).then(sucessCallback, errorCallback);
+					}, errorCallback);
+			});
+		};
+
 		self.getProduct = function(id, type, action) {
 			return $http({
 				crossDomain: true,
@@ -247,7 +329,7 @@
 					'Type': type,
 					'Action': action,
 				},
-				url: module.END_POINT + 'Get_Product?player_br=aim',
+				url: module.END_POINT + 'Get_Product?provider=aim',
 			});
 		};
 
@@ -260,7 +342,7 @@
 					'Id_Producto': productId,
 					'Id_user': userId,
 				},
-				url: module.END_POINT + 'Create_Order?player_br=aim',
+				url: module.END_POINT + 'Create_Order?provider=aim',
 			});
 		};
 
@@ -277,7 +359,7 @@
 					'CVV': cvv,
 					'Recurrencia': recurrence,
 				},
-				url: module.END_POINT + 'Payment?player_br=aim',
+				url: module.END_POINT + 'Payment?provider=aim',
 			});
 		};
 
@@ -285,7 +367,7 @@
 			return $http({
 				crossDomain: true,
 				method: 'GET',
-				url: module.END_POINT + 'ValidateCode/' + code + '?player_br=aim',
+				url: module.END_POINT + 'ValidateCode/' + code + '?provider=aim',
 			});
 		};
 

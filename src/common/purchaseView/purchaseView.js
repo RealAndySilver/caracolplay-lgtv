@@ -20,68 +20,89 @@
 
 		$scope.months = [{
 			name: 'Enero',
+			value: '01',
 			id: 0
 		}, {
 			name: 'Febrero',
+			value: '02',
 			id: 1
 		}, {
 			name: 'Marzo',
+			value: '03',
 			id: 2
 		}, {
 			name: 'Abril',
+			value: '04',
 			id: 3
 		}, {
 			name: 'Mayo',
+			value: '05',
 			id: 4
 		}, {
 			name: 'Junio',
+			value: '06',
 			id: 5
 		}, {
 			name: 'Julio',
+			value: '07',
 			id: 6
 		}, {
 			name: 'Agosto',
+			value: '08',
 			id: 7
 		}, {
 			name: 'Septiembre',
+			value: '09',
 			id: 8
 		}, {
 			name: 'Octubre',
+			value: '10',
 			id: 9
 		}, {
 			name: 'Noviembre',
+			value: '11',
 			id: 10
 		}, {
 			name: 'Diciembre',
+			value: '12',
 			id: 11
 		}, ];
 
 		$scope.years = [{
 			name: '2014',
+			value: '14',
 			id: 0
 		}, {
 			name: '2015',
+			value: '15',
 			id: 1
 		}, {
 			name: '2016',
+			value: '16',
 			id: 2
 		}, {
 			name: '2017',
+			value: '17',
 			id: 3
 		}, {
 			name: '2018',
+			value: '18',
 			id: 4
 		}, {
 			name: '2019',
+			value: '19',
 			id: 5
 		}, {
 			name: '2020',
+			value: '20',
 			id: 6
 		}, {
 			name: '2021',
+			value: '21',
 			id: 7
 		}, {
 			name: '2022',
+			value: '22',
 			id: 8
 		}, ];
 
@@ -121,10 +142,40 @@
 
 		$scope.documentTypes = [{
 			type: 'Tarjeta de Identidad',
+			acronym: 'CC',
 			id: 1
 		}, {
 			type: 'Cedula de ciudadania',
+			acronym: 'TI',
 			id: 2
+		}, {
+			type: 'Cedula de extranjeria',
+			acronym: 'CE',
+			id: 3
+		}, {
+			type: 'NIT',
+			acronym: 'NIT',
+			id: 4
+		}, {
+			type: 'Pasaporte',
+			acronym: 'PPN',
+			id: 5
+		}, {
+			type: 'Registro civil',
+			acronym: 'RC',
+			id: 6
+		}, {
+			type: 'Número de Seguridad Social',
+			acronym: 'SSN',
+			id: 7
+		}, {
+			type: 'Licencia conducción',
+			acronym: 'LIC',
+			id: 8
+		}, {
+			type: 'Identificación impositiva',
+			acronym: 'TAX',
+			id: 9
 		}, ];
 
 		$scope.documentType = $scope.documentTypes[$scope.defaultDocumentTypeIndex];
@@ -295,6 +346,19 @@
 			securityCode: '',
 		};
 
+		$scope.cities = [];
+		$scope.citiesStrings = [];
+
+		$scope.getCities = function(val) {
+			return PurchaseService.searchCityFlow(val).then(function(response) {
+				$scope.cities = response.data;
+				$scope.citiesStrings = $scope.cities.map(function(item) {
+					return item.name;
+				});
+				return $scope.citiesStrings;
+			});
+		};
+
 		$scope.validateStepOne = function() {
 			if ($scope.subscription.email === '') {
 				alert('El campo de email no puede estar vacio');
@@ -407,6 +471,26 @@
 						break;
 					}
 
+					$scope.subscribeStep++;
+
+					break;
+
+				case 1:
+					if (!$scope.validateStepTwo()) {
+						break;
+					}
+					var position = $scope.citiesStrings.indexOf($scope.subscription.city);
+
+					console.log($scope.cities[position]);
+
+					$scope.subscribeStep++;
+					break;
+
+				case 2:
+					if (!$scope.validateStepThree()) {
+						break;
+					}
+
 					var createUserPromise = PurchaseService.createUser(
 						$scope.subscription.user,
 						$scope.subscription.password,
@@ -415,49 +499,92 @@
 						$scope.subscription.terms,
 						$scope.subscription.comertial);
 
-					createUserPromise.then(function(response) {
+					var successCallbackExecuteTransaction = function(response) {
+						console.log(response.data);
+					};
+
+					var failureCallbackExecuteTransaction = function(response) {
+						console.log(response.data[0]);
+					};
+
+					var successCallbackCreateOrder = function(response) {
+						console.log(response);
+						var order = response.data;
+
+						var positionSelectedCity = $scope.citiesStrings.indexOf($scope.subscription.city);
+
+						var transactionInfo = {
+							'order_id': order.order_id,
+							'card_info': {
+								'status': 'no',
+								'franchise': $scope.subscription.creditcard.type,
+							},
+							'payment': {
+								'num_card': $scope.subscription.creditNumber,
+								'security_number': $scope.subscription.securityCode,
+								'expires_date': $scope.subscription.month.value + $scope.subscription.year.value,
+							},
+							'customer': {
+								'document_type': $scope.subscription.documentType.acronym,
+								'document': $scope.subscription.documentNumber,
+								'lastname': $scope.subscription.lastname,
+								'name': $scope.subscription.name,
+								'phone': $scope.subscription.phone,
+								'address': $scope.subscription.address,
+								'renovation': '1',
+								'city': $scope.cities[positionSelectedCity],
+							}
+						};
+
+						var promiseExecute = PurchaseService.executeTransactionWithCardFlow(transactionInfo);
+
+						promiseExecute.then(successCallbackExecuteTransaction, failureCallbackExecuteTransaction);
+					};
+
+					var failureCallbackCreateOrder = function(response) {
+						console.log(response.data[0]);
+					};
+
+					var successCallbackLogin = function(response) {
+						console.log(response.data);
+						if (response.data.status === 1) {
+							var promiseCreateSubscriptionOrder = PurchaseService.createRentOrder();
+
+							promiseCreateSubscriptionOrder.then(successCallbackCreateOrder, failureCallbackCreateOrder);
+						} else {
+							console.log('ocurrio un error intenta más tarde');
+						}
+					};
+
+					var failureCallbackLogin = function(response) {
+						console.log(response.data[0]);
+					};
+
+					var successCallbackCreateUser = function(response) {
 						console.log(response.data);
 
-						if(response.data.status == 1) {
-							$scope.subscribeStep++;
+						if (response.data.status == 1) {
+							var promiseLogin = PurchaseService.loginPaymentUserFlow($scope.subscription.user, $scope.subscription.password);
+							promiseLogin.then(successCallbackLogin, failureCallbackLogin);
 						} else {
 							alert(response.data.form_errors[0]);
 						}
-					});
+					};
 
+					var failureCallbackCreateUser = function(response) {
+						console.log(response.data[0]);
+					};
+
+					createUserPromise.then(successCallbackCreateUser, failureCallbackCreateUser);
 					/*
-					var validatePromise = UserService.validateUser(
-						$scope.subscription.email,
-						$scope.subscription.user,
-						$scope.subscription.password);
-
-					validatePromise.then(function(response) {
-						if (response.data.response) {
-							$scope.subscribeStep++;
-						} else {
-							alert(response.data.error);
-						}
-					});
-					*/
-					break;
-
-				case 1:
-					if (!$scope.validateStepTwo()) {
-						break;
-					}
-					$scope.subscribeStep++;
-					break;
-
-				case 2:
-					if (!$scope.validateStepThree()) {
-						break;
-					}
 					var purchasePromise = PurchaseService.getProduct(1, 1, 1);
 
 					purchasePromise.then(function(res) {
 						console.log('test get_product');
 						alert(res.data);
 					});
+					*/
+
 					break;
 			}
 		};
@@ -520,7 +647,7 @@
 		};
 
 		var setOptionsByTypeView = function() {
-			switch(typeView) {
+			switch (typeView) {
 				case 1:
 					$scope.options.push($scope.rentOptions);
 					$scope.options.push($scope.redeemOptions);

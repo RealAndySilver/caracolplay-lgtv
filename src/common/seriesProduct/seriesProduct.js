@@ -135,7 +135,7 @@
 					if (response.data.status) {
 						alert('Show video');
 					} else {
-						console.log(response.data);
+						console.log(JSON.stringify(response.data));
 
 						var modalInstance = $modal.open({
 							templateUrl: 'purchaseView/purchaseView.tpl.html',
@@ -344,6 +344,12 @@
 								*/
 								self.episodesButtons[self.episodeSelected].active = false;
 								break;
+							case self.OPTIONS_SECTION:
+								self.episodesButtons[self.episodeSelected].active = false;
+								self.seasonSelected[self.seasonSelected].active = false;
+								self.seasonSelected = -1;
+								self.episodeSelected = -1;
+								return;
 						}
 					},
 				});
@@ -446,7 +452,7 @@
 
 				if (seasons) {
 					if (seasons.length) {
-						setSeasonSelected(newValue, 0);
+						setSeasonSelected(newValue, -1);
 						self.chapterSelected = seasons[self.seasonSelected].episodes[0];
 					}
 				}
