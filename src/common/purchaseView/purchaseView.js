@@ -504,7 +504,7 @@
 					};
 
 					var failureCallbackExecuteTransaction = function(response) {
-						console.log(response.data[0]);
+						alert(response.data[0]);
 					};
 
 					var successCallbackCreateOrder = function(response) {
@@ -542,7 +542,7 @@
 					};
 
 					var failureCallbackCreateOrder = function(response) {
-						console.log(response.data[0]);
+						alert(response.data[0]);
 					};
 
 					var successCallbackLogin = function(response) {
@@ -557,7 +557,7 @@
 					};
 
 					var failureCallbackLogin = function(response) {
-						console.log(response.data[0]);
+						alert(response.data[0]);
 					};
 
 					var successCallbackCreateUser = function(response) {
@@ -576,7 +576,7 @@
 					};
 
 					var failureCallbackCreateUser = function(response) {
-						console.log(response.data[0]);
+						alert(response.data[0]);
 					};
 
 					createUserPromise.then(successCallbackCreateUser, failureCallbackCreateUser);
