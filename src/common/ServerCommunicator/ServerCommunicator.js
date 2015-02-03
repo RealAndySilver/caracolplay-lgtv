@@ -212,6 +212,10 @@
 		};
 
 		self.loginPaymentUser = function(username, password, token) {
+			console.log('login', {
+				'username': username,
+				'password': password,
+			});
 			return $http({
 				headers: encode(true, token),
 				method: 'POST',
@@ -224,6 +228,7 @@
 		};
 
 		self.loginPaymentUserFlow = function(username, password) {
+
 			var asyncResponse = function(makeFunction) {
 				this.then = function(success, error) {
 					makeFunction(success, error);

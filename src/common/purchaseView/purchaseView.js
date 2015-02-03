@@ -561,9 +561,13 @@
 					};
 
 					var successCallbackCreateUser = function(response) {
-						console.log(response.data);
+						console.log(response);
 
 						if (response.data.status == 1) {
+							console.log({
+								'username': $scope.subscription.user,
+								'password': $scope.subscription.password,
+							});
 							var promiseLogin = PurchaseService.loginPaymentUserFlow($scope.subscription.user, $scope.subscription.password);
 							promiseLogin.then(successCallbackLogin, failureCallbackLogin);
 						} else {
