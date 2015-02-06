@@ -1,5 +1,21 @@
 (function(app) {
-	var PurchaseViewController = function($scope, hotkeys, UserService, PurchaseService, UserInfo, $modalInstance, typeView) {
+	var ModalInstanceService = function() {
+		var self = this;
+
+		self.modalInstance = {};
+		self.setModalInstance = function(modalInstance) {
+			self.modalInstance = modalInstance;
+		};
+
+		self.getModalInstance = function() {
+			return self.modalInstance;
+		};
+	};
+
+	app.service('ModalInstanceService', [ModalInstanceService]);
+	app.constant('ModalInstance', {});
+
+	var PurchaseViewController = function($scope, hotkeys, UserService, PurchaseService, UserInfo, $modalInstance, typeView, $state) {
 		var itemSelected = 0;
 
 		var self = this;
@@ -637,6 +653,7 @@
 					 */
 					alert('Show Video');
 					$modalInstance.dismiss('cancel');
+					$state.go('dashboard');
 				} else {
 					alert(resObj.response);
 				}
@@ -651,6 +668,7 @@
 		};
 
 		var setOptionsByTypeView = function() {
+			console.log('I will push the options with typeOptions: ' + typeView);
 			switch (typeView) {
 				case 1:
 					$scope.options.push($scope.rentOptions);
@@ -664,6 +682,9 @@
 					$scope.options.push($scope.rentOptions);
 					$scope.options.push($scope.subscriptionOption);
 					$scope.options.push($scope.redeemOptions);
+					break;
+				default:
+					console.log('I enter in default');
 					break;
 			}
 		};
@@ -770,6 +791,56 @@
 
 	};
 
+	var DialogPurchaseController = function($scope, $modal, $stateParams) {
+		var typeView = $stateParams.typeView;
+		console.log(typeView);
+		var modalInstance = $modal.open({
+			templateUrl: 'purchaseView/purchaseView.tpl.html',
+			controller: 'PurchaseViewController',
+			size: 'lg',
+			resolve: {
+				typeView: function() {
+					return parseInt(typeView);
+				},
+				items: function() {
+					return [];
+				}
+			}
+		});
+
+		$scope.$on('$stateChangeStart', function(event, newUrl, oldUrl) {
+      console.log('Remove modal popup if necessary!');
+      // if modal instance difined, dismiss window
+      console.log('I enter in $routeChangeSuccess');
+      if (modalInstance) {
+        modalInstance.dismiss('cancel');
+      }
+    });  
+
+		modalInstance.result.then(function() {
+			//configHotkeys();
+		}, function() {
+			//configHotkeys();
+		});
+	};
+
+	app.config(['$stateProvider', function($stateProvider, ModalInstance) {
+		$stateProvider.state('purchase', {
+			url: '/purchase/:typeView',
+			views: {
+				'main': {
+					controller: 'DialogPurchaseController',
+					template: 'test'
+				}
+			},
+			data: {
+				pageTitle: 'Purchase'
+			},
+		});
+	}]);
+
+	app.controller('DialogPurchaseController', ['$scope', '$modal', '$stateParams', DialogPurchaseController]);
+
 	app.controller('PurchaseViewController', [
 		'$scope',
 		'hotkeys',
@@ -778,6 +849,7 @@
 		'UserInfo',
 		'$modalInstance',
 		'typeView',
+		'$state',
 		PurchaseViewController
 	]);
 

@@ -1,49 +1,6 @@
 (function(app) {
 
-	/**
-	 * Start code to Provicional with no internet conection
-	 */
-
-	app.controller('DialogSeriesController', ['$scope', '$modal', function($scope, $modal) {
-		var modalInstance = $modal.open({
-			templateUrl: 'purchaseView/purchaseView.tpl.html',
-			controller: 'PurchaseViewController',
-			size: 'lg',
-			resolve: {
-				items: function() {
-					return [];
-				}
-			}
-		});
-
-		modalInstance.result.then(function(selectedItem) {
-			$scope.selected = selectedItem;
-		}, function() {
-
-		});
-	}]);
-
-	app.config(['$stateProvider', function($stateProvider) {
-		$stateProvider.state('dialog', {
-			url: '/dialog',
-			views: {
-				"main": {
-					controller: 'DialogSeriesController',
-					controllerAs: 'dialogCtrl',
-					template: '<h1>test</h1>'
-				}
-			},
-			data: {
-				pageTitle: 'Dialog'
-			}
-		});
-	}]);
-
-	/**
-	 * End code to Provicional with no internet conection
-	 */
-
-	var SeriesProductController = function($scope, hotkeys, $modal, UserService, UserInfo) {
+	var SeriesProductController = function($scope, hotkeys, $modal, UserService, UserInfo, $state) {
 		var self = this;
 
 		var init = function() {
@@ -137,6 +94,9 @@
 					} else {
 						console.log(JSON.stringify(response.data));
 
+						$state.go('purchase', { typeView:$scope.selected.type_view });
+
+						/*
 						var modalInstance = $modal.open({
 							templateUrl: 'purchaseView/purchaseView.tpl.html',
 							controller: 'PurchaseViewController',
@@ -157,6 +117,7 @@
 						}, function() {
 							configHotkeys();
 						});
+						*/
 					}
 				});
 			};
@@ -485,7 +446,7 @@
 		};
 	};
 
-	app.controller('SeriesProductController', ['$scope', 'hotkeys', '$modal', 'UserService', 'UserInfo', SeriesProductController]);
+	app.controller('SeriesProductController', ['$scope', 'hotkeys', '$modal', 'UserService', 'UserInfo', '$state', SeriesProductController]);
 	app.directive('seriesProduct', SeriesProductDirective);
 
 	app.filter('unsafe', function($sce) {

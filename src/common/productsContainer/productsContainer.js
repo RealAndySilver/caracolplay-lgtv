@@ -4,6 +4,7 @@
 		var self = this;
 
 		var init = function() {
+
 			var active = 0;
 
 			var slider = {},

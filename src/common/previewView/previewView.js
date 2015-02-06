@@ -12,8 +12,46 @@
 		};
 	};
 
-	var PreviewViewController = function($scope, $modal) {
+	var PreviewDataService = function() {
 		var self = this;
+
+		self.selected = {};
+
+		self.setItemSelected = function(selected) {
+			self.selected = selected;
+		};
+
+		self.getItemSelected = function(selected) {
+			return self.selected;
+		};
+	};
+
+	app.service('PreviewDataService', [PreviewDataService]);
+
+	app.config(['$stateProvider', function($stateProvider) {
+		$stateProvider.state('preview', {
+			url: '/preview/:selected',
+			views: {
+				'main': {
+					controller: 'PreviewViewController',
+					templateUrl: 'previewView/previewView.tpl.html'
+				}
+			},
+			data: {
+				pageTitle: 'Preview'
+			},
+			resolve: {
+				itemSelected: function(PreviewDataService) {
+					return PreviewDataService.getItemSelected();
+				}
+			}
+		});
+	}]);
+
+	var PreviewViewController = function($scope, $modal, itemSelected) {
+		var self = this;
+		
+		$scope.selected = itemSelected;
 
 		var init = function() {
 			$scope.items = ['item1', 'item2', 'item3'];
@@ -90,26 +128,26 @@
 				active: false
 			}, ];
 
-			self.getSelected = function(type) {
+			$scope.getSelected = function(type) {
 				if ($scope.selected.type === type) {
 					return $scope.selected;
 				}
 				return null;
 			};
 
-			self.isMovie = function() {
+			$scope.isMovie = function() {
 				return $scope.selected.type === 'Películas';
 			};
 
-			self.isNews = function() {
+			$scope.isNews = function() {
 				return $scope.selected.type === 'Noticias';
 			};
 
-			self.isSeries = function() {
+			$scope.isSeries = function() {
 				return $scope.selected.type === 'Series';
 			};
 
-			self.isTelenovelas = function() {
+			$scope.isTelenovelas = function() {
 				return $scope.selected.type === 'Telenovelas';
 			};
 
@@ -125,7 +163,7 @@
 		init();
 	};
 
-	app.controller('PreviewViewController', ['$scope', '$modal', PreviewViewController]);
+	app.controller('PreviewViewController', ['$scope', '$modal', 'itemSelected', PreviewViewController]);
 	app.directive('previewView', PreviewViewDirective);
 
 }(angular.module("caracolplaylgtvapp.previewView", [

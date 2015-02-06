@@ -16,7 +16,7 @@
 		});
 	}]);
 
-	var DashboardController = function($scope, ProductService, UserInfo, hotkeys) {
+	var DashboardController = function($scope, ProductService, UserInfo, hotkeys, $state, PreviewDataService) {
 		var self = this;
 		var keyboardInit = {};
 
@@ -118,6 +118,13 @@
 		};
 
 		self.activePreview = function(value) {
+			var productPremise = ProductService.getProductWithID(self.selectedItem.id, '');
+
+			productPremise.then(function(res) {
+				PreviewDataService.setItemSelected(res.data.products['0'][0]);
+				$state.go('preview');
+			});
+			
 			self.isShowInfo = value;
 			self.isPreviewActive = value;
 			if (!value) {
@@ -251,7 +258,7 @@
 		init();
 	};
 
-	app.controller('DashboardController', ['$scope', 'ProductService', 'UserInfo', 'hotkeys', DashboardController]);
+	app.controller('DashboardController', ['$scope', 'ProductService', 'UserInfo', 'hotkeys', '$state', 'PreviewDataService', DashboardController]);
 
 }(angular.module("caracolplaylgtvapp.dashboard", [
 	'ui.router',
