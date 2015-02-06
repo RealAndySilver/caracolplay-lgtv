@@ -811,7 +811,6 @@
 		$scope.$on('$stateChangeStart', function(event, newUrl, oldUrl) {
       console.log('Remove modal popup if necessary!');
       // if modal instance difined, dismiss window
-      console.log('I enter in $routeChangeSuccess');
       if (modalInstance) {
         modalInstance.dismiss('cancel');
       }

@@ -14,27 +14,27 @@
 
 <div class="cp-preview-father" ></div> <!-- ng-show="show" -->
 <div ng-show="isNews()">
-	<series-product selected-item="getSelected('Noticias')" display-options="newsOptions" ng-show="true" restart-keyboard="restart"></series-product>
+	<series-product selected-item="getSelected('Noticias')" display-options="newsOptions" restart-keyboard="restart"></series-product>
 </div>
 <div ng-show="isSeries()">
-	<series-product selected-item="getSelected('Series')" display-options="seriesOptions" ng-show="true" restart-keyboard="restart"></series-product>
+	<series-product selected-item="getSelected('Series')" display-options="seriesOptions" restart-keyboard="restart"></series-product>
 </div>
 <div ng-show="isTelenovelas()">
-	<series-product selected-item="getSelected('Telenovelas')" display-options="telenovelasOptions" ng-show="true" restart-keyboard="restart"></series-product>
+	<series-product selected-item="getSelected('Telenovelas')" display-options="telenovelasOptions" restart-keyboard="restart"></series-product>
 </div>
 <div ng-show="isMovie()">
-	<!--
-	<div class="preview-description" ng-show="show">
+	
+	<div class="preview-description">
 		<h2>{{selected.name}}</h2>
 		<center><img class="preview-image" ng-src="{{selected.image_url}}"></center>
 		<preview-list list="moviesOptions"></preview-list>
 	</div>
-	-->
-	<series-product selected-item="getSelected('Películas')" display-options="moviesOptions" ng-show="true" restart-keyboard="restart"></series-product>
+	
+	<series-product selected-item="getSelected('Películas')" display-options="moviesOptions" restart-keyboard="restart"></series-product>
 </div>
 
 <div class="preview-cover">
-	<h2 ng-show="false">{{selected.name}}</h2>
+	<h2>{{selected.name}}</h2>
 	<h6>2012</h6>
 	<rating class="pull-left" ng-model="slide.rate" max="5" readonly="true" style="color:orange; font-size:16px; width: 100px;"></rating>
 	<br/>

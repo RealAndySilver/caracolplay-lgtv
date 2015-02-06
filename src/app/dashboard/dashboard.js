@@ -31,7 +31,7 @@
 		self.isInSearch = false;
 
 		self.beforeSearchIsPreviewActive = false;
-		
+
 		$scope.$watch('keywordToSearch', function(newValue, oldValue) {
 			console.log(newValue);
 			if (newValue !== undefined && newValue !== '') {
@@ -87,7 +87,7 @@
 		self.getUserRecentlyWatched = function() {
 			var promiseRecentWatched = ProductService.getUserRecentlyWatched();
 			promiseRecentWatched.then(function(response) {
-				if(response.data.length === 0) {
+				if (response.data.length === 0) {
 					return;
 				}
 
@@ -108,10 +108,10 @@
 		self.showSearch = function(value) {
 			self.isInSearch = value;
 
-			if(!value) {
+			if (!value) {
 				keyboardInit();
 
-				if($scope.restartConfigKeyboard.restart) {
+				if ($scope.restartConfigKeyboard.restart) {
 					$scope.restartConfigKeyboard.restart();
 				}
 			}
@@ -124,7 +124,7 @@
 				PreviewDataService.setItemSelected(res.data.products['0'][0]);
 				$state.go('preview');
 			});
-			
+
 			self.isShowInfo = value;
 			self.isPreviewActive = value;
 			if (!value) {
@@ -174,6 +174,13 @@
 			});
 
 			hotkeys.add({
+				combo: '79',
+				callback: function(event) {
+					console.log('a');
+				}
+			});
+
+			hotkeys.add({
 				combo: 'up',
 				callback: function() {
 					event.preventDefault();
@@ -199,8 +206,8 @@
 			self.list.length = 0;
 
 			var userInfoStr = localStorage.getItem('userInfo');
-			
-			if(userInfoStr) {
+
+			if (userInfoStr) {
 				var userInfo = JSON.parse(userInfoStr);
 
 				UserInfo.name = userInfo.name;
