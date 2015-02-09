@@ -73,13 +73,13 @@
 		var self = this;
 
 		self.getFeatured = function() {
-			return $http.get(module.END_POINT + 'GetFeatured' /*+ '?player_br=aim'*/);
-			//return $http.get('assets/dummy/featured.json');
+			//return $http.get(module.END_POINT + 'GetFeatured' /*+ '?player_br=aim'*/);
+			return $http.get('assets/dummy/featured.json');
 		};
 
 		self.getCategories = function() {
-			return $http.get(module.END_POINT + 'GetCategories' /*+ '?player_br=aim'*/);
-			//return $http.get('assets/dummy/categories.json');
+			//return $http.get(module.END_POINT + 'GetCategories' /*+ '?player_br=aim'*/);
+			return $http.get('assets/dummy/categories.json');
 		};
 
 		self.getListFromCategoryId = function(id, filter) {
@@ -88,8 +88,8 @@
 				filter = 1;
 			}
 
-			return $http.get(module.END_POINT + 'GetListFromCategoryId/' + id + '/' + filter + '?player_br=aim');
-			//return $http.get('assets/dummy/telenovelas.json');
+			//return $http.get(module.END_POINT + 'GetListFromCategoryId/' + id + '/' + filter + '?player_br=aim');
+			return $http.get('assets/dummy/telenovelas.json');
 		};
 
 		self.getUserRecentlyWatched = function() {
@@ -109,15 +109,16 @@
 			if (!uid || uid === '') {
 				uid = '0';
 			}
-			
+			/*
 			return $http({
 				crossDomain: true,
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'GET',
 				url: module.END_POINT + 'GetProductWithID/' + id + '/' + uid + '?player_br=aim',
 			});
+*/
 			
-			//return $http.get('assets/dummy/product.json');
+			return $http.get('assets/dummy/product.json');
 		};
 	};
 
@@ -134,15 +135,16 @@
 		};
 
 		self.isContentAvailableForUser = function(episodeId) {
-			
+			/*
 			return $http({
 				crossDomain: true,
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'GET',
 				url: module.END_POINT + 'IsContentAvailableForUser/' + episodeId + '?player_br=aim',
 			});
+*/
 			
-			//return $http.get('assets/dummy/validateUserReponse.json');
+			return $http.get('assets/dummy/validateUserReponse.json');
 		};
 
 		self.authenticateUser = function(username, password) {

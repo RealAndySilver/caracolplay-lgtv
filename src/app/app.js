@@ -1,6 +1,6 @@
 (function(app) {
 
-	
+
 	app.config(function($stateProvider, $urlRouterProvider) {
 		$urlRouterProvider.otherwise('/');
 	});
@@ -34,9 +34,30 @@
 		timeEnds: '',
 	});
 
+	app.constant('DevInfo', {
+		isInDev: true,
+	});
+
 	app.filter('nospace', function() {
 		return function(value) {
 			return (!value) ? '' : value.replace(/ /g, '');
+		};
+	});
+
+	app.directive('focusMe', function($timeout) {
+		return {
+			scope: {
+				trigger: '@focusMe'
+			},
+			link: function(scope, element) {
+				scope.$watch('trigger', function(value) {
+					if (value === "true") {
+						$timeout(function() {
+							element[0].focus();
+						});
+					}
+				});
+			}
 		};
 	});
 
