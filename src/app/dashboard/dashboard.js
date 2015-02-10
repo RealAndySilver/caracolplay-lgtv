@@ -122,7 +122,7 @@
 
 			productPremise.then(function(res) {
 				PreviewDataService.setItemSelected(res.data.products['0'][0]);
-				$state.go('preview');
+				$state.go('preview', { from: 'dashboard' });
 			});
 
 			self.isShowInfo = value;
@@ -159,8 +159,7 @@
 		keyboardInit = function() {
 
 			var yellowButtonCallback = function(event) {
-				self.isInSearch = true;
-				self.shouldBeFocus = true;
+				$state.go('search');
 			};
 
 			hotkeys.add({

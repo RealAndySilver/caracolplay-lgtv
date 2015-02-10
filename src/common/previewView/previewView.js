@@ -30,7 +30,7 @@
 
 	app.config(['$stateProvider', function($stateProvider) {
 		$stateProvider.state('preview', {
-			url: '/preview/:selected',
+			url: '/preview/:from',
 			views: {
 				'main': {
 					controller: 'PreviewViewController',
@@ -48,13 +48,34 @@
 		});
 	}]);
 
-	var PreviewViewController = function($scope, $modal, itemSelected) {
+	var PreviewViewController = function($scope, $modal, itemSelected, $stateParams, hotkeys, DevInfo, $state) {
 		var self = this;
 		
+		$scope.from = $stateParams.from;
 		$scope.selected = itemSelected;
 
 		var init = function() {
 			$scope.items = ['item1', 'item2', 'item3'];
+
+			var yellowButtonCallback = function(event) {
+				if($scope.from === 'search') {
+					window.history.back();
+				} else {
+					$state.go('search');
+				}
+			};
+
+			hotkeys.add({
+				combo: 'yellow',
+				callback: yellowButtonCallback
+			});
+
+			if (DevInfo.isInDev) {
+				hotkeys.add({
+					combo: 'y',
+					callback: yellowButtonCallback
+				});
+			}
 
 			$scope.onRate = function() {
 				var modalInstance = $modal.open({
@@ -163,7 +184,7 @@
 		init();
 	};
 
-	app.controller('PreviewViewController', ['$scope', '$modal', 'itemSelected', PreviewViewController]);
+	app.controller('PreviewViewController', ['$scope', '$modal', 'itemSelected', '$stateParams', 'hotkeys', 'DevInfo', '$state', PreviewViewController]);
 	app.directive('previewView', PreviewViewDirective);
 
 }(angular.module("caracolplaylgtvapp.previewView", [

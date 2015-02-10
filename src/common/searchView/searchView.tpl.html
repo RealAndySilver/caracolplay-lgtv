@@ -1,9 +1,23 @@
+<header class="toolbar">
+	<div id="logo"></div>
+		<div class="search-bar">
+			<div class="input-group">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button">
+						<span class="glyphicon glyphicon-search"></span>
+					</button>
+				</span>
+				<input type="text" class="form-control" ng-model="keyword" ng-keydown="keydownCallback($event)" focus-me="{{shouldBeFocus}}">
+			</div><!-- /input-group -->
+		</div>
+</header>
+
 <div class="search-results">
 	<h5>{{getTitle()}}</h5>
-	<preview-list list="searchViewCtrl.resultButtons" id="chapters"></preview-list>
+	<preview-list list="resultButtons" id="chapters"></preview-list>
 </div>
 <div class="preview-cover-search" ng-show="isShowingPreview">
-	<div ng-show="searchViewCtrl.isItemSelected">
+	<div ng-show="isItemSelected">
 		<h2>{{selected.name}}</h2>
 		<center><img  class="preview-image" ng-src="{{selected.image_url}}"></center>
 		<h6>2012</h6>

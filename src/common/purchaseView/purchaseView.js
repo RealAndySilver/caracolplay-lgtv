@@ -823,7 +823,7 @@
 		});
 	};
 
-	app.config(['$stateProvider', function($stateProvider, ModalInstance) {
+	app.config(['$stateProvider', function($stateProvider) {
 		$stateProvider.state('purchase', {
 			url: '/purchase/:typeView',
 			views: {

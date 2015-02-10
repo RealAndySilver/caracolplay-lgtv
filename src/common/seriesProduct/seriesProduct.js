@@ -1,6 +1,6 @@
 (function(app) {
 
-	var SeriesProductController = function($scope, hotkeys, $modal, UserService, UserInfo, $state) {
+	var SeriesProductController = function($scope, hotkeys, $modal, UserService, UserInfo, $state, DevInfo, $rootScope) {
 		var self = this;
 
 		var init = function() {
@@ -94,7 +94,9 @@
 					} else {
 						console.log(JSON.stringify(response.data));
 
-						$state.go('purchase', { typeView:$scope.selected.type_view });
+						$state.go('purchase', {
+							typeView: $scope.selected.type_view
+						});
 
 						/*
 						var modalInstance = $modal.open({
@@ -174,6 +176,7 @@
 			};
 
 			var configHotkeys = function() {
+				
 				hotkeys.add({
 					combo: 'up',
 					callback: function(event) {
@@ -320,11 +323,11 @@
 					callback: function() {
 						switch(self.sectionActive) {
 							case self.OPTIONS_SECTION:
-								for(var i in $scope.options) {
+								for (var i in $scope.options) {
 									console.log(i);
 
-									if($scope.options[i].active) {
-										switch($scope.options[i].label) {
+									if ($scope.options[i].active) {
+										switch ($scope.options[i].label) {
 											case 'Capitulos':
 												self.sectionActive++;
 												break;
@@ -446,7 +449,7 @@
 		};
 	};
 
-	app.controller('SeriesProductController', ['$scope', 'hotkeys', '$modal', 'UserService', 'UserInfo', '$state', SeriesProductController]);
+	app.controller('SeriesProductController', ['$scope', 'hotkeys', '$modal', 'UserService', 'UserInfo', '$state', 'DevInfo', '$rootScope', SeriesProductController]);
 	app.directive('seriesProduct', SeriesProductDirective);
 
 	app.filter('unsafe', function($sce) {

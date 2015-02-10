@@ -1,17 +1,18 @@
 (function(app) {
-	var SearchViewController = function($scope, ProductService, hotkeys) {
-		var self = this;
+	var SearchViewController = function($scope, ProductService, hotkeys, PreviewDataService, $state, $stateParams) {
 
 		var init = function() {
 			$scope.getTitle = function() {
-				return $scope.keyword + ' - ' + self.results.length + ' results found';
+				return $scope.keyword + ' - ' + $scope.results.length + ' results found';
 			};
 
-			self.results = [];
-			self.resultButtons = [];
+			$scope.from = $stateParams.from;
 
-			self.isItemSelected = false;
-			self.itemSelected = 0;
+			$scope.results = [];
+			$scope.resultButtons = [];
+
+			$scope.isItemSelected = false;
+			$scope.itemSelected = 0;
 
 			$scope.isShowingPreview = true;
 
@@ -21,45 +22,75 @@
 				hotkeys.add({
 					combo: 'up',
 					callback: function(event) {
-						if (self.itemSelected - 1 >= 0) {
-							self.resultButtons[self.itemSelected--].active = false;
-							self.resultButtons[self.itemSelected].active = true;
+						if ($scope.itemSelected - 1 >= 0) {
+							$scope.resultButtons[$scope.itemSelected--].active = false;
+							$scope.resultButtons[$scope.itemSelected].active = true;
 
-							$scope.selected = self.results[self.itemSelected];
+							$scope.selected = $scope.results[$scope.itemSelected];
 						}
 
-						var div = $('#buttonchapters' + self.itemSelected);
+						var div = $('#buttonchapters' + $scope.itemSelected);
 
 						slider = $('.search-results');
 						slider.stop().animate({
-							scrollTop: (div.height() + 14) * self.itemSelected,
+							scrollTop: (div.height() + 14) * $scope.itemSelected,
 						});
 
 						event.preventDefault();
 					}
 				});
 
+				$scope.shouldBeFocus = true;
+
+				$scope.keydownCallback = function(event) {
+					console.log('event', event.keyIdentifier);
+
+					if(event.keyIdentifier === 'Enter') {
+						event.target.blur();
+
+						var searchPremise = ProductService.getListFromSearchWithKey($scope.keyword);
+
+						configHotkeys();
+
+						searchPremise.then(function(res) {
+							$scope.results = res.data.products;
+
+							console.log($scope.results);
+
+							$scope.resultButtons = [];
+
+							for (var i in $scope.results) {
+								var label = $scope.results[i].name;
+								$scope.resultButtons.push({
+									label: label,
+									active: false,
+								});
+							}
+
+							if ($scope.results.length !== 0) {
+								$scope.itemSelected = 0;
+								$scope.resultButtons[$scope.itemSelected].active = true;
+								$scope.selected = $scope.results[0];
+								$scope.isItemSelected = true;
+							} else {
+								$scope.isItemSelected = false;
+							}
+						});
+					}
+				};
+
 				hotkeys.add({
 					combo: 'enter',
 					callback: function(event) {
-						//$scope.selected = self.results[self.itemSelected];
-
-						console.log($scope.selected);
+						console.log('enter');
 						var productPremise = ProductService.getProductWithID($scope.selected.id, '');
 
 						productPremise.then(function(res) {
 							//console.log(res.data);
 
-							$scope.selected = res.data.products['0'][0];
+							PreviewDataService.setItemSelected(res.data.products['0'][0]);
+							$state.go('preview', { from: 'search' });
 						});
-						$scope.configKeyboard.restart = function() {
-							configHotkeys();
-						};
-						$scope.preview({
-							value: true
-						});
-
-						$scope.isShowingPreview = false;
 					}
 				});
 
@@ -83,17 +114,17 @@
 				hotkeys.add({
 					combo: 'down',
 					callback: function(event) {
-						if (self.itemSelected + 1 < self.resultButtons.length) {
-							self.resultButtons[self.itemSelected++].active = false;
-							self.resultButtons[self.itemSelected].active = true;
+						if ($scope.itemSelected + 1 < $scope.resultButtons.length) {
+							$scope.resultButtons[$scope.itemSelected++].active = false;
+							$scope.resultButtons[$scope.itemSelected].active = true;
 
-							$scope.selected = self.results[self.itemSelected];
+							$scope.selected = $scope.results[$scope.itemSelected];
 
-							var div = $('#buttonchapters' + self.itemSelected);
+							var div = $('#buttonchapters' + $scope.itemSelected);
 
 							slider = $('.search-results');
 							slider.stop().animate({
-								scrollTop: (div.height() + 14) * self.itemSelected,
+								scrollTop: (div.height() + 14) * $scope.itemSelected,
 							});
 						}
 
@@ -104,6 +135,7 @@
 
 			configHotkeys();
 
+			/*
 			$scope.$watch('keyword', function(newValue, oldValue) {
 				if (newValue === undefined || newValue === '') {
 					return;
@@ -113,30 +145,31 @@
 				configHotkeys();
 
 				searchPremise.then(function(res) {
-					self.results = res.data.products;
+					$scope.results = res.data.products;
 
-					console.log(self.results);
+					console.log($scope.results);
 
-					self.resultButtons = [];
+					$scope.resultButtons = [];
 
-					for (var i in self.results) {
-						var label = self.results[i].name;
-						self.resultButtons.push({
+					for (var i in $scope.results) {
+						var label = $scope.results[i].name;
+						$scope.resultButtons.push({
 							label: label,
 							active: false,
 						});
 					}
 
-					if (self.results.length !== 0) {
-						self.itemSelected = 0;
-						self.resultButtons[self.itemSelected].active = true;
-						$scope.selected = self.results[0];
-						self.isItemSelected = true;
+					if ($scope.results.length !== 0) {
+						$scope.itemSelected = 0;
+						$scope.resultButtons[$scope.itemSelected].active = true;
+						$scope.selected = $scope.results[0];
+						$scope.isItemSelected = true;
 					} else {
-						self.isItemSelected = false;
+						$scope.isItemSelected = false;
 					}
 				});
 			});
+			*/
 		};
 
 		init();
@@ -158,7 +191,22 @@
 		};
 	};
 
-	app.controller('SearchViewController', ['$scope', 'ProductService', 'hotkeys', SearchViewController]);
+	app.config(['$stateProvider', function($stateProvider) {
+		$stateProvider.state('search', {
+			url: '/search',
+			views: {
+				'main': {
+					controller: 'SearchViewController',
+					templateUrl: 'searchView/searchView.tpl.html'
+				}
+			},
+			data: {
+				pageTitle: 'Purchase'
+			},
+		});
+	}]);
+
+	app.controller('SearchViewController', ['$scope', 'ProductService', 'hotkeys', 'PreviewDataService', '$state', '$stateParams', SearchViewController]);
 	app.directive('searchView', SearchViewDirective);
 
 }(angular.module("caracolplaylgtvapp.searchView", [
