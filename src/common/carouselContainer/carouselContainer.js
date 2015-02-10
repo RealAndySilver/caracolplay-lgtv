@@ -68,9 +68,12 @@
 			var watchCallback = function(newValue, oldValue) {
 				if (newValue) {
 					var div = $('#' + $scope.title)/*.attr('href')*/;
+					$('.scroll-area').scrollTop($(div).position().top - 134);
+					/*
 					$('.scroll-area').stop().animate({
 						scrollTop: $(div).position().top - 134
 					}, 500);
+					*/
 
 					hotkeys.add({
 						combo: 'right',

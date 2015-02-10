@@ -98,9 +98,12 @@
 
 					var div = $('#' + $scope.title.replace(/ /g, ''))/*.attr('href')*/;
 					console.log(div.position.top);
+					$('.scroll-area').scrollTop($(div).position().top - 134);
+					/*
 					$('.scroll-area').stop().animate({
 						scrollTop: $(div).position().top - 134
 					}, 500);
+					*/
 
 					configHotkeys();
 				} else {
