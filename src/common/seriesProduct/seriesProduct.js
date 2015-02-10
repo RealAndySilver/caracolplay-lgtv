@@ -268,6 +268,8 @@
 
 						self.sectionActive++;
 
+						console.log('sections', self.sections[self.sectionActive]);
+
 						switch (self.sections[self.sectionActive]) {
 							case self.EPISODES_SECTION:
 								self.episodesButtons[0].active = true;
@@ -297,6 +299,8 @@
 
 						self.sectionActive--;
 
+						console.log('sections', self.sections[self.sectionActive]);
+
 						switch (self.sections[self.sectionActive]) {
 							case self.SEASONS_SECTION:
 								var div = $('.chapters-season');
@@ -321,7 +325,7 @@
 				hotkeys.add({
 					combo: 'enter',
 					callback: function() {
-						switch(self.sectionActive) {
+						switch(self.sections[self.sectionActive]) {
 							case self.OPTIONS_SECTION:
 								for (var i in $scope.options) {
 									console.log(i);
@@ -330,6 +334,23 @@
 										switch ($scope.options[i].label) {
 											case 'Capitulos':
 												self.sectionActive++;
+
+												switch (self.sections[self.sectionActive]) {
+													case self.EPISODES_SECTION:
+														self.episodesButtons[0].active = true;
+														self.episodeSelected = 0;
+														self.chapterSelected = $scope.selected.season_list[self.seasonSelected].episodes[0];
+
+														var divChapter = $('.chapters-season');
+
+														divChapter.css('right', '25%');
+														/*
+														$('.chapters-season').animate({
+															right: '25%',
+														}, 1000, 'swing');
+														*/
+														break;
+												}
 												break;
 											case 'Calificar':
 												$scope.onRate();
