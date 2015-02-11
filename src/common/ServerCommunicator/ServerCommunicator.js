@@ -72,6 +72,15 @@
 	var ProductService = function($http, UserInfo) {
 		var self = this;
 
+		self.updateUserFeedbackForProduct = function(productId, rate) {
+			return $http({
+				crossDomain: true,
+				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+				method: 'GET',
+				url: module.END_POINT + 'UpdateUserFeedbackForProduct?player_br=aim/produccion/' + productId + '/' + (rate * 100.0 / 5.0),
+			});
+		};
+
 		self.getFeatured = function() {
 			//return $http.get(module.END_POINT + 'GetFeatured' /*+ '?player_br=aim'*/);
 			return $http.get('assets/dummy/featured.json');

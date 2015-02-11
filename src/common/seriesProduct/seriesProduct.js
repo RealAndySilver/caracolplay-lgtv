@@ -157,6 +157,11 @@
 			};
 
 			$scope.onRate = function() {
+				console.log($scope.selected);
+
+				$state.go('rate', { 'productId': $scope.selected.id, 'rate': $scope.selected.rate });
+
+				/*
 				var modalInstance = $modal.open({
 					templateUrl: 'rateAlert/rateAlert.tpl.html',
 					controller: 'RateAlertController',
@@ -173,6 +178,7 @@
 				}, function() {
 					$log.info('Modal dismissed at: ' + new Date());
 				});
+				*/
 			};
 
 			var configHotkeys = function() {
@@ -328,7 +334,6 @@
 						switch(self.sections[self.sectionActive]) {
 							case self.OPTIONS_SECTION:
 								for (var i in $scope.options) {
-									console.log(i);
 
 									if ($scope.options[i].active) {
 										switch ($scope.options[i].label) {
