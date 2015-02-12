@@ -90,7 +90,11 @@
 
 				promiseIsContentAvaliable.then(function(response) {
 					if (response.data.status) {
-						alert('Show video');
+						$state.go("alertDialogView", {
+							type: 'warning',
+							message: 'Show Video',
+							button: 'Aceptar',
+						});
 					} else {
 						console.log(JSON.stringify(response.data));
 
@@ -159,7 +163,10 @@
 			$scope.onRate = function() {
 				console.log($scope.selected);
 
-				$state.go('rate', { 'productId': $scope.selected.id, 'rate': $scope.selected.rate });
+				$state.go('rate', {
+					'productId': $scope.selected.id,
+					'rate': $scope.selected.rate
+				});
 
 				/*
 				var modalInstance = $modal.open({
@@ -182,7 +189,7 @@
 			};
 
 			var configHotkeys = function() {
-				
+
 				hotkeys.add({
 					combo: 'up',
 					callback: function(event) {
@@ -331,7 +338,7 @@
 				hotkeys.add({
 					combo: 'enter',
 					callback: function() {
-						switch(self.sections[self.sectionActive]) {
+						switch (self.sections[self.sectionActive]) {
 							case self.OPTIONS_SECTION:
 								for (var i in $scope.options) {
 
@@ -361,10 +368,18 @@
 												$scope.onRate();
 												break;
 											case 'Trailer':
-												alert('Play Video');
+												$state.go("alertDialogView", {
+													type: 'warning',
+													message: 'Show Video',
+													button: 'Aceptar',
+												});
 												break;
 											case 'Añadir a mi lista':
-												alert('Add to list');
+												$state.go("alertDialogView", {
+													type: 'warning',
+													message: 'Add to list',
+													button: 'Aceptar',
+												});
 												break;
 										}
 									}

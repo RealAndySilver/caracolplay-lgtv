@@ -60,7 +60,11 @@
 				//console.log($scope.slides[active]);
 
 				if ($scope.slides[active]['progress_sec'] !== undefined) {
-					alert("show video");
+					$state.go("alertDialogView", {
+						type: 'alert',
+						message: 'Show video',
+						button: 'Aceptar',
+					});
 					return;
 				}
 				var productPremise = ProductService.getProductWithID($scope.slides[active].id, '');

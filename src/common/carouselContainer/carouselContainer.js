@@ -28,7 +28,11 @@
 				var active = getSlideActive();
 
 				if ($scope.slides[active]['progress_sec'] !== undefined) {
-					alert("show video");
+					$state.go("alertDialogView", {
+						type: 'alert',
+						message: 'Show video',
+						button: 'Aceptar',
+					});
 					return;
 				}
 				console.log($scope.slides[active]);

@@ -1,1 +1,8 @@
-<h1 class='alert'>AlertDialogView</h1>
+<div class="alert-container">
+	<center>
+		<img src="assets/img/alert.png" ng-show="{{type === 'alert'}}">
+		<img src="assets/img/interrogative.png" ng-show="{{type === 'warning'}}">
+		<h4>{{message}}</h4>
+		<button class="btn caracol-btn" ng-click="onLogin()">{{buttonMessage}}</button>
+	</center>
+</div>
