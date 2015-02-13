@@ -1,6 +1,6 @@
 (function(app) {
 
-	var CarouselContainerController = function($scope, hotkeys, ProductService) {
+	var CarouselContainerController = function($scope, hotkeys, ProductService, ProgressDialogService) {
 		var self = this;
 
 		var init = function() {
@@ -36,12 +36,16 @@
 					return;
 				}
 				console.log($scope.slides[active]);
+
+				ProgressDialogService.start();
 				var productPremise = ProductService.getProductWithID($scope.slides[active].id, '');
 
 				productPremise.then(function(res) {
 					console.log(res.data);
 
 					$scope.selected = res.data.products['0'][0];
+
+					ProgressDialogService.dismiss();
 				});
 				$scope.configKeyboard.restart = function() {
 					configHotkeys();
@@ -123,7 +127,7 @@
 		};
 	};
 
-	app.controller('CarouselContainerController', ['$scope', 'hotkeys', 'ProductService',CarouselContainerController]);
+	app.controller('CarouselContainerController', ['$scope', 'hotkeys', 'ProductService', 'ProgressDialogService', CarouselContainerController]);
 	app.directive('carouselContainer', CarouselContainer);
 
 }(angular.module("caracolplaylgtvapp.carouselContainer", [

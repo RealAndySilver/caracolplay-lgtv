@@ -83,4 +83,5 @@
 	'caracolplaylgtvapp.alertDialogView',
 	'caracolplaylgtvapp.videoController',
 	'caracolplaylgtvapp.rateAlert',
+    'caracolplaylgtvapp.progressDialog',
 ])));

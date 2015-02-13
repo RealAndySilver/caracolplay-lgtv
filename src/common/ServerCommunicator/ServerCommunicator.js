@@ -3,6 +3,10 @@
 	var module = this;
 	var ssl = {};
 
+	var test = {};
+
+	test.withoutInternet = false;
+
 	module.END_POINT = 'http://apps.caracolplay.com/';
 	//module.END_POINT = 'http://appsbetadev.caracolplay.com/';
 	module.TEST_END_POINT = 'http://192.168.1.129:1414/';
@@ -23,7 +27,8 @@
 		var headers = {};
 
 		var sslHeaders = false;
-		var isWithToken = false, sslToken = '';
+		var isWithToken = false,
+			sslToken = '';
 		var user = '',
 			password = '',
 			session = '';
@@ -31,7 +36,7 @@
 		if (typeof param1 === 'boolean') {
 			sslHeaders = param1;
 
-			if(param2) {
+			if (param2) {
 				isWithToken = true;
 				sslToken = param2;
 			}
@@ -48,7 +53,7 @@
 			headers.Authorization = 'Basic ' + sslAuth;
 			headers['Content-Type'] = 'application/json; charset=UTF-8';
 
-			if(isWithToken) {
+			if (isWithToken) {
 				headers['X-CSRF-Token'] = sslToken;
 			}
 		} else {
@@ -82,13 +87,19 @@
 		};
 
 		self.getFeatured = function() {
-			//return $http.get(module.END_POINT + 'GetFeatured' /*+ '?player_br=aim'*/);
-			return $http.get('assets/dummy/featured.json');
+			if (test.withoutInternet) {
+				return $http.get('assets/dummy/featured.json');
+			} else {
+				return $http.get(module.END_POINT + 'GetFeatured' + '?player_br=aim');
+			}
 		};
 
 		self.getCategories = function() {
-			//return $http.get(module.END_POINT + 'GetCategories' /*+ '?player_br=aim'*/);
-			return $http.get('assets/dummy/categories.json');
+			if (test.withoutInternet) {
+				return $http.get('assets/dummy/categories.json');
+			} else {
+				return $http.get(module.END_POINT + 'GetCategories' + '?player_br=aim');
+			}
 		};
 
 		self.getListFromCategoryId = function(id, filter) {
@@ -97,8 +108,11 @@
 				filter = 1;
 			}
 
-			//return $http.get(module.END_POINT + 'GetListFromCategoryId/' + id + '/' + filter + '?player_br=aim');
-			return $http.get('assets/dummy/telenovelas.json');
+			if (test.withoutInternet) {
+				return $http.get('assets/dummy/telenovelas.json');
+			} else {
+				return $http.get(module.END_POINT + 'GetListFromCategoryId/' + id + '/' + filter + '?player_br=aim');
+			}
 		};
 
 		self.getUserRecentlyWatched = function() {
@@ -118,16 +132,17 @@
 			if (!uid || uid === '') {
 				uid = '0';
 			}
-			/*
-			return $http({
-				crossDomain: true,
-				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
-				method: 'GET',
-				url: module.END_POINT + 'GetProductWithID/' + id + '/' + uid + '?player_br=aim',
-			});
-*/
-			
-			return $http.get('assets/dummy/product.json');
+
+			if (test.withoutInternet) {
+				return $http.get('assets/dummy/product.json');
+			} else {
+				return $http({
+					crossDomain: true,
+					headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+					method: 'GET',
+					url: module.END_POINT + 'GetProductWithID/' + id + '/' + uid + '?player_br=aim',
+				});
+			}
 		};
 	};
 
@@ -144,16 +159,16 @@
 		};
 
 		self.isContentAvailableForUser = function(episodeId) {
-			/*
-			return $http({
-				crossDomain: true,
-				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
-				method: 'GET',
-				url: module.END_POINT + 'IsContentAvailableForUser/' + episodeId + '?player_br=aim',
-			});
-*/
-			
-			return $http.get('assets/dummy/validateUserReponse.json');
+			if (test.withoutInternet) {
+				return $http.get('assets/dummy/validateUserReponse.json');
+			} else {
+				return $http({
+					crossDomain: true,
+					headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+					method: 'GET',
+					url: module.END_POINT + 'IsContentAvailableForUser/' + episodeId + '?player_br=aim',
+				});
+			}
 		};
 
 		self.authenticateUser = function(username, password) {
@@ -193,13 +208,13 @@
 
 		self.createUser = function(name, password, mail, privacyPolicity, termsAndConditions, bussinessInfo) {
 			console.log({
-					'name': name,
-					'pass': password,
-					'mail': mail,
-					'privacy_policy': privacyPolicity ? 1 : 0,
-					'terms_and_conditions': termsAndConditions ? 1 : 0,
-					'business_inf': bussinessInfo ? 1 : 0,
-				});
+				'name': name,
+				'pass': password,
+				'mail': mail,
+				'privacy_policy': privacyPolicity ? 1 : 0,
+				'terms_and_conditions': termsAndConditions ? 1 : 0,
+				'business_inf': bussinessInfo ? 1 : 0,
+			});
 			return $http({
 				headers: encode(true),
 				method: 'POST',
@@ -247,7 +262,9 @@
 					makeFunction(success, error);
 				};
 
-				return { then: this.then };
+				return {
+					then: this.then
+				};
 			};
 
 			return asyncResponse(function(sucessCallback, errorCallback) {
@@ -277,7 +294,9 @@
 					return makeFunction(success, error);
 				};
 
-				return { then: this.then };
+				return {
+					then: this.then
+				};
 			};
 
 			return asyncResponse(function(sucessCallback, errorCallback) {
@@ -286,7 +305,7 @@
 					var token = response.data.token;
 
 					return self.searchCity(city, token).then(sucessCallback, errorCallback);
-					}, errorCallback);
+				}, errorCallback);
 			});
 		};
 
@@ -324,7 +343,9 @@
 					return makeFunction(success, error);
 				};
 
-				return { then: this.then };
+				return {
+					then: this.then
+				};
 			};
 
 			return asyncResponse(function(sucessCallback, errorCallback) {
@@ -333,7 +354,7 @@
 					var token = response.data.token;
 
 					return self.executeTransactionWithCard(paymentInfo, token).then(sucessCallback, errorCallback);
-					}, errorCallback);
+				}, errorCallback);
 			});
 		};
 

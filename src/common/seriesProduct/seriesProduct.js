@@ -1,6 +1,6 @@
 (function(app) {
 
-	var SeriesProductController = function($scope, hotkeys, $modal, UserService, UserInfo, $state, DevInfo, $rootScope) {
+	var SeriesProductController = function($scope, hotkeys, $modal, UserService, UserInfo, $state, DevInfo, $rootScope, ProgressDialogService) {
 		var self = this;
 
 		var init = function() {
@@ -86,9 +86,11 @@
 			};
 
 			$scope.open = function(size) {
+				ProgressDialogService.start();
 				var promiseIsContentAvaliable = UserService.isContentAvailableForUser($scope.getChapterId());
 
 				promiseIsContentAvaliable.then(function(response) {
+					ProgressDialogService.dismiss();
 					if (response.data.status) {
 						$state.go("alertDialogView", {
 							type: 'warning',
@@ -490,7 +492,7 @@
 		};
 	};
 
-	app.controller('SeriesProductController', ['$scope', 'hotkeys', '$modal', 'UserService', 'UserInfo', '$state', 'DevInfo', '$rootScope', SeriesProductController]);
+	app.controller('SeriesProductController', ['$scope', 'hotkeys', '$modal', 'UserService', 'UserInfo', '$state', 'DevInfo', '$rootScope', 'ProgressDialogService', SeriesProductController]);
 	app.directive('seriesProduct', SeriesProductDirective);
 
 	app.filter('unsafe', function($sce) {
