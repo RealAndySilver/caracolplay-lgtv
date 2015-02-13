@@ -44,18 +44,30 @@
 	};
 
 	var AlertDialogViewController = function($scope, $modalInstance, alertInfo, hotkeys) {
-		$scope.message = alertInfo.message;
-		$scope.buttonMessage = alertInfo.button;
-		$scope.type = alertInfo.type;
+		init();
 
-		hotkeys.add({
-			combo: 'enter',
-			callback: function(event) {
-				event.preventDefault();
+		function init() {
+			$scope.message = alertInfo.message;
+			$scope.buttonMessage = alertInfo.button;
+			$scope.type = alertInfo.type;
 
-				window.history.back();
-			},
-		});
+			if(!$scope.type) {
+				$scope.type = 'warning';
+			}
+
+			if(!$scope.buttonMessage) {
+				$scope.buttonMessage = 'Aceptar';
+			}
+
+			hotkeys.add({
+				combo: 'enter',
+				callback: function(event) {
+					event.preventDefault();
+
+					window.history.back();
+				},
+			});
+		}
 	};
 
 	app.controller('ShowAlertDialogViewController', ['$scope', '$modal', ShowAlertDialogViewController]);
