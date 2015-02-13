@@ -286,6 +286,10 @@
 						console.log('sections', self.sections[self.sectionActive]);
 
 						switch (self.sections[self.sectionActive]) {
+							case self.SEASONS_SECTION:
+								self.seasonsButtons[0].active = true;
+								self.seasonSelected = 0;
+								break;
 							case self.EPISODES_SECTION:
 								self.episodesButtons[0].active = true;
 								self.episodeSelected = 0;
@@ -328,8 +332,12 @@
 								self.episodesButtons[self.episodeSelected].active = false;
 								break;
 							case self.OPTIONS_SECTION:
-								self.episodesButtons[self.episodeSelected].active = false;
-								self.seasonSelected[self.seasonSelected].active = false;
+								if(self.episodeSelected >= 0) {
+									self.episodesButtons[self.episodeSelected].active = false;
+								}
+								if(self.seasonSelected >= 0) {
+									self.seasonsButtons[self.seasonSelected].active = false;
+								}
 								self.seasonSelected = -1;
 								self.episodeSelected = -1;
 								return;
@@ -350,6 +358,10 @@
 												self.sectionActive++;
 
 												switch (self.sections[self.sectionActive]) {
+													case self.SEASONS_SECTION:
+														self.seasonsButtons[0].active = true;
+														self.seasonSelected = 0;
+														break;
 													case self.EPISODES_SECTION:
 														self.episodesButtons[0].active = true;
 														self.episodeSelected = 0;

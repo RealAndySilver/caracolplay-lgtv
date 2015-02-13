@@ -34,7 +34,7 @@
 				$scope.selected = $scope.slides[active];
 				console.log($scope.selected);
 				slider.stop().animate({
-					scrollLeft: active * cover.width()
+					scrollLeft: active * cover.outerWidth(true)
 				}, 500);
 			};
 
@@ -98,11 +98,13 @@
 
 					//console.log('#' + $scope.title.replace(/ /g, '') + 'Slider');
 					slider = $('#' + $scope.title.replace(/ /g, '') + 'Slider');
-					cover = $('.cover');
+					cover = $('.ProductionItem');
 
 					var div = $('#' + $scope.title.replace(/ /g, ''))/*.attr('href')*/;
 					console.log(div.position.top);
 					$('.scroll-area').scrollTop($(div).position().top - 134);
+					console.log('outerWidth: ' + cover.outerWidth(true));
+					$('.free-zone').width(cover.outerWidth(true) * $scope.slides.length);
 					/*
 					$('.scroll-area').stop().animate({
 						scrollTop: $(div).position().top - 134
