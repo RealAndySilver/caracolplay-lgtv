@@ -15,7 +15,7 @@
 	app.service('ModalInstanceService', [ModalInstanceService]);
 	app.constant('ModalInstance', {});
 
-	var PurchaseViewController = function($scope, hotkeys, UserService, PurchaseService, UserInfo, $modalInstance, typeView, $state) {
+	var PurchaseViewController = function($scope, hotkeys, UserService, PurchaseService, UserInfo, $modalInstance, typeView, $state, AlertDialogService) {
 		var itemSelected = 0;
 
 		var self = this;
@@ -315,11 +315,12 @@
 		$scope.onRedeem = function() {
 			// check if user is login
 			if (!$scope.redeemCode) {
-				$state.go("alertDialogView", {
-					type: 'alert',
-					message: 'El codigo para redimir no puede estar vacio',
-					button: 'Aceptar',
-				});
+				AlertDialogService.show(
+						'alert',
+						'El codigo para redimir no puede estar vacio',
+						'Aceptar',
+						configHotkeys
+					);
 				return;
 			}
 
@@ -332,11 +333,12 @@
 					if (response.data.info_code) {
 						if (response.data.info_code.type) {
 							if (response.data.info_code.type === 'ev') {
-								$state.go("alertDialogView", {
-									type: 'warning',
-									message: 'Show video',
-									button: 'Aceptar',
-								});
+								AlertDialogService.show(
+									'warning',
+									'Show video',
+									'Aceptar',
+									configHotkeys
+								);
 							}
 						} else {
 							$scope.showOptions = true;
@@ -349,11 +351,12 @@
 						}
 					}
 				} else {
-					$state.go("alertDialogView", {
-						type: 'alert',
-						message: response.data.response,
-						button: 'Aceptar',
-					});
+					AlertDialogService.show(
+						'alert',
+						response.data.response,
+						'Aceptar',
+						configHotkeys
+					);
 				}
 			});
 		};
@@ -389,74 +392,82 @@
 
 		$scope.validateStepOne = function() {
 			if ($scope.subscription.email === '') {
-				$state.go("alertDialogView", {
-					type: 'alert',
-					message: 'El campo de email no puede estar vacio',
-					button: 'Aceptar',
-				});
+				AlertDialogService.show(
+					'warning',
+					'El campo de email no puede estar vacio',
+					'Aceptar',
+						configHotkeys
+				);
 				return false;
 			}
 
 			if ($scope.subscription.user === '') {
-				$state.go("alertDialogView", {
-					type: 'alert',
-					message: 'El campo de usuario no puede estar vacio',
-					button: 'Aceptar',
-				});
+				AlertDialogService.show(
+					'alert',
+					'El campo de usuario no puede estar vacio',
+					'Aceptar',
+						configHotkeys
+				);
 				return false;
 			}
 
 			if ($scope.subscription.password === '') {
-				$state.go("alertDialogView", {
-					type: 'alert',
-					message: 'El campo de contraseña no puede estar vacio',
-					button: 'Aceptar',
-				});
+				AlertDialogService.show(
+					'alert',
+					'El campo de contraseña no puede estar vacio',
+					'Aceptar',
+						configHotkeys
+				);
 				return false;
 			}
 
 			if ($scope.subscription.confirmPassword === '') {
-				$state.go("alertDialogView", {
-					type: 'alert',
-					message: 'El campo de confirmar no puede estar vacio',
-					button: 'Aceptar',
-				});
+				AlertDialogService.show(
+					'alert',
+					'El campo de confirmar no puede estar vacio',
+					'Aceptar',
+						configHotkeys
+				);
 				return false;
 			}
 
 			if ($scope.subscription.password !== $scope.subscription.confirmPassword) {
-				$state.go("alertDialogView", {
-					type: 'alert',
-					message: 'Las contraseñas no coiciden',
-					button: 'Aceptar',
-				});
+				AlertDialogService.show(
+					'alert',
+					'Las contraseñas no coiciden',
+					'Aceptar',
+						configHotkeys
+				);
 				return false;
 			}
 
 			if (!$scope.subscription.terms) {
-				$state.go("alertDialogView", {
-					type: 'alert',
-					message: 'Debes aceptar los terminos y condiciones',
-					button: 'Aceptar',
-				});
+				AlertDialogService.show(
+					'alert',
+					'Debes aceptar los terminos y condiciones',
+					'Aceptar',
+						configHotkeys
+				);
 				return false;
 			}
 
 			if (!$scope.subscription.politics) {
-				$state.go("alertDialogView", {
-					type: 'alert',
-					message: 'Debes aceptar los politicas de privacidad',
-					button: 'Aceptar',
-				});
+				AlertDialogService.show(
+					'alert',
+					'Debes aceptar los politicas de privacidad',
+					'Aceptar',
+						configHotkeys
+				);
 				return false;
 			}
 
 			if (!$scope.subscription.requirements) {
-				$state.go("alertDialogView", {
-					type: 'alert',
-					message: 'Debes aceptar los requerimientos para reproducir video',
-					button: 'Aceptar',
-				});
+				AlertDialogService.show(
+					'alert',
+					'Debes aceptar los requerimientos para reproducir video',
+					'Aceptar',
+						configHotkeys
+				);
 				return false;
 			}
 
@@ -465,47 +476,52 @@
 
 		$scope.validateStepTwo = function() {
 			if (!$scope.subscription.name) {
-				$state.go("alertDialogView", {
-					type: 'alert',
-					message: 'El campo de nombres no puede estar vacio',
-					button: 'Aceptar',
-				});
+				AlertDialogService.show(
+					'alert',
+					'El campo de nombres no puede estar vacio',
+					'Aceptar',
+						configHotkeys
+				);
 				return false;
 			}
 
 			if (!$scope.subscription.lastname) {
-				$state.go("alertDialogView", {
-					type: 'alert',
-					message: 'El campo de apellidos no puede estar vacio',
-					button: 'Aceptar',
-				});
+				AlertDialogService.show(
+					'alert',
+					'El campo de apellidos no puede estar vacio',
+					'Aceptar',
+						configHotkeys
+				);
 				return false;
 			}
 
 			if (!$scope.subscription.city) {
-				$state.go("alertDialogView", {
-					type: 'alert',
-					message: 'El campo de ciudad no puede estar vacio',
-					button: 'Aceptar',
-				});
+				AlertDialogService.show(
+					'alert',
+					'El campo de ciudad no puede estar vacio',
+					'Aceptar',
+						configHotkeys
+				);
 				return false;
 			}
 
 			if (!$scope.subscription.documentType) {
-				$state.go("alertDialogView", {
-					type: 'alert',
-					message: 'El campo de tipo de documento no puede estar vacio',
-					button: 'Aceptar',
-				});
+				AlertDialogService.show(
+					'alert',
+					'El campo de tipo de documento no puede estar vacio',
+					'Aceptar',
+						configHotkeys
+				);
 				return false;
 			}
 
 			if (!$scope.subscription.documentNumber) {
-				$state.go("alertDialogView", {
-					type: 'alert',
-					message: 'El campo de numero de documento no puede estar vacio',
-					button: 'Aceptar',
-				});
+				AlertDialogService.show(
+					'alert',
+					'El campo de numero de documento no puede estar vacio',
+					'Aceptar',
+						configHotkeys
+				);
 				return false;
 			}
 			return true;
@@ -513,56 +529,62 @@
 
 		$scope.validateStepThree = function() {
 			if (!$scope.subscription.creditcard) {
-				$state.go("alertDialogView", {
-					type: 'alert',
-					message: 'El campo de tipo de tarjeta de credito no puede estar vacio',
-					button: 'Aceptar',
-				});
+				AlertDialogService.show(
+					'alert',
+					'El campo de tipo de tarjeta de credito no puede estar vacio',
+					'Aceptar',
+						configHotkeys
+				);
 				return false;
 			}
 
 			if (!$scope.subscription.creditNumber) {
-				$state.go("alertDialogView", {
-					type: 'alert',
-					message: 'El campo de numero de tarjeta de credito no puede estar vacio',
-					button: 'Aceptar',
-				});
+				AlertDialogService.show(
+					'alert',
+					'El campo de numero de tarjeta de credito no puede estar vacio',
+					'Aceptar',
+						configHotkeys
+				);
 				return false;
 			}
 
 			if (!$scope.subscription.month) {
-				$state.go("alertDialogView", {
-					type: 'alert',
-					message: 'El campo de mes de expiracion no puede estar vacio',
-					button: 'Aceptar',
-				});
+				AlertDialogService.show(
+					'alert',
+					'El campo de mes de expiracion no puede estar vacio',
+					'Aceptar',
+						configHotkeys
+				);
 				return false;
 			}
 
 			if (!$scope.subscription.year) {
-				$state.go("alertDialogView", {
-					type: 'alert',
-					message: 'El campo de año de expiracion no puede estar vacio',
-					button: 'Aceptar',
-				});
+				AlertDialogService.show(
+					'alert',
+					'El campo de año de expiracion no puede estar vacio',
+					'Aceptar',
+						configHotkeys
+				);
 				return false;
 			}
 
 			if (!$scope.subscription.securityCode) {
-				$state.go("alertDialogView", {
-					type: 'alert',
-					message: 'El campo de codigo de seguridad no puede estar vacio',
-					button: 'Aceptar',
-				});
+				AlertDialogService.show(
+					'alert',
+					'El campo de codigo de seguridad no puede estar vacio',
+					'Aceptar',
+						configHotkeys
+				);
 				return false;
 			}
 
 			if (!$scope.subscription.parcel) {
-				$state.go("alertDialogView", {
-					type: 'alert',
-					message: 'El campo de parcel no puede estar vacio',
-					button: 'Aceptar',
-				});
+				AlertDialogService.show(
+					'alert',
+					'El campo de parcel no puede estar vacio',
+					'Aceptar',
+						configHotkeys
+				);
 				return false;
 			}
 			return true;
@@ -605,14 +627,22 @@
 
 					var successCallbackExecuteTransaction = function(response) {
 						console.log(response.data);
+
+						AlertDialogService.show(
+							'alert',
+							response.data.user + ': ' + response.data.result,
+							'Aceptar',
+						configHotkeys
+							);
 					};
 
-					var failureCallbackExecuteTransaction = function(response) {
-						$state.go("alertDialogView", {
-							type: 'alert',
-							message: response.data[0],
-							button: 'Aceptar',
-						});
+					var failureCallback = function(response) {
+						AlertDialogService.show(
+							'alert',
+							response.data[0],
+							'Aceptar',
+						configHotkeys
+						);
 					};
 
 					var successCallbackCreateOrder = function(response) {
@@ -650,29 +680,13 @@
 
 						var promiseExecute = PurchaseService.executeTransactionWithCardFlow(transactionInfo);
 
-						promiseExecute.then(successCallbackExecuteTransaction, failureCallbackExecuteTransaction);
-					};
-
-					var failureCallbackCreateOrder = function(response) {
-						$state.go("alertDialogView", {
-							type: 'alert',
-							message: response.data[0],
-							button: 'Aceptar',
-						});
+						promiseExecute.then(successCallbackExecuteTransaction, failureCallback);
 					};
 
 					var successCallbackLogin = function(response) {
 						console.log(response.data);
 						var promiseCreateSubscriptionOrder = PurchaseService.createSubscriptionOrderFlow();
-						promiseCreateSubscriptionOrder.then(successCallbackCreateOrder, failureCallbackCreateOrder);
-					};
-
-					var failureCallbackLogin = function(response) {
-						$state.go("alertDialogView", {
-							type: 'alert',
-							message: response.data[0],
-							button: 'Aceptar',
-						});
+						promiseCreateSubscriptionOrder.then(successCallbackCreateOrder, failureCallback);
 					};
 
 					var successCallbackCreateUser = function(response) {
@@ -684,25 +698,18 @@
 								'password': $scope.subscription.password,
 							});
 							var promiseLogin = PurchaseService.loginPaymentUserFlow($scope.subscription.user, $scope.subscription.password);
-							promiseLogin.then(successCallbackLogin, failureCallbackLogin);
+							promiseLogin.then(successCallbackLogin, failureCallback);
 						} else {
-							$state.go("alertDialogView", {
-								type: 'alert',
-								message: response.data.form_errors[0],
-								button: 'Aceptar',
-							});
+							AlertDialogService.show(
+								'alert',
+								response.data.form_errors[0],
+								'Aceptar',
+						configHotkeys
+							);
 						}
 					};
 
-					var failureCallbackCreateUser = function(response) {
-						$state.go("alertDialogView", {
-							type: 'alert',
-							message: response.data[0],
-							button: 'Aceptar',
-						});
-					};
-
-					createUserPromise.then(successCallbackCreateUser, failureCallbackCreateUser);
+					createUserPromise.then(successCallbackCreateUser, failureCallback);
 					/*
 					var purchasePromise = PurchaseService.getProduct(1, 1, 1);
 
@@ -758,19 +765,21 @@
 					/**
 					 * DEVELOPER NOTES: ADD CODE TO SHOW VIDEO
 					 */
-					$state.go("alertDialogView", {
-						type: 'alert',
-						message: 'Show Video',
-						button: 'Aceptar',
-					});
+					AlertDialogService.show(
+							'alert',
+							'Show Video',
+							'Aceptar',
+						configHotkeys
+						);
 					$modalInstance.dismiss('cancel');
 					//$state.go('dashboard');
 				} else {
-					$state.go("alertDialogView", {
-						type: 'alert',
-						message: resObj.response,
-						button: 'Aceptar',
-					});
+					AlertDialogService.show(
+						'alert',
+						resObj.response,
+						'Aceptar',
+						configHotkeys
+					);
 				}
 			});
 
@@ -964,6 +973,7 @@
 		'$modalInstance',
 		'typeView',
 		'$state',
+		'AlertDialogService',
 		PurchaseViewController
 	]);
 

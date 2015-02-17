@@ -1,6 +1,6 @@
 (function(app) {
 
-	var ProductsContainerController = function($scope, hotkeys, ProductService) {
+	var ProductsContainerController = function($scope, hotkeys, ProductService, AlertDialogService) {
 		var self = this;
 
 		var init = function() {
@@ -60,11 +60,12 @@
 				//console.log($scope.slides[active]);
 
 				if ($scope.slides[active]['progress_sec'] !== undefined) {
-					$state.go("alertDialogView", {
-						type: 'alert',
-						message: 'Show video',
-						button: 'Aceptar',
-					});
+					AlertDialogService.show(
+						'alert',
+						'Show video',
+						'Aceptar',
+						configHotkeys
+					);
 					return;
 				}
 				var productPremise = ProductService.getProductWithID($scope.slides[active].id, '');
@@ -154,7 +155,7 @@
 		};
 	});
 
-	app.controller('ProductsContainerController', ['$scope', 'hotkeys', 'ProductService', ProductsContainerController]);
+	app.controller('ProductsContainerController', ['$scope', 'hotkeys', 'ProductService', 'AlertDialogService', ProductsContainerController]);
 	app.directive('productsContainer', ProductsContainer);
 
 }(angular.module("caracolplaylgtvapp.ProductsContainer", [

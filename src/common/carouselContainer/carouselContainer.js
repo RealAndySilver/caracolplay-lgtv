@@ -1,6 +1,6 @@
 (function(app) {
 
-	var CarouselContainerController = function($scope, hotkeys, ProductService, ProgressDialogService) {
+	var CarouselContainerController = function($scope, hotkeys, ProductService, ProgressDialogService, AlertDialogService) {
 		var self = this;
 
 		var init = function() {
@@ -28,11 +28,17 @@
 				var active = getSlideActive();
 
 				if ($scope.slides[active]['progress_sec'] !== undefined) {
-					$state.go("alertDialogView", {
-						type: 'alert',
-						message: 'Show video',
-						button: 'Aceptar',
-					});
+					AlertDialogService.show(
+						'alert',
+						'Show video',
+						'Aceptar',
+						function() {
+							hotkeys.add({
+								combo: 'enter',
+								callback: enterCallback,
+							});
+						}
+					);
 					return;
 				}
 				console.log($scope.slides[active]);
@@ -127,7 +133,7 @@
 		};
 	};
 
-	app.controller('CarouselContainerController', ['$scope', 'hotkeys', 'ProductService', 'ProgressDialogService', CarouselContainerController]);
+	app.controller('CarouselContainerController', ['$scope', 'hotkeys', 'ProductService', 'ProgressDialogService', 'AlertDialogService', CarouselContainerController]);
 	app.directive('carouselContainer', CarouselContainer);
 
 }(angular.module("caracolplaylgtvapp.carouselContainer", [

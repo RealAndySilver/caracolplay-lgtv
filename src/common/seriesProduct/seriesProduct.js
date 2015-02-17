@@ -1,6 +1,6 @@
 (function(app) {
 
-	var SeriesProductController = function($scope, hotkeys, $modal, UserService, UserInfo, $state, DevInfo, $rootScope, ProgressDialogService) {
+	var SeriesProductController = function($scope, hotkeys, $modal, UserService, UserInfo, $state, DevInfo, $rootScope, ProgressDialogService, AlertDialogService) {
 		var self = this;
 
 		var init = function() {
@@ -92,11 +92,12 @@
 				promiseIsContentAvaliable.then(function(response) {
 					ProgressDialogService.dismiss();
 					if (response.data.status) {
-						$state.go("alertDialogView", {
-							type: 'warning',
-							message: 'Show Video',
-							button: 'Aceptar',
-						});
+						AlertDialogService.show(
+							'warning',
+							'Show Video',
+							'Aceptar',
+						configHotkeys
+						);
 					} else {
 						console.log(JSON.stringify(response.data));
 
@@ -382,18 +383,20 @@
 												$scope.onRate();
 												break;
 											case 'Trailer':
-												$state.go("alertDialogView", {
-													type: 'warning',
-													message: 'Show Video',
-													button: 'Aceptar',
-												});
+												AlertDialogService.show(
+													'warning',
+													'Show Video',
+													'Aceptar',
+						configHotkeys
+												);
 												break;
 											case 'Añadir a mi lista':
-												$state.go("alertDialogView", {
-													type: 'warning',
-													message: 'Add to list',
-													button: 'Aceptar',
-												});
+													AlertDialogService.show(
+													'warning',
+													'Add to list',
+													'Aceptar',
+						configHotkeys
+												);
 												break;
 										}
 									}
@@ -504,7 +507,18 @@
 		};
 	};
 
-	app.controller('SeriesProductController', ['$scope', 'hotkeys', '$modal', 'UserService', 'UserInfo', '$state', 'DevInfo', '$rootScope', 'ProgressDialogService', SeriesProductController]);
+	app.controller('SeriesProductController', [
+		'$scope',
+		'hotkeys',
+		'$modal',
+		'UserService',
+		'UserInfo',
+		'$state',
+		'DevInfo',
+		'$rootScope',
+		'ProgressDialogService',
+		'AlertDialogService',
+		SeriesProductController]);
 	app.directive('seriesProduct', SeriesProductDirective);
 
 	app.filter('unsafe', function($sce) {

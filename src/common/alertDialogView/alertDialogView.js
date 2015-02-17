@@ -1,5 +1,5 @@
 (function(app) {
-
+	/*
 	app.config(['$stateProvider', function($stateProvider) {
 		$stateProvider.state('alertDialogView', {
 			url: '/alertView/:type/:message/:button',
@@ -14,33 +14,42 @@
 			}
 		});
 	}]);
+	*/
 
-	var ShowAlertDialogViewController = function($scope, $modal) {
-		init();
+	var AlertDialogService = function($modal) {
+		var self = this;
+		self.modalInstance = {};
 
-		function init() {
-			var modalInstance = $modal.open({
+		self.show = function(type, message, button, onDismiss) {
+			self.modalInstance = $modal.open({
 				controller: 'AlertDialogViewController',
 				templateUrl: 'alertDialogView/alertDialogView.tpl.html',
 				size: '',
 				resolve: {
 					alertInfo: function($stateParams) {
 						return {
-							'type': $stateParams.type,
-							'message': $stateParams.message,
-							'button': $stateParams.button,
+							'type': type,
+							'message': message,
+							'button': button,
 						};
 					},
 				},
 			});
-
-			$scope.$on('$stateChangeStart', function(event, newUrl, oldUrl) {
-				// if modal instance difined, dismiss window
-				if (modalInstance) {
-					modalInstance.dismiss('cancel');
+			
+			self.modalInstance.result.then(function() {
+				if(onDismiss) {
+					onDismiss();
+				}
+			}, function() {
+				if(onDismiss) {
+					onDismiss();
 				}
 			});
-		}
+		};
+
+		self.dismiss = function() {
+			self.dismiss('cancel');
+		};
 	};
 
 	var AlertDialogViewController = function($scope, $modalInstance, alertInfo, hotkeys) {
@@ -64,13 +73,13 @@
 				callback: function(event) {
 					event.preventDefault();
 
-					window.history.back();
+					$modalInstance.dismiss('cancel');
 				},
 			});
 		}
 	};
 
-	app.controller('ShowAlertDialogViewController', ['$scope', '$modal', ShowAlertDialogViewController]);
+	app.service('AlertDialogService', ['$modal', AlertDialogService]);
 	app.controller('AlertDialogViewController', ['$scope', '$modalInstance', 'alertInfo', 'hotkeys', AlertDialogViewController]);
 
 }(angular.module("caracolplaylgtvapp.alertDialogView", [
