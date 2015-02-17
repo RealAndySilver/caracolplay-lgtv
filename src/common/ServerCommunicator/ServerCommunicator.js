@@ -352,12 +352,36 @@
 			});
 		};
 
-		self.createRentOrder = function(token) {
-			return {
+		self.createRentOrder = function(token, nid) {
+			return $http({
 				headers: encode(true, token),
 				method: 'POST',
+				data: JSON.stringify({
+					nid: nid
+				}),
 				url: ssl.END_POINT + 'commerce/payment/order_rent.json',
+			});
+		};
+
+		self.createRentOrderFlow = function(nid) {
+			var asyncResponse = function(makeFunction) {
+				this.then = function(success, error) {
+					return makeFunction(success, error);
+				};
+
+				return {
+					then: this.then
+				};
 			};
+
+			return asyncResponse(function(sucessCallback, errorCallback) {
+				var tokenPromise = self.getToken();
+				return tokenPromise.then(function(response) {
+					var token = response.data.token;
+					var promise = self.createRentOrder(token, nid);
+					return promise.then(sucessCallback, errorCallback);
+				}, errorCallback);
+			});
 		};
 
 		self.executeTransactionWithCardFlow = function(paymentInfo) {

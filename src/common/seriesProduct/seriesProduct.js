@@ -102,7 +102,8 @@
 						console.log(JSON.stringify(response.data));
 
 						$state.go('purchase', {
-							typeView: $scope.selected.type_view
+							typeView: $scope.selected.type_view,
+							productionId: $scope.getChapterId(),
 						});
 
 						/*

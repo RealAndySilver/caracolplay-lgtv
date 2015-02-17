@@ -933,8 +933,6 @@
 		});
 
 		$scope.$on('$stateChangeStart', function(event, newUrl, oldUrl) {
-			console.log('Remove modal popup if necessary!');
-			// if modal instance difined, dismiss window
 			if (modalInstance) {
 				modalInstance.dismiss('cancel');
 			}
@@ -949,7 +947,7 @@
 
 	app.config(['$stateProvider', function($stateProvider) {
 		$stateProvider.state('purchase', {
-			url: '/purchase/:typeView',
+			url: '/purchase/:typeView/:productionId',
 			views: {
 				'main': {
 					controller: 'DialogPurchaseController',
