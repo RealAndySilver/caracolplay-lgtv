@@ -601,7 +601,7 @@
 						$scope.subscription.email,
 						$scope.subscription.politics,
 						$scope.subscription.terms,
-						$scope.subscription.comertial);
+						!$scope.subscription.comertial);
 
 					var successCallbackExecuteTransaction = function(response) {
 						console.log(response.data);
@@ -637,12 +637,16 @@
 								'document': $scope.subscription.documentNumber,
 								'lastname': $scope.subscription.lastname,
 								'name': $scope.subscription.name,
-								'phone': $scope.subscription.phone,
-								'address': $scope.subscription.address,
+								//'phone': $scope.subscription.phone,
+								'phone': '1234567890',
+								//'address': $scope.subscription.address,
+								'address': 'dir 12 #34',
 								'renovation': '1',
-								'city': $scope.cities[positionSelectedCity],
+								'city': $scope.cities[positionSelectedCity].id,
 							}
 						};
+
+						console.log('transactionInfo', transactionInfo);
 
 						var promiseExecute = PurchaseService.executeTransactionWithCardFlow(transactionInfo);
 
@@ -659,13 +663,8 @@
 
 					var successCallbackLogin = function(response) {
 						console.log(response.data);
-						if (response.data.status === 1) {
-							var promiseCreateSubscriptionOrder = PurchaseService.createRentOrder();
-
-							promiseCreateSubscriptionOrder.then(successCallbackCreateOrder, failureCallbackCreateOrder);
-						} else {
-							console.log('ocurrio un error intenta más tarde');
-						}
+						var promiseCreateSubscriptionOrder = PurchaseService.createSubscriptionOrderFlow();
+						promiseCreateSubscriptionOrder.then(successCallbackCreateOrder, failureCallbackCreateOrder);
 					};
 
 					var failureCallbackLogin = function(response) {
@@ -860,7 +859,7 @@
 
 		init();
 
-		PurchaseService.loginPaymentUserFlow('user_ws_iam_6', '123').then(function(response) {
+		PurchaseService.loginPaymentUserFlow(UserInfo.alias, UserInfo.password).then(function(response) {
 			console.log(response.data);
 		}, function(error) {
 			console.log(error);

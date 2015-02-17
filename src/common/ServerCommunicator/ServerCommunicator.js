@@ -78,6 +78,7 @@
 		var self = this;
 
 		self.updateUserFeedbackForProduct = function(productId, rate) {
+			console.log('UserInfo', UserInfo);
 			return $http({
 				crossDomain: true,
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
@@ -310,23 +311,45 @@
 		};
 
 		self.executeTransactionWithCard = function(paymentInfo, token) {
-			var encryptedJson = btoa(unescape(encodeURIComponent(btoa(unescape(encodeURIComponent(paymentInfo))))));
-			return {
+			var encryptedJson = btoa(unescape(encodeURIComponent(btoa(unescape(encodeURIComponent(JSON.stringify(paymentInfo)))))));
+			return $http({
 				headers: encode(true, token),
 				method: 'POST',
 				url: ssl.END_POINT + 'commerce/payment/transaction.json',
 				data: JSON.stringify({
 					'info_tx': encryptedJson,
 				}),
-			};
+			});
 		};
 
 		self.createSubscriptionOrder = function(token) {
-			return {
+			return $http({
 				headers: encode(true, token),
 				method: 'POST',
+				data: "",
 				url: ssl.END_POINT + 'commerce/payment/order_subscription.json',
+			});
+		};
+
+		self.createSubscriptionOrderFlow = function() {
+			var asyncResponse = function(makeFunction) {
+				this.then = function(success, error) {
+					return makeFunction(success, error);
+				};
+
+				return {
+					then: this.then
+				};
 			};
+
+			return asyncResponse(function(sucessCallback, errorCallback) {
+				var tokenPromise = self.getToken();
+				return tokenPromise.then(function(response) {
+					var token = response.data.token;
+					var promise = self.createSubscriptionOrder(token);
+					return promise.then(sucessCallback, errorCallback);
+				}, errorCallback);
+			});
 		};
 
 		self.createRentOrder = function(token) {
@@ -352,8 +375,8 @@
 				var tokenPromise = self.getToken();
 				return tokenPromise.then(function(response) {
 					var token = response.data.token;
-
-					return self.executeTransactionWithCard(paymentInfo, token).then(sucessCallback, errorCallback);
+					var promise = self.executeTransactionWithCard(paymentInfo, token);
+					return promise.then(sucessCallback, errorCallback);
 				}, errorCallback);
 			});
 		};

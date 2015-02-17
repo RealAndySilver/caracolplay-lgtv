@@ -223,6 +223,7 @@
 			self.list.length = 0;
 
 			var userInfoStr = localStorage.getItem('userInfo');
+			console.log('localStorage: ' + userInfoStr);
 
 			if (userInfoStr) {
 				var userInfo = JSON.parse(userInfoStr);
@@ -236,6 +237,8 @@
 				UserInfo.uid = userInfo.uid;
 				UserInfo.isSubscription = userInfo.isSubscription;
 				UserInfo.timeEnds = userInfo.timeEnds;
+
+				console.log('userInfo: ', UserInfo);
 			}
 
 			featuredPromise.then(function(response) {
