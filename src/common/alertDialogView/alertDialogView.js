@@ -26,7 +26,7 @@
 				templateUrl: 'alertDialogView/alertDialogView.tpl.html',
 				size: '',
 				resolve: {
-					alertInfo: function($stateParams) {
+					alertInfo: function() {
 						return {
 							'type': type,
 							'message': message,
@@ -52,7 +52,7 @@
 		};
 	};
 
-	var AlertDialogViewController = function($scope, $modalInstance, alertInfo, hotkeys) {
+	var AlertDialogViewController = function($scope, $modalInstance, alertInfo, hotkeys, $timeout) {
 		init();
 
 		function init() {
@@ -68,19 +68,22 @@
 				$scope.buttonMessage = 'Aceptar';
 			}
 
-			hotkeys.add({
-				combo: 'enter',
-				callback: function(event) {
-					event.preventDefault();
+			$timeout(function() {
+				hotkeys.add({
+					combo: 'enter',
+					callback: function(event) {
+						event.preventDefault();
+						console.log('Im making enter');
 
-					$modalInstance.dismiss('cancel');
-				},
-			});
+						$modalInstance.dismiss('cancel');
+					},
+				});
+			}, 10);
 		}
 	};
 
 	app.service('AlertDialogService', ['$modal', AlertDialogService]);
-	app.controller('AlertDialogViewController', ['$scope', '$modalInstance', 'alertInfo', 'hotkeys', AlertDialogViewController]);
+	app.controller('AlertDialogViewController', ['$scope', '$modalInstance', 'alertInfo', 'hotkeys', '$timeout', AlertDialogViewController]);
 
 }(angular.module("caracolplaylgtvapp.alertDialogView", [
 	'ui.router'

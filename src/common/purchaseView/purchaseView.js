@@ -237,6 +237,96 @@
 		$scope.title = $scope.login.title;
 		$scope.description = $scope.login.description;
 		$scope.support = $scope.login.support;
+		$scope.active = '';
+
+		$scope.needFocus = function(field) {
+			return $scope.active === field;
+		};
+
+		$scope.onSides = function(side) {
+			console.log('side', side);
+			switch(side) {
+				case 'up':
+					if($scope.activeNumber - 1 >= 0) {
+						$scope.activeNumber--;
+					}
+					break;
+				case 'down':
+					if($scope.activeNumber + 1 < $scope.activeQueue.length) {
+						$scope.activeNumber++;
+					}
+					break;
+				case 'left':
+					console.log('active', $scope.active);
+					if($scope.active === 'next') {
+						$scope.activeNumber = $scope.loginQueue.indexOf('back');
+					} else if($scope.activeNumber - 1 >= 0) {
+						$scope.activeNumber--;
+					}
+					break;
+				case 'right':
+					console.log('active', $scope.active);
+					if($scope.active === 'back') {
+						$scope.activeNumber = $scope.loginQueue.indexOf('next');
+					} else if($scope.activeNumber + 1 < $scope.activeQueue.length) {
+						$scope.activeNumber++;
+					}
+					break;
+			}
+			$scope.active = $scope.activeQueue[$scope.activeNumber];
+		};
+
+		$scope.loginQueue = [
+			'username',
+			'password',
+			'next',
+			'back',
+		];
+
+		$scope.rentQueue = [
+			'email',
+			'user',
+			'password',
+			'confirmPassword',
+			'terms',
+			'politics',
+			'requirements',
+			'information',
+			'backSuscription',
+			'nextSubscription'
+		];
+
+
+		$scope.disableKeyEnter = false;
+
+		$scope.activeNumber = 0;
+
+		$scope.activeQueue = [];
+
+		$scope.next = function() {
+			console.log('active', $scope.active);
+			$scope.disableKeyEnter = true;
+			switch($scope.active) {
+				case 'next':
+					$scope.onLogin();
+					break;
+				case 'nextSubscription':
+					$scope.onNext();
+					break;
+				case 'back':
+					$scope.onBack();
+					break;
+				case 'terms':
+				case 'politics':
+				case 'requirements':
+				case 'information':
+					$scope.subscription[$scope.active] = !$scope.subscription[$scope.active];
+					break;
+				default:
+					$scope.active = $scope.activeQueue[++$scope.activeNumber];
+					break;
+			}
+		};
 
 		var configHotkeys = function() {
 			hotkeys.add({
@@ -280,23 +370,36 @@
 			hotkeys.add({
 				combo: 'enter',
 				callback: function() {
+					if($scope.disableKeyEnter) {
+						$scope.disableKeyEnter = false;
+						return;
+					}
+					console.log('Im making the this enter');
 					switch (itemSelected) {
 						case 0:
+							$scope.activeQueue = $scope.loginQueue;
+							$scope.active = $scope.activeQueue[0];
+							$scope.activeNumber = 0;
+
 							$scope.showOptions = false;
 							$scope.loginVisible = true;
 							$scope.redeemVisible = false;
 							break;
 						case 1:
-							$scope.isSubscription = true;
-							$scope.isRent = false;
+							$scope.activeQueue = $scope.rentQueue;
+							$scope.active = $scope.activeQueue[0];
+							$scope.activeNumber = 0;
+
+							$scope.isSubscription = false;
+							$scope.isRent = true;
 							$scope.showOptions = false;
 							$scope.boughtVisible = true;
 							$scope.redeemVisible = false;
 							break;
 						case 2:
 							$scope.showOptions = false;
-							$scope.isRent = true;
-							$scope.isSubscription = false;
+							$scope.isRent = false;
+							$scope.isSubscription = true;
 							$scope.boughtVisible = true;
 							$scope.redeemVisible = false;
 							break;
@@ -310,6 +413,9 @@
 					}
 				},
 			});
+
+			$scope.active = $scope.activeQueue[0];
+			$scope.activeNumber = 0;
 		};
 
 		$scope.onRedeem = function() {
@@ -396,7 +502,7 @@
 					'warning',
 					'El campo de email no puede estar vacio',
 					'Aceptar',
-						configHotkeys
+					configHotkeys
 				);
 				return false;
 			}
@@ -406,7 +512,7 @@
 					'alert',
 					'El campo de usuario no puede estar vacio',
 					'Aceptar',
-						configHotkeys
+					configHotkeys
 				);
 				return false;
 			}
@@ -416,7 +522,7 @@
 					'alert',
 					'El campo de contraseña no puede estar vacio',
 					'Aceptar',
-						configHotkeys
+					configHotkeys
 				);
 				return false;
 			}
@@ -426,7 +532,7 @@
 					'alert',
 					'El campo de confirmar no puede estar vacio',
 					'Aceptar',
-						configHotkeys
+					configHotkeys
 				);
 				return false;
 			}
@@ -436,7 +542,7 @@
 					'alert',
 					'Las contraseñas no coiciden',
 					'Aceptar',
-						configHotkeys
+					configHotkeys
 				);
 				return false;
 			}
@@ -446,7 +552,7 @@
 					'alert',
 					'Debes aceptar los terminos y condiciones',
 					'Aceptar',
-						configHotkeys
+					configHotkeys
 				);
 				return false;
 			}
@@ -456,7 +562,7 @@
 					'alert',
 					'Debes aceptar los politicas de privacidad',
 					'Aceptar',
-						configHotkeys
+					configHotkeys
 				);
 				return false;
 			}
@@ -466,7 +572,7 @@
 					'alert',
 					'Debes aceptar los requerimientos para reproducir video',
 					'Aceptar',
-						configHotkeys
+					configHotkeys
 				);
 				return false;
 			}
@@ -480,7 +586,7 @@
 					'alert',
 					'El campo de nombres no puede estar vacio',
 					'Aceptar',
-						configHotkeys
+					configHotkeys
 				);
 				return false;
 			}
@@ -490,7 +596,7 @@
 					'alert',
 					'El campo de apellidos no puede estar vacio',
 					'Aceptar',
-						configHotkeys
+					configHotkeys
 				);
 				return false;
 			}
@@ -500,7 +606,7 @@
 					'alert',
 					'El campo de ciudad no puede estar vacio',
 					'Aceptar',
-						configHotkeys
+					configHotkeys
 				);
 				return false;
 			}
@@ -510,7 +616,7 @@
 					'alert',
 					'El campo de tipo de documento no puede estar vacio',
 					'Aceptar',
-						configHotkeys
+					configHotkeys
 				);
 				return false;
 			}
@@ -520,7 +626,7 @@
 					'alert',
 					'El campo de numero de documento no puede estar vacio',
 					'Aceptar',
-						configHotkeys
+					configHotkeys
 				);
 				return false;
 			}
@@ -533,7 +639,7 @@
 					'alert',
 					'El campo de tipo de tarjeta de credito no puede estar vacio',
 					'Aceptar',
-						configHotkeys
+					configHotkeys
 				);
 				return false;
 			}
@@ -543,7 +649,7 @@
 					'alert',
 					'El campo de numero de tarjeta de credito no puede estar vacio',
 					'Aceptar',
-						configHotkeys
+					configHotkeys
 				);
 				return false;
 			}
@@ -553,7 +659,7 @@
 					'alert',
 					'El campo de mes de expiracion no puede estar vacio',
 					'Aceptar',
-						configHotkeys
+					configHotkeys
 				);
 				return false;
 			}
@@ -563,7 +669,7 @@
 					'alert',
 					'El campo de año de expiracion no puede estar vacio',
 					'Aceptar',
-						configHotkeys
+					configHotkeys
 				);
 				return false;
 			}
@@ -573,7 +679,7 @@
 					'alert',
 					'El campo de codigo de seguridad no puede estar vacio',
 					'Aceptar',
-						configHotkeys
+					configHotkeys
 				);
 				return false;
 			}
@@ -583,7 +689,7 @@
 					'alert',
 					'El campo de parcel no puede estar vacio',
 					'Aceptar',
-						configHotkeys
+					configHotkeys
 				);
 				return false;
 			}
@@ -632,7 +738,7 @@
 							'alert',
 							response.data.user + ': ' + response.data.result,
 							'Aceptar',
-						configHotkeys
+							configHotkeys
 							);
 					};
 
@@ -641,7 +747,7 @@
 							'alert',
 							response.data[0],
 							'Aceptar',
-						configHotkeys
+							configHotkeys
 						);
 					};
 
@@ -667,10 +773,10 @@
 								'document': $scope.subscription.documentNumber,
 								'lastname': $scope.subscription.lastname,
 								'name': $scope.subscription.name,
-								//'phone': $scope.subscription.phone,
-								'phone': '1234567890',
-								//'address': $scope.subscription.address,
-								'address': 'dir 12 #34',
+								'phone': $scope.subscription.phone,
+								//'phone': '1234567890',
+								'address': $scope.subscription.address,
+								//'address': 'dir 12 #34',
 								'renovation': '1',
 								'city': $scope.cities[positionSelectedCity].id,
 							}

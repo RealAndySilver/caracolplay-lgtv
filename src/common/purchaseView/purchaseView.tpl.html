@@ -29,7 +29,7 @@
 					<div class="form-group">
 						<label class="col-md-4 control-label" for="name">Usuario:</label>  
 						<div class="col-md-6">
-							<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="loginData.username">
+							<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="loginData.username" focus-me="{{needFocus('username')}}" ng-enter="next()" ng-sides="onSides(side)">
 						</div>
 					</div>
 				</div>
@@ -38,7 +38,7 @@
 					<div class="form-group">
 						<label class="col-md-4 control-label" for="name">Contraseña:</label>  
 						<div class="col-md-6">
-							<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="loginData.password">
+							<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="loginData.password" focus-me="{{needFocus('password')}}" ng-enter="next()" ng-sides="onSides(side)">
 						</div>
 					</div>
 				</div>
@@ -47,10 +47,10 @@
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="col-lg-3"></div>
-						<button class="btn caracol-btn col-lg-9" ng-click="onBack()">Volver</button>
+						<button class="btn caracol-btn col-lg-9" ng-click="onBack()" focus-me="{{needFocus('back')}}" ng-enter="next()" ng-sides="onSides(side)">Volver</button>
 					</div>
 					<div class="col-lg-6">
-						<button class="btn caracol-btn col-lg-9" ng-click="onLogin()">Confirmar</button>
+						<button class="btn caracol-btn col-lg-9" ng-click="onLogin()" focus-me="{{needFocus('next')}}" ng-enter="next()" ng-sides="onSides(side)">Confirmar</button>
 						<div class="col-lg-3"></div>
 					</div>
 				</div>
@@ -88,7 +88,7 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label" for="name">Email:</label>  
 								<div class="col-md-6">
-									<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="subscription.email">
+									<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="subscription.email" focus-me="{{needFocus('email')}}" ng-enter="next()" ng-sides="onSides(side)">
 								</div>
 							</div>
 						</div>
@@ -96,7 +96,7 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label" for="name">Usuario:</label>  
 								<div class="col-md-6">
-									<input id="user" name="user" type="text" placeholder="" class="form-control input-md" ng-model="subscription.user">
+									<input id="user" name="user" type="text" placeholder="" class="form-control input-md" ng-model="subscription.user" focus-me="{{needFocus('user')}}" ng-enter="next()" ng-sides="onSides(side)">
 								</div>
 							</div>
 						</div>
@@ -104,7 +104,7 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label" for="name">Contraseña:</label>  
 								<div class="col-md-6">
-									<input id="password" name="name" type="text" placeholder="" class="form-control input-md" ng-model="subscription.password">
+									<input id="password" name="name" type="text" placeholder="" class="form-control input-md" ng-model="subscription.password" focus-me="{{needFocus('password')}}" ng-enter="next()" ng-sides="onSides(side)">
 								</div>
 							</div>
 						</div>
@@ -112,7 +112,7 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label" for="name">Confirmar contraseña</label>  
 								<div class="col-md-6">
-									<input id="pasword" name="name" type="text" placeholder="" class="form-control input-md" ng-model="subscription.confirmPassword">
+									<input id="pasword" name="name" type="text" placeholder="" class="form-control input-md" ng-model="subscription.confirmPassword" focus-me="{{needFocus('confirmPassword')}}" ng-enter="next()" ng-sides="onSides(side)">
 								</div>
 							</div>
 						</div>
@@ -124,12 +124,12 @@
 							<div class="col-lg-1"></div>
 							<div class="col-lg-5">
 								<div class="checkbox">
-									<input type="checkbox" ng-model="subscription.terms"><label>Acepto <a href="">terminos y condiciones</a></label>
+									<input type="checkbox" ng-model="subscription.terms" focus-me="{{needFocus('terms')}}" ng-enter="next()" ng-sides="onSides(side)"><label>Acepto <a href="">terminos y condiciones</a></label>
 								</div>
 							</div>
 							<div class="col-lg-5">
 								<div class="checkbox">
-									<input type="checkbox" ng-model="subscription.politics"><label>Acepto <a href="">politicas de privacidad</a></label>
+									<input type="checkbox" ng-model="subscription.politics" focus-me="{{needFocus('politics')}}" ng-enter="next()" ng-sides="onSides(side)"><label>Acepto <a href="">politicas de privacidad</a></label>
 								</div>
 							</div>
 							<div class="col-lg-1"></div>
@@ -138,12 +138,12 @@
 							<div class="col-lg-1"></div>
 							<div class="col-lg-5">
 								<div class="checkbox">
-									<input type="checkbox" ng-model="subscription.requirements"><label>Acepto <a href="">requerimientos para reproducir video</a></label>
+									<input type="checkbox" ng-model="subscription.requirements" focus-me="{{needFocus('requirements')}}" ng-enter="next()" ng-sides="onSides(side)"><label>Acepto <a href="">requerimientos para reproducir video</a></label>
 								</div>
 							</div>
 							<div class="col-lg-5">
 								<div class="checkbox">
-									<input type="checkbox" ng-model="subscription.information"><label>Deseo recibir información comercial</label>
+									<input type="checkbox" ng-model="subscription.information" focus-me="{{needFocus('information')}}" ng-enter="next()" ng-sides="onSides(side)"><label>Deseo recibir información comercial</label>
 								</div>
 							</div>
 							<div class="col-lg-1"></div>
@@ -330,10 +330,10 @@
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="col-lg-3"></div>
-						<button class="btn caracol-btn col-lg-9" ng-click="onBackSuscription()">Back</button>
+						<button class="btn caracol-btn col-lg-9" ng-click="onBackSuscription()" focus-me="{{needFocus('backSuscription')}}" ng-enter="next()" ng-sides="onSides(side)">Back</button>
 					</div>
 					<div class="col-lg-6">
-						<button class="btn caracol-btn col-lg-9" ng-click="onNext()">Next</button>
+						<button class="btn caracol-btn col-lg-9" ng-click="onNext()" focus-me="{{needFocus('nextSubscription')}}" ng-enter="next()" ng-sides="onSides(side)">Next</button>
 						<div class="col-lg-3"></div>
 					</div>
 				</div>
