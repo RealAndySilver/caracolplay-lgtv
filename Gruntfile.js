@@ -85,7 +85,8 @@ module.exports = function(grunt) {
                 'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
                 'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',
                 'vendor/angular-ui-router/release/angular-ui-router.js',
-                'vendor/angular-ui-utils/modules/route/route.js'
+                'vendor/angular-ui-utils/modules/route/route.js',
+                'vendor/angular-ui-select/dist/select.min.js',
             ],
             css: [
             ],
@@ -96,7 +97,9 @@ module.exports = function(grunt) {
                 'vendor/bootstrap/dist/fonts/glyphicons-halflings-regular.woff',
             ],
             assets: [
-                
+                'vendor/angular-ui-select/dist/select.min.css',
+                'vendor/select2/select2.css',
+                'vendor/selectize/dist/css/selectize.default.css'
             ]
         }
     };

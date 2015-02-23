@@ -15,7 +15,7 @@
 	app.service('ModalInstanceService', [ModalInstanceService]);
 	app.constant('ModalInstance', {});
 
-	var PurchaseViewController = function($scope, hotkeys, UserService, PurchaseService, UserInfo, $modalInstance, typeView, $state, AlertDialogService) {
+	var PurchaseViewController = function($scope, hotkeys, UserService, PurchaseService, UserInfo, $modalInstance, typeView, $state, AlertDialogService, productionId, ProgressDialog) {
 		var itemSelected = 0;
 
 		var self = this;
@@ -126,26 +126,10 @@
 
 		$scope.subscribeParcels = [{
 			name: '1 x $58.000'
-		}, {
-			name: '2 x $116.000'
-		}, {
-			name: '3 x $174.000'
-		}, {
-			name: '4 x $232.000'
-		}, {
-			name: '5 x $280.000'
 		}, ];
 
 		$scope.rentParcels = [{
 			name: '1 x $34.800'
-		}, {
-			name: '2 x $69.600'
-		}, {
-			name: '3 x $104.400'
-		}, {
-			name: '4 x $139.200'
-		}, {
-			name: '5 x $174.000'
 		}, ];
 
 		$scope.creditcards = [{
@@ -247,12 +231,16 @@
 			console.log('side', side);
 			switch(side) {
 				case 'up':
-					if($scope.activeNumber - 1 >= 0) {
+					if($scope.active === 'city') {
+						break;
+					} else if($scope.activeNumber - 1 >= 0) {
 						$scope.activeNumber--;
 					}
 					break;
 				case 'down':
-					if($scope.activeNumber + 1 < $scope.activeQueue.length) {
+					if($scope.active === 'city') {
+						break;
+					} else if($scope.activeNumber + 1 < $scope.activeQueue.length) {
 						$scope.activeNumber++;
 					}
 					break;
@@ -296,10 +284,44 @@
 			'nextSubscription'
 		];
 
+		$scope.rentQueueStep2 = [
+			'name',
+			'lastname',
+			'city',
+			'documentType',
+			'documentNumber',
+			'backSuscription',
+			'nextSubscription'
+		];
+
+		$scope.rentQueueStep3 = [
+			'creditcard',
+			'creditNumber',
+			'month',
+			'year',
+			'securityCode',
+			'parcel',
+			//'renewal',
+			'backSuscription',
+			'nextSubscription'
+		];
+
+		$scope.subscriptionQueueStep3 = [
+			'creditcard',
+			'creditNumber',
+			'month',
+			'year',
+			'securityCode',
+			'parcel',
+			'renewal',
+			'backSuscription',
+			'nextSubscription'
+		];
 
 		$scope.disableKeyEnter = false;
 
 		$scope.activeNumber = 0;
+		$scope.stateSelect = 'close';
 
 		$scope.activeQueue = [];
 
@@ -316,11 +338,21 @@
 				case 'back':
 					$scope.onBack();
 					break;
+				case 'backSuscription':
+					$scope.onBackSuscription();
+					break;
 				case 'terms':
 				case 'politics':
 				case 'requirements':
 				case 'information':
+				case 'renewal':
 					$scope.subscription[$scope.active] = !$scope.subscription[$scope.active];
+					break;
+				case 'documentType':
+				case 'creditcard':
+				case 'year':
+				case 'month':
+				case 'parcel':
 					break;
 				default:
 					$scope.active = $scope.activeQueue[++$scope.activeNumber];
@@ -374,7 +406,6 @@
 						$scope.disableKeyEnter = false;
 						return;
 					}
-					console.log('Im making the this enter');
 					switch (itemSelected) {
 						case 0:
 							$scope.activeQueue = $scope.loginQueue;
@@ -397,6 +428,10 @@
 							$scope.redeemVisible = false;
 							break;
 						case 2:
+							$scope.activeQueue = $scope.rentQueue;
+							$scope.active = $scope.activeQueue[0];
+							$scope.activeNumber = 0;
+
 							$scope.showOptions = false;
 							$scope.isRent = false;
 							$scope.isSubscription = true;
@@ -703,7 +738,38 @@
 						break;
 					}
 
-					$scope.subscribeStep++;
+					var createUserPromise = PurchaseService.createUser(
+						$scope.subscription.user,
+						$scope.subscription.password,
+						$scope.subscription.email,
+						$scope.subscription.politics,
+						$scope.subscription.terms,
+						$scope.subscription.information);
+
+					ProgressDialog.start();
+					var successCallbackCreateUser = function(response) {
+						ProgressDialog.dismiss();
+
+						$scope.subscribeStep++;
+						$scope.activeQueue = $scope.rentQueueStep2;
+						$scope.active = $scope.activeQueue[0];
+						$scope.activeNumber = 0;
+					};
+
+					var failureCallbackCreateUser = function(response) {
+						ProgressDialog.dismiss();
+
+						AlertDialogService.show(
+							'alert',
+							response.data[0],
+							'Aceptar',
+							function() {
+								configHotkeys();
+							}
+						);
+					};
+
+					createUserPromise.then(successCallbackCreateUser, failureCallbackCreateUser);
 
 					break;
 
@@ -716,20 +782,21 @@
 					console.log($scope.cities[position]);
 
 					$scope.subscribeStep++;
+
+					if($scope.isRent) {
+						$scope.activeQueue = $scope.rentQueueStep3;
+					} else {
+						$scope.activeQueue = $scope.subscriptionQueueStep3;
+					}
+					$scope.active = $scope.activeQueue[0];
+					$scope.activeNumber = 0;
+
 					break;
 
 				case 2:
 					if (!$scope.validateStepThree()) {
 						break;
 					}
-
-					var createUserPromise = PurchaseService.createUser(
-						$scope.subscription.user,
-						$scope.subscription.password,
-						$scope.subscription.email,
-						$scope.subscription.politics,
-						$scope.subscription.terms,
-						!$scope.subscription.comertial);
 
 					var successCallbackExecuteTransaction = function(response) {
 						console.log(response.data);
@@ -738,8 +805,10 @@
 							'alert',
 							response.data.user + ': ' + response.data.result,
 							'Aceptar',
-							configHotkeys
-							);
+							function() {
+								configHotkeys();
+								window.history.back();
+							});
 					};
 
 					var failureCallback = function(response) {
@@ -791,31 +860,17 @@
 
 					var successCallbackLogin = function(response) {
 						console.log(response.data);
-						var promiseCreateSubscriptionOrder = PurchaseService.createSubscriptionOrderFlow();
-						promiseCreateSubscriptionOrder.then(successCallbackCreateOrder, failureCallback);
-					};
-
-					var successCallbackCreateUser = function(response) {
-						console.log(response);
-
-						if (response.data.status == 1) {
-							console.log({
-								'username': $scope.subscription.user,
-								'password': $scope.subscription.password,
-							});
-							var promiseLogin = PurchaseService.loginPaymentUserFlow($scope.subscription.user, $scope.subscription.password);
-							promiseLogin.then(successCallbackLogin, failureCallback);
+						var promiseCreateOrder;
+						if($scope.isRent) {
+							promiseCreateOrder = PurchaseService.createRentOrderFlow(productionId);
 						} else {
-							AlertDialogService.show(
-								'alert',
-								response.data.form_errors[0],
-								'Aceptar',
-						configHotkeys
-							);
+							promiseCreateOrder = PurchaseService.createSubscriptionOrderFlow();
 						}
+						promiseCreateOrder.then(successCallbackCreateOrder, failureCallback);
 					};
 
-					createUserPromise.then(successCallbackCreateUser, failureCallback);
+					var promiseLogin = PurchaseService.loginPaymentUserFlow($scope.subscription.user, $scope.subscription.password);
+					promiseLogin.then(successCallbackLogin, failureCallback);
 					/*
 					var purchasePromise = PurchaseService.getProduct(1, 1, 1);
 
@@ -832,6 +887,19 @@
 		$scope.onBackSuscription = function() {
 			if ($scope.subscribeStep - 1 >= 0) {
 				$scope.subscribeStep--;
+
+				switch($scope.subscribeStep) {
+					case 0:
+						$scope.activeQueue = $scope.rentQueue;
+						$scope.active = $scope.activeQueue[0];
+						$scope.activeNumber = 0;
+						break;
+					case 1:
+						$scope.activeQueue = $scope.rentQueueStep2;
+						$scope.active = $scope.activeQueue[0];
+						$scope.activeNumber = 0;
+						break;
+				}
 				return;
 			}
 			$scope.onBack();
@@ -848,6 +916,47 @@
 			console.log('name: ' + $scope.loginData.username);
 			console.log('password: ' + $scope.loginData.password);
 
+			ProgressDialog.start();
+
+			var promiseLogin = PurchaseService.loginPaymentUserFlow($scope.loginData.username, $scope.loginData.password);
+			promiseLogin.then(function(response) {
+				ProgressDialog.dismiss();
+				console.log(response.data);
+
+				var user = response.data.user;
+
+				UserInfo.name = user.name;
+				UserInfo.alias = $scope.loginData.username;
+				UserInfo.mail = user.mail;
+				UserInfo.password = $scope.loginData.password;
+				UserInfo.session = response.data.sessid;
+				UserInfo.uid = user.uid;
+				UserInfo.isSubscription = user.field_tiene_suscripcion.und[0].value == 1;
+				UserInfo.timeEnds = new Date(user.field_suscripcion_fecha_venc.und[0].value);
+
+				localStorage.setItem('userInfo', JSON.stringify(UserInfo));
+
+				AlertDialogService.show(
+						'alert',
+						'Call method to show video',
+						'Aceptar',
+						function() {
+							configHotkeys();
+							window.history.back();
+						}
+					);
+
+			}, function(error) {
+				ProgressDialog.dismiss();
+				AlertDialogService.show(
+						'alert',
+						error.data[0],
+						'Aceptar',
+						configHotkeys
+					);
+			});
+
+			/*
 			var authPromise = UserService.authenticateUser($scope.loginData.username, $scope.loginData.password);
 
 			authPromise.then(function(response) {
@@ -868,9 +977,9 @@
 
 					localStorage.setItem('userInfo', JSON.stringify(UserInfo));
 
-					/**
-					 * DEVELOPER NOTES: ADD CODE TO SHOW VIDEO
-					 */
+					//
+					// DEVELOPER NOTES: ADD CODE TO SHOW VIDEO
+					//
 					AlertDialogService.show(
 							'alert',
 							'Show Video',
@@ -888,6 +997,7 @@
 					);
 				}
 			});
+			*/
 
 		};
 
@@ -1023,6 +1133,8 @@
 
 	var DialogPurchaseController = function($scope, $modal, $stateParams) {
 		var typeView = $stateParams.typeView;
+		var productionId = $stateParams.productionId;
+
 		console.log(typeView);
 		var modalInstance = $modal.open({
 			templateUrl: 'purchaseView/purchaseView.tpl.html',
@@ -1032,8 +1144,8 @@
 				typeView: function() {
 					return parseInt(typeView);
 				},
-				items: function() {
-					return [];
+				productionId: function() {
+					return productionId;
 				}
 			}
 		});
@@ -1078,6 +1190,8 @@
 		'typeView',
 		'$state',
 		'AlertDialogService',
+		'productionId',
+		'ProgressDialogService',
 		PurchaseViewController
 	]);
 

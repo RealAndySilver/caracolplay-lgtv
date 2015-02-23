@@ -61,20 +61,24 @@
 		};
 	});
 
-	app.directive('ngEnter', function () {
+	app.directive('ngEnter', ['$timeout', function ($timeout) {
 		return function (scope, element, attrs) {
 			element.bind("keydown keypress", function (event) {
 				if(event.which === 13) {
 					scope.$apply(function (){
 						scope.$eval(attrs.ngEnter);
 					});
+					var e = document.createEvent("MouseEvents");
+					e.initMouseEvent("mousedown", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+					var worked = element[0].dispatchEvent(e);
+
 					event.preventDefault();
 				}
 			});
 		};
-  });
+	}]);
 
-  app.directive('ngSides', function () {
+	app.directive('ngSides', function () {
 		return {
 			link: function (scope, element, attrs) {
 				element.bind("keydown keypress", function (event) {
@@ -102,7 +106,7 @@
 				});
 			},
 		};
-  });
+	});
 
 }(angular.module("caracolplaylgtvapp", [
 	'caracolplaylgtvapp.home',
@@ -111,6 +115,7 @@
 	'templates-common',
 	'ui.router.state',
 	'ui.router',
+	'ui.select',
 	'ui.bootstrap',
 	'caracolplaylgtvapp.dashboard',
 	'caracolplaylgtvapp.ServerCommunicator',

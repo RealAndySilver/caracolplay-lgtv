@@ -38,7 +38,7 @@
 					<div class="form-group">
 						<label class="col-md-4 control-label" for="name">Contraseña:</label>  
 						<div class="col-md-6">
-							<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="loginData.password" focus-me="{{needFocus('password')}}" ng-enter="next()" ng-sides="onSides(side)">
+							<input id="name" name="name" type="password" placeholder="" class="form-control input-md" ng-model="loginData.password" focus-me="{{needFocus('password')}}" ng-enter="next()" ng-sides="onSides(side)">
 						</div>
 					</div>
 				</div>
@@ -104,7 +104,7 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label" for="name">Contraseña:</label>  
 								<div class="col-md-6">
-									<input id="password" name="name" type="text" placeholder="" class="form-control input-md" ng-model="subscription.password" focus-me="{{needFocus('password')}}" ng-enter="next()" ng-sides="onSides(side)">
+									<input id="password" name="name" type="password" placeholder="" class="form-control input-md" ng-model="subscription.password" focus-me="{{needFocus('password')}}" ng-enter="next()" ng-sides="onSides(side)">
 								</div>
 							</div>
 						</div>
@@ -112,7 +112,7 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label" for="name">Confirmar contraseña</label>  
 								<div class="col-md-6">
-									<input id="pasword" name="name" type="text" placeholder="" class="form-control input-md" ng-model="subscription.confirmPassword" focus-me="{{needFocus('confirmPassword')}}" ng-enter="next()" ng-sides="onSides(side)">
+									<input id="pasword" name="name" type="password" placeholder="" class="form-control input-md" ng-model="subscription.confirmPassword" focus-me="{{needFocus('confirmPassword')}}" ng-enter="next()" ng-sides="onSides(side)">
 								</div>
 							</div>
 						</div>
@@ -164,7 +164,7 @@
 							<div class="row">
 								<div class="col-lg-1"></div>
 								<div class="col-lg-11">
-									<input type="text" ng-model="subscription.name" class="form-control">
+									<input type="text" ng-model="subscription.name" class="form-control" focus-me="{{needFocus('name')}}" ng-enter="next()" ng-sides="onSides(side)">
 								</div>
 							</div>
 						</div>
@@ -174,7 +174,7 @@
 							</div>
 							<div class="row">
 								<div class="col-lg-11">
-									<input type="text" ng-model="subscription.lastname" class="form-control">
+									<input type="text" ng-model="subscription.lastname" class="form-control" focus-me="{{needFocus('lastname')}}" ng-enter="next()" ng-sides="onSides(side)">
 								</div>
 							</div>
 						</div>
@@ -191,7 +191,7 @@
 							<div class="row">
 								<div class="col-lg-1"></div>
 								<div class="col-lg-11">
-									<input type="text" ng-model="subscription.city" class="form-control" typeahead="address for address in getCities($viewValue)" typeahead-loading="loadingLocations">
+									<input type="text" ng-model="subscription.city" class="form-control" typeahead="address for address in getCities($viewValue)" typeahead-loading="loadingLocations" focus-me="{{needFocus('city')}}" ng-enter="next()" ng-sides="onSides(side)">
 									<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
 								</div>
 							</div>
@@ -201,8 +201,8 @@
 								<label class="col-lg-11">Tipo de documento:</label><br/>
 							</div>
 							<div class="row">
-								<div class="col-lg-11">
-									<select type="text" class="form-control" ng-model="subscription.documentType" ng-model="documentType" ng-options="document.type for document in documentTypes"></select>
+								<div class="col-lg-11">	
+									<select type="text" class="form-control" ng-model="subscription.documentType" ng-options="document.type for document in documentTypes" focus-me="{{needFocus('documentType')}}" ng-enter="next()" ng-sides="onSides(side)"></select>
 								</div>
 							</div>
 						</div>
@@ -218,7 +218,7 @@
 							<div class="row">
 								<div class="col-lg-1"></div>
 								<div class="col-lg-11">
-									<input type="text" ng-model="subscription.documentNumber" class="form-control">
+									<input type="text" ng-model="subscription.documentNumber" class="form-control" focus-me="{{needFocus('documentNumber')}}" ng-enter="next()" ng-sides="onSides(side)">
 								</div>
 							</div>
 						</div>
@@ -238,7 +238,7 @@
 							<div class="row">
 								<div class="col-lg-1"></div>
 								<div class="col-lg-11">
-									<select type="text" class="form-control" ng-model="subscription.creditcard" ng-options="card.type for card in creditcards">
+									<select type="text" class="form-control" ng-model="subscription.creditcard" ng-options="card.type for card in creditcards" focus-me="{{needFocus('creditcard')}}" ng-enter="next()" ng-sides="onSides(side)">
 										<option value="">Select</option>
 									</select>
 								</div>
@@ -250,7 +250,7 @@
 							</div>
 							<div class="row">
 								<div class="col-lg-11">
-									<input type="text" ng-model="subscription.creditNumber" class="form-control">
+									<input type="text" ng-model="subscription.creditNumber" class="form-control" focus-me="{{needFocus('creditNumber')}}" ng-enter="next()" ng-sides="onSides(side)">
 								</div>
 							</div>
 						</div>
@@ -269,12 +269,12 @@
 								<div class="col-lg-11">
 									<div class="row">
 										<div class="col-lg-6">
-											<select type="expire.month" class="form-control" ng-model="subscription.month" ng-options="month.name for month in months">
+											<select type="expire.month" class="form-control" ng-model="subscription.month" ng-options="month.name for month in months" focus-me="{{needFocus('month')}}" ng-enter="next()" ng-sides="onSides(side)">
 												<option value="">Month</option>
 											</select>
 										</div>
 										<div class="col-lg-6">
-											<select type="expire.year" class="form-control" ng-model="subscription.year" ng-options="year.name for year in years">
+											<select type="expire.year" class="form-control" ng-model="subscription.year" ng-options="year.name for year in years" focus-me="{{needFocus('year')}}" ng-enter="next()" ng-sides="onSides(side)">
 												<option value="">Year</option>
 											</select>
 										</div>
@@ -288,7 +288,7 @@
 							</div>
 							<div class="row">
 								<div class="col-lg-3">
-									<input type="text" class="form-control" ng-model="subscription.securityCode">
+									<input type="text" class="form-control" ng-model="subscription.securityCode" focus-me="{{needFocus('securityCode')}}" ng-enter="next()" ng-sides="onSides(side)">
 								</div>
 								<div class="col-lg-8">
 									<p><small>El codigo de seguridad se encuentra en la parte posterior de la tarjeta de credito.</small></p>
@@ -307,7 +307,7 @@
 							<div class="row">
 								<div class="col-lg-1"></div>
 								<div class="col-lg-11">
-									<select type="text" class="form-control" ng-model="subscription.parcel" ng-options="p.name for p in parcels"></select>
+									<select type="text" class="form-control" ng-model="subscription.parcel" ng-options="p.name for p in parcels" focus-me="{{needFocus('parcel')}}" ng-enter="next()" ng-sides="onSides(side)"></select>
 								</div>
 							</div>
 						</div>
@@ -315,7 +315,7 @@
 							<div class="row">
 								<div class="col-lg-11">
 									<div class="checkbox" ng-show="isSubscription">
-										<input type="checkbox" ng-model="subscription.renewal">Automatic renewal<br/>
+										<input type="checkbox" ng-model="subscription.renewal" focus-me="{{needFocus('renewal')}}" ng-enter="next()" ng-sides="onSides(side)">Automatic renewal<br/>
 										Su plan se renovara automaticamente el {{expireDate | date:'dd/MM/yyyy'}}.
 									</div>
 								</div>
