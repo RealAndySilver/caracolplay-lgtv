@@ -1,0 +1,49 @@
+/* Less file for videoModule*/
+@background-dark: #000;
+
+.video-container-add, .video-container-remove {
+  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+}
+
+.video-container,
+.video-container-add.video-container-add-active{
+	background-color: @background-dark;
+
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+
+	color: white;
+
+	.video-module{
+		position: absolute;
+		top: 50%;
+		margin-top: -34px;
+		left: 50%;
+		margin-left: -105px;
+	}
+}
+
+.video-module-ended,
+.video-module-ended-add.video-module-ended-add-active{
+	background-color: @background-dark;
+	position: absolute;
+	top: 80px;
+	right: 50%;
+	left: 40px;
+	bottom: 50%;
+	color: white;
+
+	.video-module{
+		position: absolute;
+		top: 50%;
+		margin-top: -34px;
+		left: 50%;
+		margin-left: -105px;
+	}
+}

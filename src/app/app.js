@@ -109,6 +109,7 @@
 	});
 
 }(angular.module("caracolplaylgtvapp", [
+	'ngAnimate',
 	'caracolplaylgtvapp.home',
 	'caracolplaylgtvapp.about',
 	'templates-app',
@@ -132,4 +133,5 @@
 	'caracolplaylgtvapp.videoController',
 	'caracolplaylgtvapp.rateAlert',
 	'caracolplaylgtvapp.progressDialog',
+	'caracolplaylgtvapp.videoModule',
 ])));

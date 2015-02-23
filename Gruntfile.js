@@ -87,6 +87,7 @@ module.exports = function(grunt) {
                 'vendor/angular-ui-router/release/angular-ui-router.js',
                 'vendor/angular-ui-utils/modules/route/route.js',
                 'vendor/angular-ui-select/dist/select.min.js',
+                'vendor/angular-animate/angular-animate.min.js',
             ],
             css: [
             ],
@@ -97,6 +98,7 @@ module.exports = function(grunt) {
                 'vendor/bootstrap/dist/fonts/glyphicons-halflings-regular.woff',
             ],
             assets: [
+                'vendor/angular-animate/angular-animate.min.js.map',
                 'vendor/angular-ui-select/dist/select.min.css',
                 'vendor/select2/select2.css',
                 'vendor/selectize/dist/css/selectize.default.css'
