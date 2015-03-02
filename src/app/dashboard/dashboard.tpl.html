@@ -18,6 +18,14 @@
 	<preview-view ng-show="dashCtrl.showInfo()" on-show="dashCtrl.showPreview()" selected-item="dashCtrl.selectedItem"></preview-view>
 	-->
 
+	<div class="preview-cover">
+		<h2>{{dashCtrl.selectedItem.name}}</h2>
+		<h6>2012</h6>
+		<rating class="pull-left" ng-model="slide.rate" max="5" readonly="true" style="color:orange; font-size:16px; width: 100px;"></rating>
+		<br/>
+		<h4 ng-bind-html="dashCtrl.selectedItem.feature_text | unsafe"></h4>
+	</div>
+
 	{{dashCtrl.showInfo()}}
 
 	<div class="dashboard container">

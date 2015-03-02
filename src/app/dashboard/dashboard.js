@@ -142,7 +142,6 @@
 				self.isShowInfo = true;
 			});
 			self.isShowInfo = true;
-
 		};
 
 		var outAnimation = function() {
@@ -152,6 +151,8 @@
 				self.isShowInfo = false;
 			});
 		};
+
+		$('.preview-cover').css('right', '-25%');
 
 		keyboardInit = function() {
 

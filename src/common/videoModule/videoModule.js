@@ -25,7 +25,7 @@
 		});
 	});
 
-	function VideoModuleController($scope, $timeout, ProductService, UserInfo, itemSelected, hotkeys) {
+	function VideoModuleController($scope, $timeout, ProductService, UserInfo, itemSelected, hotkeys, $state, AlertDialogService) {
 		var model = this;
 		$scope.selected = itemSelected;
 		$scope.productId = itemSelected.productId;
@@ -73,6 +73,36 @@
 			});
 
 			hotkeys.add({
+				combo: 'enter',
+				callback: function(event) {
+					switch ($scope.options[$scope.optionSelected].label) {
+						case 'Calificar':
+							$state.go('rate', {
+								'productId': $scope.selected.id,
+								'rate': $scope.selected.rate
+							});
+							break;
+						case 'Ver Tráiler':
+							$state.go('videoModule', {
+								productId: $scope.id
+							});
+							break;
+						case 'Añadir a mi lista':
+							AlertDialogService.show(
+								'warning',
+								'Add to list',
+								'Aceptar',
+								keyboardInit
+							);
+							break;
+						case 'Volver al catálogo':
+							$state.go('dashboard');
+							break;
+					}
+				}
+			});
+
+			hotkeys.add({
 				combo: 'right',
 				callback: function() {
 
@@ -82,7 +112,7 @@
 			hotkeys.add({
 				combo: 'left',
 				callback: function() {
-					
+
 				}
 			});
 		}
@@ -93,7 +123,7 @@
 				$scope.recomendents[0].active = true;
 			} else {
 				$scope.options[$scope.optionSelected].active = true;
-				if($scope.recomendents) {
+				if ($scope.recomendents) {
 					$scope.recomendents[0].active = false;
 				}
 				keyboardInit();
@@ -145,6 +175,8 @@
 		'UserInfo',
 		'itemSelected',
 		'hotkeys',
+		'$state',
+		'AlertDialogService',
 		VideoModuleController
 	]);
 

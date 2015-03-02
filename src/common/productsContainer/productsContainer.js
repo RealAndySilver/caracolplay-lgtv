@@ -102,8 +102,8 @@
 					slider = $('#' + $scope.title.replace(/ /g, '') + 'Slider');
 					cover = $('.ProductionItem');
 
+					var div = $('#' + $scope.title.replace(/ /g, '')) /*.attr('href')*/ ;
 					if ($(div).position()) {
-						var div = $('#' + $scope.title.replace(/ /g, '')) /*.attr('href')*/ ;
 						$('.scroll-area').scrollTop($(div).position().top - 134);
 					}
 
