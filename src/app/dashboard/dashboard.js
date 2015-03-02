@@ -33,10 +33,8 @@
 		self.beforeSearchIsPreviewActive = false;
 
 		$scope.$watch('keywordToSearch', function(newValue, oldValue) {
-			console.log(newValue);
 			if (newValue !== undefined && newValue !== '') {
 				self.isInSearch = true;
-				console.log('In search!');
 
 				if ($scope.restartConfigKeyboard.searchRestart) {
 					$scope.restartConfigKeyboard.searchRestart();
@@ -48,7 +46,6 @@
 				}
 			} else {
 				self.isInSearch = false;
-				console.log('No search!');
 
 				keyboardInit();
 
@@ -193,7 +190,6 @@
 			hotkeys.add({
 				combo: '79',
 				callback: function(event) {
-					console.log('a');
 				}
 			});
 
@@ -223,7 +219,6 @@
 			self.list.length = 0;
 
 			var userInfoStr = localStorage.getItem('userInfo');
-			console.log('localStorage: ' + userInfoStr);
 
 			if (userInfoStr) {
 				var userInfo = JSON.parse(userInfoStr);
@@ -237,8 +232,6 @@
 				UserInfo.uid = userInfo.uid;
 				UserInfo.isSubscription = userInfo.isSubscription;
 				UserInfo.timeEnds = userInfo.timeEnds;
-
-				console.log('userInfo: ', UserInfo);
 			}
 
 			featuredPromise.then(function(response) {

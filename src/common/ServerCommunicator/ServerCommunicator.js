@@ -5,7 +5,7 @@
 
 	var test = {};
 
-	test.withoutInternet = false;
+	test.withoutInternet = true;
 
 	module.END_POINT = 'http://apps.caracolplay.com/';
 	//module.END_POINT = 'http://appsbetadev.caracolplay.com/';
@@ -77,8 +77,20 @@
 	var ProductService = function($http, UserInfo) {
 		var self = this;
 
+		self.getRecommendationsWithProductID = function(productId) {
+			if (test.withoutInternet) {
+				return $http.get('assets/dummy/recommended.json');
+			} else {
+				return $http({
+					crossDomain: true,
+					headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+					method: 'GET',
+					url: module.END_POINT + 'GetRecommendationsWithProductID/' + productId + '/?player_br=iam',
+				});
+			}
+		};
+
 		self.updateUserFeedbackForProduct = function(productId, rate) {
-			console.log('UserInfo', UserInfo);
 			return $http({
 				crossDomain: true,
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
@@ -208,14 +220,6 @@
 		var self = this;
 
 		self.createUser = function(name, password, mail, privacyPolicity, termsAndConditions, bussinessInfo) {
-			console.log({
-				'name': name,
-				'pass': password,
-				'mail': mail,
-				'privacy_policy': privacyPolicity ? 1 : 0,
-				'terms_and_conditions': termsAndConditions ? 1 : 0,
-				'business_inf': bussinessInfo ? 1 : 0,
-			});
 			return $http({
 				headers: encode(true),
 				method: 'POST',
@@ -241,10 +245,6 @@
 		};
 
 		self.loginPaymentUser = function(username, password, token) {
-			console.log('login', {
-				'username': username,
-				'password': password,
-			});
 			return $http({
 				headers: encode(true, token),
 				method: 'POST',

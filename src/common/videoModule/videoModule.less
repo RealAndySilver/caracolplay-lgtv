@@ -1,15 +1,7 @@
 /* Less file for videoModule*/
 @background-dark: #000;
 
-.video-container-add, .video-container-remove {
-  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-  -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-  -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-}
-
-.video-container,
-.video-container-add.video-container-add-active{
+.video-container{
 	background-color: @background-dark;
 
 	position: absolute;
@@ -20,30 +12,104 @@
 
 	color: white;
 
-	.video-module{
+	z-index: 100;
+}
+
+.video-module{
+	position: absolute;
+	top: 50%;
+	margin-top: -34px;
+	left: 50%;
+	margin-left: -105px;
+}
+
+.video-container-ended{
+	background-color: @background-dark;
+	position: absolute;
+	top: 20px;
+	right: 55%;
+	left: 20px;
+	bottom: 55%;
+	color: white;
+
+	box-shadow: 0px 0px 6px @background-dark;
+}
+
+.video-actions{
+	position: absolute;
+	bottom: 15px;
+	top: 45%;
+	left: 20px;
+	right: 0;
+
+	.slider-container{
 		position: absolute;
-		top: 50%;
-		margin-top: -34px;
-		left: 50%;
-		margin-left: -105px;
+		margin: 0 auto 0px auto;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		height: auto;
+		width: auto;
+
+		.ProductionList{
+			overflow-x: scroll;
+			overflow-y: hidden;
+			padding: 0px;
+
+			.list-inline{
+				padding-left: 0;
+				list-style: none;
+				margin-left: -5px;
+				margin-right: 10px;
+
+				.ProductionItem{
+					border: 0px solid black;
+					overflow: hidden;
+					padding: 0;
+					margin-left: 20px;
+					width: 15%;
+					display: inline-block;
+
+					.cover{
+						box-shadow: 0px 0px 10px #000;
+						overflow: hidden;
+
+						img{
+							width: 100%;
+						}
+					}
+				}
+			}
+		}
 	}
 }
 
-.video-module-ended,
-.video-module-ended-add.video-module-ended-add-active{
-	background-color: @background-dark;
+.image-container{
 	position: absolute;
-	top: 80px;
-	right: 50%;
-	left: 40px;
-	bottom: 50%;
-	color: white;
-
-	.video-module{
+	top: 20px;
+	right: 48%;
+	bottom: 55%;
+	.preview-image{
 		position: absolute;
-		top: 50%;
-		margin-top: -34px;
-		left: 50%;
-		margin-left: -105px;
+		height: 100%;
+	}
+}
+
+.preview-video{
+	position: absolute;
+	top: 0;
+	right: 10%;
+	left: 70%;
+	h4 {
+		color: #999;
+		margin-top: 30px;
+	}
+	.space{
+		margin-bottom: 50px;
+	}
+	h3 {
+		color: #fff;
+		margin-top: 0;
 	}
 }

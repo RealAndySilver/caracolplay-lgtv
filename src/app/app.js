@@ -109,7 +109,7 @@
 	});
 
 }(angular.module("caracolplaylgtvapp", [
-	'ngAnimate',
+	//'ngAnimate',
 	'caracolplaylgtvapp.home',
 	'caracolplaylgtvapp.about',
 	'templates-app',

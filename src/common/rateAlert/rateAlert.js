@@ -6,7 +6,7 @@
 			views: {
 				'main': {
 					controller: 'RateAlertDialogController',
-					template: ''
+					templateUrl: 'generalitiesPage/header.tpl.html'
 				}
 			},
 			data: {
@@ -34,7 +34,6 @@
 		});
 
 		$scope.$on('$stateChangeStart', function(event, newUrl, oldUrl) {
-      console.log('Remove modal popup if necessary!');
       // if modal instance difined, dismiss window
       if (modalInstance) {
         modalInstance.dismiss('cancel');
@@ -64,7 +63,6 @@
 							if(--$scope.rate < 0) {
 								$scope.rate = 0;
 							}
-							console.log($scope.rate);
 							break;
 						case 1:
 							model.buttons['cancel'] = false;
@@ -82,7 +80,6 @@
 							if(++$scope.rate > 5) {
 								$scope.rate = 5;
 							}
-							console.log($scope.rate);
 							break;
 						case 1:
 							model.buttons['cancel'] = true;
@@ -141,8 +138,6 @@
 				var updatePromise = ProductService.updateUserFeedbackForProduct(productId, $scope.rate);
 
 				updatePromise.then(function(response) {
-					console.log(response);
-
 					window.history.back();					
 				});
 

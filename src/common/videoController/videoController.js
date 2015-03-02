@@ -20,7 +20,6 @@
 		init();
 
 		function init() {
-			console.log('SMD');
 			/*
 			videojs("myPlayerID").ready(function() {
 				var myPlayer = this;

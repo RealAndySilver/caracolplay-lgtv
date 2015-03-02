@@ -1,9 +1,13 @@
 (function(app) {
-	var SearchViewController = function($scope, ProductService, hotkeys, PreviewDataService, $state, $stateParams) {
+	var SearchViewController = function($scope, ProductService, hotkeys, PreviewDataService, $state, $stateParams, ProgressDialogService) {
 
 		var init = function() {
+
 			$scope.getTitle = function() {
-				return $scope.keyword + ' - ' + $scope.results.length + ' results found';
+				if($scope.keyword) {
+					return $scope.keyword + ' - ' + $scope.results.length + ' results found';
+				}
+				return '';
 			};
 
 			$scope.from = $stateParams.from;
@@ -43,19 +47,20 @@
 				$scope.shouldBeFocus = true;
 
 				$scope.keydownCallback = function(event) {
-					console.log('event', event.keyIdentifier);
-
-					if(event.keyIdentifier === 'Enter') {
+					if (event.keyIdentifier === 'Enter') {
 						event.target.blur();
 
 						var searchPremise = ProductService.getListFromSearchWithKey($scope.keyword);
 
 						configHotkeys();
 
+						ProgressDialogService.setMessage('Buscando...');
+						ProgressDialogService.start();
+
 						searchPremise.then(function(res) {
 							$scope.results = res.data.products;
 
-							console.log($scope.results);
+							ProgressDialogService.dismiss();
 
 							$scope.resultButtons = [];
 
@@ -82,14 +87,13 @@
 				hotkeys.add({
 					combo: 'enter',
 					callback: function(event) {
-						console.log('enter');
 						var productPremise = ProductService.getProductWithID($scope.selected.id, '');
 
 						productPremise.then(function(res) {
-							//console.log(res.data);
-
 							PreviewDataService.setItemSelected(res.data.products['0'][0]);
-							$state.go('preview', { from: 'search' });
+							$state.go('preview', {
+								from: 'search'
+							});
 						});
 					}
 				});
@@ -97,7 +101,7 @@
 				hotkeys.add({
 					combo: 'esc',
 					callback: function(event) {
-						if($scope.isShowingPreview) {
+						if ($scope.isShowingPreview) {
 							$scope.visible({
 								value: false
 							});
@@ -146,8 +150,6 @@
 
 				searchPremise.then(function(res) {
 					$scope.results = res.data.products;
-
-					console.log($scope.results);
 
 					$scope.resultButtons = [];
 
@@ -206,7 +208,16 @@
 		});
 	}]);
 
-	app.controller('SearchViewController', ['$scope', 'ProductService', 'hotkeys', 'PreviewDataService', '$state', '$stateParams', SearchViewController]);
+	app.controller('SearchViewController', [
+		'$scope',
+		'ProductService',
+		'hotkeys',
+		'PreviewDataService',
+		'$state',
+		'$stateParams',
+		'ProgressDialogService',
+		SearchViewController
+	]);
 	app.directive('searchView', SearchViewDirective);
 
 }(angular.module("caracolplaylgtvapp.searchView", [

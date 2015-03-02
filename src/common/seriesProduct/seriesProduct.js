@@ -96,11 +96,9 @@
 							'warning',
 							'Show Video',
 							'Aceptar',
-						configHotkeys
+							configHotkeys
 						);
 					} else {
-						console.log(JSON.stringify(response.data));
-
 						$state.go('purchase', {
 							typeView: $scope.selected.type_view,
 							productionId: $scope.getChapterId(),
@@ -165,8 +163,6 @@
 			};
 
 			$scope.onRate = function() {
-				console.log($scope.selected);
-
 				$state.go('rate', {
 					'productId': $scope.selected.id,
 					'rate': $scope.selected.rate
@@ -285,8 +281,6 @@
 
 						self.sectionActive++;
 
-						console.log('sections', self.sections[self.sectionActive]);
-
 						switch (self.sections[self.sectionActive]) {
 							case self.SEASONS_SECTION:
 								self.seasonsButtons[0].active = true;
@@ -320,8 +314,6 @@
 
 						self.sectionActive--;
 
-						console.log('sections', self.sections[self.sectionActive]);
-
 						switch (self.sections[self.sectionActive]) {
 							case self.SEASONS_SECTION:
 								var div = $('.chapters-season');
@@ -334,10 +326,10 @@
 								self.episodesButtons[self.episodeSelected].active = false;
 								break;
 							case self.OPTIONS_SECTION:
-								if(self.episodeSelected >= 0) {
+								if (self.episodeSelected >= 0) {
 									self.episodesButtons[self.episodeSelected].active = false;
 								}
-								if(self.seasonSelected >= 0) {
+								if (self.seasonSelected >= 0) {
 									self.seasonsButtons[self.seasonSelected].active = false;
 								}
 								self.seasonSelected = -1;
@@ -384,19 +376,16 @@
 												$scope.onRate();
 												break;
 											case 'Trailer':
-												AlertDialogService.show(
-													'warning',
-													'Show Video',
-													'Aceptar',
-						configHotkeys
-												);
+												$state.go('videoModule', {
+													productId: $scope.id
+												});
 												break;
 											case 'Añadir a mi lista':
-													AlertDialogService.show(
+												AlertDialogService.show(
 													'warning',
 													'Add to list',
 													'Aceptar',
-						configHotkeys
+													configHotkeys
 												);
 												break;
 										}
@@ -519,7 +508,8 @@
 		'$rootScope',
 		'ProgressDialogService',
 		'AlertDialogService',
-		SeriesProductController]);
+		SeriesProductController
+	]);
 	app.directive('seriesProduct', SeriesProductDirective);
 
 	app.filter('unsafe', function($sce) {

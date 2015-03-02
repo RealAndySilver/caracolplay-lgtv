@@ -19,7 +19,6 @@
 		};
 
 		self.start = function() {
-			console.log('start progress dialog');
 			self.modalInstance = $modal.open({
 				controller: 'ProgressDialogController',
 				templateUrl: 'progressDialog/progressDialog.tpl.html',

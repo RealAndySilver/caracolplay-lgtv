@@ -41,13 +41,11 @@
 					);
 					return;
 				}
-				console.log($scope.slides[active]);
 
 				ProgressDialogService.start();
 				var productPremise = ProductService.getProductWithID($scope.slides[active].id, '');
 
 				productPremise.then(function(res) {
-					console.log(res.data);
 
 					$scope.selected = res.data.products['0'][0];
 

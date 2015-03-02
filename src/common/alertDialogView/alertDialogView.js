@@ -73,7 +73,6 @@
 					combo: 'enter',
 					callback: function(event) {
 						event.preventDefault();
-						console.log('Im making enter');
 
 						$modalInstance.dismiss('cancel');
 					},

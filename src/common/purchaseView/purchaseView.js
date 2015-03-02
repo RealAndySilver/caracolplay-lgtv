@@ -228,7 +228,6 @@
 		};
 
 		$scope.onSides = function(side) {
-			console.log('side', side);
 			switch(side) {
 				case 'up':
 					if($scope.active === 'city') {
@@ -245,7 +244,6 @@
 					}
 					break;
 				case 'left':
-					console.log('active', $scope.active);
 					if($scope.active === 'next') {
 						$scope.activeNumber = $scope.loginQueue.indexOf('back');
 					} else if($scope.activeNumber - 1 >= 0) {
@@ -253,7 +251,6 @@
 					}
 					break;
 				case 'right':
-					console.log('active', $scope.active);
 					if($scope.active === 'back') {
 						$scope.activeNumber = $scope.loginQueue.indexOf('next');
 					} else if($scope.activeNumber + 1 < $scope.activeQueue.length) {
@@ -326,7 +323,6 @@
 		$scope.activeQueue = [];
 
 		$scope.next = function() {
-			console.log('active', $scope.active);
 			$scope.disableKeyEnter = true;
 			switch($scope.active) {
 				case 'next':
@@ -468,7 +464,6 @@
 			var redeemPromise = PurchaseService.validateCode($scope.redeemCode);
 
 			redeemPromise.then(function(response) {
-				console.log(response.data);
 				response.data.status = true;
 				if (response.data.status) {
 					if (response.data.info_code) {
@@ -779,8 +774,6 @@
 					}
 					var position = $scope.citiesStrings.indexOf($scope.subscription.city);
 
-					console.log($scope.cities[position]);
-
 					$scope.subscribeStep++;
 
 					if($scope.isRent) {
@@ -799,8 +792,6 @@
 					}
 
 					var successCallbackExecuteTransaction = function(response) {
-						console.log(response.data);
-
 						AlertDialogService.show(
 							'alert',
 							response.data.user + ': ' + response.data.result,
@@ -821,7 +812,6 @@
 					};
 
 					var successCallbackCreateOrder = function(response) {
-						console.log(response);
 						var order = response.data;
 
 						var positionSelectedCity = $scope.citiesStrings.indexOf($scope.subscription.city);
@@ -851,15 +841,12 @@
 							}
 						};
 
-						console.log('transactionInfo', transactionInfo);
-
 						var promiseExecute = PurchaseService.executeTransactionWithCardFlow(transactionInfo);
 
 						promiseExecute.then(successCallbackExecuteTransaction, failureCallback);
 					};
 
 					var successCallbackLogin = function(response) {
-						console.log(response.data);
 						var promiseCreateOrder;
 						if($scope.isRent) {
 							promiseCreateOrder = PurchaseService.createRentOrderFlow(productionId);
@@ -875,7 +862,6 @@
 					var purchasePromise = PurchaseService.getProduct(1, 1, 1);
 
 					purchasePromise.then(function(res) {
-						console.log('test get_product');
 						alert(res.data);
 					});
 					*/
@@ -913,15 +899,11 @@
 		};
 
 		$scope.onLogin = function() {
-			console.log('name: ' + $scope.loginData.username);
-			console.log('password: ' + $scope.loginData.password);
-
 			ProgressDialog.start();
 
 			var promiseLogin = PurchaseService.loginPaymentUserFlow($scope.loginData.username, $scope.loginData.password);
 			promiseLogin.then(function(response) {
 				ProgressDialog.dismiss();
-				console.log(response.data);
 
 				var user = response.data.user;
 
@@ -961,8 +943,6 @@
 
 			authPromise.then(function(response) {
 				var resObj = response.data;
-
-				console.log(resObj);
 
 				if (resObj.status) {
 					UserInfo.name = resObj.user.data.nombres;
@@ -1008,7 +988,6 @@
 		};
 
 		var setOptionsByTypeView = function() {
-			console.log('I will push the options with typeOptions: ' + typeView);
 			switch (typeView) {
 				case 1:
 					$scope.options.push($scope.rentOptions);
@@ -1024,7 +1003,6 @@
 					$scope.options.push($scope.redeemOptions);
 					break;
 				default:
-					console.log('I enter in default');
 					break;
 			}
 		};
@@ -1101,7 +1079,6 @@
 				);
 
 				createUserPromise.then(function(response) {
-					console.log(response.data);
 				});
 		*/
 
@@ -1135,7 +1112,6 @@
 		var typeView = $stateParams.typeView;
 		var productionId = $stateParams.productionId;
 
-		console.log(typeView);
 		var modalInstance = $modal.open({
 			templateUrl: 'purchaseView/purchaseView.tpl.html',
 			controller: 'PurchaseViewController',
@@ -1169,7 +1145,7 @@
 			views: {
 				'main': {
 					controller: 'DialogPurchaseController',
-					template: 'test'
+					templateUrl: 'generalitiesPage/header.tpl.html'
 				}
 			},
 			data: {

@@ -32,10 +32,12 @@
 
 			var onChangeActive = function() {
 				$scope.selected = $scope.slides[active];
-				console.log($scope.selected);
+				slider.scrollLeft(active * cover.outerWidth(true));
+				/*
 				slider.stop().animate({
 					scrollLeft: active * cover.outerWidth(true)
 				}, 500);
+				*/
 			};
 
 			var rightCallback = function() {
@@ -57,7 +59,6 @@
 			};
 
 			var enterCallback = function() {
-				//console.log($scope.slides[active]);
 
 				if ($scope.slides[active]['progress_sec'] !== undefined) {
 					AlertDialogService.show(
@@ -71,7 +72,6 @@
 				var productPremise = ProductService.getProductWithID($scope.slides[active].id, '');
 
 				productPremise.then(function(res) {
-					//console.log(res.data);
 
 					$scope.selected = res.data.products['0'][0];
 				});
@@ -93,19 +93,22 @@
 			};
 
 			var watchCallback = function(newValue, oldValue) {
+				console.log('active value', $scope.active);
 				if (newValue) {
+					//if(!$scope.slides) { return; }
 					$scope.slides[active].active = true;
 					$scope.selected = $scope.slides[active];
 
-					//console.log('#' + $scope.title.replace(/ /g, '') + 'Slider');
 					slider = $('#' + $scope.title.replace(/ /g, '') + 'Slider');
 					cover = $('.ProductionItem');
 
-					var div = $('#' + $scope.title.replace(/ /g, ''))/*.attr('href')*/;
-					console.log(div.position.top);
-					$('.scroll-area').scrollTop($(div).position().top - 134);
-					console.log('outerWidth: ' + cover.outerWidth(true));
+					if ($(div).position()) {
+						var div = $('#' + $scope.title.replace(/ /g, '')) /*.attr('href')*/ ;
+						$('.scroll-area').scrollTop($(div).position().top - 134);
+					}
+
 					$('.free-zone').width(cover.outerWidth(true) * $scope.slides.length);
+
 					/*
 					$('.scroll-area').stop().animate({
 						scrollTop: $(div).position().top - 134
@@ -114,8 +117,10 @@
 
 					configHotkeys();
 				} else {
-					if ($scope.slides[active]) {
-						$scope.slides[active].active = false;
+					if ($scope.slides) {
+						if ($scope.slides[active]) {
+							$scope.slides[active].active = false;
+						}
 					}
 				}
 			};
