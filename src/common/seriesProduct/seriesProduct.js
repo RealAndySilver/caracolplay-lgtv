@@ -348,6 +348,9 @@
 
 									if ($scope.options[i].active) {
 										switch ($scope.options[i].label) {
+											case 'Reproducir':
+												$scope.open('lg');
+												break;
 											case 'Capitulos':
 												self.sectionActive++;
 
