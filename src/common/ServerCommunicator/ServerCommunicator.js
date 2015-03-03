@@ -11,7 +11,7 @@
 	module.END_POINT = 'http://appsbetadev.caracolplay.com/';
 	module.TEST_END_POINT = 'http://192.168.1.129:1414/';
 
-	ssl.END_POINT = 'http://premium.icck.net/api/';
+	ssl.END_POINT = 'https://premium.icck.net/api/';
 	ssl.user = 'icck';
 	ssl.password = 'K1qf(w#:';
 
@@ -221,7 +221,7 @@
 
 		self.createUser = function(name, password, mail, privacyPolicity, termsAndConditions, bussinessInfo) {
 			return $http({
-				headers: encode(true),
+				headers: module.encode(true),
 				method: 'POST',
 				url: ssl.END_POINT + 'common/commerce/user.json',
 				data: JSON.stringify({
@@ -237,7 +237,7 @@
 
 		self.getToken = function() {
 			return $http({
-				headers: encode(true),
+				headers: module.encode(true),
 				method: 'POST',
 				data: '',
 				url: ssl.END_POINT + 'common/user/token.json',
@@ -246,7 +246,7 @@
 
 		self.loginPaymentUser = function(username, password, token) {
 			return $http({
-				headers: encode(true, token),
+				headers: module.encode(true, token),
 				method: 'POST',
 				url: ssl.END_POINT + 'common/user/login.json',
 				data: JSON.stringify({
@@ -280,7 +280,7 @@
 
 		self.searchCity = function(city, token) {
 			return $http({
-				headers: encode(true, token),
+				headers: module.encode(true, token),
 				method: 'POST',
 				url: ssl.END_POINT + 'commerce/payment/cities.json',
 				data: JSON.stringify({
@@ -313,7 +313,7 @@
 		self.executeTransactionWithCard = function(paymentInfo, token) {
 			var encryptedJson = btoa(unescape(encodeURIComponent(btoa(unescape(encodeURIComponent(JSON.stringify(paymentInfo)))))));
 			return $http({
-				headers: encode(true, token),
+				headers: module.encode(true, token),
 				method: 'POST',
 				url: ssl.END_POINT + 'commerce/payment/transaction.json',
 				data: JSON.stringify({
@@ -324,7 +324,7 @@
 
 		self.createSubscriptionOrder = function(token) {
 			return $http({
-				headers: encode(true, token),
+				headers: module.encode(true, token),
 				method: 'POST',
 				data: "",
 				url: ssl.END_POINT + 'commerce/payment/order_subscription.json',
@@ -354,7 +354,7 @@
 
 		self.createRentOrder = function(token, nid) {
 			return $http({
-				headers: encode(true, token),
+				headers: module.encode(true, token),
 				method: 'POST',
 				data: JSON.stringify({
 					nid: nid
