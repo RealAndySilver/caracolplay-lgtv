@@ -241,7 +241,7 @@
 				for (var i in featuredArray) {
 					self.slides.push({
 						id: featuredArray[i].id,
-						image: featuredArray[i].image_url,
+						image: featuredArray[i].image_smarttv,
 						text: featuredArray[i].feature_text,
 						rate: (featuredArray[i].rate / 2) / 10,
 						name: featuredArray[i].name,

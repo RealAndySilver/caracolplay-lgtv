@@ -15,7 +15,7 @@
 	app.service('ModalInstanceService', [ModalInstanceService]);
 	app.constant('ModalInstance', {});
 
-	var PurchaseViewController = function($scope, hotkeys, UserService, PurchaseService, UserInfo, $modalInstance, typeView, $state, AlertDialogService, productionId, ProgressDialog) {
+	var PurchaseViewController = function($scope, hotkeys, UserService, PurchaseService, UserInfo, $modalInstance, typeView, $state, AlertDialogService, productionId, chapterId, ProgressDialog) {
 		var itemSelected = 0;
 
 		var self = this;
@@ -178,6 +178,23 @@
 			id: 9
 		}, ];
 
+		$scope.playVideo = function() {
+			ProgressDialogService.start();
+			var promiseIsContentAvaliable = UserService.isContentAvailableForUser($scope.getChapterId());
+
+			promiseIsContentAvaliable.then(function(response) {
+				ProgressDialogService.dismiss();
+				if (response.data.status) {
+					$state.go('videoModule', {
+						chapterId: $scope.getChapterId(),
+						productionId: $scope.selected.id,
+					});
+				} else {
+					$state.reload();
+				}
+			});
+		};
+
 		$scope.documentType = $scope.documentTypes[$scope.defaultDocumentTypeIndex];
 
 		$scope.isStepActive = function(item) {
@@ -228,32 +245,32 @@
 		};
 
 		$scope.onSides = function(side) {
-			switch(side) {
+			switch (side) {
 				case 'up':
-					if($scope.active === 'city') {
+					if ($scope.active === 'city') {
 						break;
-					} else if($scope.activeNumber - 1 >= 0) {
+					} else if ($scope.activeNumber - 1 >= 0) {
 						$scope.activeNumber--;
 					}
 					break;
 				case 'down':
-					if($scope.active === 'city') {
+					if ($scope.active === 'city') {
 						break;
-					} else if($scope.activeNumber + 1 < $scope.activeQueue.length) {
+					} else if ($scope.activeNumber + 1 < $scope.activeQueue.length) {
 						$scope.activeNumber++;
 					}
 					break;
 				case 'left':
-					if($scope.active === 'next') {
+					if ($scope.active === 'next') {
 						$scope.activeNumber = $scope.loginQueue.indexOf('back');
-					} else if($scope.activeNumber - 1 >= 0) {
+					} else if ($scope.activeNumber - 1 >= 0) {
 						$scope.activeNumber--;
 					}
 					break;
 				case 'right':
-					if($scope.active === 'back') {
+					if ($scope.active === 'back') {
 						$scope.activeNumber = $scope.loginQueue.indexOf('next');
-					} else if($scope.activeNumber + 1 < $scope.activeQueue.length) {
+					} else if ($scope.activeNumber + 1 < $scope.activeQueue.length) {
 						$scope.activeNumber++;
 					}
 					break;
@@ -324,7 +341,7 @@
 
 		$scope.next = function() {
 			$scope.disableKeyEnter = true;
-			switch($scope.active) {
+			switch ($scope.active) {
 				case 'next':
 					$scope.onLogin();
 					break;
@@ -398,11 +415,11 @@
 			hotkeys.add({
 				combo: 'enter',
 				callback: function() {
-					if($scope.disableKeyEnter) {
+					if ($scope.disableKeyEnter) {
 						$scope.disableKeyEnter = false;
 						return;
 					}
-					switch (itemSelected) {
+					switch ($scope.options[itemSelected].id) {
 						case 0:
 							$scope.activeQueue = $scope.loginQueue;
 							$scope.active = $scope.activeQueue[0];
@@ -417,6 +434,12 @@
 							$scope.active = $scope.activeQueue[0];
 							$scope.activeNumber = 0;
 
+							if (UserInfo.alias) {
+								$scope.subscribeStep = 1;
+							} else {
+								$scope.subscribeStep = 0;
+							}
+
 							$scope.isSubscription = false;
 							$scope.isRent = true;
 							$scope.showOptions = false;
@@ -427,6 +450,12 @@
 							$scope.activeQueue = $scope.rentQueue;
 							$scope.active = $scope.activeQueue[0];
 							$scope.activeNumber = 0;
+
+							if (UserInfo.alias) {
+								$scope.subscribeStep = 1;
+							} else {
+								$scope.subscribeStep = 0;
+							}
 
 							$scope.showOptions = false;
 							$scope.isRent = false;
@@ -453,11 +482,11 @@
 			// check if user is login
 			if (!$scope.redeemCode) {
 				AlertDialogService.show(
-						'alert',
-						'El codigo para redimir no puede estar vacio',
-						'Aceptar',
-						configHotkeys
-					);
+					'alert',
+					'El codigo para redimir no puede estar vacio',
+					'Aceptar',
+					configHotkeys
+				);
 				return;
 			}
 
@@ -469,12 +498,7 @@
 					if (response.data.info_code) {
 						if (response.data.info_code.type) {
 							if (response.data.info_code.type === 'ev') {
-								AlertDialogService.show(
-									'warning',
-									'Show video',
-									'Aceptar',
-									configHotkeys
-								);
+								$scope.playVideo();
 							}
 						} else {
 							$scope.showOptions = true;
@@ -745,6 +769,13 @@
 					var successCallbackCreateUser = function(response) {
 						ProgressDialog.dismiss();
 
+						UserInfo.alias = $scope.subscription.user;
+						UserInfo.password = $scope.subscription.password;
+						UserInfo.mail = $scope.subscription.email;
+						UserInfo.uid = response.data.uid;
+
+						localStorage.setItem('userInfo', JSON.stringify(UserInfo));
+
 						$scope.subscribeStep++;
 						$scope.activeQueue = $scope.rentQueueStep2;
 						$scope.active = $scope.activeQueue[0];
@@ -752,11 +783,12 @@
 					};
 
 					var failureCallbackCreateUser = function(response) {
+						console.log('error', response);
 						ProgressDialog.dismiss();
 
 						AlertDialogService.show(
 							'alert',
-							response.data[0],
+							response.data.form_errors[0],
 							'Aceptar',
 							function() {
 								configHotkeys();
@@ -776,7 +808,7 @@
 
 					$scope.subscribeStep++;
 
-					if($scope.isRent) {
+					if ($scope.isRent) {
 						$scope.activeQueue = $scope.rentQueueStep3;
 					} else {
 						$scope.activeQueue = $scope.subscriptionQueueStep3;
@@ -792,13 +824,17 @@
 					}
 
 					var successCallbackExecuteTransaction = function(response) {
+						console.log(response);
 						AlertDialogService.show(
 							'alert',
 							response.data.user + ': ' + response.data.result,
 							'Aceptar',
 							function() {
 								configHotkeys();
-								window.history.back();
+								$state.go('videoModule', {
+									'chapterId': chapterId,
+									'productionId': productionId,
+								});
 							});
 					};
 
@@ -848,15 +884,17 @@
 
 					var successCallbackLogin = function(response) {
 						var promiseCreateOrder;
-						if($scope.isRent) {
-							promiseCreateOrder = PurchaseService.createRentOrderFlow(productionId);
+						if ($scope.isRent) {
+							promiseCreateOrder = PurchaseService.createRentOrderFlow(chapterId);
 						} else {
 							promiseCreateOrder = PurchaseService.createSubscriptionOrderFlow();
 						}
 						promiseCreateOrder.then(successCallbackCreateOrder, failureCallback);
 					};
 
-					var promiseLogin = PurchaseService.loginPaymentUserFlow($scope.subscription.user, $scope.subscription.password);
+					console.log('UserInfo', UserInfo);
+					console.log('alias', UserInfo.alias, 'password', UserInfo.password);
+					var promiseLogin = PurchaseService.loginPaymentUserFlow(UserInfo.alias, UserInfo.password);
 					promiseLogin.then(successCallbackLogin, failureCallback);
 					/*
 					var purchasePromise = PurchaseService.getProduct(1, 1, 1);
@@ -874,7 +912,12 @@
 			if ($scope.subscribeStep - 1 >= 0) {
 				$scope.subscribeStep--;
 
-				switch($scope.subscribeStep) {
+				if (UserInfo.alias && $scope.subscribeStep === 0) {
+					$scope.onBack();
+					return;
+				}
+
+				switch ($scope.subscribeStep) {
 					case 0:
 						$scope.activeQueue = $scope.rentQueue;
 						$scope.active = $scope.activeQueue[0];
@@ -901,6 +944,8 @@
 		$scope.onLogin = function() {
 			ProgressDialog.start();
 
+			console.log('username:', $scope.loginData.username, 'password', $scope.loginData.password);
+
 			var promiseLogin = PurchaseService.loginPaymentUserFlow($scope.loginData.username, $scope.loginData.password);
 			promiseLogin.then(function(response) {
 				ProgressDialog.dismiss();
@@ -913,11 +958,21 @@
 				UserInfo.password = $scope.loginData.password;
 				UserInfo.session = response.data.sessid;
 				UserInfo.uid = user.uid;
-				UserInfo.isSubscription = user.field_tiene_suscripcion.und[0].value == 1;
-				UserInfo.timeEnds = new Date(user.field_suscripcion_fecha_venc.und[0].value);
+				if (user.field_tiene_suscripcion.und) {
+					UserInfo.isSubscription = user.field_tiene_suscripcion.und[0].value == 1;
+				}
+				if (user.field_suscripcion_fecha_venc.und) {
+					UserInfo.timeEnds = new Date(user.field_suscripcion_fecha_venc.und[0].value);
+				}
 
 				localStorage.setItem('userInfo', JSON.stringify(UserInfo));
+				console.log('productId: ', productionId, 'chapterId', chapterId);
+				$state.go('videoModule', {
+					chapterId: chapterId,
+					productionId: productionId
+				});
 
+				/*
 				AlertDialogService.show(
 						'alert',
 						'Call method to show video',
@@ -927,15 +982,16 @@
 							window.history.back();
 						}
 					);
+				*/
 
 			}, function(error) {
 				ProgressDialog.dismiss();
 				AlertDialogService.show(
-						'alert',
-						error.data[0],
-						'Aceptar',
-						configHotkeys
-					);
+					'alert',
+					error.data[0],
+					'Aceptar',
+					configHotkeys
+				);
 			});
 
 			/*
@@ -1085,32 +1141,43 @@
 		$scope.subscriptionOption = {
 			'title': 'Suscribirse a CaracolPlay',
 			'image': 'assets/img/subscribe-logo.png',
+			id: 2,
 			active: false
 		};
 
 		$scope.rentOptions = {
 			'title': 'Alquilar este contenido',
 			'image': 'assets/img/rent-logo.png',
+			id: 1,
 			active: false
 		};
 
 		$scope.redeemOptions = {
 			'title': 'Redimir codigo',
 			'image': 'assets/img/redeem-logo.png',
+			id: 3,
 			active: false
 		};
 
 		$scope.loginOptions = {
 			'title': 'Ingresar como usuario',
 			'image': 'assets/img/login-logo.png',
+			id: 0,
 			active: true
 		};
 
 	};
 
-	var DialogPurchaseController = function($scope, $modal, $stateParams) {
+	var DialogPurchaseController = function($scope, $modal, $stateParams, UserInfo, $state) {
 		var typeView = $stateParams.typeView;
 		var productionId = $stateParams.productionId;
+		var chapterId = $stateParams.chapterId;
+
+		console.log('UserInfo', UserInfo);
+		if (UserInfo.alias) {
+			window.history.back();
+			return;
+		}
 
 		var modalInstance = $modal.open({
 			templateUrl: 'purchaseView/purchaseView.tpl.html',
@@ -1122,6 +1189,9 @@
 				},
 				productionId: function() {
 					return productionId;
+				},
+				chapterId: function() {
+					return chapterId;
 				}
 			}
 		});
@@ -1141,7 +1211,7 @@
 
 	app.config(['$stateProvider', function($stateProvider) {
 		$stateProvider.state('purchase', {
-			url: '/purchase/:typeView/:productionId',
+			url: '/purchase/:typeView/:productionId/:chapterId',
 			views: {
 				'main': {
 					controller: 'DialogPurchaseController',
@@ -1154,7 +1224,7 @@
 		});
 	}]);
 
-	app.controller('DialogPurchaseController', ['$scope', '$modal', '$stateParams', DialogPurchaseController]);
+	app.controller('DialogPurchaseController', ['$scope', '$modal', '$stateParams', 'UserInfo', '$state', DialogPurchaseController]);
 
 	app.controller('PurchaseViewController', [
 		'$scope',
@@ -1167,6 +1237,7 @@
 		'$state',
 		'AlertDialogService',
 		'productionId',
+		'chapterId',
 		'ProgressDialogService',
 		PurchaseViewController
 	]);

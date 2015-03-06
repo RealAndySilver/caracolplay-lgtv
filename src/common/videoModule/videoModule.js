@@ -1,7 +1,7 @@
 (function(module) {
 	module.config(function($stateProvider) {
 		$stateProvider.state('videoModule', {
-			url: '/videomodule/:productId',
+			url: '/videomodule/:chapterId/:productionId',
 			views: {
 				"main": {
 					controller: 'VideoModuleController as model',
@@ -10,12 +10,15 @@
 			},
 			resolve: {
 				itemSelected: ['$stateParams', 'ProductService', function($stateParams, ProductService) {
-					var promiseProduct = ProductService.getProductWithID($stateParams.productId);
+					var promiseProduct = ProductService.getProductWithID($stateParams.productionId);
 
 					return promiseProduct.then(function(response) {
-						response.data.products['0'][0].productId = $stateParams.productId;
-
-						return response.data.products['0'][0];
+						console.log(response);
+						if (response.data.length !== 0) {
+							response.data.products['0'][0].productId = $stateParams.productId;
+							return response.data.products['0'][0];
+						}
+						return [];
 					});
 				}],
 			},
@@ -28,7 +31,7 @@
 	function VideoModuleController($scope, $timeout, ProductService, UserInfo, itemSelected, hotkeys, $state, AlertDialogService) {
 		var model = this;
 		$scope.selected = itemSelected;
-		$scope.productId = itemSelected.productId;
+		$scope.productId = itemSelected.id;
 		$scope.itemSelected = {};
 
 		init();
@@ -153,6 +156,7 @@
 
 			var promise = ProductService.getRecommendationsWithProductID($scope.productId);
 			promise.then(function(response) {
+				console.log('recomendents', response);
 				$scope.recomendents = response.data.recommended_products.map(function(data) {
 					return data.product;
 				});

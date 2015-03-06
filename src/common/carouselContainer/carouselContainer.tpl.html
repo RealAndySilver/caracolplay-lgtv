@@ -1,11 +1,11 @@
 <carousel interval="CarouselContainerCtrl.myInterval">
 	<slide ng-repeat="slide in slides" active="slide.active" class="slide">
-		<img ng-src="{{slide.image}}" style="margin:auto; overflow-y:hidden; height:400px;" height='400' width='100%'>
+		<img ng-src="{{slide.image}}" style="margin:auto; overflow-y:hidden; height:552;" height='400' width='100%'>
 		<div class="carousel-caption">
 			<rating class="pull-left" ng-model="slide.rate" max="5" readonly="true" style="color:orange; font-size:16px; width: 100px;"></rating>
 			<br>
-			<h1 style="text-align:left;">{{slide.name}}</h1>
-			<h4 style="text-align:left; margin-left:0px;">{{slide.text}}</h4>
+			<!-- <h1 style="text-align:left;">{{slide.name}}</h1> -->
+			<h5 style="text-align:left; margin-left:0px;">{{slide.text}}</h5>
 			<!-- <p><a class="btn pull-left btn-lg btn-warning" ng-href="#/actividad">Ver Producción</a></p> -->
 		</div>
 	</slide>

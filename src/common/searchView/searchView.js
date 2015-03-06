@@ -5,7 +5,7 @@
 
 			$scope.getTitle = function() {
 				if($scope.keyword) {
-					return $scope.keyword + ' - ' + $scope.results.length + ' results found';
+					return $scope.keyword + ' - ' + $scope.results.length + ' resultados encontrados';
 				}
 				return '';
 			};

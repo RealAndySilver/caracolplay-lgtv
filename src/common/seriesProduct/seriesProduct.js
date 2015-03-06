@@ -32,9 +32,9 @@
 					case 'Noticias':
 						return $scope.selected.season_list[self.seasonSelected].season_name;
 					case 'Telenovelas':
-						return $scope.selected.name + ' - ' + (self.episodesButtons.length) + ' Chapters';
+						return $scope.selected.name + ' - ' + (self.episodesButtons.length) + ' Capitulos';
 					default:
-						return 'Season ' + (self.seasonSelected + 1) + ' - ' + (self.episodesButtons.length) + ' Chapters';
+						return 'Temporada ' + (self.seasonSelected + 1) + ' - ' + (self.episodesButtons.length) + ' Capitulos';
 				}
 			};
 
@@ -52,13 +52,13 @@
 					case 'Telenovelas':
 						return $scope.selected.name;
 					default:
-						return 'Season ' + (self.seasonSelected + 1);
+						return 'Temporada ' + (self.seasonSelected + 1);
 				}
 
 				if ($scope.selected.type === 'Noticias') {
 					return $scope.selected.season_list[self.seasonSelected].season_name;
 				}
-				return 'Season ' + (self.seasonSelected + 1);
+				return 'Temporada ' + (self.seasonSelected + 1);
 			};
 
 			$scope.getChapterName = function() {
@@ -72,7 +72,7 @@
 					case 'Noticias':
 						return self.chapterSelected.episode_name + ' - ' + self.chapterSelected.duration;
 					default:
-						return 'Chapter ' + (self.episodeSelected + 1) + ' - ' + self.chapterSelected.duration;
+						return 'Capitulos ' + (self.episodeSelected + 1) + ' - ' + self.chapterSelected.duration;
 				}
 			};
 
@@ -90,18 +90,18 @@
 				var promiseIsContentAvaliable = UserService.isContentAvailableForUser($scope.getChapterId());
 
 				promiseIsContentAvaliable.then(function(response) {
+					console.log('isContentAvailableForUser', response);
 					ProgressDialogService.dismiss();
 					if (response.data.status) {
-						AlertDialogService.show(
-							'warning',
-							'Show Video',
-							'Aceptar',
-							configHotkeys
-						);
+						$state.go('videoModule', {
+							chapterId: $scope.getChapterId(),
+							productionId: $scope.selected.id,
+						});
 					} else {
 						$state.go('purchase', {
 							typeView: $scope.selected.type_view,
-							productionId: $scope.getChapterId(),
+							chapterId: $scope.getChapterId(),
+							productionId: $scope.selected.id,
 						});
 
 						/*
@@ -457,7 +457,7 @@
 					if (newValue.type === 'Noticias') {
 						label = seasons[i].season_name;
 					} else {
-						label = 'Season ' + (parseInt(i) + 1);
+						label = 'Temporada ' + (parseInt(i) + 1);
 					}
 					self.seasonsButtons.push({
 						label: label,

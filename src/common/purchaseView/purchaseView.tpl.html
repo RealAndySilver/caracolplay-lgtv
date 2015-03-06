@@ -231,20 +231,20 @@
 						<div class="col-lg-5">
 							<div class="row">
 								<div class="col-lg-1"></div>
-								<label class="col-lg-11">Select credit card:</label><br/>
+								<label class="col-lg-11">Seleccionr tarjeta de credito:</label><br/>
 							</div>
 							<div class="row">
 								<div class="col-lg-1"></div>
 								<div class="col-lg-11">
 									<select type="text" class="form-control" ng-model="subscription.creditcard" ng-options="card.type for card in creditcards" focus-me="{{needFocus('creditcard')}}" ng-enter="next()" ng-sides="onSides(side)">
-										<option value="">Select</option>
+										<option value="">Seleccionar</option>
 									</select>
 								</div>
 							</div>
 						</div>
 						<div class="col-lg-5">
 							<div class="row">
-								<label class="col-lg-11">Card Number:</label><br/>
+								<label class="col-lg-11">Numero de tarjeta:</label><br/>
 							</div>
 							<div class="row">
 								<div class="col-lg-11">
@@ -260,7 +260,7 @@
 						<div class="col-lg-5">
 							<div class="row">
 								<div class="col-lg-1"></div>
-								<label class="col-lg-11">Expire Date:</label><br/>
+								<label class="col-lg-11">Fecha de expiración:</label><br/>
 							</div>
 							<div class="row">
 								<div class="col-lg-1"></div>
@@ -268,12 +268,12 @@
 									<div class="row">
 										<div class="col-lg-6">
 											<select type="expire.month" class="form-control" ng-model="subscription.month" ng-options="month.name for month in months" focus-me="{{needFocus('month')}}" ng-enter="next()" ng-sides="onSides(side)">
-												<option value="">Month</option>
+												<option value="">Mes</option>
 											</select>
 										</div>
 										<div class="col-lg-6">
 											<select type="expire.year" class="form-control" ng-model="subscription.year" ng-options="year.name for year in years" focus-me="{{needFocus('year')}}" ng-enter="next()" ng-sides="onSides(side)">
-												<option value="">Year</option>
+												<option value="">Año</option>
 											</select>
 										</div>
 									</div>
@@ -282,7 +282,7 @@
 						</div>
 						<div class="col-lg-5">
 							<div class="row">
-								<label class="col-lg-11">Security code:</label><br/>
+								<label class="col-lg-11">Codigo de seguridad:</label><br/>
 							</div>
 							<div class="row">
 								<div class="col-lg-3">
@@ -300,7 +300,7 @@
 						<div class="col-lg-5">
 							<div class="row">
 								<div class="col-lg-1"></div>
-								<label class="col-lg-11">Number of parcels:</label><br/>
+								<label class="col-lg-11">Numero de compras:</label><br/>
 							</div>
 							<div class="row">
 								<div class="col-lg-1"></div>
@@ -313,7 +313,7 @@
 							<div class="row">
 								<div class="col-lg-11">
 									<div class="checkbox" ng-show="isSubscription">
-										<input type="checkbox" ng-model="subscription.renewal" focus-me="{{needFocus('renewal')}}" ng-enter="next()" ng-sides="onSides(side)">Automatic renewal<br/>
+										<input type="checkbox" ng-model="subscription.renewal" focus-me="{{needFocus('renewal')}}" ng-enter="next()" ng-sides="onSides(side)">Renovar automaticamente<br/>
 										Su plan se renovara automaticamente el {{expireDate | date:'dd/MM/yyyy'}}.
 									</div>
 								</div>
@@ -328,10 +328,10 @@
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="col-lg-3"></div>
-						<button class="btn caracol-btn col-lg-9" ng-click="onBackSuscription()" focus-me="{{needFocus('backSuscription')}}" ng-enter="next()" ng-sides="onSides(side)">Back</button>
+						<button class="btn caracol-btn col-lg-9" ng-click="onBackSuscription()" focus-me="{{needFocus('backSuscription')}}" ng-enter="next()" ng-sides="onSides(side)">Atrás</button>
 					</div>
 					<div class="col-lg-6">
-						<button class="btn caracol-btn col-lg-9" ng-click="onNext()" focus-me="{{needFocus('nextSubscription')}}" ng-enter="next()" ng-sides="onSides(side)">Next</button>
+						<button class="btn caracol-btn col-lg-9" ng-click="onNext()" focus-me="{{needFocus('nextSubscription')}}" ng-enter="next()" ng-sides="onSides(side)">Continuar</button>
 						<div class="col-lg-3"></div>
 					</div>
 				</div>
@@ -342,7 +342,7 @@
 		<div class="redeem-container" ng-show="redeemVisible">
 			<div class="row redeem-code-container">
 				<div class="form-group">
-					<label class="col-md-4 control-label" for="name">Code:</label>  
+					<label class="col-md-4 control-label" for="name">Código:</label>  
 					<div class="col-md-6">
 						<input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="redeemCode">
 					</div>
@@ -353,10 +353,10 @@
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="col-lg-3"></div>
-						<button class="btn caracol-btn col-lg-9" ng-click="onBackSuscription()">Back</button>
+						<button class="btn caracol-btn col-lg-9" ng-click="onBackSuscription()">Atrás</button>
 					</div>
 					<div class="col-lg-6">
-						<button class="btn caracol-btn col-lg-9" ng-click="onRedeem()">Redeem</button>
+						<button class="btn caracol-btn col-lg-9" ng-click="onRedeem()">Redimir</button>
 						<div class="col-lg-3"></div>
 					</div>
 				</div>
