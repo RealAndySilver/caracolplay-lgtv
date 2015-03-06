@@ -3,7 +3,7 @@
 		<div class="search-bar">
 			<div class="input-group">
 				<span class="input-group-btn">
-					<button class="btn btn-default" type="button">
+					<button class="btn dark-btn" type="button">
 						<span class="glyphicon glyphicon-search"></span>
 					</button>
 				</span>
@@ -36,7 +36,7 @@
 <div class="preview-cover">
 	<h2>{{selected.name}}</h2>
 	<h6>2012</h6>
-	<rating class="pull-left" ng-model="slide.rate" max="5" readonly="true" style="color:orange; font-size:16px; width: 100px;"></rating>
+	<rating class="pull-left" ng-model="slide.rate" max="5" readonly="true" style="color:orange; font-size:16px; width: 100%; text-align: left;"></rating>
 	<br/>
 	<h4 ng-bind-html="selected.feature_text | unsafe"></h4>
 </div>

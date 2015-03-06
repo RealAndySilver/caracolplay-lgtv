@@ -49,8 +49,16 @@
 
 textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {   
     border-color: rgba(253, 131, 36, 0.8);
-    box-shadow: 0 1px 1px rgba(253, 131, 36, 0.075) inset, 0 0 8px rgba(253, 131, 36, 0.6);
+    border-width: 2px;
+    box-shadow: 0 5px 5px rgba(253, 131, 36, 0.075) inset, 0 0 20px rgba(253, 131, 36, 0.6);
     outline: 0 none;
+
+    background-color: #eee;
+}
+
+textarea, input, input[type], .uneditable-input {   
+	background-color: #333;
+	border-color: #555;
 }
 
 .button-container{
