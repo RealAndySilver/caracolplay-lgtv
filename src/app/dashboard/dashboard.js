@@ -114,8 +114,14 @@
 			}
 		};
 
-		self.activePreview = function(value) {
-			var productPremise = ProductService.getProductWithID(self.selectedItem.id, '');
+		self.activePreview = function(value, item) {
+			var productPremise;
+			console.log('item', item);
+			if(item) {
+				productPremise = ProductService.getProductWithID(item.id, '');
+			} else {
+				productPremise = ProductService.getProductWithID(self.selectedItem.id, '');
+			}
 
 			productPremise.then(function(res) {
 				PreviewDataService.setItemSelected(res.data.products['0'][0]);
@@ -185,12 +191,6 @@
 					} else {
 						inAnimation();
 					}
-				}
-			});
-
-			hotkeys.add({
-				combo: '79',
-				callback: function(event) {
 				}
 			});
 

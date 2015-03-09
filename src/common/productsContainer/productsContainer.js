@@ -82,15 +82,45 @@
 				var productPremise = ProductService.getProductWithID($scope.slides[active].id, '');
 
 				productPremise.then(function(res) {
-
 					$scope.selected = res.data.products['0'][0];
 				});
 				$scope.configKeyboard.restart = function() {
 					configHotkeys();
 				};
 				$scope.preview({
-					value: true
+					value: true,
+					item: $scope.selected
 				});
+			};
+
+			$scope.onItemSelected = function(item) {
+				console.log('item', $scope.slides[item]);
+
+				if ($scope.slides[item]['progress_sec'] !== undefined) {
+					AlertDialogService.show(
+						'alert',
+						'Show video',
+						'Aceptar',
+						configHotkeys
+					);
+					return;
+				}
+				var productPremise = ProductService.getProductWithID($scope.slides[item].id, '');
+
+				productPremise.then(function(res) {
+					$scope.slides[active].active = false;
+					active = item;
+					$scope.slides[active].active = true;
+					$scope.selected = res.data.products['0'][0];
+
+					$scope.preview({
+						value: true,
+						item: $scope.selected
+					});
+				});
+				$scope.configKeyboard.restart = function() {
+					configHotkeys();
+				};
 			};
 
 			var escCallback = function() {
@@ -137,13 +167,13 @@
 			$scope.$watch('active', watchCallback);
 
 			$scope.$watch('slidesToShow', function(newValue) {
-				if(newValue) {
+				if (newValue) {
 					console.log('newValue', newValue);
 					$scope.slides = newValue.concat(newValue.map(function(item) {
 						item.uniqueId = newValue.indexOf(item);
 						return item;
 					})).map(function(item) {
-						if(item.uniqueId === undefined) {
+						if (item.uniqueId === undefined) {
 							item.uniqueId = newValue.indexOf(item) + newValue.length;
 						}
 						return item;
