@@ -3,7 +3,7 @@
 		<h2 class="slider-title">{{title}} </h2>
 		<div class="ProductionList" id="{{title + 'Slider' | nospace}}">
 			<ul class="list-inline">
-				<li class="ProductionItem" ng-repeat="slide in slides">
+				<li class="ProductionItem" ng-repeat="slide in slides track by $index">
 					<div class="cover" ng-class="{selected : slide.active}" >
 						<img ng-src="{{slide.image_url}}" err-src="http://www.caracolplay.com/sites/default/files/styles/256x386/public/producciones/noticias2_0.jpg">
 					</div>

@@ -10,6 +10,8 @@
 			var slider = {},
 				cover = {};
 
+			$scope.slides = [];
+
 			var configHotkeys = function() {
 				hotkeys.add({
 					combo: 'right',
@@ -41,7 +43,11 @@
 			};
 
 			var rightCallback = function() {
-				if (active + 1 > $scope.slides.length - 1) {
+				if (active + 1 > $scope.slidesToShow.length - 1) {
+					$scope.slides[active].active = false;
+					active = 0;
+					$scope.slides[active].active = true;
+					onChangeActive();
 					return;
 				}
 				$scope.slides[active++].active = false;
@@ -51,6 +57,10 @@
 
 			var leftCallback = function() {
 				if (active - 1 < 0) {
+					$scope.slides[active].active = false;
+					active = $scope.slidesToShow.length - 1;
+					$scope.slides[active].active = true;
+					onChangeActive();
 					return;
 				}
 				$scope.slides[active--].active = false;
@@ -93,7 +103,6 @@
 			};
 
 			var watchCallback = function(newValue, oldValue) {
-				console.log('active value', $scope.active);
 				if (newValue) {
 					//if(!$scope.slides) { return; }
 					$scope.slides[active].active = true;
@@ -126,6 +135,21 @@
 			};
 
 			$scope.$watch('active', watchCallback);
+
+			$scope.$watch('slidesToShow', function(newValue) {
+				if(newValue) {
+					console.log('newValue', newValue);
+					$scope.slides = newValue.concat(newValue.map(function(item) {
+						item.uniqueId = newValue.indexOf(item);
+						return item;
+					})).map(function(item) {
+						if(item.uniqueId === undefined) {
+							item.uniqueId = newValue.indexOf(item) + newValue.length;
+						}
+						return item;
+					});
+				}
+			});
 		};
 
 		init();
@@ -138,7 +162,7 @@
 			controller: 'ProductsContainerController',
 			controllerAs: 'ProductsContainerCtrl',
 			scope: {
-				slides: '=',
+				slidesToShow: '=slides',
 				title: '@',
 				active: '=',
 				preview: '&',
