@@ -4,12 +4,14 @@
 		var init = function() {
 
 			$scope.getTitle = function() {
-				if($scope.keyword) {
+				if ($scope.keyword) {
 					return $scope.keyword + ' - ' + $scope.results.length + ' resultados encontrados';
 				}
 				return '';
 			};
 
+			console.log('keyword', $stateParams.keyword);
+			$scope.keyword = $stateParams.keyword;
 			$scope.from = $stateParams.from;
 
 			$scope.results = [];
@@ -21,6 +23,39 @@
 			$scope.isShowingPreview = true;
 
 			var slider = {};
+			var canceller = {};
+			$scope.$watch('keyword', function(newValue) {
+
+				if(canceller.resolve !== undefined) {
+					canceller.resolve();
+				}
+				var searchPremise = ProductService.getListFromSearchWithKey($scope.keyword, canceller);
+
+				configHotkeys();
+
+				searchPremise.then(function(res) {
+					$scope.results = res.data.products;
+
+					$scope.resultButtons = [];
+
+					for (var i in $scope.results) {
+						var label = $scope.results[i].name;
+						$scope.resultButtons.push({
+							label: label,
+							active: false,
+						});
+					}
+
+					if ($scope.results.length !== 0) {
+						$scope.itemSelected = 0;
+						$scope.resultButtons[$scope.itemSelected].active = true;
+						$scope.selected = $scope.results[0];
+						$scope.isItemSelected = true;
+					} else {
+						$scope.isItemSelected = false;
+					}
+				});
+			});
 
 			var configHotkeys = function() {
 				hotkeys.add({
@@ -195,7 +230,7 @@
 
 	app.config(['$stateProvider', function($stateProvider) {
 		$stateProvider.state('search', {
-			url: '/search',
+			url: '/search/:keyword?',
 			views: {
 				'main': {
 					controller: 'SearchViewController',

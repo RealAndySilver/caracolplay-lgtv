@@ -74,7 +74,7 @@
 		return headers;
 	};
 
-	var ProductService = function($http, UserInfo) {
+	var ProductService = function($http, UserInfo, $q) {
 		var self = this;
 
 		self.getRecommendationsWithProductID = function(productId) {
@@ -137,7 +137,8 @@
 			});
 		};
 
-		self.getListFromSearchWithKey = function(keyword) {
+		self.getListFromSearchWithKey = function(keyword, canceler) {
+			canceler = $q.defer();
 			return $http.get(module.END_POINT + 'GetListFromSearchWithKey/' + keyword + '?player_br=aim');
 		};
 
@@ -471,7 +472,7 @@
 		};
 	};
 
-	app.service('ProductService', ['$http', 'UserInfo', ProductService]);
+	app.service('ProductService', ['$http', 'UserInfo', '$q', ProductService]);
 	app.service('UserService', ['$http', 'UserInfo', UserService]);
 	app.service('PurchaseService', ['$http', 'UserInfo', PurchaseService]);
 

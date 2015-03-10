@@ -44,6 +44,8 @@
 					self.beforeSearchIsPreviewActive = true;
 					self.isPreviewActive = false;
 				}
+
+				$state.go('search', { 'keyword': $scope.keywordToSearch });
 			} else {
 				self.isInSearch = false;
 

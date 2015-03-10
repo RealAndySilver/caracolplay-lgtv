@@ -825,17 +825,26 @@
 
 					var successCallbackExecuteTransaction = function(response) {
 						console.log(response);
-						AlertDialogService.show(
-							'alert',
-							response.data.user + ': ' + response.data.result,
-							'Aceptar',
-							function() {
-								configHotkeys();
-								$state.go('videoModule', {
-									'chapterId': chapterId,
-									'productionId': productionId,
+						if (response.status === 1) {
+							AlertDialogService.show(
+								'alert',
+								response.data.user + ': ' + response.data.result,
+								'Aceptar',
+								function() {
+									configHotkeys();
+									$state.go('videoModule', {
+										'chapterId': chapterId,
+										'productionId': productionId,
+									});
 								});
-							});
+						} else {
+							AlertDialogService.show(
+								'alert',
+								response.data.msg,
+								'Aceptar',
+								configHotkeys
+							);
+						}
 					};
 
 					var failureCallback = function(response) {
