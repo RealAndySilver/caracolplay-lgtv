@@ -168,7 +168,6 @@
 
 			$scope.$watch('slidesToShow', function(newValue) {
 				if (newValue) {
-					console.log('newValue', newValue);
 					$scope.slides = newValue.concat(newValue.map(function(item) {
 						item.uniqueId = newValue.indexOf(item);
 						return item;

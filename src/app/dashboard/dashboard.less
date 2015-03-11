@@ -13,7 +13,16 @@
 	position: relative;
 
 	&.container{
-		width: 90%;
+		padding-left: 0;
+		padding-right: 0;
+		width: 100%;
+
+		#Cover{
+			img{
+				-webkit-mask-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(80%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,0)));
+			}
+		}
+		
 	}
 	.centered-wrapper{
 		width: 90%;
@@ -71,10 +80,10 @@
 }
 
 .search-bar {
-	width: 20%;
-	right: 7%;
+	width: 28%;
+	right: 10px;
 	top: 50%;
-	height: 34px;
-	margin-top: -17px;
+	height: 56px;
+	margin-top: -28px;
 	position: absolute;
 }

@@ -137,9 +137,18 @@
 			});
 		};
 
-		self.getListFromSearchWithKey = function(keyword, canceler) {
-			canceler = $q.defer();
-			return $http.get(module.END_POINT + 'GetListFromSearchWithKey/' + keyword + '?player_br=aim');
+		self.canceler = {};
+		self.cancel = function() {
+			if(self.canceler.resolve) {
+				return self.canceler.resolve();
+			}
+			return null;
+		};
+
+		self.getListFromSearchWithKey = function(keyword) {
+			self.canceler = $q.defer;
+			console.log('self.canceler', self.canceler);
+			return $http.get(module.END_POINT + 'GetListFromSearchWithKey/' + keyword + '?player_br=aim', { timeout: self.canceler });
 		};
 
 		self.getProductWithID = function(id, uid) {

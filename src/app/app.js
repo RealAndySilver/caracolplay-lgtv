@@ -1,7 +1,7 @@
 (function(app) {
 
 	app.config(function($stateProvider, $urlRouterProvider) {
-		$urlRouterProvider.otherwise('/');
+		$urlRouterProvider.otherwise('/start');
 	});
 
 	var init = function() {
@@ -133,4 +133,5 @@
 	'caracolplaylgtvapp.rateAlert',
 	'caracolplaylgtvapp.progressDialog',
 	'caracolplaylgtvapp.videoModule',
+    'caracolplaylgtvapp.start',
 ])));

@@ -1,5 +1,5 @@
 (function(app) {
-	var SearchViewController = function($scope, ProductService, hotkeys, PreviewDataService, $state, $stateParams, ProgressDialogService) {
+	var SearchViewController = function($scope, ProductService, hotkeys, PreviewDataService, $state, $stateParams, ProgressDialogService, $window) {
 
 		var init = function() {
 
@@ -25,11 +25,15 @@
 			var slider = {};
 			var canceller = {};
 			$scope.$watch('keyword', function(newValue) {
+				ProductService.cancel();
 
-				if(canceller.resolve !== undefined) {
-					canceller.resolve();
+				if(newValue === '') {
+					$scope.results = [];
+					$scope.resultButtons = [];
+					return;
 				}
-				var searchPremise = ProductService.getListFromSearchWithKey($scope.keyword, canceller);
+				
+				var searchPremise = ProductService.getListFromSearchWithKey($scope.keyword);
 
 				configHotkeys();
 
@@ -83,39 +87,13 @@
 
 				$scope.keydownCallback = function(event) {
 					if (event.keyIdentifier === 'Enter') {
+						if($scope.keyword === '') {
+							$window.history.back();
+							return;
+						}
+
 						event.target.blur();
-
-						var searchPremise = ProductService.getListFromSearchWithKey($scope.keyword);
-
 						configHotkeys();
-
-						ProgressDialogService.setMessage('Buscando...');
-						ProgressDialogService.start();
-
-						searchPremise.then(function(res) {
-							$scope.results = res.data.products;
-
-							ProgressDialogService.dismiss();
-
-							$scope.resultButtons = [];
-
-							for (var i in $scope.results) {
-								var label = $scope.results[i].name;
-								$scope.resultButtons.push({
-									label: label,
-									active: false,
-								});
-							}
-
-							if ($scope.results.length !== 0) {
-								$scope.itemSelected = 0;
-								$scope.resultButtons[$scope.itemSelected].active = true;
-								$scope.selected = $scope.results[0];
-								$scope.isItemSelected = true;
-							} else {
-								$scope.isItemSelected = false;
-							}
-						});
 					}
 				};
 
@@ -251,6 +229,7 @@
 		'$state',
 		'$stateParams',
 		'ProgressDialogService',
+		'$window',
 		SearchViewController
 	]);
 	app.directive('searchView', SearchViewDirective);

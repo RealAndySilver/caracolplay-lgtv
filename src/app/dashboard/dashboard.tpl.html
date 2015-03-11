@@ -7,7 +7,7 @@
 						<span class="glyphicon glyphicon-search"></span>
 					</button>
 				</span>
-				<input type="text" class="form-control" ng-model="keywordToSearch" focus-me="{{dashCtrl.shouldBeFocus}}">
+				<input placeholder="Buscar" type="text" class="form-control" ng-model="keywordToSearch" focus-me="{{dashCtrl.shouldBeFocus}}">
 			</div><!-- /input-group -->
 		</div>
 </header>
@@ -30,11 +30,11 @@
 
 	<div class="dashboard container">
 
-		<div style="height:134px; width: 100%;"></div>
+		<div style="height:115px; width: 100%;"></div>
 
 		<carousel-container id="Cover" href="#Cover" slides="dashCtrl.slides" title="Cover" active="dashCtrl.isKeyboardActive(1)" preview="dashCtrl.activePreview(value)" restart-keyboard="restartConfigKeyboard" item-selected="dashCtrl.selectedItem"></carousel-container>
 
-		<div ng-repeat="item in dashCtrl.list" ng-show="item.products.length !== 0" id="{{item.name | nospace}}">
+		<div ng-repeat="item in dashCtrl.list" ng-show="item.products.length !== 0" id="{{item.name | nospace}}" style="margin-top: -20px;">
 			<products-container href="{{'#' + item.name | nospace}}" slides="item.products" title="{{item.name}}" active="dashCtrl.isKeyboardActive($index + 2)" preview="dashCtrl.activePreview(value, item)" item-selected="dashCtrl.selectedItem" restart-keyboard="restartConfigKeyboard"></products-container>
 		</div>
 	</div>
