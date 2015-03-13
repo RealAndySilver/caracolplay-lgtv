@@ -16,7 +16,7 @@
 		});
 	}]);
 
-	var DashboardController = function($scope, ProductService, UserInfo, hotkeys, $state, PreviewDataService, DevInfo) {
+	var DashboardController = function($scope, ProductService, UserInfo, hotkeys, $state, PreviewDataService, DevInfo, UserService, AlertDialogService) {
 		var self = this;
 		var keyboardInit = {};
 
@@ -29,6 +29,8 @@
 
 		self.selectedItem = {};
 		self.isInSearch = false;
+
+		$scope.mail = UserInfo.mail;
 
 		self.beforeSearchIsPreviewActive = false;
 
@@ -45,7 +47,9 @@
 					self.isPreviewActive = false;
 				}
 
-				$state.go('search', { 'keyword': $scope.keywordToSearch });
+				$state.go('search', {
+					'keyword': $scope.keywordToSearch
+				});
 			} else {
 				self.isInSearch = false;
 
@@ -70,6 +74,51 @@
 		});
 
 		$scope.restartConfigKeyboard = {};
+
+
+		$scope.logout = function() {
+			var logoutPromise = UserService.logout(UserInfo.alias, UserInfo.password, UserInfo.session);
+			logoutPromise.then(function(response) {
+				console.log('response', response);
+
+				if (response.data.status) {
+					AlertDialogService.show(
+						'warning',
+						response.data.message,
+						'Aceptar',
+						keyboardInit
+					);
+
+					localStorage.removeItem('userInfo');
+					UserInfo = {
+						name: '',
+						lastname: '',
+						alias: '',
+						mail: '',
+						password: '',
+						session: '',
+						uid: '',
+						isSubscription: false,
+						timeEnds: '',
+					};
+					$scope.mail = '';
+				} else {
+					AlertDialogService.show(
+						'warning',
+						response.data.response,
+						'Aceptar',
+						keyboardInit
+					);
+				}
+			}, function(response) {
+				AlertDialogService.show(
+					'warning',
+					response.data.response,
+					'Aceptar',
+					keyboardInit
+				);
+			});
+		};
 
 		self.isKeyboardActive = function(pos) {
 			return pos === self.active;
@@ -119,7 +168,7 @@
 		self.activePreview = function(value, item) {
 			var productPremise;
 			console.log('item', item);
-			if(item) {
+			if (item) {
 				productPremise = ProductService.getProductWithID(item.id, '');
 			} else {
 				productPremise = ProductService.getProductWithID(self.selectedItem.id, '');
@@ -127,7 +176,9 @@
 
 			productPremise.then(function(res) {
 				PreviewDataService.setItemSelected(res.data.products['0'][0]);
-				$state.go('preview', { from: 'dashboard' });
+				$state.go('preview', {
+					from: 'dashboard'
+				});
 			});
 
 			self.isShowInfo = value;
@@ -235,6 +286,8 @@
 				UserInfo.uid = userInfo.uid;
 				UserInfo.isSubscription = userInfo.isSubscription;
 				UserInfo.timeEnds = userInfo.timeEnds;
+
+				$scope.mail = userInfo.mail;
 			}
 
 			featuredPromise.then(function(response) {
@@ -281,7 +334,7 @@
 		init();
 	};
 
-	app.controller('DashboardController', ['$scope', 'ProductService', 'UserInfo', 'hotkeys', '$state', 'PreviewDataService', 'DevInfo', DashboardController]);
+	app.controller('DashboardController', ['$scope', 'ProductService', 'UserInfo', 'hotkeys', '$state', 'PreviewDataService', 'DevInfo', 'UserService', 'AlertDialogService', DashboardController]);
 
 }(angular.module("caracolplaylgtvapp.dashboard", [
 	'ui.router',

@@ -61,7 +61,9 @@
 			var encodeKey = 'aREwKMVVmjA81aea0mVNFh';
 
 			var utc = time.getTime();
-			var auth = btoa(unescape(encodeURIComponent(btoa(unescape(encodeURIComponent(user + ':' + password + (session === '' ? '' : ':' + session)))))));
+			var authWithoutEncode = user + ':' + password + (session === '' ? '' : ':' + session);
+			console.log('auth', authWithoutEncode);
+			var auth = btoa(unescape(encodeURIComponent(btoa(unescape(encodeURIComponent(authWithoutEncode))))));
 			var token = btoa(unescape(encodeURIComponent(utc + encodeKey)));
 
 			var encodeStr = user + ':' + password + (session === '' ? '' : ':' + session);
@@ -192,6 +194,15 @@
 					url: module.END_POINT + 'IsContentAvailableForUser/' + episodeId + '?player_br=aim',
 				});
 			}
+		};
+
+		self.logout = function(username, password, session) {
+			return $http({
+				crossDomain: true,
+				headers: module.encode(username, password, session),
+				method: 'GET',
+				url: module.END_POINT + 'LogOut?player_br=aim',
+			});
 		};
 
 		self.authenticateUser = function(username, password) {

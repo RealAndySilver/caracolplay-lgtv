@@ -1,5 +1,5 @@
 <header class="toolbar">
-	<div id="logo"><h2 style="color:white;">Version Beta 1.1 <h2></div>
+	<div id="logo"><h2 style="color:white;">Version Beta 1.2 <h2></div>
 		<div class="search-bar">
 			<div class="input-group">
 				<span class="input-group-btn">
@@ -37,5 +37,16 @@
 		<div ng-repeat="item in dashCtrl.list" ng-show="item.products.length !== 0" id="{{item.name | nospace}}" style="margin-top: -20px;">
 			<products-container href="{{'#' + item.name | nospace}}" slides="item.products" title="{{item.name}}" active="dashCtrl.isKeyboardActive($index + 2)" preview="dashCtrl.activePreview(value, item)" item-selected="dashCtrl.selectedItem" restart-keyboard="restartConfigKeyboard"></products-container>
 		</div>
+
+		<footer>
+			<center>
+				<div>
+					<button class="btn caracol-btn inline" ng-show="mail" ng-click="logout()">Cerrar sesión {{mail}}</button>
+					<div class="inline">
+						<a href><h6>Terminos y condiciones</h6></a>
+					</div>
+				</div>
+			</center>
+		</footer>
 	</div>
 </div>

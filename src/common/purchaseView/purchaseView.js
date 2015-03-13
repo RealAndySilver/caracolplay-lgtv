@@ -957,6 +957,7 @@
 
 			var promiseLogin = PurchaseService.loginPaymentUserFlow($scope.loginData.username, $scope.loginData.password);
 			promiseLogin.then(function(response) {
+				console.log('login', response.data);
 				ProgressDialog.dismiss();
 
 				var user = response.data.user;
@@ -994,6 +995,7 @@
 				*/
 
 			}, function(error) {
+				console.log('login', error.data);
 				ProgressDialog.dismiss();
 				AlertDialogService.show(
 					'alert',
