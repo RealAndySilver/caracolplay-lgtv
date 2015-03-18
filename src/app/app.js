@@ -134,4 +134,5 @@
 	'caracolplaylgtvapp.progressDialog',
 	'caracolplaylgtvapp.videoModule',
     'caracolplaylgtvapp.start',
+    'caracolplaylgtvapp.termsView',
 ])));

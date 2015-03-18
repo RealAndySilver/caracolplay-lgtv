@@ -168,6 +168,7 @@
 		self.activePreview = function(value, item) {
 			var productPremise;
 			console.log('item', item);
+			console.log('self.selectedItem', self.selectedItem);
 			if (item) {
 				productPremise = ProductService.getProductWithID(item.id, '');
 			} else {
@@ -298,7 +299,7 @@
 						id: featuredArray[i].id,
 						image: featuredArray[i].image_smarttv,
 						text: featuredArray[i].feature_text,
-						rate: (featuredArray[i].rate / 2) / 10,
+						rate: (featuredArray[i].rate * 5) / 100,
 						name: featuredArray[i].name,
 					});
 				}
@@ -314,7 +315,10 @@
 						if (res.data.products && res.data.products.length > 0) {
 							self.list.push({
 								name: list[pos].name,
-								products: res.data.products
+								products: res.data.products.map(function(item) {
+									item.rate = item.rate*5/100;
+									return item;
+								})
 							});
 						}
 					};

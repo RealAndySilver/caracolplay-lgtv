@@ -19,8 +19,10 @@
 				var active = getSlideActive();
 				if (active + 1 >= $scope.slides.length) {
 					$scope.slides[0].active = true;
+					$scope.selected = $scope.slides[0];
 				} else {
 					$scope.slides[active + 1].active = true;
+					$scope.selected = $scope.slides[active + 1];
 				}
 			};
 
@@ -59,6 +61,9 @@
 				});
 			};
 
+
+			$scope.onClickButton = enterCallback;
+
 			var escCallback = function() {
 				$scope.configKeyboard.restart = function() {
 					configHotkeys();
@@ -72,8 +77,10 @@
 				var active = getSlideActive();
 				if (active - 1 < 0) {
 					$scope.slides[$scope.slides.length - 1].active = true;
+					$scope.selected = $scope.slides[$scope.slides.length - 1];
 				} else {
 					$scope.slides[active - 1].active = true;
+					$scope.selected = $scope.slides[active - 1];
 				}
 			};
 
@@ -86,6 +93,8 @@
 						scrollTop: $(div).position().top - 134
 					}, 500);
 					*/
+
+					$scope.selected = $scope.slides[getSlideActive()];
 
 					hotkeys.add({
 						combo: 'right',

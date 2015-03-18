@@ -10,7 +10,6 @@
 				return '';
 			};
 
-			console.log('keyword', $stateParams.keyword);
 			$scope.keyword = $stateParams.keyword;
 			$scope.from = $stateParams.from;
 
@@ -38,7 +37,10 @@
 				configHotkeys();
 
 				searchPremise.then(function(res) {
-					$scope.results = res.data.products;
+					$scope.results = res.data.products.map(function(item) {
+						item.rate = item.rate * 5 / 100;
+						return item;
+					});
 
 					$scope.resultButtons = [];
 
