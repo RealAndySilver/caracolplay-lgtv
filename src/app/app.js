@@ -133,6 +133,6 @@
 	'caracolplaylgtvapp.rateAlert',
 	'caracolplaylgtvapp.progressDialog',
 	'caracolplaylgtvapp.videoModule',
-    'caracolplaylgtvapp.start',
-    'caracolplaylgtvapp.termsView',
+  'caracolplaylgtvapp.start',
+  'caracolplaylgtvapp.termsView',
 ])));

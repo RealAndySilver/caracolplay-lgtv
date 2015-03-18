@@ -7,7 +7,7 @@
 		<div id="purchase-description">
 			<div class="row">
 				<div class="col-lg-12 description-container">
-					<h4>{{message}}</h4>
+					<h4 ng-bind-html="message | unsafe"></h4>
 				</div>
 				<center>
 					<div class="buttons-terms-container">

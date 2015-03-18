@@ -240,6 +240,22 @@
 	var PurchaseService = function($http, UserInfo) {
 		var self = this;
 
+		self.getVideoRequeriments = function() {
+			return $http({
+				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+				method: 'GET',
+				url: module.END_POINT + 'smart-tv/video-requirements'
+			});
+		};
+
+		self.getHabeasData = function() {
+			return $http({
+				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+				method: 'GET',
+				url: module.END_POINT + 'smart-tv/habeas-data'
+			});
+		};
+
 		self.createUser = function(name, password, mail, privacyPolicity, termsAndConditions, bussinessInfo) {
 			return $http({
 				headers: module.encode(true),
