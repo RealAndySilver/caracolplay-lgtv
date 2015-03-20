@@ -16,7 +16,7 @@
 		});
 	}]);
 
-	var DashboardController = function($scope, ProductService, UserInfo, hotkeys, $state, PreviewDataService, DevInfo, UserService, AlertDialogService) {
+	var DashboardController = function($scope, ProductService, UserInfo, hotkeys, $state, PreviewDataService, DevInfo, UserService, AlertDialogService, TermsViewService) {
 		var self = this;
 		var keyboardInit = {};
 
@@ -33,6 +33,10 @@
 		$scope.mail = UserInfo.mail;
 
 		self.beforeSearchIsPreviewActive = false;
+
+		$scope.showTerms = function() {
+			TermsViewService.showTerms();
+		};
 
 		$scope.$watch('keywordToSearch', function(newValue, oldValue) {
 			if (newValue !== undefined && newValue !== '') {
@@ -278,6 +282,33 @@
 			if (userInfoStr) {
 				var userInfo = JSON.parse(userInfoStr);
 
+				var authPromise = UserService.authenticateUser(userInfo.alias, userInfo.password);
+
+				authPromise.then(function(response) {
+					console.log('authenticateUser', response);
+					var resObj = response.data;
+
+					if (resObj.status) {
+						UserInfo.name = resObj.user.data.nombres;
+						UserInfo.lastname = resObj.user.data.apellidos;
+						UserInfo.alias = resObj.user.data.alias;
+						UserInfo.mail = resObj.user.data.mail;
+						UserInfo.password = userInfo.password;
+						UserInfo.session = resObj.session;
+						UserInfo.uid = resObj.uid;
+						UserInfo.isSubscription = resObj.user.is_suscription;
+						UserInfo.timeEnds = resObj.user.time_ends;
+
+						$scope.mail = UserInfo.mail;
+
+						localStorage.setItem('userInfo', JSON.stringify(UserInfo));
+						console.log('UserInfo', UserInfo);
+					}
+				});
+
+				/*
+				var userInfo = JSON.parse(userInfoStr);
+
 				UserInfo.name = userInfo.name;
 				UserInfo.lastname = userInfo.lastname;
 				UserInfo.alias = userInfo.alias;
@@ -289,6 +320,7 @@
 				UserInfo.timeEnds = userInfo.timeEnds;
 
 				$scope.mail = userInfo.mail;
+				*/
 			}
 
 			featuredPromise.then(function(response) {
@@ -338,7 +370,7 @@
 		init();
 	};
 
-	app.controller('DashboardController', ['$scope', 'ProductService', 'UserInfo', 'hotkeys', '$state', 'PreviewDataService', 'DevInfo', 'UserService', 'AlertDialogService', DashboardController]);
+	app.controller('DashboardController', ['$scope', 'ProductService', 'UserInfo', 'hotkeys', '$state', 'PreviewDataService', 'DevInfo', 'UserService', 'AlertDialogService', 'TermsViewService', DashboardController]);
 
 }(angular.module("caracolplaylgtvapp.dashboard", [
 	'ui.router',

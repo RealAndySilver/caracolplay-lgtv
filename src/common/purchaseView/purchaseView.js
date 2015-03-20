@@ -15,7 +15,7 @@
 	app.service('ModalInstanceService', [ModalInstanceService]);
 	app.constant('ModalInstance', {});
 
-	var PurchaseViewController = function($scope, hotkeys, UserService, PurchaseService, UserInfo, $modalInstance, typeView, $state, AlertDialogService, productionId, chapterId, ProgressDialog) {
+	var PurchaseViewController = function($scope, hotkeys, UserService, PurchaseService, UserInfo, $modalInstance, typeView, $state, AlertDialogService, productionId, chapterId, ProgressDialog, TermsViewService) {
 		var itemSelected = 0;
 
 		var self = this;
@@ -177,6 +177,36 @@
 			acronym: 'TAX',
 			id: 9
 		}, ];
+
+		$scope.showTerms = function() {
+			TermsViewService.showTerms(function() {
+				$scope.subscription.terms = true;
+				configHotkeys();
+			}, function() {
+				$scope.subscription.terms = false;
+				configHotkeys();
+			});
+		};
+
+		$scope.showHabeasData = function() {
+			TermsViewService.showHabeasData(function() {
+				$scope.subscription.politics = true;
+				configHotkeys();
+			}, function() {
+				$scope.subscription.politics = false;
+				configHotkeys();
+			});
+		};
+
+		$scope.showVideoRequeriments = function() {
+			TermsViewService.showVideoRequeriments(function() {
+				$scope.subscription.requirements = true;
+				configHotkeys();
+			}, function() {
+				$scope.subscription.requirements = false;
+				configHotkeys();
+			});
+		};
 
 		$scope.playVideo = function() {
 			ProgressDialogService.start();
@@ -1250,6 +1280,7 @@
 		'productionId',
 		'chapterId',
 		'ProgressDialogService',
+		'TermsViewService',
 		PurchaseViewController
 	]);
 

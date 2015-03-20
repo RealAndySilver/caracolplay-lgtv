@@ -122,12 +122,12 @@
 							<div class="col-lg-1"></div>
 							<div class="col-lg-5">
 								<div class="checkbox">
-									<input type="checkbox" ng-model="subscription.terms" focus-me="{{needFocus('terms')}}" ng-enter="next()" ng-sides="onSides(side)"><label>Acepto <a href="">terminos y condiciones</a></label>
+									<input type="checkbox" ng-model="subscription.terms" focus-me="{{needFocus('terms')}}" ng-enter="next()" ng-sides="onSides(side)"><label>Acepto <a href ng-click="showTerms()">terminos y condiciones</a></label>
 								</div>
 							</div>
 							<div class="col-lg-5">
 								<div class="checkbox">
-									<input type="checkbox" ng-model="subscription.politics" focus-me="{{needFocus('politics')}}" ng-enter="next()" ng-sides="onSides(side)"><label>Acepto <a href="">politicas de privacidad</a></label>
+									<input type="checkbox" ng-model="subscription.politics" focus-me="{{needFocus('politics')}}" ng-enter="next()" ng-sides="onSides(side)"><label>Acepto <a href ng-click="showHabeasData()">politicas de privacidad</a></label>
 								</div>
 							</div>
 							<div class="col-lg-1"></div>
@@ -136,7 +136,7 @@
 							<div class="col-lg-1"></div>
 							<div class="col-lg-5">
 								<div class="checkbox">
-									<input type="checkbox" ng-model="subscription.requirements" focus-me="{{needFocus('requirements')}}" ng-enter="next()" ng-sides="onSides(side)"><label>Acepto <a href="">requerimientos para reproducir video</a></label>
+									<input type="checkbox" ng-model="subscription.requirements" focus-me="{{needFocus('requirements')}}" ng-enter="next()" ng-sides="onSides(side)"><label>Acepto <a href ng-click="showVideoRequeriments()">requerimientos para reproducir video</a></label>
 								</div>
 							</div>
 							<div class="col-lg-5">

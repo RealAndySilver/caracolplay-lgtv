@@ -256,6 +256,14 @@
 			});
 		};
 
+		self.getTerms = function() {
+			return $http({
+				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+				method: 'GET',
+				url: module.END_POINT + 'GetTerms'
+			});
+		};
+
 		self.createUser = function(name, password, mail, privacyPolicity, termsAndConditions, bussinessInfo) {
 			return $http({
 				headers: module.encode(true),
