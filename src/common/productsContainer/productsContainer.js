@@ -52,7 +52,9 @@
 				}
 				$scope.slides[active++].active = false;
 				$scope.slides[active].active = true;
-				onChangeActive();
+				if($scope.slides.length > 5) {
+					onChangeActive();
+				}
 			};
 
 			var leftCallback = function() {
@@ -65,7 +67,9 @@
 				}
 				$scope.slides[active--].active = false;
 				$scope.slides[active].active = true;
-				onChangeActive();
+				if($scope.slides.length > 5) {
+					onChangeActive();
+				}
 			};
 
 			var enterCallback = function() {
@@ -168,15 +172,22 @@
 
 			$scope.$watch('slidesToShow', function(newValue) {
 				if (newValue) {
-					$scope.slides = newValue.concat(newValue.map(function(item) {
-						item.uniqueId = newValue.indexOf(item);
-						return item;
-					})).map(function(item) {
-						if (item.uniqueId === undefined) {
-							item.uniqueId = newValue.indexOf(item) + newValue.length;
-						}
-						return item;
-					});
+					if (newValue.length > 5) {
+						$scope.slides = newValue.concat(newValue.map(function(item) {
+							item.uniqueId = newValue.indexOf(item);
+							return item;
+						})).map(function(item) {
+							if (item.uniqueId === undefined) {
+								item.uniqueId = newValue.indexOf(item) + newValue.length;
+							}
+							return item;
+						});
+					} else {
+						$scope.slides = newValue.map(function(item) {
+							item.uniqueId = newValue.indexOf(item);
+							return item;
+						});
+					}
 				}
 			});
 		};

@@ -24,7 +24,7 @@
 		};
 
 		self.showTerms  = function(success, failure) {
-			var purchasePromise = PurchaseService.getHabeasData();
+			var purchasePromise = PurchaseService.getTerms();
 			purchasePromise.then(function(response) {
 				self.show(response.data.titulo, response.data.text, success, failure);
 			}, function(response) {

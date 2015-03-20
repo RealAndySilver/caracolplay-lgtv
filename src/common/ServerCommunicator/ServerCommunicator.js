@@ -169,6 +169,39 @@
 				});
 			}
 		};
+
+		self.addItemToList = function(type, id) {
+
+			if(type === 'Películas') {
+				type = 'pelicula';
+			} else {
+				type = 'produccion';
+			}
+			return $http({
+				crossDomain: true,
+				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+				method: 'POST',
+				url: module.END_POINT + 'my_list/add/' + type + '/' + id,
+			});
+		};
+
+		self.removeItemToList = function(type, id) {
+			return $http({
+				crossDomain: true,
+				headers: module(UserInfo.alias, UserInfo.password, UserInfo.session),
+				method: 'POST',
+				url: module.END_POINT + 'my_list/remove/' + type + '/' + id,
+			});
+		};
+
+		self.getList = function() {
+			return $http({
+				crossDomain: true,
+				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+				method: 'GET',
+				url: module.END_POINT + 'my_list/get',
+			});
+		};
 	};
 
 	var UserService = function($http, UserInfo) {

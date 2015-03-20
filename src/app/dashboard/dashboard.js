@@ -157,6 +157,22 @@
 			});
 		};
 
+		self.getList = function() {
+			var promiseGetList = ProductService.getList();
+			promiseGetList.then(function(response) {
+				console.log('list', response.data);
+
+				self.list.push({
+					name: 'Mi Lista',
+					products: response.data.my_list.map(function(item) {
+						item.inList = true;
+						item.feature_text = item.description;
+						return item;
+					})
+				});
+			});
+		};
+
 		self.showSearch = function(value) {
 			self.isInSearch = value;
 
@@ -285,7 +301,6 @@
 				var authPromise = UserService.authenticateUser(userInfo.alias, userInfo.password);
 
 				authPromise.then(function(response) {
-					console.log('authenticateUser', response);
 					var resObj = response.data;
 
 					if (resObj.status) {
@@ -302,7 +317,8 @@
 						$scope.mail = UserInfo.mail;
 
 						localStorage.setItem('userInfo', JSON.stringify(UserInfo));
-						console.log('UserInfo', UserInfo);
+
+						self.getList();
 					}
 				});
 

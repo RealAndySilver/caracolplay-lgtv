@@ -1,6 +1,6 @@
 (function(app) {
 
-	var SeriesProductController = function($scope, hotkeys, $modal, UserService, UserInfo, $state, DevInfo, $rootScope, ProgressDialogService, AlertDialogService) {
+	var SeriesProductController = function($scope, hotkeys, $modal, UserService, UserInfo, $state, DevInfo, $rootScope, ProgressDialogService, AlertDialogService, ProductService) {
 		var self = this;
 
 		var init = function() {
@@ -342,6 +342,36 @@
 				hotkeys.add({
 					combo: 'enter',
 					callback: function() {
+						var successList = function(response) {
+							console.log('success', response.data);
+							if(response.data.status) {
+								AlertDialogService.show(
+									'warning',
+									'Añadido a la lista',
+									'Aceptar',
+									configHotkeys
+								);
+							} else {
+								AlertDialogService.show(
+									'warning',
+									'Ha ocurrido un problema intenta más tarde',
+									'Aceptar',
+									configHotkeys
+								);
+							}
+							
+						};
+
+						var failureList = function(response) {
+							console.log('error', response.data);
+							AlertDialogService.show(
+								'warning',
+								'Ha ocurrido un problema intenta más tarde',
+								'Aceptar',
+								configHotkeys
+							);
+						};
+
 						switch (self.sections[self.sectionActive]) {
 							case self.OPTIONS_SECTION:
 								for (var i in $scope.options) {
@@ -383,13 +413,13 @@
 													productId: $scope.id
 												});
 												break;
-											case 'Añadir a mi lista':
-												AlertDialogService.show(
-													'warning',
-													'Add to list',
-													'Aceptar',
-													configHotkeys
-												);
+											case 'Añadir de mi lista':
+												var addPromise = ProductService.addItemToList($scope.selected.type, $scope.selected.id);
+												addPromise.then(successList, failureList);
+												break;
+											case 'Remover de mi lista':
+												var removePromise = ProductService.removeItemToList($scope.selected.type, $scope.selected.id);
+												removePromise.then(successList, failureList);
 												break;
 										}
 									}
@@ -511,6 +541,7 @@
 		'$rootScope',
 		'ProgressDialogService',
 		'AlertDialogService',
+		'ProductService',
 		SeriesProductController
 	]);
 	app.directive('seriesProduct', SeriesProductDirective);
