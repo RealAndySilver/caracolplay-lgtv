@@ -79,7 +79,7 @@
 
 			var enterCallback = function() {
 
-				if ($scope.slides[active]['progress_sec'] !== undefined) {
+				if ($scope.slides[active]['progress_sec'] !== undefined && $scope.slides[active]['progress_sec'] !== "") {
 					AlertDialogService.show(
 						'alert',
 						'Show video',
@@ -92,13 +92,15 @@
 
 				productPremise.then(function(res) {
 					$scope.selected = res.data.products['0'][0];
-				});
-				$scope.configKeyboard.restart = function() {
-					configHotkeys();
-				};
-				$scope.preview({
-					value: true,
-					item: $scope.selected
+
+					$scope.preview({
+						value: true,
+						item: $scope.selected
+					});
+
+					$scope.configKeyboard.restart = function() {
+						configHotkeys();
+					};
 				});
 			};
 

@@ -16,7 +16,7 @@
 		});
 	}]);
 
-	var DashboardController = function($scope, ProductService, UserInfo, hotkeys, $state, PreviewDataService, DevInfo, UserService, AlertDialogService, TermsViewService) {
+	var DashboardController = function($scope, ProductService, UserInfo, hotkeys, $state, PreviewDataService, DevInfo, UserService, AlertDialogService, TermsViewService, MyListItems) {
 		var self = this;
 		var keyboardInit = {};
 
@@ -161,14 +161,17 @@
 			var promiseGetList = ProductService.getList();
 			promiseGetList.then(function(response) {
 				console.log('list', response.data);
+				MyListItems.list = response.data.my_list.map(function(item) {
+					item.inList = true;
+					item.feature_text = item.description;
+					return item;
+				});
+
+				console.log('MyListItems', MyListItems);
 
 				self.list.push({
 					name: 'Mi Lista',
-					products: response.data.my_list.map(function(item) {
-						item.inList = true;
-						item.feature_text = item.description;
-						return item;
-					})
+					products: MyListItems.list,
 				});
 			});
 		};
@@ -386,7 +389,7 @@
 		init();
 	};
 
-	app.controller('DashboardController', ['$scope', 'ProductService', 'UserInfo', 'hotkeys', '$state', 'PreviewDataService', 'DevInfo', 'UserService', 'AlertDialogService', 'TermsViewService', DashboardController]);
+	app.controller('DashboardController', ['$scope', 'ProductService', 'UserInfo', 'hotkeys', '$state', 'PreviewDataService', 'DevInfo', 'UserService', 'AlertDialogService', 'TermsViewService', 'MyListItems', DashboardController]);
 
 }(angular.module("caracolplaylgtvapp.dashboard", [
 	'ui.router',

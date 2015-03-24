@@ -171,7 +171,6 @@
 		};
 
 		self.addItemToList = function(type, id) {
-
 			if(type === 'Películas') {
 				type = 'pelicula';
 			} else {
@@ -186,9 +185,14 @@
 		};
 
 		self.removeItemToList = function(type, id) {
+			if(type === 'Películas') {
+				type = 'pelicula';
+			} else {
+				type = 'produccion';
+			}
 			return $http({
 				crossDomain: true,
-				headers: module(UserInfo.alias, UserInfo.password, UserInfo.session),
+				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'POST',
 				url: module.END_POINT + 'my_list/remove/' + type + '/' + id,
 			});

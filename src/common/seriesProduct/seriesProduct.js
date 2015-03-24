@@ -342,14 +342,40 @@
 				hotkeys.add({
 					combo: 'enter',
 					callback: function() {
-						var successList = function(response) {
-							console.log('success', response.data);
+						var successAddList = function(response) {
+							console.log('success', response);
 							if(response.data.status) {
+								
 								AlertDialogService.show(
 									'warning',
 									'Añadido a la lista',
 									'Aceptar',
+									function() {
+										configHotkeys();
+										$scope.options[i].label = 'Remover de mi lista';
+									}
+								);
+							} else {
+								AlertDialogService.show(
+									'warning',
+									'Ha ocurrido un problema intenta más tarde',
+									'Aceptar',
 									configHotkeys
+								);
+							}
+						};
+
+						var successRemoveList = function(response) {
+							console.log('success', response);
+							if(response.data.status) {
+								AlertDialogService.show(
+									'warning',
+									'Removido de la lista',
+									'Aceptar',
+									function() {
+										configHotkeys();
+										$scope.options[i].label = 'Añadir de mi lista';
+									}
 								);
 							} else {
 								AlertDialogService.show(
@@ -415,11 +441,11 @@
 												break;
 											case 'Añadir de mi lista':
 												var addPromise = ProductService.addItemToList($scope.selected.type, $scope.selected.id);
-												addPromise.then(successList, failureList);
+												addPromise.then(successAddList, failureList);
 												break;
 											case 'Remover de mi lista':
 												var removePromise = ProductService.removeItemToList($scope.selected.type, $scope.selected.id);
-												removePromise.then(successList, failureList);
+												removePromise.then(successRemoveList, failureList);
 												break;
 										}
 									}
