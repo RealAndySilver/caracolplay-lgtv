@@ -374,7 +374,7 @@
 									'Aceptar',
 									function() {
 										configHotkeys();
-										$scope.options[i].label = 'Añadir de mi lista';
+										$scope.options[i].label = 'Añadir a mi lista';
 									}
 								);
 							} else {
@@ -439,7 +439,7 @@
 													productId: $scope.id
 												});
 												break;
-											case 'Añadir de mi lista':
+											case 'Añadir a mi lista':
 												var addPromise = ProductService.addItemToList($scope.selected.type, $scope.selected.id);
 												addPromise.then(successAddList, failureList);
 												break;

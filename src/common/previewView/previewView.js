@@ -106,7 +106,7 @@
 				label: 'Trailer',
 				active: false
 			}, {
-				label: 'Añadir de mi lista',
+				label: 'Añadir a mi lista',
 				active: false
 			}, ];
 
@@ -120,7 +120,7 @@
 				label: 'Trailer',
 				active: false
 			}, {
-				label: 'Añadir de mi lista',
+				label: 'Añadir a mi lista',
 				active: false
 			}, ];
 
@@ -134,7 +134,7 @@
 				label: 'Trailer',
 				active: false
 			}, {
-				label: 'Añadir de mi lista',
+				label: 'Añadir a mi lista',
 				active: false
 			}, ];
 
@@ -145,7 +145,7 @@
 				label: 'Trailer',
 				active: false
 			}, {
-				label: 'Añadir de mi lista',
+				label: 'Añadir a mi lista',
 				active: false
 			}, ];
 
@@ -175,12 +175,11 @@
 			$scope.$watch('selected', function(newValue, oldValue) {
 				for(var i in MyListItems.list) {
 					if(MyListItems.list[i].id === newValue.id) {
-						//newValue.type = MyListItems.list[i].type;
 						$scope.newsOptions[2].label = 'Remover de mi lista';
 						$scope.seriesOptions[3].label = 'Remover de mi lista';
 						$scope.telenovelasOptions[3].label = 'Remover de mi lista';
 						$scope.moviesOptions[3].label = 'Remover de mi lista';
-						return;
+						break;
 					}
 				}
 
