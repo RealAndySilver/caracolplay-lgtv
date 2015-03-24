@@ -2,6 +2,7 @@
 
 	var ProductsContainerController = function($scope, hotkeys, ProductService, AlertDialogService) {
 		var self = this;
+		var minimum = 4;
 
 		var init = function() {
 
@@ -47,12 +48,14 @@
 					$scope.slides[active].active = false;
 					active = 0;
 					$scope.slides[active].active = true;
-					onChangeActive();
+					if($scope.slides.length > minimum) {
+						onChangeActive();
+					}
 					return;
 				}
 				$scope.slides[active++].active = false;
 				$scope.slides[active].active = true;
-				if($scope.slides.length > 5) {
+				if($scope.slides.length > minimum) {
 					onChangeActive();
 				}
 			};
@@ -62,12 +65,14 @@
 					$scope.slides[active].active = false;
 					active = $scope.slidesToShow.length - 1;
 					$scope.slides[active].active = true;
-					onChangeActive();
+					if($scope.slides.length > minimum) {
+						onChangeActive();
+					}
 					return;
 				}
 				$scope.slides[active--].active = false;
 				$scope.slides[active].active = true;
-				if($scope.slides.length > 5) {
+				if($scope.slides.length > minimum) {
 					onChangeActive();
 				}
 			};
@@ -172,7 +177,7 @@
 
 			$scope.$watch('slidesToShow', function(newValue) {
 				if (newValue) {
-					if (newValue.length > 5) {
+					if (newValue.length > minimum) {
 						$scope.slides = newValue.concat(newValue.map(function(item) {
 							item.uniqueId = newValue.indexOf(item);
 							return item;

@@ -855,7 +855,7 @@
 
 					var successCallbackExecuteTransaction = function(response) {
 						console.log(response);
-						if (response.status === 1) {
+						if (response.data.status === 'Aprobada') {
 							AlertDialogService.show(
 								'alert',
 								response.data.user + ': ' + response.data.result,
