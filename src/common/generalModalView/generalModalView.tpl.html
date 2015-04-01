@@ -14,7 +14,7 @@
       <center class="center-buttons-container">
         <div class="buttons-terms-container">
           <button class="btn caracol-btn" ng-click="positive()">{{positiveButton}}</button>
-          <button class="btn caracol-btn-cancel" ng-click="negative()">{{negativeButton}}</button>
+          <button class="btn caracol-btn-cancel" ng-click="negative()" ng-show="negativeButton">{{negativeButton}}</button>
         </div>
       </center>
     </div>

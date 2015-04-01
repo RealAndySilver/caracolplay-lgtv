@@ -61,11 +61,11 @@
 	var GeneralModalViewController = function($scope, $modalInstance, modalInfo) {
 		var self = this;
 
-		$scope.title = 'Salir';
-		$scope.message = '¿Seguro que desea salir de CaracolPlay?';
-		$scope.imageUrl = './assets/img/alert.png';
-		$scope.positiveButton = 'Cancelar';
-		$scope.negativeButton = 'Salir';
+		$scope.title = '';
+		$scope.message = '';
+		$scope.imageUrl = '';
+		$scope.positiveButton = '';
+		$scope.negativeButton = '';
 
 		$scope.positive = function() {
 			$modalInstance.close('ok');
@@ -112,7 +112,7 @@
 		init();
 
 		function init() {
-			GeneralModalViewService.show('redeem', 'text', 'title', 'positive', 'negative', function() {console.log('ok');}, function() {console.log('cancel');});
+			GeneralModalViewService.show('redeem', 'text', 'title', 'positive', '', function() {console.log('ok');}, function() {console.log('cancel');});
 		}
 	};
 
