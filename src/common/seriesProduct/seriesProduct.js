@@ -435,7 +435,7 @@
 											case 'Calificar':
 												$scope.onRate();
 												break;
-											case 'Trailer':
+											case 'Ver tráiler':
 												$state.go('videoModule', {
 													productId: $scope.id
 												});

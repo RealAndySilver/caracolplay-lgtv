@@ -103,7 +103,7 @@
 				label: 'Calificar',
 				active: false
 			}, {
-				label: 'Trailer',
+				label: 'Ver tráiler',
 				active: false
 			}, {
 				label: 'Añadir a mi lista',
@@ -117,7 +117,7 @@
 				label: 'Calificar',
 				active: false
 			}, {
-				label: 'Trailer',
+				label: 'Ver tráiler',
 				active: false
 			}, {
 				label: 'Añadir a mi lista',
@@ -131,7 +131,7 @@
 				label: 'Calificar',
 				active: false
 			}, {
-				label: 'Trailer',
+				label: 'Ver tráiler',
 				active: false
 			}, {
 				label: 'Añadir a mi lista',
@@ -142,7 +142,7 @@
 				label: 'Ultimas Noticias',
 				active: true
 			}, {
-				label: 'Trailer',
+				label: 'Ver tráiler',
 				active: false
 			}, {
 				label: 'Añadir a mi lista',
