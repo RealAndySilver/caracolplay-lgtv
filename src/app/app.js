@@ -139,4 +139,5 @@
 	'caracolplaylgtvapp.videoModule',
   'caracolplaylgtvapp.start',
   'caracolplaylgtvapp.termsView',
+  'caracolplaylgtvapp.generalModalView',
 ])));
