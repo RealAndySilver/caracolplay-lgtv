@@ -5,7 +5,7 @@
 
 	var test = {};
 
-	test.withoutInternet = false;
+	test.withoutInternet = true;
 
 	//module.END_POINT = 'http://apps.caracolplay.com/';
 	module.END_POINT = 'http://appsbetadev.caracolplay.com/';

@@ -1,9 +1,11 @@
 <div>
 	<div class="slider-container">
-		<h2 class="slider-title">{{title}} </h2>
+		<h2 class="slider-title">{{title}}</h2>
 		<div>
-			<span class="glyphicon glyphicon-chevron-left"></span>
 			<div class="ProductionList" id="{{title + 'Slider' | nospace}}">
+				<div class="arrow left">
+					<span class="glyphicon glyphicon-chevron-left"></span>
+				</div>
 				<ul class="list-inline">
 					<li class="ProductionItem" ng-repeat="slide in slides track by $index" ng-click="onItemSelected($index)">
 						<div class="cover" ng-class="{selected : slide.active}" >
@@ -12,8 +14,10 @@
 					</li>
 					<li class="free-zone"></li>
 				</ul>
+				<div class="arrow right">
+					<span class="glyphicon glyphicon-chevron-right"></span>
+				</div>
 			</div>
-			<span class="glyphicon glyphicon-chevron-right"></span>
 		</div>
 	</div>
 </div>

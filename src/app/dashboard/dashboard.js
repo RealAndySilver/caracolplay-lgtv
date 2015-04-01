@@ -16,7 +16,7 @@
 		});
 	}]);
 
-	var DashboardController = function($scope, ProductService, UserInfo, hotkeys, $state, PreviewDataService, DevInfo, UserService, AlertDialogService, TermsViewService, MyListItems) {
+	var DashboardController = function($scope, ProductService, UserInfo, hotkeys, $state, PreviewDataService, DevInfo, UserService, AlertDialogService, TermsViewService, MyListItems, GeneralModalViewService) {
 		var self = this;
 		var keyboardInit = {};
 
@@ -79,8 +79,7 @@
 
 		$scope.restartConfigKeyboard = {};
 
-
-		$scope.logout = function() {
+		$scope.onLogout = function() {
 			var logoutPromise = UserService.logout(UserInfo.alias, UserInfo.password, UserInfo.session);
 			logoutPromise.then(function(response) {
 				console.log('response', response);
@@ -122,6 +121,13 @@
 					keyboardInit
 				);
 			});
+		};
+
+		$scope.logout = function() {
+			GeneralModalViewService.show('warning', '¿Seguro que desea cerrar su sesión?', 'Cerrar sesión', 'Cancelar', 'Aceptar', undefined,
+				function() {
+					$scope.onLogout();
+				});
 		};
 
 		self.isKeyboardActive = function(pos) {
@@ -367,7 +373,7 @@
 							self.list.push({
 								name: list[pos].name,
 								products: res.data.products.map(function(item) {
-									item.rate = item.rate*5/100;
+									item.rate = item.rate * 5 / 100;
 									return item;
 								})
 							});
@@ -389,7 +395,7 @@
 		init();
 	};
 
-	app.controller('DashboardController', ['$scope', 'ProductService', 'UserInfo', 'hotkeys', '$state', 'PreviewDataService', 'DevInfo', 'UserService', 'AlertDialogService', 'TermsViewService', 'MyListItems', DashboardController]);
+	app.controller('DashboardController', ['$scope', 'ProductService', 'UserInfo', 'hotkeys', '$state', 'PreviewDataService', 'DevInfo', 'UserService', 'AlertDialogService', 'TermsViewService', 'MyListItems', 'GeneralModalViewService', DashboardController]);
 
 }(angular.module("caracolplaylgtvapp.dashboard", [
 	'ui.router',

@@ -112,7 +112,12 @@
 		init();
 
 		function init() {
-			GeneralModalViewService.show('redeem', 'text', 'title', 'positive', '', function() {console.log('ok');}, function() {console.log('cancel');});
+			GeneralModalViewService.show('redeem', 'text', 'title', 'positive', 'negative', function() {
+				console.log('ok');
+			},
+			function() {
+				console.log('cancel');
+			});
 		}
 	};
 

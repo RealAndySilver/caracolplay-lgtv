@@ -10,22 +10,43 @@
 		margin-left: 10px; 
 	}
 
-	.glyphicon{
-		//color: white;
-		display: inline-block;
-		//margin-top: 50%;
-	}
-
 	.ProductionList{
-		display: inline-block;
+		float: left;
 		overflow-x: scroll;
 		overflow-y: hidden;
 		height: 100%;
 		width: 100%;
 		padding: 0px;
+		position: relative;
+
+		.arrow{
+			color: white;
+			position: absolute;
+			top: 50%;
+			margin-top: -15px;
+			width: 30px;
+
+			&.right{
+				right: 10px;
+			}
+
+			&.left{
+				left: 10px;
+			}
+
+			.glyphicon{
+				position: absolute;
+				margin-top: 50%;
+				top: -15px;
+			}
+			//margin-top: 50%;
+		}
 
 		.list-inline{
 			white-space: nowrap;
+			margin-left: 30px;
+			margin-right: 50px;
+			overflow: hidden;
 
 			.ProductionItem{
 				border: 0px solid black;
