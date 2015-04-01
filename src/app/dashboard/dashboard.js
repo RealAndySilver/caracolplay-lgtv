@@ -2,7 +2,7 @@
 
 	app.config(['$stateProvider', function($stateProvider) {
 		$stateProvider.state('dashboard', {
-			url: '/dashboard',
+			url: '/',
 			views: {
 				"main": {
 					controller: 'DashboardController',

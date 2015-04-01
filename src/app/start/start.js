@@ -1,7 +1,7 @@
 (function(module) {
 	module.config(function($stateProvider) {
 		$stateProvider.state('start', {
-			url: '/',
+			url: '/dashboard',
 			views: {
 				"main": {
 					controller: 'StartController as model',
@@ -20,11 +20,9 @@
 		init();
 
 		function init() {
-			/*
 			$timeout(function() {
 				$state.go('dashboard');
 			}, 1000 * 10);
-*/
 		}
 	}]);
 

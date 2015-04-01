@@ -1,9 +1,32 @@
+<div class="container-purchase">
+  <div id="rate-title">
+    <center>
+      <h1>Calificar esta {{type}}</h1>
+    </center>
+  </div>
+  <div class="rate-content">
+    <div id="rate-container">
+      <div>
+        <div class="center-stars-glyphicons-container">
+          <rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" style="margin: 10px;"></rating>
+        </div>
+      </div>
+      <center class="center-buttons-container">
+        <div class="buttons-terms-container">
+          <button class="btn caracol-btn" ng-click="ok()">Aceptar</button>
+          <button class="btn caracol-btn-cancel" ng-click="cancel()">Cancelar</button>
+        </div>
+      </center>
+    </div>
+  </div>
+</div>
+
+<!--
 <div class="rate-dialog">
   <div class="rate-container">
     <center>
       <h2>Calificar</h2>
       <rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" style="margin: 10px;"></rating>
-      <!--  <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span> -->
       <div class="row">
         <button class="btn btn-default btn-lg" focus-me="{{isFocused('ok')}}" ng-click="ok()">Enviar</button>
         <button class="btn btn-default btn-lg" focus-me="{{isFocused('cancel')}}" ng-click="cancel()">Cancelar</button>
@@ -11,3 +34,4 @@
     </center>
   </div>
 </div>
+-->

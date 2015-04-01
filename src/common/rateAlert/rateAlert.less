@@ -1,29 +1,69 @@
-/* Less file for rateAlert*/
-/*
-.modal-dialog{
-	height: 100%;
+#rate-title{
+	position: absolute;
+	right: 0;
+	top: 0;
+	left: 0;
+
+	padding: 30px;
+	color: #e6e6e6;
+
+	background-color: rgba(0, 0, 0, 0.1);
+
+	h1{
+		font-size: 60px !important;
+		font-weight: bold;
+	}
 }
+.rate-content{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
 
-.modal-content{
-	top: 50%;
-}
-*/
+	.glyphicon {
+		font-size: 140px !important;
 
-.rate-dialog{
-	color: orange;
+		&.glyphicon-star {
+			color: #FDC127;
+			padding: 16px;
+			&:before{
+				content: "\e006";
+			}
+		}
 
-	.rate-container{
-		padding-top: 6px;
-		padding-left: 6px;
-		padding-right: 6px;
-		padding-bottom: 20px;
-		background-color: rgba(37, 36, 36, 0.9);
-		position: relative;
-		top: 40%;
+		&.glyphicon-star-empty {
+			color: #52514D;
+			padding: 16px;
+			&:before{
+				content: "\e006";
+			}
+		}
+	}
+
+	#rate-container{
+		//height: 400px;
+		//overflow: auto;
+		//padding: 0px 20px;
+
+		.center-stars-glyphicons-container{
+			position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -440px;
+      margin-top: -86px;
+		}
+
+		.center-buttons-container{
+			position: absolute;
+			bottom: 16px;
+			right: 0;
+			left: 0;
+		}
 
 		.row {
-			padding-top: 10px;
-			margin: 10px;
+			//padding-top: 10px;
+			//margin: 10px;
 
 			button{
 				margin-right: 5px;
@@ -35,9 +75,5 @@
 			color: #f0f0f0;
 			padding-bottom: 10px;
 		}
-	}
-
-	.glyphicon{
-		font-size: 30px;
 	}
 }

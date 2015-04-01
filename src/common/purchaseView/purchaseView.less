@@ -2,7 +2,30 @@
 
 .container-purchase{
 	background-color: rgba(37, 36, 36, 0.9);
-	height: 670px;
+	height: 750px;
+}
+
+.line{
+	float: left;
+	width: 420px;
+	position: absolute;
+	
+	&#first-line{
+		left: 18%;
+		top: 25px;
+	}
+	&#second-line{
+		left: 51%;
+		top: 25px;
+	}
+
+	&.deactive{
+		border-top: solid 10px #666666;
+	}
+
+	&.active{
+		border-top: solid 10px white;
+	}
 }
 
 #purchase-logo{
@@ -42,6 +65,11 @@
   .button-variant(white; rgb(253, 131, 36); rgb(253, 131, 36));
 }
 
+.caracol-btn-cancel {
+  //.button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
+  .button-variant(white; #666666; #666666);
+}
+
 #purchase-description{
 	color: #e6e6e6;
 	padding: 10px 0;
@@ -64,7 +92,7 @@ textarea, input, input[type], .uneditable-input {
 .button-container{
 	margin-left: 10px;
 	margin-right: 10px;
-	margin-top: 10px;
+	margin-top: 60px;
 	height: 353px;
 	width: 270px;
 	background-color: rgb(112, 110, 108);
@@ -166,6 +194,8 @@ textarea, input, input[type], .uneditable-input {
 	border-radius: 50%;
 	width: 40px;
 	height: 40px;
+	z-index: 10;
+	position: relative;
 
 	&.active{
 		background-color: rgb(255, 255, 255);

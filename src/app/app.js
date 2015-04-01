@@ -1,7 +1,7 @@
 (function(app) {
 
 	app.config(function($stateProvider, $urlRouterProvider) {
-		$urlRouterProvider.otherwise('/');
+		$urlRouterProvider.otherwise('/dashboard');
 	});
 
 	var init = function() {

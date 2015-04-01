@@ -62,12 +62,14 @@
 					<label class="circle-title" ng-class="{ 'active' : isStepActive(0), 'deactive' : !isStepActive(0) }">Crear una cuenta</label>
 				</center>
 			</div>
+			<hr class="line" ng-class="{ 'active' : isStepActive(1), 'deactive' : !isStepActive(1) }" id="first-line">
 			<div class="state-container">
 				<center>
 					<div class="circle" ng-class="{ 'active' : isStepActive(1), 'deactive' : !isStepActive(1) }"></div>
 					<label class="circle-title" ng-class="{ 'active' : isStepActive(1), 'deactive' : !isStepActive(1) }">Datos de facturación</label>
 				</center>
 			</div>
+			<hr class="line deactive" ng-class="{ 'active' : isStepActive(2), 'deactive' : !isStepActive(2) }" id="second-line">
 			<div class="state-container">
 				<center>
 					<div class="circle" ng-class="{ 'active' : isStepActive(2), 'deactive' : !isStepActive(2) }"></div>
