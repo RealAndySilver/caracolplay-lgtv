@@ -1,20 +1,20 @@
 <div class="container-purchase">
 	<div id="purchase-logo"></div>
   <div id="general-modal-title">
-  	<h1>Salir</h1>
+  	<h1>{{title}}</h1>
   </div>
   <div class="general-modal-content">
     <div id="general-modal-container">
     	<div class="general-modal-content-container">
     		<center>
-    			<img ng-src="./assets/img/alert.png">
-    			<h4>¿Seguro que desea salir de CaracolPlay?</h4>
+    			<img ng-src="{{imageUrl}}">
+    			<h4>{{message}}</h4>
     		</center>
     	</div>
       <center class="center-buttons-container">
         <div class="buttons-terms-container">
-          <button class="btn caracol-btn" ng-click="positive()">Cancelar</button>
-          <button class="btn caracol-btn-cancel" ng-click="negative()">Salir</button>
+          <button class="btn caracol-btn" ng-click="positive()">{{positiveButton}}</button>
+          <button class="btn caracol-btn-cancel" ng-click="negative()">{{negativeButton}}</button>
         </div>
       </center>
     </div>

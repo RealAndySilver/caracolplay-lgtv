@@ -68,6 +68,10 @@
 				$scope.buttonMessage = 'Aceptar';
 			}
 
+			$scope.dismiss = function() {
+				$modalInstance.dismiss('cancel');
+			};
+
 			$timeout(function() {
 				hotkeys.add({
 					combo: 'enter',
