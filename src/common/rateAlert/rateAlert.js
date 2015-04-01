@@ -2,7 +2,7 @@
 
 	module.config(['$stateProvider', function($stateProvider) {
 		$stateProvider.state('rate', {
-			url: '/rate/:productId/:rate',
+			url: '/rate/:productId/:rate/:type',
 			views: {
 				'main': {
 					controller: 'RateAlertDialogController',
@@ -18,6 +18,7 @@
 	module.controller('RateAlertDialogController', ['$scope', '$modal', '$stateParams', function($scope, $modal, $stateParams) {
 		var productId = $stateParams.productId;
 		var defaultRate = $stateParams.rate;
+		var type = $stateParams.type;
 
 		var modalInstance = $modal.open({
 			templateUrl: 'rateAlert/rateAlert.tpl.html',
@@ -30,6 +31,9 @@
 				defaultRate: function() {
 					return defaultRate;
 				},
+				defaultType: function() {
+					return type;
+				},
 			}
 		});
 
@@ -41,7 +45,7 @@
     });
 	}]);
 
-	module.controller('RateAlertController', ['$scope', '$modalInstance', 'ProductService', 'productId', 'defaultRate', 'hotkeys', function($scope, $modalInstance, ProductService, productId, defaultRate, hotkeys) {
+	module.controller('RateAlertController', ['$scope', '$modalInstance', 'ProductService', 'productId', 'defaultRate', 'defaultType', 'hotkeys', function($scope, $modalInstance, ProductService, productId, defaultRate, defaultType, hotkeys) {
 		var model = this;
 
 		init();
@@ -149,6 +153,8 @@
 				window.history.back();
 				//$modalInstance.dismiss('cancel');
 			};
+
+			$scope.type = defaultType;
 
 			$scope.rate = defaultRate ? defaultRate / 100.0 * 5.0 : 5;
 			$scope.max = 5;

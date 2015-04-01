@@ -82,7 +82,8 @@
 						case 'Calificar':
 							$state.go('rate', {
 								'productId': $scope.selected.id,
-								'rate': $scope.selected.rate
+								'rate': $scope.selected.rate,
+								'type': $scope.selected.type,
 							});
 							break;
 						case 'Ver Tráiler':
