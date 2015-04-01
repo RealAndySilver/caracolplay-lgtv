@@ -13,6 +13,14 @@
 
 			$scope.slides = [];
 
+			$scope.left = function() {
+				leftCallback();
+			};
+
+			$scope.right = function() {
+				rightCallback();
+			};
+
 			var configHotkeys = function() {
 				hotkeys.add({
 					combo: 'right',
