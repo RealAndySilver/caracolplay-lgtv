@@ -28,7 +28,7 @@
 		});
 	});
 
-	function VideoModuleController($scope, $timeout, ProductService, UserInfo, itemSelected, hotkeys, $state, AlertDialogService) {
+	function VideoModuleController($scope, $timeout, ProductService, UserInfo, itemSelected, hotkeys, $state, AlertDialogService, DevInfo) {
 		var model = this;
 		$scope.selected = itemSelected;
 		$scope.productId = itemSelected.id;
@@ -44,6 +44,22 @@
 		$scope.keyboardInit = keyboardInit;
 
 		function keyboardInit() {
+			var redButtonCallback = function() {
+				$state.reload();
+			};
+
+			hotkeys.add({
+				combo: 'red',
+				callback: redButtonCallback,
+			});
+
+			if (DevInfo.isInDev) {
+				hotkeys.add({
+					combo: 'r',
+					callback: redButtonCallback,
+				});
+			}
+
 			hotkeys.add({
 				combo: 'up',
 				callback: function(event) {
@@ -182,6 +198,7 @@
 		'hotkeys',
 		'$state',
 		'AlertDialogService',
+		'DevInfo',
 		VideoModuleController
 	]);
 

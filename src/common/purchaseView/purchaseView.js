@@ -15,7 +15,7 @@
 	app.service('ModalInstanceService', [ModalInstanceService]);
 	app.constant('ModalInstance', {});
 
-	var PurchaseViewController = function($scope, hotkeys, UserService, PurchaseService, UserInfo, $modalInstance, typeView, $state, AlertDialogService, productionId, chapterId, ProgressDialog, TermsViewService) {
+	var PurchaseViewController = function($scope, hotkeys, UserService, PurchaseService, UserInfo, $modalInstance, typeView, $state, AlertDialogService, productionId, chapterId, ProgressDialog, TermsViewService, DevInfo) {
 		var itemSelected = 0;
 
 		var self = this;
@@ -429,6 +429,22 @@
 					$scope.options[itemSelected].active = true;
 				},
 			});
+
+			var redButtonCallback = function() {
+				$state.go('dashboard');
+			};
+
+			hotkeys.add({
+				combo: 'red',
+				callback: redButtonCallback,
+			});
+
+			if (DevInfo.isInDev) {
+				hotkeys.add({
+					combo: 'r',
+					callback: redButtonCallback,
+				});
+			}
 
 			hotkeys.add({
 				combo: 'left',
@@ -1281,6 +1297,7 @@
 		'chapterId',
 		'ProgressDialogService',
 		'TermsViewService',
+		'DevInfo',
 		PurchaseViewController
 	]);
 

@@ -61,6 +61,22 @@
 		var init = function() {
 			$scope.items = ['item1', 'item2', 'item3'];
 
+			var redButtonCallback = function() {
+				$state.go('dashboard');
+			};
+
+			hotkeys.add({
+				combo: 'red',
+				callback: redButtonCallback,
+			});
+
+			if (DevInfo.isInDev) {
+				hotkeys.add({
+					combo: 'r',
+					callback: redButtonCallback,
+				});
+			}
+
 			var yellowButtonCallback = function(event) {
 				if($scope.from === 'search') {
 					window.history.back();

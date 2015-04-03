@@ -45,7 +45,7 @@
     });
 	}]);
 
-	module.controller('RateAlertController', ['$scope', '$modalInstance', 'ProductService', 'productId', 'defaultRate', 'defaultType', 'hotkeys', function($scope, $modalInstance, ProductService, productId, defaultRate, defaultType, hotkeys) {
+	module.controller('RateAlertController', ['$scope', '$modalInstance', 'ProductService', 'productId', 'defaultRate', 'defaultType', 'hotkeys', 'DevInfo', '$state', function($scope, $modalInstance, ProductService, productId, defaultRate, defaultType, hotkeys, DevInfo, $state) {
 		var model = this;
 
 		init();
@@ -59,6 +59,22 @@
 		};
 
 		function keyboardInit() {
+			var redButtonCallback = function() {
+				$state.go('dashboard');
+			};
+
+			hotkeys.add({
+				combo: 'red',
+				callback: redButtonCallback,
+			});
+
+			if (DevInfo.isInDev) {
+				hotkeys.add({
+					combo: 'r',
+					callback: redButtonCallback,
+				});
+			}
+
 			hotkeys.add({
 				combo: 'left',
 				callback: function(event) {

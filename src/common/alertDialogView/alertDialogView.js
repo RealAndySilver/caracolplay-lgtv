@@ -72,6 +72,13 @@
 				$modalInstance.dismiss('cancel');
 			};
 
+			$scope.$on('$stateChangeStart', function(event, newUrl, oldUrl) {
+				// if modal instance difined, dismiss window
+				if ($modalInstance) {
+					$modalInstance.dismiss('cancel');
+				}
+			});
+
 			$timeout(function() {
 				hotkeys.add({
 					combo: 'enter',

@@ -1,5 +1,5 @@
 (function(app) {
-	var SearchViewController = function($scope, ProductService, hotkeys, PreviewDataService, $state, $stateParams, ProgressDialogService, $window) {
+	var SearchViewController = function($scope, ProductService, hotkeys, PreviewDataService, $state, $stateParams, ProgressDialogService, $window, DevInfo) {
 
 		var init = function() {
 
@@ -68,6 +68,22 @@
 			});
 
 			var configHotkeys = function() {
+				var redButtonCallback = function() {
+					$state.go('dashboard');
+				};
+
+				hotkeys.add({
+					combo: 'red',
+					callback: redButtonCallback,
+				});
+
+				if (DevInfo.isInDev) {
+					hotkeys.add({
+						combo: 'r',
+						callback: redButtonCallback,
+					});
+				}
+
 				hotkeys.add({
 					combo: 'up',
 					callback: function(event) {
@@ -236,6 +252,7 @@
 		'$stateParams',
 		'ProgressDialogService',
 		'$window',
+		'DevInfo',
 		SearchViewController
 	]);
 	app.directive('searchView', SearchViewDirective);

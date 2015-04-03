@@ -245,6 +245,22 @@
 
 		keyboardInit = function() {
 
+			var redButtonCallback = function() {
+				$state.reload();
+			};
+
+			hotkeys.add({
+				combo: 'red',
+				callback: redButtonCallback,
+			});
+
+			if (DevInfo.isInDev) {
+				hotkeys.add({
+					combo: 'r',
+					callback: redButtonCallback,
+				});
+			}
+
 			var yellowButtonCallback = function(event) {
 				$state.go('search');
 			};
