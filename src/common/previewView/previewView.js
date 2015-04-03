@@ -54,6 +54,10 @@
 		$scope.from = $stateParams.from;
 		$scope.selected = itemSelected;
 
+		$scope.home = function() {
+			$state.go('dashboard');
+		};
+
 		var init = function() {
 			$scope.items = ['item1', 'item2', 'item3'];
 

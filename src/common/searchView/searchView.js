@@ -3,6 +3,10 @@
 
 		var init = function() {
 
+			$scope.home = function() {
+				$state.go('dashboard');
+			};
+
 			$scope.getTitle = function() {
 				if ($scope.keyword) {
 					return $scope.keyword + ' - ' + $scope.results.length + ' resultados encontrados';
