@@ -4,6 +4,8 @@
 
 		self.element = {};
 
+		$scope.MAX_STRING_SIZE = 60;
+
 		var init = function() {
 			$scope.setElement = function(element) {
 				self.element = element;
