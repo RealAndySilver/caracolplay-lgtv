@@ -35,7 +35,7 @@
 		self.beforeSearchIsPreviewActive = false;
 
 		$scope.showTerms = function() {
-			TermsViewService.showTerms();
+			TermsViewService.showTerms(undefined, undefined, false);
 		};
 
 		$scope.$watch('keywordToSearch', function(newValue, oldValue) {

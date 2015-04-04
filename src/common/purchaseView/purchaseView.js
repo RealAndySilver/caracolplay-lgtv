@@ -185,7 +185,7 @@
 			}, function() {
 				$scope.subscription.terms = false;
 				configHotkeys();
-			});
+			}, true);
 		};
 
 		$scope.showHabeasData = function() {
@@ -195,7 +195,7 @@
 			}, function() {
 				$scope.subscription.politics = false;
 				configHotkeys();
-			});
+			}, true);
 		};
 
 		$scope.showVideoRequeriments = function() {
@@ -205,7 +205,7 @@
 			}, function() {
 				$scope.subscription.requirements = false;
 				configHotkeys();
-			});
+			}, true);
 		};
 
 		$scope.playVideo = function() {
