@@ -98,6 +98,8 @@
 
 					$scope.selected = $scope.slides[getSlideActive()];
 
+					console.log('selected', $scope.selected);
+
 					hotkeys.add({
 						combo: 'right',
 						callback: rightCallback
