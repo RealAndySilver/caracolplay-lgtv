@@ -31,6 +31,7 @@
 		self.isInSearch = false;
 
 		$scope.mail = UserInfo.mail;
+		$scope.signOutSelected = false;
 
 		self.beforeSearchIsPreviewActive = false;
 

@@ -41,7 +41,7 @@
 		<footer>
 			<center>
 				<div>
-					<button class="btn caracol-btn inline" ng-show="mail" ng-click="logout()">Cerrar sesión {{mail}}</button>
+					<button class="btn inline" ng-class="{'caracol-btn':signOutSelected, 'caracol-btn-cancel':!signOutSelected}" ng-show="mail" ng-click="logout()">Cerrar sesión {{mail}}</button>
 					<div class="inline">
 						<a href ng-click="showTerms()"><h6>Terminos y condiciones</h6></a>
 					</div>
