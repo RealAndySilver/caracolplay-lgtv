@@ -3,6 +3,8 @@
 	var SeriesProductController = function($scope, hotkeys, $modal, UserService, UserInfo, $state, DevInfo, $rootScope, ProgressDialogService, AlertDialogService, ProductService) {
 		var self = this;
 
+		$scope.MAX_STRING_SIZE = 400;
+
 		var init = function() {
 			self.OPTIONS_SECTION = 0;
 			self.SEASONS_SECTION = 1;

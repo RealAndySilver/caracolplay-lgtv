@@ -29,5 +29,5 @@
 	<div class="chapter-info">
 		<h5>{{getChapterName()}}</h5>
 	</div>
-	<h4>{{seriesProductCtrl.chapterSelected.description}}</h4>
+	<h4>{{seriesProductCtrl.chapterSelected.description | limitTo: MAX_STRING_SIZE}}{{seriesProductCtrl.chapterSelected.description.length > MAX_STRING_SIZE ? '...' : ''}}</h4>
 </div>

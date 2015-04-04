@@ -3,6 +3,8 @@
 	var CarouselContainerController = function($scope, hotkeys, ProductService, ProgressDialogService, AlertDialogService) {
 		var self = this;
 
+		$scope.MAX_STRING_SIZE = 200;
+
 		var init = function() {
 			self.myInterval = 5000;
 
