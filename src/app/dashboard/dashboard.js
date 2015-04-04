@@ -32,6 +32,7 @@
 
 		$scope.mail = UserInfo.mail;
 		$scope.signOutSelected = false;
+		$scope.termsSelected = false;
 
 		self.beforeSearchIsPreviewActive = false;
 
@@ -226,20 +227,27 @@
 		};
 
 		var inAnimation = function() {
+			$('.preview-cover').css('right', '0%');
+			/*
 			$('.preview-cover').stop().animate({
 				right: '0%',
 			}, 500, 'swing', function() {
 				self.isShowInfo = true;
 			});
+			*/
 			self.isShowInfo = true;
 		};
 
 		var outAnimation = function() {
+			$('.preview-cover').css('right', '-25%');
+			/*
 			$('.preview-cover').stop().animate({
 				right: '-25%',
 			}, 500, 'swing', function() {
 				self.isShowInfo = false;
 			});
+			*/
+			self.isShowInfo = false;
 		};
 
 		$('.preview-cover').css('right', '-25%');
@@ -283,6 +291,41 @@
 				callback: function(event) {
 					event.preventDefault();
 					if (self.active + 1 > self.list.length + 1) {
+						self.active++;
+						outAnimation();
+						if($scope.mail) {
+							$scope.signOutSelected = true;
+
+							hotkeys.add({
+								combo: 'right',
+								callback: function() {
+									$scope.termsSelected = true;
+									$scope.signOutSelected = false;
+								}
+							});
+
+							hotkeys.add({
+								combo: 'left',
+								callback: function() {
+									$scope.termsSelected = false;
+									$scope.signOutSelected = true;
+								}
+							});
+
+							hotkeys.add({
+								combo: 'enter',
+								callback: function() {
+									if($scope.termsSelected) {
+										$scope.showTerms();
+									} else {
+										$scope.logout();
+									}
+								}
+							});
+
+						} else {
+							$scope.termsSelected = true;
+						}
 						return;
 					}
 					self.active++;
@@ -298,6 +341,13 @@
 				combo: 'up',
 				callback: function() {
 					event.preventDefault();
+					if($scope.signOutSelected || $scope.termsSelected){
+						inAnimation();
+						self.active = self.list.length + 1;
+						$scope.signOutSelected = false;
+						$scope.termsSelected = false;
+						return;
+					}
 					if (self.active - 1 < 1) {
 						return;
 					}

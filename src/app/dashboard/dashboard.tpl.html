@@ -43,7 +43,7 @@
 				<div>
 					<button class="btn inline" ng-class="{'caracol-btn':signOutSelected, 'caracol-btn-cancel':!signOutSelected}" ng-show="mail" ng-click="logout()">Cerrar sesión {{mail}}</button>
 					<div class="inline">
-						<a href ng-click="showTerms()"><h6>Terminos y condiciones</h6></a>
+						<a href ng-click="showTerms()" ng-class="{'link-active':termsSelected, 'link-deactive':!termsSelected}"><h6>Terminos y condiciones</h6></a>
 					</div>
 				</div>
 			</center>
