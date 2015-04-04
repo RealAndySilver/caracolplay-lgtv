@@ -36,7 +36,7 @@
 	var ProgressDialogService = function($modal) {
 		var self = this;
 		self.modalInstance = {};
-		self.message = 'Cargando...';
+		self.message = '';
 
 		self.setMessage = function(message) {
 			self.message = message;
