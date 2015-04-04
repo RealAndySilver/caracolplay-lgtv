@@ -1,4 +1,28 @@
 (function(module) {
+	module.config(['$stateProvider', function($stateProvider) {
+		$stateProvider.state('progress', {
+			url: '/progress',
+			views: {
+				'main': {
+					controller: 'ProgressDialogRouteProviderController',
+				}
+			},
+			data: {
+				pageTitle: 'Rate'
+			}
+		});
+	}]);
+
+	var ProgressDialogRouteProviderController = function($scope, ProgressDialogService) {
+
+		init();
+
+		function init() {
+			ProgressDialogService.setMessage('');
+			ProgressDialogService.start();
+		}
+	};
+
 	var ProgressDialogController = function($scope, $modalInstance, message) {
 		var self = this;
 
@@ -36,6 +60,7 @@
 		};
 	};
 
+	module.controller('ProgressDialogRouteProviderController', ['$scope', 'ProgressDialogService', ProgressDialogRouteProviderController]);
 	module.service('ProgressDialogService', ['$modal', ProgressDialogService]);
 	module.controller('ProgressDialogController', ['$scope', '$modalInstance', 'message', ProgressDialogController]);
 }(angular.module("caracolplaylgtvapp.progressDialog", [
