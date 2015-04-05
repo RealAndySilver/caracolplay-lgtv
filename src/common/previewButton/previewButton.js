@@ -21,8 +21,16 @@
 			var activeWatcherFunction = function(newValue, oldValue) {
 				if (newValue) {
 					var div = '#button' + $scope.id + 0;
+					var id = '.chapters-season';
 
-					$('.chapters-season').stop().animate({
+					if($scope.id === 'season'){
+						id = '.preview-season';
+					} 
+
+					console.log('id', id);
+					console.log('$scope.id', $scope.id);
+
+					$(id).stop().animate({
 						scrollTop: ($(div).height() + 14) * $scope.index
 					});
 					self.element.addClass('button-active');
