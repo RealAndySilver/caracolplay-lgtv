@@ -14,7 +14,8 @@
 			controllerAs: 'previewListCtrl',
 			scope: {
 				buttons: '=list',
-				id: '@'
+				id: '@',
+				click: '&onClick'
 			},
 		};
 	};

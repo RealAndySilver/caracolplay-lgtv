@@ -1,6 +1,6 @@
 (function(app) {
 
-	var SeriesProductController = function($scope, hotkeys, $modal, UserService, UserInfo, $state, DevInfo, $rootScope, ProgressDialogService, AlertDialogService, ProductService) {
+	var SeriesProductController = function($scope, hotkeys, $modal, UserService, UserInfo, $state, DevInfo, $rootScope, ProgressDialogService, AlertDialogService, ProductService, $timeout) {
 		var self = this;
 
 		$scope.MAX_STRING_SIZE = 400;
@@ -191,6 +191,271 @@
 				*/
 			};
 
+			$scope.onDownSeasons = function() {
+				var isSomeoneActive = false;
+				var selected = 0;
+				for (var i in self.seasonsButtons) {
+					if (self.seasonsButtons[i].active) {
+						isSomeoneActive = true;
+						selected = parseInt(i);
+						break;
+					}
+				}
+				if (self.SEASONS_SECTION !== self.sections[self.sectionActive]) {
+					self.sectionActive = self.SEASONS_SECTION;
+
+					if (!isSomeoneActive) {
+						self.seasonsButtons[0].active = true;
+						self.seasonSelected = 0;
+						return;
+					}
+				}
+
+				if (self.seasonsButtons[selected].active && self.seasonsButtons[selected + 1]) {
+					self.seasonsButtons[selected].active = false;
+					self.seasonsButtons[selected + 1].active = true;
+
+					self.seasonsButtons[selected + 1].active = true;
+					setSeasonSelected($scope.selected, selected + 1);
+				}
+			};
+
+			$scope.onUpSeasons = function() {
+				var isSomeoneActive = false;
+				var selected = 0;
+				for (var i in self.seasonsButtons) {
+					if (self.seasonsButtons[i].active) {
+						isSomeoneActive = true;
+						selected = parseInt(i);
+						break;
+					}
+				}
+				if (self.SEASONS_SECTION !== self.sections[self.sectionActive]) {
+					self.sectionActive = self.SEASONS_SECTION;
+
+					if (!isSomeoneActive) {
+						self.seasonsButtons[0].active = true;
+						self.seasonSelected = 0;
+						return;
+					}
+				}
+
+				if (self.seasonsButtons[selected].active && self.seasonsButtons[selected - 1]) {
+					self.seasonsButtons[selected].active = false;
+					self.seasonsButtons[selected - 1].active = true;
+
+					self.seasonsButtons[selected - 1].active = true;
+					setSeasonSelected($scope.selected, selected - 1);
+				}
+			};
+
+			$scope.onDownChapters = function() {
+				if (self.EPISODES_SECTION !== self.sections[self.sectionActive]) {
+					self.sectionActive = self.EPISODES_SECTION;
+					self.episodesButtons[0].active = true;
+					if (self.seasonSelected === 0) {
+						self.seasonsButtons[0].active = true;
+						self.seasonSelected = 0;
+					}
+				} else {
+					for (var i in self.episodesButtons) {
+						if (self.episodesButtons[i].active && self.episodesButtons[parseInt(i) + 1]) {
+							self.episodesButtons[i].active = false;
+
+							self.episodesButtons[parseInt(i) + 1].active = true;
+							self.episodeSelected = parseInt(i) + 1;
+							self.chapterSelected = $scope.selected.season_list[self.seasonSelected].episodes[parseInt(i) + 1];
+							return;
+						}
+					}
+				}
+			};
+
+			$scope.onUpChapters = function() {
+				if (self.EPISODES_SECTION !== self.sections[self.sectionActive]) {
+					self.sectionActive = self.EPISODES_SECTION;
+					self.episodesButtons[0].active = true;
+					if (self.seasonSelected === 0) {
+						self.seasonsButtons[0].active = true;
+						self.seasonSelected = 0;
+					}
+				} else {
+					for (var i in self.episodesButtons) {
+						if (self.episodesButtons[i].active && self.episodesButtons[parseInt(i) - 1]) {
+							self.episodesButtons[i].active = false;
+
+							self.episodesButtons[parseInt(i) - 1].active = true;
+							self.episodeSelected = parseInt(i) - 1;
+							self.chapterSelected = $scope.selected.season_list[self.seasonSelected].episodes[parseInt(i) - 1];
+							return;
+						}
+					}
+				}
+			};
+
+			$scope.onEnterOptions = function(position) {
+				for (var i in $scope.options) {
+					if ($scope.options[i].active) {
+						$scope.options[i].active = false;
+						break;
+					}
+				}
+				$scope.options[position].active = true;
+
+				var successAddList = function(response) {
+					console.log('success', response);
+					if (response.data.status) {
+
+						AlertDialogService.show(
+							'warning',
+							'Añadido a la lista',
+							'Aceptar',
+							function() {
+								configHotkeys();
+								$scope.options[i].label = 'Remover de mi lista';
+							}
+						);
+					} else {
+						AlertDialogService.show(
+							'warning',
+							'Ha ocurrido un problema intenta más tarde',
+							'Aceptar',
+							configHotkeys
+						);
+					}
+				};
+
+				var successRemoveList = function(response) {
+					console.log('success', response);
+					if (response.data.status) {
+						AlertDialogService.show(
+							'warning',
+							'Removido de la lista',
+							'Aceptar',
+							function() {
+								configHotkeys();
+								$scope.options[i].label = 'Añadir a mi lista';
+							}
+						);
+					} else {
+						AlertDialogService.show(
+							'warning',
+							'Ha ocurrido un problema intenta más tarde',
+							'Aceptar',
+							configHotkeys
+						);
+					}
+
+				};
+
+				var failureList = function(response) {
+					console.log('error', response.data);
+					AlertDialogService.show(
+						'warning',
+						'Ha ocurrido un problema intenta más tarde',
+						'Aceptar',
+						configHotkeys
+					);
+				};
+
+				switch ($scope.options[position].label) {
+					case 'Reproducir':
+						$scope.open('lg');
+						break;
+					case 'Capitulos':
+						self.sectionActive++;
+
+						switch (self.sections[self.sectionActive]) {
+							case self.SEASONS_SECTION:
+								self.seasonsButtons[0].active = true;
+								self.seasonSelected = 0;
+								break;
+							case self.EPISODES_SECTION:
+								self.episodesButtons[0].active = true;
+								self.episodeSelected = 0;
+								self.chapterSelected = $scope.selected.season_list[self.seasonSelected].episodes[0];
+
+								var divChapter = $('.chapters-season');
+
+								divChapter.css('right', '25%');
+								/*
+								$('.chapters-season').animate({
+									right: '25%',
+								}, 1000, 'swing');
+								*/
+								break;
+						}
+						break;
+					case 'Calificar':
+						$scope.onRate();
+						break;
+					case 'Ver tráiler':
+						$state.go('videoModule', {
+							productId: $scope.id
+						});
+						break;
+					case 'Añadir a mi lista':
+						var addPromise = ProductService.addItemToList($scope.selected.type, $scope.selected.id);
+						addPromise.then(successAddList, failureList);
+						break;
+					case 'Remover de mi lista':
+						var removePromise = ProductService.removeItemToList($scope.selected.type, $scope.selected.id);
+						removePromise.then(successRemoveList, failureList);
+						break;
+				}
+			};
+
+			$scope.onEnterChapter = function(position) {
+				self.sectionActive = self.EPISODES_SECTION;
+				self.episodesButtons[0].active = true;
+				if (self.seasonSelected === 0) {
+					self.seasonsButtons[0].active = true;
+					self.seasonSelected = 0;
+				}
+
+				for (var i in self.episodesButtons) {
+					if (self.episodesButtons[i].active) {
+						self.episodesButtons[i].active = false;
+						break;
+					}
+				}
+
+				self.episodesButtons[position].active = true;
+				self.episodeSelected = position;
+				self.chapterSelected = $scope.selected.season_list[self.seasonSelected].episodes[position];
+
+				$scope.open('lg');
+			};
+
+			$scope.onEnterSeason = function(position) {
+				position = parseInt(position);
+				var selected = 0;
+				for (var i in self.seasonsButtons) {
+					if (self.seasonsButtons[i].active) {
+						selected = parseInt(i);
+						break;
+					}
+				}
+
+				self.seasonsButtons[selected].active = false;
+				self.seasonsButtons[position].active = true;
+
+				self.seasonsButtons[position].active = true;
+				setSeasonSelected($scope.selected, position);
+
+				$timeout(function() {
+					self.sectionActive++;
+
+					self.episodesButtons[0].active = true;
+					self.episodeSelected = 0;
+					self.chapterSelected = $scope.selected.season_list[self.seasonSelected].episodes[0];
+
+					var div = $('.chapters-season');
+
+					div.css('right', '25%');
+				}, 1000);
+			};
+
 			var configHotkeys = function() {
 
 				hotkeys.add({
@@ -345,112 +610,12 @@
 				hotkeys.add({
 					combo: 'enter',
 					callback: function() {
-						var successAddList = function(response) {
-							console.log('success', response);
-							if(response.data.status) {
-								
-								AlertDialogService.show(
-									'warning',
-									'Añadido a la lista',
-									'Aceptar',
-									function() {
-										configHotkeys();
-										$scope.options[i].label = 'Remover de mi lista';
-									}
-								);
-							} else {
-								AlertDialogService.show(
-									'warning',
-									'Ha ocurrido un problema intenta más tarde',
-									'Aceptar',
-									configHotkeys
-								);
-							}
-						};
-
-						var successRemoveList = function(response) {
-							console.log('success', response);
-							if(response.data.status) {
-								AlertDialogService.show(
-									'warning',
-									'Removido de la lista',
-									'Aceptar',
-									function() {
-										configHotkeys();
-										$scope.options[i].label = 'Añadir a mi lista';
-									}
-								);
-							} else {
-								AlertDialogService.show(
-									'warning',
-									'Ha ocurrido un problema intenta más tarde',
-									'Aceptar',
-									configHotkeys
-								);
-							}
-							
-						};
-
-						var failureList = function(response) {
-							console.log('error', response.data);
-							AlertDialogService.show(
-								'warning',
-								'Ha ocurrido un problema intenta más tarde',
-								'Aceptar',
-								configHotkeys
-							);
-						};
-
 						switch (self.sections[self.sectionActive]) {
 							case self.OPTIONS_SECTION:
 								for (var i in $scope.options) {
-
 									if ($scope.options[i].active) {
-										switch ($scope.options[i].label) {
-											case 'Reproducir':
-												$scope.open('lg');
-												break;
-											case 'Capitulos':
-												self.sectionActive++;
-
-												switch (self.sections[self.sectionActive]) {
-													case self.SEASONS_SECTION:
-														self.seasonsButtons[0].active = true;
-														self.seasonSelected = 0;
-														break;
-													case self.EPISODES_SECTION:
-														self.episodesButtons[0].active = true;
-														self.episodeSelected = 0;
-														self.chapterSelected = $scope.selected.season_list[self.seasonSelected].episodes[0];
-
-														var divChapter = $('.chapters-season');
-
-														divChapter.css('right', '25%');
-														/*
-														$('.chapters-season').animate({
-															right: '25%',
-														}, 1000, 'swing');
-														*/
-														break;
-												}
-												break;
-											case 'Calificar':
-												$scope.onRate();
-												break;
-											case 'Ver tráiler':
-												$state.go('videoModule', {
-													productId: $scope.id
-												});
-												break;
-											case 'Añadir a mi lista':
-												var addPromise = ProductService.addItemToList($scope.selected.type, $scope.selected.id);
-												addPromise.then(successAddList, failureList);
-												break;
-											case 'Remover de mi lista':
-												var removePromise = ProductService.removeItemToList($scope.selected.type, $scope.selected.id);
-												removePromise.then(successRemoveList, failureList);
-												break;
-										}
+										onEnterOptions(i);
+										break;
 									}
 								}
 								break;
@@ -571,6 +736,7 @@
 		'ProgressDialogService',
 		'AlertDialogService',
 		'ProductService',
+		'$timeout',
 		SeriesProductController
 	]);
 	app.directive('seriesProduct', SeriesProductDirective);
