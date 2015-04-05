@@ -3,6 +3,8 @@
 		var self = this;
 		self.modalInstance = {};
 
+		self.scrollTop = 0;
+
 		self.showVideoRequeriments = function(success, failure, showCancel) {
 			var purchasePromise = PurchaseService.getVideoRequeriments();
 			purchasePromise.then(function(response) {
@@ -66,9 +68,14 @@
 	};
 
 	var TermsViewDialogController = function($scope, $modalInstance, termsInfo, hotkeys, $timeout) {
-		init();
+		var self = this;
 
+		self.scrollTop = 0;
+		self.STEP = 100;
+
+		init();
 		function init() {
+
 			$scope.message = termsInfo.message;
 			$scope.title = termsInfo.title;
 			$scope.showCancel = termsInfo.showCancel;
@@ -79,6 +86,23 @@
 
 			$scope.cancel = function() {
 				$modalInstance.dismiss('cancel');
+			};
+
+			$scope.onUp = function() {
+				self.scrollTop -= self.STEP;
+				console.log('scrollTop', self.scrollTop);
+				$('.description-container').stop().animate({
+					scrollTop: self.scrollTop
+				});
+			};
+
+
+			$scope.onDown = function() {
+				self.scrollTop += self.STEP;
+				console.log('scrollTop', self.scrollTop);
+				$('.description-container').stop().animate({
+					scrollTop: self.scrollTop
+				});
 			};
 
 			$scope.$on('$stateChangeStart', function(event, newUrl, oldUrl) {

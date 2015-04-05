@@ -25,10 +25,7 @@
 
 					if($scope.id === 'season'){
 						id = '.preview-season';
-					} 
-
-					console.log('id', id);
-					console.log('$scope.id', $scope.id);
+					}
 
 					$(id).stop().animate({
 						scrollTop: ($(div).height() + 14) * $scope.index
