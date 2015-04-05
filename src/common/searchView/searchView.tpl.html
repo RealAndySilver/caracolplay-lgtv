@@ -12,9 +12,18 @@
 		</div>
 </header>
 
-<div class="search-results">
-	<h5>{{getTitle()}}</h5>
-	<preview-list list="resultButtons" id="chapters" on-click="onEnterItem(position)"></preview-list>
+<div class="search-result-container">
+	
+	<div class="up-button" ng-click="onUp()">
+		<span class="glyphicon glyphicon-chevron-up"></span>
+	</div>
+	<div class="down-button" ng-click="onDown()">
+		<span class="glyphicon glyphicon-chevron-down"></span>
+	</div>
+	<div class="search-results">
+		<h5>{{getTitle()}}</h5>
+		<preview-list list="resultButtons" id="chapters" on-click="onEnterItem(position)"></preview-list>
+	</div>
 </div>
 <div class="preview-cover-search" ng-show="isShowingPreview">
 	<div ng-show="isItemSelected">

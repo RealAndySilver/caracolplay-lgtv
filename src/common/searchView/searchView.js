@@ -3,6 +3,38 @@
 
 		var init = function() {
 
+			$scope.onUp = function() {
+				if ($scope.itemSelected - 1 >= 0) {
+					$scope.resultButtons[$scope.itemSelected--].active = false;
+					$scope.resultButtons[$scope.itemSelected].active = true;
+
+					$scope.selected = $scope.results[$scope.itemSelected];
+				}
+
+				var div = $('#buttonchapters' + $scope.itemSelected);
+
+				slider = $('.search-results');
+				slider.stop().animate({
+					scrollTop: (div.height() + 14) * $scope.itemSelected,
+				});
+			};
+
+			$scope.onDown = function() {
+				if ($scope.itemSelected + 1 < $scope.resultButtons.length) {
+					$scope.resultButtons[$scope.itemSelected++].active = false;
+					$scope.resultButtons[$scope.itemSelected].active = true;
+
+					$scope.selected = $scope.results[$scope.itemSelected];
+
+					var div = $('#buttonchapters' + $scope.itemSelected);
+
+					slider = $('.search-results');
+					slider.stop().animate({
+						scrollTop: (div.height() + 14) * $scope.itemSelected,
+					});
+				}
+			};
+
 			$scope.home = function() {
 				$state.go('dashboard');
 			};
