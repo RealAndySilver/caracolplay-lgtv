@@ -67,6 +67,20 @@
 				});
 			});
 
+			$scope.onEnterItem = function(position) {
+				$scope.resultButtons[$scope.itemSelected].active = false;
+				$scope.resultButtons[position].active = true;
+
+				var productPremise = ProductService.getProductWithID($scope.results[position].id, '');
+
+				productPremise.then(function(res) {
+					PreviewDataService.setItemSelected(res.data.products['0'][0]);
+					$state.go('preview', {
+						from: 'search'
+					});
+				});
+			};
+
 			var configHotkeys = function() {
 				var redButtonCallback = function() {
 					$state.go('dashboard');
@@ -122,14 +136,7 @@
 				hotkeys.add({
 					combo: 'enter',
 					callback: function(event) {
-						var productPremise = ProductService.getProductWithID($scope.selected.id, '');
-
-						productPremise.then(function(res) {
-							PreviewDataService.setItemSelected(res.data.products['0'][0]);
-							$state.go('preview', {
-								from: 'search'
-							});
-						});
+						$scope.onEnterItem($scope.itemSelected);
 					}
 				});
 

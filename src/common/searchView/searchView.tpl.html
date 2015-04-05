@@ -14,7 +14,7 @@
 
 <div class="search-results">
 	<h5>{{getTitle()}}</h5>
-	<preview-list list="resultButtons" id="chapters"></preview-list>
+	<preview-list list="resultButtons" id="chapters" on-click="onEnterItem(position)"></preview-list>
 </div>
 <div class="preview-cover-search" ng-show="isShowingPreview">
 	<div ng-show="isItemSelected">
