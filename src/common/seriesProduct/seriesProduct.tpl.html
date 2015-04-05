@@ -14,26 +14,29 @@
 		<preview-list list="options" id="description" on-click="onEnterOptions(position)"></preview-list>
 	</div>
 </div>
-<div class="preview-season">
+<div class="preview-season-container">
 	<div class="up-button" ng-click="onUpSeasons()">
 		<span class="glyphicon glyphicon-chevron-up"></span>
 	</div>
 	<div class="down-button" ng-click="onDownSeasons()">
 		<span class="glyphicon glyphicon-chevron-down"></span>
 	</div>
-	
-	<preview-list list="seriesProductCtrl.seasonsButtons" id="season" on-click="onEnterSeason(position)"></preview-list>
+	<div class="preview-season">
+		<preview-list list="seriesProductCtrl.seasonsButtons" id="season" on-click="onEnterSeason(position)"></preview-list>
+	</div>
 </div>
-<div class="chapters-season">
+<div class="chapters-season-container">
 	<div class="up-button" ng-click="onUpChapters()">
 		<span class="glyphicon glyphicon-chevron-up"></span>
 	</div>
 	<div class="down-button" ng-click="onDownChapters()">
 		<span class="glyphicon glyphicon-chevron-down"></span>
 	</div>
-	<h3 class="title">{{getSeasonLabel()}}</h3>
-	<div class="separator"></div>
-	<preview-list list="seriesProductCtrl.episodesButtons" id="chapters" on-click="onEnterChapter(position)"></preview-list>
+	<div class="chapters-season">
+		<h3 class="title">{{getSeasonLabel()}}</h3>
+		<div class="separator"></div>
+		<preview-list list="seriesProductCtrl.episodesButtons" id="chapters" on-click="onEnterChapter(position)"></preview-list>
+	</div>
 </div>
 <div class="preview-chapter">
 	<div class="season-highlight">
