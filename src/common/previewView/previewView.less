@@ -10,7 +10,7 @@
 }
 
 .preview-cover{
-	background-color: #1B1B1B;
+	background-color: #000;
 	position: fixed;
 	width: 30%;
 	z-index: 90;
@@ -23,6 +23,46 @@
 	padding-top: 14px;
 
 	color: #f0f0f0;
+
+	.separator{
+		margin-top: 70px;
+		margin-bottom: 60px;
+		height: 4px;
+		background: linear-gradient(to right, rgba(0,0,0,0) 0%,#2A2A2A 50%,rgba(0,0,0,0) 100%);
+	}
+
+	.rating-bar{
+		color:#FEB60B;
+		font-size:80px !important;
+		width: 100%;
+		text-align: left;
+
+		.glyphicon{
+			font-size: 64px !important;
+		}
+
+		.glyphicon-star-empty{
+			color: transparent;
+		}
+	}
+
+	.background-blur{
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		z-index: 0;
+
+		img{
+			width: 100%;
+		}
+	}
+
+	.preview-content{
+		position: relative;
+		z-index: 1;
+	}
 }
 
 .preview-description{
