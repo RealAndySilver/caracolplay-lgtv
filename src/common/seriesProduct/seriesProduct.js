@@ -375,7 +375,7 @@
 								self.episodeSelected = 0;
 								self.chapterSelected = $scope.selected.season_list[self.seasonSelected].episodes[0];
 
-								var divChapter = $('.chapters-season');
+								var divChapter = $('.chapters-season-container');
 
 								divChapter.css('right', '25%');
 								/*
@@ -450,7 +450,7 @@
 					self.episodeSelected = 0;
 					self.chapterSelected = $scope.selected.season_list[self.seasonSelected].episodes[0];
 
-					var div = $('.chapters-season');
+					var div = $('.chapters-season-container');
 
 					div.css('right', '25%');
 				}, 1000);
@@ -559,7 +559,7 @@
 								self.episodeSelected = 0;
 								self.chapterSelected = $scope.selected.season_list[self.seasonSelected].episodes[0];
 
-								var div = $('.chapters-season');
+								var div = $('.chapters-season-container');
 
 								div.css('right', '25%');
 								/*
@@ -584,7 +584,7 @@
 
 						switch (self.sections[self.sectionActive]) {
 							case self.SEASONS_SECTION:
-								var div = $('.chapters-season');
+								var div = $('.chapters-season-container');
 								div.css('right', '0%');
 								/*
 								$('.chapters-season').stop().animate({
@@ -626,7 +626,7 @@
 								self.episodeSelected = 0;
 								self.chapterSelected = $scope.selected.season_list[self.seasonSelected].episodes[0];
 
-								var div = $('.chapters-season');
+								var div = $('.chapters-season-container');
 
 								div.css('right', '25%');
 								break;
@@ -649,7 +649,7 @@
 				if (seasons) {
 					if (seasons.length) {
 						if (seasons.length === 1) {
-							$('.chapters-season').css("right", '25%');
+							$('.chapters-season-container').css("right", '25%');
 							self.sections.length = 0;
 							self.sections.push(self.OPTIONS_SECTION);
 							self.sections.push(self.EPISODES_SECTION);
@@ -664,14 +664,14 @@
 
 				if (newValue.type === 'Películas') {
 					self.sections.length = 0;
-					$('.preview-season').addClass('ng-hide');
-					$('.chapters-season').addClass('ng-hide');
+					$('.preview-season-container').addClass('ng-hide');
+					$('.chapters-season-container').addClass('ng-hide');
 					$('.preview-chapter').addClass('ng-hide');
-					$('.series-description').css("right", '25%');
+					$('.series-description').css("right", '30%');
 					self.sections.push(self.OPTIONS_SECTION);
 				} else {
-					$('.preview-season').removeClass('ng-hide');
-					$('.chapters-season').removeClass('ng-hide');
+					$('.preview-season-container').removeClass('ng-hide');
+					$('.chapters-season-container').removeClass('ng-hide');
 					$('.preview-chapter').removeClass('ng-hide');
 					$('.series-description').css("right", '70%');
 				}

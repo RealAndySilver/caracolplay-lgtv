@@ -239,7 +239,7 @@
 		};
 
 		var outAnimation = function() {
-			$('.preview-cover').css('right', '-25%');
+			$('.preview-cover').css('right', '-30%');
 			/*
 			$('.preview-cover').stop().animate({
 				right: '-25%',
@@ -250,7 +250,7 @@
 			self.isShowInfo = false;
 		};
 
-		$('.preview-cover').css('right', '-25%');
+		$('.preview-cover').css('right', '-30%');
 
 		keyboardInit = function() {
 
