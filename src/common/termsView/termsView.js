@@ -70,9 +70,6 @@
 	var TermsViewDialogController = function($scope, $modalInstance, termsInfo, hotkeys, $timeout) {
 		var self = this;
 
-		self.scrollTop = 0;
-		self.STEP = 100;
-
 		init();
 		function init() {
 
@@ -89,19 +86,15 @@
 			};
 
 			$scope.onUp = function() {
-				self.scrollTop -= self.STEP;
-				console.log('scrollTop', self.scrollTop);
 				$('.description-container').stop().animate({
-					scrollTop: self.scrollTop
+					scrollTop: $('.description-container').scrollTop() - $('.description-container').height()
 				});
 			};
 
 
 			$scope.onDown = function() {
-				self.scrollTop += self.STEP;
-				console.log('scrollTop', self.scrollTop);
 				$('.description-container').stop().animate({
-					scrollTop: self.scrollTop
+					scrollTop: $('.description-container').scrollTop() + $('.description-container').height()
 				});
 			};
 
