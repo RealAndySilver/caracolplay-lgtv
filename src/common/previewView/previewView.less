@@ -17,28 +17,29 @@
 	right: 0;
 	top: 134px;
 	bottom: 0;
-	padding-left: 14px;
+	padding-left: 20px;
 	padding-bottom: 14px;
-	padding-right: 14px;
+	padding-right: 20px;
 	padding-top: 14px;
 
 	color: #f0f0f0;
 
 	.separator{
-		margin-top: 70px;
-		margin-bottom: 60px;
-		height: 4px;
-		background: linear-gradient(to right, rgba(0,0,0,0) 0%,#2A2A2A 50%,rgba(0,0,0,0) 100%);
+		margin-top: 40px;
+		margin-bottom: 20px;
+		height: 3px;
+		//background: linear-gradient(to right, rgba(0,0,0,0) 0%,#2A2A2A 50%,rgba(0,0,0,0) 100%);
+		background-color: #1A1A1A;
 	}
 
 	.rating-bar{
 		color:#FEB60B;
-		font-size:80px !important;
+		font-size:60px !important;
 		width: 100%;
 		text-align: left;
 
 		.glyphicon{
-			font-size: 64px !important;
+			font-size: 44px !important;
 		}
 
 		.glyphicon-star-empty{
@@ -56,12 +57,25 @@
 
 		img{
 			width: 100%;
+
+			-webkit-mask-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(80%, #ffffff), color-stop(100%, rgba(255, 255, 255, 0)));
 		}
 	}
 
 	.preview-content{
 		position: relative;
 		z-index: 1;
+
+		h5{
+			line-height: 1;
+			height: 362px;
+			width: 100%;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 12;
+			-webkit-box-orient: vertical;
+		}
 	}
 }
 

@@ -27,11 +27,11 @@
 			<h6>{{dashCtrl.selectedItem.year}}</h6>
 			<rating class="pull-left rating-bar" ng-model="dashCtrl.selectedItem.rate" max="5" readonly="true"></rating>
 			<br/>
-			<h4 ng-bind-html="dashCtrl.selectedItem.feature_text | unsafe"></h4>
+			<h5 ng-bind-html="dashCtrl.selectedItem.feature_text | unsafe"></h5>
 			<div class="separator"></div>
-			<h3 ng-show="dashCtrl.selectedItem.seasons">Temporadas: {{dashCtrl.selectedItem.seasons}}</h3>
-			<h3 ng-show="dashCtrl.selectedItem.chapters">Capitulos: {{dashCtrl.selectedItem.chapters}}</h3>
-			<h3 ng-show="dashCtrl.selectedItem.gender">Genero: {{dashCtrl.selectedItem.gender}}</h3>
+			<h6 ng-show="dashCtrl.selectedItem.seasons">Temporadas: {{dashCtrl.selectedItem.seasons}}</h6>
+			<h6 ng-show="dashCtrl.selectedItem.chapters">Capítulos: {{dashCtrl.selectedItem.chapters}}</h6>
+			<h6 ng-show="dashCtrl.selectedItem.gender">Genero: {{dashCtrl.selectedItem.gender}}</h6>
 		</div>
 	</div>
 

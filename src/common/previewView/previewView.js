@@ -131,7 +131,7 @@
 			}, ];
 
 			$scope.telenovelasOptions = [{
-				label: 'Capitulos',
+				label: 'Capítulos',
 				active: true
 			}, {
 				label: 'Calificar',
@@ -145,7 +145,7 @@
 			}, ];
 
 			$scope.seriesOptions = [{
-				label: 'Capitulos',
+				label: 'Capítulos',
 				active: true
 			}, {
 				label: 'Calificar',

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg width='198px' height='198px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-ellipsis">
+<svg width='140px' height='140px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-ellipsis">
   <rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect>
   <circle cx="16" cy="50" r="10" fill="#EEEEEE">
     <animate id="anir11" attributeName="r" from="0" to="10" begin="0s;anir14.end" dur="0.625s" fill="freeze"></animate>

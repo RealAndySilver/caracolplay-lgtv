@@ -38,9 +38,9 @@
 					case 'Noticias':
 						return $scope.selected.season_list[self.seasonSelected].season_name;
 					case 'Telenovelas':
-						return $scope.selected.name + ' - ' + (self.episodesButtons.length) + ' Capitulos';
+						return $scope.selected.name + ' - ' + (self.episodesButtons.length) + ' Capítulos';
 					default:
-						return 'Temporada ' + (self.seasonSelected + 1) + ' - ' + (self.episodesButtons.length) + ' Capitulos';
+						return 'Temporada ' + (self.seasonSelected + 1) + ' - ' + (self.episodesButtons.length) + ' Capítulos';
 				}
 			};
 
@@ -78,7 +78,7 @@
 					case 'Noticias':
 						return self.chapterSelected.episode_name + ' - ' + self.chapterSelected.duration;
 					default:
-						return 'Capitulos ' + (self.episodeSelected + 1) + ' - ' + self.chapterSelected.duration;
+						return 'Capítulos ' + (self.episodeSelected + 1) + ' - ' + self.chapterSelected.duration;
 				}
 			};
 
@@ -366,7 +366,7 @@
 					case 'Reproducir':
 						$scope.open('lg');
 						break;
-					case 'Capitulos':
+					case 'Capítulos':
 						self.sectionActive++;
 
 						switch (self.sections[self.sectionActive]) {
