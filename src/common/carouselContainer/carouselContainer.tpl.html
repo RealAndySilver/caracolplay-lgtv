@@ -4,7 +4,7 @@
 			<img ng-src="{{slide.image}}" style="margin:auto; overflow-y:hidden;" width='100%'>
 			<div class="carousel-caption">
 				<h4 class="pull-left">{{slide.year}}</h4>
-				<rating class="pull-left" ng-model="slide.rate" max="5" readonly="true" style="color:orange; font-size:16px; width: 100%; text-align: left; line-height: 5; padding-left: 14px;"></rating>
+				<rating class="pull-left rating-bar" ng-model="slide.rate" max="5" readonly="true"></rating>
 				<br>
 				<!-- <h1 style="text-align:left;">{{slide.name}}</h1> -->
 				<h5 style="text-align:left; margin-left:0px; clear:both;">{{slide.text | limitTo: MAX_STRING_SIZE}}{{slide.text.length > MAX_STRING_SIZE ? '...' : ''}}</h5>

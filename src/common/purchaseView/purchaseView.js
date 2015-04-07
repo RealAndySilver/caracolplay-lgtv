@@ -1231,7 +1231,7 @@
 		var chapterId = $stateParams.chapterId;
 
 		console.log('UserInfo', UserInfo);
-		if (UserInfo.alias) {
+		if (UserInfo.alias && UserInfo.alias !== '') {
 			window.history.back();
 			return;
 		}

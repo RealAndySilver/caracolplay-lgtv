@@ -9,9 +9,59 @@
 	overflow: hidden;
 }
 
+.carousel-container{
+	.carousel-control{
+		.glyphicon-chevron-left{
+			display: block;
+			color: transparent;
+			background: url("./img/left-arrow.png");
+			background-size: 100%;
+			width: 40px;
+			height: 122px;
+			margin-top: -66px;
+			margin-left: -40px;
+			text-shadow: 0 1px 2px rgba(0, 0, 0, 0.0);
+		}
+
+		.glyphicon-chevron-right{
+			display: block;
+			color: transparent !important;
+			background: url("./img/right-arrow.png");
+			background-size: 100%;
+			width: 40px;
+			height: 122px;
+			margin-top: -66px;
+			margin-right: -40px;
+			text-shadow: 0 1px 2px rgba(0, 0, 0, 0.0);
+		}
+	}
+}
+
 .carousel-caption{
 	padding: 25px !important;
 	bottom: 220px !important;
+
+	background-color: transparent !important;
+
+	.rating-bar{
+		color: #F8B80C;
+		font-size: 16px;
+		width: 100%;
+		text-align: left;
+		line-height: 5;
+		padding-left: 14px;
+
+		.glyphicon {
+
+			&.glyphicon-star-empty{
+				color: transparent !important;
+
+				&:before{
+					content: "\e000";
+				}
+			}
+		}
+	}
 
 	h5{
 		font-weight: bold;

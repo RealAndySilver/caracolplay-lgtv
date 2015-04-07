@@ -1,5 +1,5 @@
 <header class="toolbar">
-	<div id="logo"><h2 style="color:white;">Version Beta 1.2 <h2></div>
+	<div id="logo"><h2 style="color:white;"><h2></div>
 		<div class="search-bar">
 			<div class="input-group">
 				<span class="input-group-btn">
@@ -31,7 +31,7 @@
 			<div class="separator"></div>
 			<h3 ng-show="dashCtrl.selectedItem.seasons">Temporadas: {{dashCtrl.selectedItem.seasons}}</h3>
 			<h3 ng-show="dashCtrl.selectedItem.chapters">Capitulos: {{dashCtrl.selectedItem.chapters}}</h3>
-			<h3>Genero: {{dashCtrl.selectedItem.gender}}</h3>
+			<h3 ng-show="dashCtrl.selectedItem.gender">Genero: {{dashCtrl.selectedItem.gender}}</h3>
 		</div>
 	</div>
 

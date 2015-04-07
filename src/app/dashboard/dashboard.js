@@ -95,17 +95,15 @@
 					);
 
 					localStorage.removeItem('userInfo');
-					UserInfo = {
-						name: '',
-						lastname: '',
-						alias: '',
-						mail: '',
-						password: '',
-						session: '',
-						uid: '',
-						isSubscription: false,
-						timeEnds: '',
-					};
+					UserInfo.name = '';
+					UserInfo.lastname = '';
+					UserInfo.alias = '';
+					UserInfo.mail = '';
+					UserInfo.password = '';
+					UserInfo.session = '';
+					UserInfo.uid = '';
+					UserInfo.isSubscription = false;
+					UserInfo.timeEnds = '';
 					$scope.mail = '';
 				} else {
 					AlertDialogService.show(
@@ -293,39 +291,39 @@
 					if (self.active + 1 > self.list.length + 1) {
 						self.active++;
 						outAnimation();
-						if($scope.mail) {
+						if ($scope.mail) {
 							$scope.signOutSelected = true;
-
-							hotkeys.add({
-								combo: 'right',
-								callback: function() {
-									$scope.termsSelected = true;
-									$scope.signOutSelected = false;
-								}
-							});
-
-							hotkeys.add({
-								combo: 'left',
-								callback: function() {
-									$scope.termsSelected = false;
-									$scope.signOutSelected = true;
-								}
-							});
-
-							hotkeys.add({
-								combo: 'enter',
-								callback: function() {
-									if($scope.termsSelected) {
-										$scope.showTerms();
-									} else {
-										$scope.logout();
-									}
-								}
-							});
 
 						} else {
 							$scope.termsSelected = true;
 						}
+
+						hotkeys.add({
+							combo: 'right',
+							callback: function() {
+								$scope.termsSelected = true;
+								$scope.signOutSelected = false;
+							}
+						});
+
+						hotkeys.add({
+							combo: 'left',
+							callback: function() {
+								$scope.termsSelected = false;
+								$scope.signOutSelected = true;
+							}
+						});
+
+						hotkeys.add({
+							combo: 'enter',
+							callback: function() {
+								if ($scope.termsSelected) {
+									$scope.showTerms();
+								} else {
+									$scope.logout();
+								}
+							}
+						});
 						return;
 					}
 					self.active++;
@@ -341,7 +339,7 @@
 				combo: 'up',
 				callback: function() {
 					event.preventDefault();
-					if($scope.signOutSelected || $scope.termsSelected){
+					if ($scope.signOutSelected || $scope.termsSelected) {
 						inAnimation();
 						self.active = self.list.length + 1;
 						$scope.signOutSelected = false;

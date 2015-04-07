@@ -3,6 +3,10 @@
 
 		var init = function() {
 
+			$scope.onBack = function() {
+				$window.history.back();
+			};
+
 			$scope.onUp = function() {
 				if ($scope.itemSelected - 1 >= 0) {
 					$scope.resultButtons[$scope.itemSelected--].active = false;

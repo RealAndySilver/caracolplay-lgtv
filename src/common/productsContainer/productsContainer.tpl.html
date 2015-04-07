@@ -10,9 +10,11 @@
 				</div>
 				<ul class="list-inline">
 					<li class="ProductionItem" ng-repeat="slide in slides track by $index" ng-click="onItemSelected($index)">
+					<div class="image-cover">
 						<div class="cover" ng-class="{selected : slide.active}" >
 							<img ng-src="{{slide.image_url}}" err-src="http://www.caracolplay.com/sites/default/files/styles/256x386/public/producciones/noticias2_0.jpg">
 						</div>
+					</div>
 					</li>
 					<li class="free-zone"></li>
 				</ul>

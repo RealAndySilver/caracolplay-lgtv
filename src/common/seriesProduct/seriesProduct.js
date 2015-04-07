@@ -1,6 +1,6 @@
 (function(app) {
 
-	var SeriesProductController = function($scope, hotkeys, $modal, UserService, UserInfo, $state, DevInfo, $rootScope, ProgressDialogService, AlertDialogService, ProductService, $timeout) {
+	var SeriesProductController = function($scope, hotkeys, $modal, UserService, UserInfo, $state, DevInfo, $rootScope, ProgressDialogService, AlertDialogService, ProductService, $timeout, $window) {
 		var self = this;
 
 		$scope.MAX_STRING_SIZE = 400;
@@ -21,6 +21,10 @@
 			self.chapterSelected = {};
 
 			self.sectionActive = 0;
+
+			$scope.onBack = function() {
+				$window.history.back();
+			};
 
 			$scope.getSeasonLabel = function() {
 				if (!$scope.selected) {
@@ -614,7 +618,7 @@
 							case self.OPTIONS_SECTION:
 								for (var i in $scope.options) {
 									if ($scope.options[i].active) {
-										onEnterOptions(i);
+										$scope.onEnterOptions(i);
 										break;
 									}
 								}
@@ -737,6 +741,7 @@
 		'AlertDialogService',
 		'ProductService',
 		'$timeout',
+		'$window',
 		SeriesProductController
 	]);
 	app.directive('seriesProduct', SeriesProductDirective);
