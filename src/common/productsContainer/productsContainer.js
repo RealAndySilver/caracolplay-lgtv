@@ -1,6 +1,6 @@
 (function(app) {
 
-	var ProductsContainerController = function($scope, hotkeys, ProductService, AlertDialogService) {
+	var ProductsContainerController = function($scope, hotkeys, ProductService, AlertDialogService, ProgressDialogService) {
 		var self = this;
 		var minimum = 4;
 
@@ -98,7 +98,10 @@
 				}
 				var productPremise = ProductService.getProductWithID($scope.slides[active].id, '');
 
+				ProgressDialogService.start();
+
 				productPremise.then(function(res) {
+					ProgressDialogService.dismiss();
 					$scope.selected = res.data.products['0'][0];
 
 					$scope.preview({
@@ -239,7 +242,7 @@
 		};
 	});
 
-	app.controller('ProductsContainerController', ['$scope', 'hotkeys', 'ProductService', 'AlertDialogService', ProductsContainerController]);
+	app.controller('ProductsContainerController', ['$scope', 'hotkeys', 'ProductService', 'AlertDialogService', 'ProgressDialogService', ProductsContainerController]);
 	app.directive('productsContainer', ProductsContainer);
 
 }(angular.module("caracolplaylgtvapp.ProductsContainer", [

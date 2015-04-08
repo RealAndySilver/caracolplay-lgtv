@@ -196,8 +196,7 @@
 
 		self.activePreview = function(value, item) {
 			var productPremise;
-			console.log('item', item);
-			console.log('self.selectedItem', self.selectedItem);
+
 			if (item) {
 				productPremise = ProductService.getProductWithID(item.id, '');
 			} else {
@@ -221,6 +220,8 @@
 				if ($scope.restartConfigKeyboard.restart) {
 					$scope.restartConfigKeyboard.restart();
 				}
+			} else {
+				outAnimation();
 			}
 		};
 
@@ -290,6 +291,13 @@
 					event.preventDefault();
 					if (self.active + 1 > self.list.length + 1) {
 						self.active++;
+
+						var div = $('footer');
+
+						console.log('div', div, $(div).position().top);
+						if ($(div).position()) {
+							$('.scroll-area').scrollTop($(div).position().top - 134);
+						}
 						outAnimation();
 						if ($scope.mail) {
 							$scope.signOutSelected = true;
