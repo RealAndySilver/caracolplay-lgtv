@@ -23,7 +23,7 @@
 					var div = '#button' + $scope.id + 0;
 					var id = '.chapters-season';
 
-					if($scope.id === 'season'){
+					if ($scope.id === 'season') {
 						id = '.preview-season';
 					}
 
@@ -40,7 +40,6 @@
 
 			$scope.$watch('active', activeWatcherFunction);
 		};
-
 		init();
 	};
 

@@ -672,12 +672,14 @@
 					$('.chapters-season-container').addClass('ng-hide');
 					$('.preview-chapter').addClass('ng-hide');
 					$('.series-description').css("right", '30%');
+					$('.back-button-container').css('right', '55%');
 					self.sections.push(self.OPTIONS_SECTION);
 				} else {
 					$('.preview-season-container').removeClass('ng-hide');
 					$('.chapters-season-container').removeClass('ng-hide');
 					$('.preview-chapter').removeClass('ng-hide');
 					$('.series-description').css("right", '70%');
+					$('.back-button-container').css('right', '95%');
 				}
 
 				for (var i in seasons) {

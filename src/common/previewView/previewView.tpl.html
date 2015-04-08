@@ -22,21 +22,14 @@
 <div ng-show="isTelenovelas()">
 	<series-product selected-item="getSelected('Telenovelas')" display-options="telenovelasOptions" restart-keyboard="restart"></series-product>
 </div>
-<div ng-show="isMovie()">
-	
-	<div class="preview-description">
-		<h2>{{selected.name}}</h2>
-		<center><img class="preview-image" ng-src="{{selected.image_url}}"></center>
-		<preview-list list="moviesOptions"></preview-list>
-	</div>
-	
+<div ng-show="isMovie()" class="movie-container">
 	<series-product selected-item="getSelected('Películas')" display-options="moviesOptions" restart-keyboard="restart"></series-product>
 </div>
 
 <div class="preview-cover">
 	<!--<h2>{{selected.name}}</h2>-->
 	<h6>2012</h6>
-	<rating class="pull-left" ng-model="selected.rate" max="5" readonly="true" style="color:orange; font-size:16px; width: 100%; text-align: left;"></rating>
+	<rating class="pull-left rating-bar" ng-model="selected.rate" max="5" readonly="true" style="color:orange; font-size:16px; width: 100%; text-align: left;"></rating>
 	<br/>
-	<h4 ng-bind-html="selected.feature_text | unsafe"></h4>
+	<h6 ng-bind-html="selected.feature_text | unsafe"></h6>
 </div>
