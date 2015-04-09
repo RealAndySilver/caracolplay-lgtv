@@ -363,7 +363,6 @@
 				};
 
 				if($scope.options[position].label.indexOf("Reproducir ") > -1) {
-					console.log('press play last');
 					var season = $scope.options[position].season;
 					var chapter = $scope.options[position].chapter;
 					self.chapterSelected = $scope.selected.season_list[season].episodes[chapter];

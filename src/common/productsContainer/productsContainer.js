@@ -42,6 +42,8 @@
 			};
 
 			var onChangeActive = function() {
+				console.log('slides', slider);
+				console.log('cover', cover.outerWidth(true));
 				$scope.selected = $scope.slides[active];
 				slider.scrollLeft(active * cover.outerWidth(true));
 				/*
