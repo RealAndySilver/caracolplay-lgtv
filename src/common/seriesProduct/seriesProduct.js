@@ -391,7 +391,15 @@
 						}
 						break;
 					case 'Calificar':
-						$scope.onRate();
+						if(UserInfo.alias && UserInfo.alias !== '') {
+							$scope.onRate();
+						} else {
+							$state.go('purchase', {
+								typeView: $scope.selected.type_view,
+								chapterId: $scope.getChapterId(),
+								productionId: $scope.selected.id,
+							});
+						}
 						break;
 					case 'Ver tráiler':
 						$state.go('videoModule', {
@@ -399,8 +407,16 @@
 						});
 						break;
 					case 'Añadir a mi lista':
-						var addPromise = ProductService.addItemToList($scope.selected.type, $scope.selected.id);
-						addPromise.then(successAddList, failureList);
+						if(UserInfo.alias && UserInfo.alias !== '') {
+							var addPromise = ProductService.addItemToList($scope.selected.type, $scope.selected.id);
+							addPromise.then(successAddList, failureList);
+						} else {
+							$state.go('purchase', {
+								typeView: $scope.selected.type_view,
+								chapterId: $scope.getChapterId(),
+								productionId: $scope.selected.id,
+							});
+						}
 						break;
 					case 'Remover de mi lista':
 						var removePromise = ProductService.removeItemToList($scope.selected.type, $scope.selected.id);
