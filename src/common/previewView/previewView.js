@@ -131,8 +131,11 @@
 			}, ];
 
 			$scope.telenovelasOptions = [{
+				label: 'Reproducir Cap. ',
+				active: true,
+			},{
 				label: 'Capítulos',
-				active: true
+				active: false
 			}, {
 				label: 'Calificar',
 				active: false
@@ -145,8 +148,11 @@
 			}, ];
 
 			$scope.seriesOptions = [{
+				label: 'Reproducir Cap. ',
+				active: true,
+			},{
 				label: 'Capítulos',
-				active: true
+				active: false
 			}, {
 				label: 'Calificar',
 				active: false
@@ -193,13 +199,60 @@
 			};
 
 			$scope.$watch('selected', function(newValue, oldValue) {
-				for(var i in MyListItems.list) {
-					if(MyListItems.list[i].id === newValue.id) {
+				for(var k in MyListItems.list) {
+					if(MyListItems.list[k].id === newValue.id) {
 						$scope.newsOptions[2].label = 'Remover de mi lista';
 						$scope.seriesOptions[3].label = 'Remover de mi lista';
 						$scope.telenovelasOptions[3].label = 'Remover de mi lista';
 						$scope.moviesOptions[3].label = 'Remover de mi lista';
 						break;
+					}
+				}
+
+				var foundLast = false;
+				if(newValue.type === 'Series' || newValue.type === 'Telenovelas') {
+					for(var i in newValue.season_list) {
+						for(var j in newValue.season_list[i].episodes) {
+							console.log('last_chapter', newValue.season_list[i].episodes[j].last_chapter);
+							if(newValue.season_list[i].episodes[j].last_chapter) {
+								if(newValue.season_list.length > 1) {
+									$scope.seriesOptions[0].label = 'Reproducir ' + 'Temp. ' + (parseInt(j) + 1) + ' Cap. ' + (parseInt(j) + 1);
+									$scope.seriesOptions[0].season = j;
+									$scope.seriesOptions[0].chapter = i;
+									$scope.telenovelasOptions[0].label = 'Reproducir ' + 'Temp. ' + (parseInt(j) + 1) + ' Cap. ' + (parseInt(j) + 1);
+									$scope.telenovelasOptions[0].season = j;
+									$scope.telenovelasOptions[0].chapter = i;
+								} else {
+									$scope.seriesOptions[0].label = 'Reproducir ' + 'Cap. ' + (parseInt(j) + 1);
+									$scope.seriesOptions[0].season = j;
+									$scope.seriesOptions[0].chapter = i;
+									$scope.telenovelasOptions[0].label = 'Reproducir ' + 'Cap. ' + (parseInt(j) + 1);
+									$scope.telenovelasOptions[0].season = j;
+									$scope.telenovelasOptions[0].chapter = i;
+								}
+								
+								foundLast = true;
+								break;
+							}
+						}
+					}
+				}
+
+				if(!foundLast) {
+					if(newValue.season_list.length > 1) {
+						$scope.seriesOptions[0].label = 'Reproducir ' + 'Temp. ' + 1 + ' Cap. ' + 1;
+						$scope.seriesOptions[0].season = 0;
+						$scope.seriesOptions[0].chapter = 0;
+						$scope.telenovelasOptions[0].label = 'Reproducir ' + 'Temp. ' + 1 + ' Cap. ' + 1;
+						$scope.telenovelasOptions[0].season = 0;
+						$scope.telenovelasOptions[0].chapter = 0;
+					} else {
+						$scope.seriesOptions[0].label = 'Reproducir ' + 'Cap. ' + 1;
+						$scope.seriesOptions[0].season = 0;
+						$scope.seriesOptions[0].chapter = 0;
+						$scope.telenovelasOptions[0].label = 'Reproducir ' + 'Cap. ' + 1;
+						$scope.telenovelasOptions[0].season = 0;
+						$scope.telenovelasOptions[0].chapter = 0;
 					}
 				}
 
