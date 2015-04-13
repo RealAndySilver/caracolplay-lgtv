@@ -650,7 +650,7 @@
 			if (!$scope.subscription.terms) {
 				AlertDialogService.show(
 					'alert',
-					'Debes aceptar los terminos y condiciones',
+					'Debes aceptar los términos y condiciones',
 					'Aceptar',
 					configHotkeys
 				);
