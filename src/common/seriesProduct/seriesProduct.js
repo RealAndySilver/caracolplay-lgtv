@@ -5,6 +5,11 @@
 
 		$scope.MAX_STRING_SIZE = 400;
 
+		$scope.options = $scope.options.filter(function(item) {
+			console.log(item.label, item.verifyVisibility, UserInfo.alias, !(item.verifyVisibility && UserInfo.alias));
+			return !(item.verifyVisibility && UserInfo.alias === '');
+		});
+
 		var init = function() {
 			self.OPTIONS_SECTION = 0;
 			self.SEASONS_SECTION = 1;

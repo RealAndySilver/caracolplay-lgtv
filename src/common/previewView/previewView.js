@@ -48,11 +48,13 @@
 		});
 	}]);
 
-	var PreviewViewController = function($scope, $modal, itemSelected, $stateParams, hotkeys, DevInfo, $state, MyListItems) {
+	var PreviewViewController = function($scope, $modal, itemSelected, $stateParams, hotkeys, DevInfo, $state, MyListItems, UserInfo) {
 		var self = this;
 		
 		$scope.from = $stateParams.from;
 		$scope.selected = itemSelected;
+
+		$scope.user = UserInfo.alias;
 
 		$scope.home = function() {
 			$state.go('dashboard');
@@ -118,60 +120,77 @@
 
 			$scope.moviesOptions = [{
 				label: 'Reproducir',
-				active: true
+				active: true,
+				verifyVisibility: false,
 			}, {
 				label: 'Calificar',
-				active: false
+				active: false,
+				verifyVisibility: true,
 			}, {
 				label: 'Ver tráiler',
-				active: false
+				active: false,
+				verifyVisibility: false,
 			}, {
 				label: 'Añadir a mi lista',
-				active: false
+				active: false,
+				verifyVisibility: true,
 			}, ];
 
 			$scope.telenovelasOptions = [{
 				label: 'Reproducir Cap. ',
 				active: true,
+				verifyVisibility: false,
 			},{
 				label: 'Capítulos',
+				verifyVisibility: false,
 				active: false
 			}, {
 				label: 'Calificar',
+				verifyVisibility: true,
 				active: false
 			}, {
 				label: 'Ver tráiler',
+				verifyVisibility: false,
 				active: false
 			}, {
 				label: 'Añadir a mi lista',
+				verifyVisibility: true,
 				active: false
 			}, ];
 
 			$scope.seriesOptions = [{
 				label: 'Reproducir Cap. ',
+				verifyVisibility: false,
 				active: true,
 			},{
 				label: 'Capítulos',
+				verifyVisibility: false,
 				active: false
 			}, {
 				label: 'Calificar',
+				verifyVisibility: true,
 				active: false
 			}, {
 				label: 'Ver tráiler',
+				verifyVisibility: false,
 				active: false
 			}, {
 				label: 'Añadir a mi lista',
+				verifyVisibility: true,
 				active: false
 			}, ];
 
 			$scope.newsOptions = [{
 				label: 'Ultimas Noticias',
+				verifyVisibility: false,
 				active: true
 			}, {
 				label: 'Ver tráiler',
+				verifyVisibility: false,
 				active: false
 			}, {
 				label: 'Añadir a mi lista',
+				verifyVisibility: true,
 				active: false
 			}, ];
 
@@ -201,10 +220,20 @@
 			$scope.$watch('selected', function(newValue, oldValue) {
 				for(var k in MyListItems.list) {
 					if(MyListItems.list[k].id === newValue.id) {
-						$scope.newsOptions[2].label = 'Remover de mi lista';
-						$scope.seriesOptions[3].label = 'Remover de mi lista';
-						$scope.telenovelasOptions[3].label = 'Remover de mi lista';
-						$scope.moviesOptions[3].label = 'Remover de mi lista';
+						if($scope.newsOptions[2].label === 'Añadir a mi lista') {
+							$scope.newsOptions[2].label = 'Remover de mi lista';
+						}
+						if($scope.seriesOptions[3].label === 'Añadir a mi lista') {
+							$scope.seriesOptions[3].label = 'Remover de mi lista';
+						}
+
+						if($scope.telenovelasOptions[3].label === 'Añadir a mi lista') {
+							$scope.telenovelasOptions[3].label = 'Remover de mi lista';
+						}
+
+						if($scope.moviesOptions[3].label === 'Añadir a mi lista') {
+							$scope.moviesOptions[3].label = 'Remover de mi lista';
+						}
 						break;
 					}
 				}
@@ -265,7 +294,7 @@
 		init();
 	};
 
-	app.controller('PreviewViewController', ['$scope', '$modal', 'itemSelected', '$stateParams', 'hotkeys', 'DevInfo', '$state', 'MyListItems', PreviewViewController]);
+	app.controller('PreviewViewController', ['$scope', '$modal', 'itemSelected', '$stateParams', 'hotkeys', 'DevInfo', '$state', 'MyListItems', 'UserInfo', PreviewViewController]);
 	app.directive('previewView', PreviewViewDirective);
 
 }(angular.module("caracolplaylgtvapp.previewView", [
