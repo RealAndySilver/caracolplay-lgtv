@@ -15,10 +15,12 @@
 	app.service('ModalInstanceService', [ModalInstanceService]);
 	app.constant('ModalInstance', {});
 
-	var PurchaseViewController = function($scope, hotkeys, UserService, PurchaseService, UserInfo, $modalInstance, typeView, $state, AlertDialogService, productionId, chapterId, ProgressDialog, TermsViewService, DevInfo) {
+	var PurchaseViewController = function($scope, hotkeys, UserService, PurchaseService, UserInfo, $modalInstance, typeView, $state, AlertDialogService, productionId, chapterId, ProgressDialog, TermsViewService, DevInfo, name) {
 		var itemSelected = 0;
 
 		var self = this;
+
+		$scope.name = name;
 
 		$scope.showOptions = true;
 		$scope.loginVisible = false;
@@ -121,6 +123,10 @@
 			value: '22',
 			id: 8
 		}, ];
+
+		$scope.getMail = function() {
+			return UserInfo.mail;
+		};
 
 		$scope.parcels = [];
 
@@ -1229,6 +1235,7 @@
 		var typeView = $stateParams.typeView;
 		var productionId = $stateParams.productionId;
 		var chapterId = $stateParams.chapterId;
+		var name = $stateParams.name;
 
 		console.log('UserInfo', UserInfo);
 		if (UserInfo.alias && UserInfo.alias !== '') {
@@ -1241,6 +1248,9 @@
 			controller: 'PurchaseViewController',
 			size: 'lg',
 			resolve: {
+				name: function() {
+					return name;
+				},
 				typeView: function() {
 					return parseInt(typeView);
 				},
@@ -1268,7 +1278,7 @@
 
 	app.config(['$stateProvider', function($stateProvider) {
 		$stateProvider.state('purchase', {
-			url: '/purchase/:typeView/:productionId/:chapterId',
+			url: '/purchase/:typeView/:productionId/:chapterId/:name',
 			views: {
 				'main': {
 					controller: 'DialogPurchaseController',
@@ -1298,6 +1308,7 @@
 		'ProgressDialogService',
 		'TermsViewService',
 		'DevInfo',
+		'name',
 		PurchaseViewController
 	]);
 

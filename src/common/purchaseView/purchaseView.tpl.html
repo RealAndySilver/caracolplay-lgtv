@@ -1,7 +1,12 @@
 <div class="container-purchase">
 	<div id="purchase-logo"></div>
 	<div id="purchase-title">
-		<h2>{{title}}</h2>
+		<h2 ng-hide="boughtVisible && !isSubscription">{{title}}</h2>
+		<div ng-show="boughtVisible && !isSubscription" class="title-bought">
+			<h3>{{title}}</h3>
+			<h5 ng-show="subscribeStep == 0">{{name}}</h5>
+			<h5 ng-show="subscribeStep == 1">{{getMail()}}</h5>
+		</div>
 	</div>
 	<div class="purchase-content">
 		<div id="purchase-description">

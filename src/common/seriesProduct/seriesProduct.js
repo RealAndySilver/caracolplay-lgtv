@@ -113,6 +113,7 @@
 							typeView: $scope.selected.type_view,
 							chapterId: $scope.getChapterId(),
 							productionId: $scope.selected.id,
+							name:$scope.selected.name,
 						});
 
 						/*
@@ -412,6 +413,7 @@
 								typeView: $scope.selected.type_view,
 								chapterId: $scope.getChapterId(),
 								productionId: $scope.selected.id,
+								name:$scope.selected.name,
 							});
 						}
 						break;
@@ -429,6 +431,7 @@
 								typeView: $scope.selected.type_view,
 								chapterId: $scope.getChapterId(),
 								productionId: $scope.selected.id,
+								name: $scope.selected.name,
 							});
 						}
 						break;
