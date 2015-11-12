@@ -1,0 +1,386 @@
+/* Less file for purchaseView*/
+
+.place-to-pay {
+  position: absolute;
+  bottom: 0;
+  right: 170px;
+  img {
+    width: 190px;
+  }
+}
+
+.container-purchase {
+  background-color: rgba(40, 40, 40, 0.9);
+  height: 750px;
+}
+
+.title-bought {
+  text-align: right;
+
+  h3 {
+    margin-top: 0;
+  }
+}
+
+.line {
+  float: left;
+  width: 420px;
+  position: absolute;
+
+  &#first-line {
+    left: 18%;
+    top: 25px;
+  }
+  &#second-line {
+    left: 51%;
+    top: 25px;
+  }
+
+  &.deactive {
+    border-top: solid 10px #666666;
+  }
+
+  &.active {
+    border-top: solid 10px white;
+  }
+}
+
+#purchase-logo {
+  position: fixed;
+  background-image: url('../assets/img/logo-cp.png');
+  width: 375px;
+  height: 134px;
+  left: 0;
+}
+
+#purchase-title {
+  position: fixed;
+  right: 30px;
+  top: 30px;
+  color: rgb(230, 230, 230);
+}
+
+.modal-content {
+  background-color: transparent;
+}
+
+.purchase-content {
+  position: fixed;
+  top: 134px;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(56, 56, 56, 0.9);
+}
+
+.item-title {
+  margin-top: -4px;
+}
+
+.caracol-btn {
+  //.button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
+  .button-variant(white; rgb(253, 131, 36); rgb(253, 131, 36));
+}
+
+.caracol-btn-cancel {
+  //.button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
+  .button-variant(white; #666666; #666666);
+}
+
+.caracol-btn-cancel:hover {
+  background-color: rgb(253, 131, 36);
+}
+
+#purchase-description {
+  color: #e6e6e6;
+  padding: 10px 0;
+}
+
+textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus, select:focus {
+  border-color: rgba(253, 131, 36, 0.8) !important;
+  border-width: 2px !important;
+  outline: 0 none !important;
+  background-color: #eee !important;
+}
+
+input[type=checkbox]:focus{
+  box-shadow: 0 5px 5px rgba(253, 131, 36, 0.075) inset, 0 0 20px rgba(253, 131, 36, 0.6) !important;
+  -webkit-box-shadow: 0 5px 5px rgba(253, 131, 36, 0.075) inset, 0 0 20px rgba(253, 131, 36, 0.6) !important;
+  -moz-box-shadow: 0 5px 5px rgba(253, 131, 36, 0.075) inset, 0 0 20px rgba(253, 131, 36, 0.6) !important;
+
+}
+
+
+textarea, input, input[type], .uneditable-input{
+  background-color: #333;
+  border-color: #555;
+  border-width: 2px;
+}
+
+.customizeSelect{
+  border: 2px solid #555 !important;
+}
+
+.button-container {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 60px;
+  height: 353px;
+  width: 270px;
+  background-color: rgb(112, 110, 108);
+
+  position: relative;
+
+  //float: left;
+
+  display: inline-block;
+
+  color: #e6e6e6;
+
+  border: 2px double #353535;
+
+  border-radius: 8px;
+
+  img {
+    margin-left: 24px;
+    margin-top: 10px;
+    width: 220px;
+    height: 220px;
+  }
+
+  h3 {
+    margin-top: 0px;
+    display: table;
+  }
+
+  &.active {
+    background-color: rgb(253, 131, 36);
+    border: 2px double rgb(52, 94, 171);
+
+    -webkit-box-shadow: 0px 0px 20px 2px rgba(52, 94, 171, 1);
+    -moz-box-shadow: 0px 0px 20px 2px rgba(52, 94, 171, 1);
+    box-shadow: 0px 0px 20px 2px rgba(52, 94, 171, 1);
+  }
+}
+
+.purchase-buttons {
+  margin: 0 auto;
+  display: table;
+  //width: 856px;
+}
+
+.clear {
+  clear: both;
+}
+
+.modal-dialog {
+  &.modal-lg {
+    position: absolute;
+    top: 50%;
+    margin-top: -375px;
+    left: 50%;
+    margin-left: -680px;
+    width: 1360px;
+  }
+}
+
+.purchase-support {
+  //padding: 10px 0;
+  //margin-top: 10px;
+  color: rgb(255, 255, 255);
+
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.control-label {
+  text-align: right;
+  height: 34px;
+  line-height: 34px;
+  color: #e6e6e6;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+.login-container {
+  position: relative;
+  height: 314px
+}
+
+.form-login-container {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  left: 0;
+}
+
+.buttons-login-container {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.circle {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  z-index: 10;
+  position: relative;
+
+  &.active {
+    background-color: rgb(255, 255, 255);
+  }
+
+  &.deactive {
+    background-color: rgb(102, 102, 102);
+  }
+}
+
+.circle-title {
+  &.active {
+    color: rgb(255, 255, 255);
+  }
+
+  &.deactive {
+    color: rgb(102, 102, 102);
+  }
+}
+
+.state-container {
+  width: 33.33%;
+  float: left;
+
+  color: rgb(240, 240, 240);
+}
+
+.subscribe-container {
+  height: 362px;
+}
+
+.step-one-container {
+  color: rgb(240, 240, 240);
+
+  .checkbox {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px !important;
+  }
+}
+
+.step-two-container {
+  color: rgb(240, 240, 240);
+}
+
+.step-three-container {
+  position: relative;
+  color: rgb(240, 240, 240);
+
+  .checkbox {
+    margin-top: 0px;
+    margin-left: 0px !important;
+    margin-bottom: 4px;
+  }
+}
+.my-row-step {
+  margin-top: 10px;
+}
+
+.buttons-container {
+  position: absolute;
+  bottom: 70px;
+  left: 0;
+  right: 0;
+}
+
+.redeem-container {
+  height: 320px;
+
+  .redeem-code-container {
+    position: absolute;
+    top: 38%;
+    right: 0;
+    left: 0;
+  }
+}
+
+#scrollbar-purchase {
+  padding: 0 25px 0 0;
+  margin: 0 0 10px;
+  position: relative;
+
+  .viewport {
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+    width: 100% !important;
+  }
+
+  .overview {
+    list-style: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  .scrollbar {
+    background: #4C4C4C;
+    border-radius: 5px;
+    height: 100%;
+    position: absolute;
+    right: 9rem;
+    top: 0;
+    width: 15px;
+    z-index: 100;
+  }
+
+  .track {
+    height: 100%;
+    width: 15px;
+    position: relative;
+  }
+
+  .thumb {
+    background: #DDD;
+    border-radius: 5px;
+    box-shadow: 0 0 23px 3px #0165D7;
+    height: 20px;
+    width: 15px;
+    cursor: pointer;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+.customize-checkbox{
+  input[type="checkbox"]{
+    margin-left: 0px !important;
+
+  }
+}
+
+#day-suscription{
+  padding: 6px 3px !important;
+  width: 77px !important;
+}
+
+#container-month-suscription{
+  margin-left: -45px !important;
+}
+
+#container-year-suscription{
+  margin-left: -17px !important;
+  padding-right: 0 !important;
+}
+
+#title-renew{
+  position: relative;
+  margin-left: 34px;
+  top: 4px;
+}

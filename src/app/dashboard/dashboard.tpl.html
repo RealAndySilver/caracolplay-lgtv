@@ -1,11 +1,88 @@
-<div class="dashboard">
+<header class="toolbar">
+	<div id="logo"><h2 style="color:white;"></h2></div>
+		<div class="search-bar">
+			<!--<div class="input-group">-->
+				<!--<span class="input-group-btn">-->
+					<!--<button class="btn dark-btn" type="button">-->
+						<!--<span class="glyphicon glyphicon-search"></span>-->
+					<!--</button>-->
+				<!--</span>-->
+				<!--<input placeholder="Buscar" type="text" class="form-control" ng-model="keywordToSearch" ng-keydown="blurInput($event)" focus-me="{{dashCtrl.shouldBeFocus}}">-->
+			<!--</div>-->
 
-	<div style="height:134px; width: 100%;"></div>
+            <div class="input-group">
+                <input type="text" placeholder class="form-control" ng-model="keywordToSearch" ng-keydown="blurInput($event)" focus-me="{{dashCtrl.shouldBeFocus}}"/>
+                <span class="glyphicon glyphicon-search"></span>
 
-	<carousel-container id="Cover" href="#Cover" slides="dashCtrl.slides" title="Cover" active="dashCtrl.isKeyboardActive(1)"></carousel-container>
-	<products-container id="Series" href="#Series" slides="dashCtrl.series" title="Series" active="dashCtrl.isKeyboardActive(2)"></products-container>
-	<products-container id="Peliculas" href="#Peliculas" slides="dashCtrl.movies" title="Peliculas" active="dashCtrl.isKeyboardActive(3)"></products-container>
-	<products-container id="Telenovelas" href="#Telenovelas" slides="dashCtrl.telenovelas" title="Telenovelas" active="dashCtrl.isKeyboardActive(4)"></products-container>
-	<products-container id="Noticias" href="#Noticias" slides="dashCtrl.news" title="Noticias" active="dashCtrl.isKeyboardActive(5)"></products-container>
+            </div>
+		</div>
+</header>
 
+<div class="scroll-area">
+	<!--
+	<search-view keyword="{{keywordToSearch}}" ng-show="dashCtrl.isInSearch" on-show="dashCtrl.showSearch(value)" preview="dashCtrl.activePreview(value)" item-selected="dashCtrl.selectedItem" restart-keyboard="restartConfigKeyboard"></search-view>
+	<preview-view ng-show="dashCtrl.showInfo()" on-show="dashCtrl.showPreview()" selected-item="dashCtrl.selectedItem"></preview-view>
+	-->
+
+	<div class="preview-cover">
+		<div class="background-blur">
+			<!--<img src="./assets/img/_imagenblurdef.jpg">-->
+            <div class="background-gradient">
+
+            </div>
+		</div>
+		<div class="preview-content">
+			<h2>{{dashCtrl.selectedItem.name}}</h2>
+			<h6 ng-if="dashCtrl.selectedItem.year != 0">{{dashCtrl.selectedItem.year}}</h6>
+			<rating class="pull-left rating-bar" ng-model="dashCtrl.selectedItem.rate" max="5" readonly="true"></rating>
+			<br/>
+			<h5 ng-bind-html="dashCtrl.selectedItem.feature_text | unsafe"></h5>
+			<div class="separator"></div>
+			<h6 ng-show="dashCtrl.selectedItem.seasons">Temporadas: {{dashCtrl.selectedItem.seasons}}</h6>
+			<h6 ng-if="dashCtrl.selectedItem.chapters && dashCtrl.selectedItem.chapters != 0">Capítulos: {{dashCtrl.selectedItem.chapters}}</h6>
+			<h6 ng-show="dashCtrl.selectedItem.gender">Genero: {{dashCtrl.selectedItem.gender}}</h6>
+		</div>
+	</div>
+
+	{{ dashCtrl.showInfo() }}
+
+	<div class="dashboard container">
+
+		<div style="height:115px; width: 100%;"></div>
+
+
+		<carousel-container id="Cover"
+                            href="#Cover"
+                            slides="dashCtrl.slides"
+                            title="Cover"
+                            active="dashCtrl.isKeyboardActive(1)"
+                            preview="dashCtrl.activePreview(value)"
+                            restart-keyboard="restartConfigKeyboard"
+                            item-selected="dashCtrl.selectedItem">
+        </carousel-container>
+
+
+		<div ng-repeat="item in dashCtrl.list"  class="verify-length" ng-validate-length="item.products.length" id="{{item.name | nospace}}" style="margin-top: -20px;">
+			<products-container href="{{'#' + item.name | nospace}}"
+                                slides="item.products"
+                                title="{{item.name}}"
+                                active="dashCtrl.isKeyboardActive($index + 2)"
+                                preview="dashCtrl.activePreview(value, item)"
+                                item-selected="dashCtrl.selectedItem"
+                                restart-keyboard="restartConfigKeyboard">
+
+            </products-container>
+		</div>
+
+		<footer>
+			<center>
+				<div>
+					<button class="btn inline" ng-class="{'caracol-btn':signOutSelected, 'caracol-btn-cancel':!signOutSelected}" ng-show="mail" ng-click="logout()">Cerrar sesión </button>
+					<div class="inline">
+						<a href ng-click="showTerms()" ng-class="{'link-active':termsSelected, 'link-deactive':!termsSelected}"><h6>Términos y condiciones</h6></a>
+					</div>
+				</div>
+			</center>
+		</footer>
+	</div>
 </div>

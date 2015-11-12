@@ -23,7 +23,7 @@ module.exports = function(grunt) {
     var fileConfig = {
         build_dir: 'build',
         compile_dir: 'bin',
-
+        debugEmulator: 'C:/Users/Diseño/webOS_SDK/SmartTVWorkspace/caracol',
         /**
          * This is a collection of file patterns for our app code (the
          * stuff in 'src/'). These paths are used in the configuration of
@@ -43,8 +43,12 @@ module.exports = function(grunt) {
             appTemplates: [ 'src/app/**/*.tpl.html' ],
             commonTemplates: [ 'src/common/**/*.tpl.html' ],
 
+            ttfFonts: [ 'src/fonts/**/*.ttf' ],
+            woffFonts: [ 'src/fonts/**/*.woff' ],
+
             html: [ 'src/index.html' ],
-            less: 'src/less/main.less'
+            less: ['src/less/main.less']
+
         },
 
         /**
@@ -82,11 +86,27 @@ module.exports = function(grunt) {
                 'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
                 'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',
                 'vendor/angular-ui-router/release/angular-ui-router.js',
-                'vendor/angular-ui-utils/modules/route/route.js'
+                'vendor/angular-ui-utils/modules/route/route.js',
+                'vendor/angular-ui-select/dist/select.min.js',
+                'vendor/angular-animate/angular-animate.min.js',
+                'vendor/TinyScrollbar/lib/jquery.tinyscrollbar.js',
+                'vendor/angular-bindonce/bindonce.min.js'
             ],
             css: [
             ],
+            fonts: [
+                'vendor/bootstrap/dist/fonts/glyphicons-halflings-regular.eot',
+                'vendor/bootstrap/dist/fonts/glyphicons-halflings-regular.svg',
+                'vendor/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf',
+                'vendor/bootstrap/dist/fonts/glyphicons-halflings-regular.woff',
+            ],
             assets: [
+                'vendor/angular-animate/angular-animate.min.js.map',
+                'vendor/angular-ui-select/dist/select.min.css',
+                'vendor/select2/select2.css',
+                'vendor/selectize/dist/css/selectize.default.css',
+                'vendor/TinyScrollbar/docs/css/tinyscrollbar.css'
+
             ]
         }
     };
@@ -113,10 +133,20 @@ module.exports = function(grunt) {
         /**
          * The directories to delete when 'grunt clean' is executed.
          */
-        clean: [
-            '<%= build_dir %>',
-            '<%= compile_dir %>'
-        ],
+        clean: {
+            build : ['<%= build_dir %>','<%= compile_dir %>'],
+            release : ['<%= build_dir %>','<%= compile_dir %>'],
+            testEmulator : [
+                '<%= debugEmulator %>/assets',
+                '<%= debugEmulator %>/fonts',
+                '<%= debugEmulator %>/src',
+                '<%= debugEmulator %>/vendor',
+                '<%= debugEmulator %>/index.html',
+                '<%= debugEmulator %>/karma-unit.js',
+                '<%= debugEmulator %>/templates-app.js',
+                '<%= debugEmulator %>/templates-common.js',
+            ]
+        },
 
         /**
          * The 'copy' task just copies files from A to B. We use it here to copy
@@ -124,6 +154,16 @@ module.exports = function(grunt) {
          * 'build_dir', and then to copy the assets to 'compile_dir'.
          */
         copy: {
+            copy_copy:{
+                files : [
+                    {
+                        src : ['**'],
+                        dest : '<%= debugEmulator %>',
+                        cwd : '<%= build_dir %>',
+                        expand : true
+                    }
+                ]
+            },
             build_app_assets: {
                 files: [
                     {
@@ -139,6 +179,17 @@ module.exports = function(grunt) {
                     {
                         src: [ '<%= vendor_files.assets %>' ],
                         dest: '<%= build_dir %>/assets/',
+                        cwd: '.',
+                        expand: true,
+                        flatten: true
+                    }
+                ]
+            },
+            build_vendor_fonts: {
+                files: [
+                    {
+                        src: [ '<%= vendor_files.fonts %>' ],
+                        dest: '<%= build_dir %>/fonts/',
                         cwd: '.',
                         expand: true,
                         flatten: true
@@ -172,6 +223,17 @@ module.exports = function(grunt) {
                         dest: '<%= compile_dir %>/assets',
                         cwd: '<%= build_dir %>/assets',
                         expand: true
+                    }
+                ]
+            },
+            font_icons : {
+                files: [
+                    {
+                        src: [ '<%= vendor_files.fonts %>' ],
+                        dest: '<%= compile_dir %>/fonts/',
+                        cwd: '.',
+                        expand: true,
+                        flatten: true
                     }
                 ]
             }
@@ -580,16 +642,24 @@ module.exports = function(grunt) {
 
     // The 'build' task gets your app ready to run for development and testing.
     grunt.registerTask('build', [
-        'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', 'less:build',
-        'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets',
+        'clean:build', 'html2js', 'jshint', 'coffeelint', 'coffee', 'less:build',
+        'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets', 'copy:build_vendor_fonts',
         'copy:build_appjs', 'copy:build_vendorjs', 'ngAnnotate:build', 'index:build', 'karmaconfig',
         'karma:continuous'
+    ]);
+
+
+    grunt.registerTask('clean-for-emulate',[
+        'clean:testEmulator'
+    ]);
+    grunt.registerTask('copy-for-emulate',[
+        'copy:copy_copy'
     ]);
 
     // The 'compile' task gets your app ready for deployment by concatenating and minifying your code.
     // Note - compile builds off of the build dir (look at concat:compile_js), so run grunt build before grunt compile
     grunt.registerTask('compile', [
-        'less:compile', 'copy:compile_assets', 'concat:compile_js', 'uglify', 'index:compile'
+        'less:compile', 'copy:compile_assets', 'copy:font_icons', 'concat:compile_js', 'uglify', 'index:compile'
     ]);
 
     // A utility function to get all app JavaScript sources.

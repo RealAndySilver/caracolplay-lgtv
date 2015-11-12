@@ -1,21 +1,146 @@
 /* Space out content a bit */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700);
+
 ::selection {
 	color: white;
 	background-color: rgba(0,0,0,0);
 }
 
+.modal {
+	background-color: rgba(0,0,0,0.6);
+}
+
+
+html{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.btn{
+	margin-top: 14px;
+	margin-bottom: 14px;
+}
+
+.glyphicon{
+	font-size: 30px !important;
+}
+
 body {
 	/*padding-top: 20px;
 	padding-bottom: 20px;*/
-	font-family: helvetica;
+
+	font-family: 'Open Sans';
+
+	width: 100%;
+	height: 100%;
 	background-color: #333;
-	background-image: url('../assets/img/fondo.jpg')
+	background-image: url('../assets/img/fondo.jpg');
+	position:relative;
+}
+
+.form-control{
+	border-radius: 5px;
+
+  &:focus{
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+    outline: 0px !important;
+  }
+}
+
+input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(2) !important; /* IE */
+  -moz-transform: scale(2) !important; /* FF */
+  -webkit-transform: scale(2) !important; /* Safari and Chrome */
+  -o-transform: scale(2) !important; /* Opera */
+  padding: 10px !important;
+  margin: 10px !important;
+}
+
+.caracol-btn{
+	font-size: 30px !important;
+	font-weight: bold !important;
+}
+
+.caracol-btn-cancel{
+	font-size: 30px !important;
+	font-weight: bold !important;
+}
+
+.circle-title{
+	font-size: 30px !important;
+}
+
+.form-control{
+	margin: 3px 0;
+	font-size: 30px !important;
+	height: 50px !important;
+}
+
+.control-label {
+	font-size: 30px !important;
+	line-height: 55px !important;
+}
+
+label{
+	font-size: 20px !important;
+}
+
+.search-bar{
+	.dark-btn{
+		margin: 3px 0;
+		width: 60px;
+		height: 50px;
+		font-size: 22px;
+
+		border-radius: 40px;
+	}
+}
+
+h1{
+	font-size: 50px !important;
+}
+
+h2{
+	font-size: 45px !important;
+}
+
+h3{
+	font-size: 40px !important;
+}
+
+h4{
+	font-size: 35px !important;
+}
+
+h5{
+	font-size: 30px !important;
+}
+
+h6{
+	font-size: 25px !important;
+}
+
+select{
+  appearance:none;
+  position: relative;
+  padding-right: 40px;
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  background: url("../assets/img/arrow-down.png") #333 no-repeat !important;
+  background-position-x: ~"calc(100% - 13px)" !important;
+  background-position-y: 20px !important;
 }
 
 .toolbar{
 		position: fixed;
 		background-image: url('../assets/img/header.jpg');
-		height: 134px;
+        background-repeat: repeat-x;
+  		height: 134px;
 		width: 100%;
 		z-index: 100;
 }
@@ -24,5 +149,12 @@ body {
 	background-image: url('../assets/img/logo-cp.png');
 	width: 375px;
 	height: 134px;
-	margin-left: 60px;
+	margin-left: 0px;
+}
+.margin-l-1rem{
+  margin-left: 1rem;
+}
+
+.full-width{
+  width: 100%;
 }

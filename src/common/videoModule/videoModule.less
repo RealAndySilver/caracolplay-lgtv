@@ -1,0 +1,81 @@
+/* Less file for videoModule*/
+@background-dark: #000;
+
+.video-container{
+	background-color: @background-dark;
+
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+
+	color: white;
+
+	z-index: 100;
+}
+
+.video-module{
+	position: absolute;
+	top: 50%;
+	margin-top: -34px;
+	left: 50%;
+	margin-left: -105px;
+}
+
+.video-container-ended{
+	background-color: @background-dark;
+	position: absolute;
+	top: 20px;
+	right: 55%;
+	left: 20px;
+	bottom: 50%;
+	color: white;
+
+	box-shadow: 0px 0px 6px @background-dark;
+}
+
+.video-actions{
+	position: absolute;
+	bottom: 15px;
+	top: 54%;
+	left: 20px;
+	right: 0;
+
+}
+
+.image-container{
+	position: absolute;
+	top: 20px;
+	right: 52%;
+	bottom: 50%;
+	.preview-image{
+		position: absolute;
+		height: 100%;
+	}
+}
+
+.preview-video{
+	position: absolute;
+	top: 0;
+	right: 5%;
+	left: 68%;
+
+	.options{
+		h3{
+			font-size: 34px !important;
+		}
+	}
+
+	h4 {
+		color: #999;
+		margin-top: 30px;
+	}
+	.space{
+		margin-bottom: 50px;
+	}
+	h3 {
+		color: #fff;
+		margin-top: 0;
+	}
+}

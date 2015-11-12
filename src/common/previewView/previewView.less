@@ -1,0 +1,149 @@
+/* Less file for previewView*/
+.cp-preview-father{
+	//background-color: rgba(0, 0, 0, 0.5);
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 90;
+}
+
+.preview-cover{
+	box-shadow: inset 39px 0px 70px -40px black;
+	background-color: #1B1B1B;
+	position: fixed;
+	width: 30%;
+	z-index: 90;
+	right: 0;
+	top: 132px;
+	bottom: 0;
+	padding-left: 20px;
+	padding-bottom: 14px;
+	padding-right: 20px;
+	padding-top: 14px;
+
+	color: #f0f0f0;
+
+	.separator{
+		margin-top: 40px;
+		margin-bottom: 20px;
+		height: 3px;
+		//background: linear-gradient(to right, rgba(0,0,0,0) 0%,#2A2A2A 50%,rgba(0,0,0,0) 100%);
+		background-color: #1A1A1A;
+	}
+
+	.rating-bar{
+		color:#FEB60B;
+		font-size:60px !important;
+		width: 100%;
+		text-align: left;
+
+		.glyphicon{
+			font-size: 44px !important;
+		}
+
+		.glyphicon-star-empty{
+			color: transparent;
+		}
+	}
+
+	.background-blur{
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		z-index: 0;
+
+		img{
+			width: 100%;
+
+			-webkit-mask-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(80%, #ffffff), color-stop(100%, rgba(255, 255, 255, 0)));
+		}
+	}
+
+	.preview-content{
+		position: relative;
+		z-index: 1;
+
+		h5{
+			line-height: 1;
+			height: 272px;
+			width: 100%;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 9;
+			-webkit-box-orient: vertical;
+		}
+	}
+}
+
+.preview-description{
+	background-color: #585858;
+	position: fixed;
+	width: 25%;
+	z-index: 91;
+	right: 30%;
+	top: 0;
+	bottom: 0;
+	padding-left: 14px;
+	padding-bottom: 14px;
+	padding-right: 14px;
+	padding-top: 140px;
+
+	color: #f0f0f0;
+
+	.preview-image {
+		margin-bottom: 20px;
+		//max-height: 240px;
+	}
+
+	h2{
+		margin-left: 10px;
+		min-height: 70px;
+	}
+
+	h3{
+		margin-left: 30px;
+	}
+}
+
+.preview-chapter{
+	h4{
+		//font-size: 24px;
+	}
+
+	h5{
+		//font-size: 20px;
+	}
+
+	.season-highlight{
+
+		.btn{
+			&:hover{
+				color:#FFF;
+			}
+
+			//background-color: #FD8116;
+		}
+		h5{
+			//font-size: 24px;
+		}
+	}
+}
+
+h6{
+	padding-top: 14px;
+}
+
+.movie-container{
+	.series-description{
+		right: 35%;	
+	}
+
+	  .preview-cover{
+		width: 35%;
+	}
+}

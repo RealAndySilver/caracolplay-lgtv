@@ -1,0 +1,18 @@
+{
+	"categories": [{
+		"name": "Últimos vistos",
+		"id": "1"
+	}, {
+		"name": "Telenovelas",
+		"id": "258"
+	}, {
+		"name": "Series",
+		"id": "274"
+	}, {
+		"name": "Películas",
+		"id": "252"
+	}, {
+		"name": "Noticias",
+		"id": "254"
+	}]
+}

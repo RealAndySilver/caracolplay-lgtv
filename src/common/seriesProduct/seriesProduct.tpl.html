@@ -1,0 +1,53 @@
+<div class="background-series"></div>
+<!-- <div class="background-image-container">
+	<div class="background-container">
+		<div class="img-container">
+			<img ng-src="{{selected.image_url}}">
+		</div>
+	</div>
+</div> -->
+<div class="back-button-container" ng-click="onBack()">
+	<img src="assets/img/back-button.png">
+</div>
+<div class="series-description">
+	<img style="position:absolute; top:0; right:0; left:0; width:100%; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.0) !important;" src="assets/img/imagenblurdef.jpg">
+	<div style="position:absolute; top:0; right:0; left:0; bottom:0; padding:10px;">
+		<h2>{{selected.name}}</h2>
+		<center><img class="preview-image" ng-src="{{selected.image_url}}" err-src="http://premium.icck.net/sites/default/files/blur.jpg" ></center>
+		<preview-list list="options" id="description" class="list-options" on-click="onEnterOptions(position)"></preview-list>
+	</div>
+</div>
+
+<div class="preview-season-container">
+	<div class="up-button" ng-click="onUpSeasons()">
+		<span class="glyphicon glyphicon-chevron-up"></span>
+	</div>
+	<div class="down-button" ng-click="onDownSeasons()">
+		<span class="glyphicon glyphicon-chevron-down"></span>
+	</div>
+	<div class="preview-season">
+		<preview-list list="seriesProductCtrl.seasonsButtons" id="season" on-click="onEnterSeason(position)"></preview-list>
+	</div>
+</div>
+<div class="chapters-season-container">
+	<div class="up-button" ng-click="onUpChapters()">
+		<span class="glyphicon glyphicon-chevron-up"></span>
+	</div>
+	<div class="down-button" ng-click="onDownChapters()">
+		<span class="glyphicon glyphicon-chevron-down"></span>
+	</div>
+	<div class="chapters-season">
+		<h3 class="title">{{getSeasonLabel()}}</h3>
+		<div class="separator"></div>
+		<preview-list list="seriesProductCtrl.episodesButtons" id="chapters" on-click="onEnterChapter(position)"></preview-list>
+	</div>
+</div>
+<div class="preview-chapter">
+	<!-- <div class="season-highlight">
+		<h5 class="btn btn-caracol-cancel">{{getSeasonButtonLabel()}}</h5>
+	</div> -->
+	<div class="chapter-info">
+		<h5>{{getChapterName()}}</h5>
+	</div>
+	<h4>{{seriesProductCtrl.chapterSelected.description | limitTo: MAX_STRING_SIZE}}{{seriesProductCtrl.chapterSelected.description.length > MAX_STRING_SIZE ? '...' : ''}}</h4>
+</div>

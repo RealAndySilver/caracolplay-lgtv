@@ -1,1 +1,106 @@
 /* Less file for carouselContainer*/
+
+.active-carousel{
+	border: 4px solid #FF7600;
+}
+
+.carousel-inner{
+	//height: 800px;
+	overflow: hidden;
+}
+
+.carousel-container{
+  	margin-top: -3px;
+	.caracol-btn-cancel, .caracol-btn {
+		padding: 10px 40px;
+	}
+	.carousel-control{
+		.glyphicon-chevron-left{
+			display: block;
+			color: transparent;
+			background: url("./img/left-arrow.png");
+			background-size: 100%;
+			width: 40px;
+			height: 122px;
+			margin-top: -66px;
+			margin-left: -40px;
+			text-shadow: 0 1px 2px rgba(0, 0, 0, 0.0);
+		}
+
+		.glyphicon-chevron-right{
+			display: block;
+			color: transparent !important;
+			background: url("./img/right-arrow.png");
+			background-size: 100%;
+			width: 40px;
+			height: 122px;
+			margin-top: -66px;
+			margin-right: -40px;
+			text-shadow: 0 1px 2px rgba(0, 0, 0, 0.0);
+		}
+	}
+}
+
+.carousel-caption{
+	left: 135px !important;
+	padding: 25px !important;
+	bottom: 60px !important;
+
+	background-color: transparent !important;
+
+	h5{
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 4;
+		-webkit-box-orient: vertical;
+	}
+
+	.rating-bar{
+		color: #F8B80C;
+		font-size: 16px;
+		width: 100%;
+		text-align: left;
+		line-height: 5;
+		padding-left: 14px;
+
+		.glyphicon {
+
+			&.glyphicon-star-empty{
+				color: transparent !important;
+
+				text-shadow: 0 1px 2px rgba(0, 0, 0, 0.0) !important;
+
+				&:before{
+					content: "\e000";
+				}
+			}
+		}
+	}
+}
+
+.f37{
+  font-size: 37px !important;
+  .glyphicon{
+    font-size: 37px!important;
+  }
+}
+#year-slide{
+  font-size: 24px;
+  margin-top: 72px;
+}
+
+#year-slide + span{
+  width: auto !important;
+}
+
+.text-slide-carousel{
+  text-align:left;
+  margin-left:0px;
+  clear:both;
+}
+.container-year-rating{
+  position: relative;
+  top: 97px;
+  z-index: 100;
+}

@@ -1,0 +1,637 @@
+<div class="container-purchase">
+    <div id="purchase-logo" ng-click="testLength()"></div>
+    <div id="purchase-title">
+        <h2 ng-hide="boughtVisible && !isSubscription">{{title}}</h2>
+
+        <div ng-show="boughtVisible && !isSubscription" class="title-bought">
+            <h3>{{title}}</h3>
+            <h5 ng-show="subscribeStep == 0">{{name}}</h5>
+            <h5 ng-show="subscribeStep == 1">{{getMail()}}</h5>
+        </div>
+    </div>
+    <div class="purchase-content">
+        <div id="purchase-description">
+            <div class="row">
+                <div class="col-lg-12">
+                    <center><h4>{{description}}</h4></center>
+                </div>
+            </div>
+        </div>
+
+        <!-- options div -->
+        <div class="purchase-buttons" ng-show="showOptions">
+            <div class="button-container" ng-class="{ 'active':item.active }" ng-repeat="item in options" >
+                <img ng-src="{{item.image}}">
+                <center><h3 class="item-title">{{item.title}}</h3></center>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <!-- login div -->
+        <div class="login-container" ng-show="loginVisible">
+            <div class="form-login-container">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="name">Usuario:</label>
+
+                        <div class="col-md-6">
+                            <input id="username" name="username" type="text" placeholder=""
+                                   class="form-control input-md"
+                                   ng-model="loginData.username" focus-me="{{needFocus('username')}}" ng-enter="next()"
+                                   ng-sides="onSides(side)" />
+                        </div>
+                    </div>
+                </div>
+                <br/>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="name">Contraseña:</label>
+
+                        <div class="col-md-6">
+                            <input id="password" name="password" type="password" placeholder=""
+                                   class="form-control input-md"
+                                   ng-model="loginData.password" focus-me="{{needFocus('password')}}" ng-enter="next()"
+                                   ng-sides="onSides(side)" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="buttons-login-container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="col-lg-3"></div>
+                        <button class="btn caracol-btn-cancel col-lg-9" ng-click="onBack()"
+                                focus-me="{{needFocus('back')}}" ng-enter="next()" ng-sides="onSides(side)">Volver
+                        </button>
+                    </div>
+                    <div class="col-lg-6">
+                        <button class="btn caracol-btn col-lg-9" ng-click="onLogin()" focus-me="{{needFocus('next')}}"
+                                ng-enter="next()" ng-sides="onSides(side)">Confirmar
+                        </button>
+                        <div class="col-lg-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- bought div -->
+        <div class="subscribe-container" ng-show="boughtVisible">
+            <div class="state-container">
+                <center>
+                    <div class="circle" ng-class="{ 'active' : isStepActive(0), 'deactive' : !isStepActive(0) }"></div>
+                    <label class="circle-title"
+                           ng-class="{ 'active' : isStepActive(0), 'deactive' : !isStepActive(0) }">Crear una
+                        cuenta</label>
+                </center>
+            </div>
+            <hr class="line" ng-class="{ 'active' : isStepActive(1), 'deactive' : !isStepActive(1) }" id="first-line">
+            <div class="state-container">
+                <center>
+                    <div class="circle" ng-class="{ 'active' : isStepActive(1), 'deactive' : !isStepActive(1) }"></div>
+                    <label class="circle-title"
+                           ng-class="{ 'active' : isStepActive(1), 'deactive' : !isStepActive(1) }">Datos de
+                        facturación</label>
+                </center>
+            </div>
+            <hr class="line deactive" ng-class="{ 'active' : isStepActive(2), 'deactive' : !isStepActive(2) }"
+                id="second-line">
+            <div class="state-container">
+                <center>
+                    <div class="circle" ng-class="{ 'active' : isStepActive(2), 'deactive' : !isStepActive(2) }"></div>
+                    <label class="circle-title"
+                           ng-class="{ 'active' : isStepActive(2), 'deactive' : !isStepActive(2) }">Pago</label>
+                </center>
+            </div>
+            <div class="clear"></div>
+
+            <!-- Subscription steps -->
+            <div class="steps-container">
+                <!-- Step 1 -->
+
+                <div class="step-one-container" ng-show="subscribeStep == 0">
+                    <div>
+                        <br/>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="name">Email:</label>
+
+                                <div class="col-md-6">
+                                    <input id="email" name="email" type="text" placeholder=""
+                                           class="form-control input-md"
+                                           ng-model="subscription.email" focus-me="{{needFocus('email')}}"
+                                           ng-enter="next()"
+                                           ng-sides="onSides(side)" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="name">Usuario:</label>
+
+                                <div class="col-md-6">
+                                    <input id="user" name="user" type="text" placeholder=""
+                                           class="form-control input-md"
+                                           ng-model="subscription.user" focus-me="{{needFocus('user')}}"
+                                           ng-enter="next()"
+                                           ng-sides="onSides(side)" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="name">Contraseña:</label>
+
+                                <div class="col-md-6">
+                                    <input id="password" name="name" type="password" placeholder=""
+                                           class="form-control input-md" ng-model="subscription.password"
+                                           focus-me="{{needFocus('password')}}" ng-enter="next()"
+                                           ng-sides="onSides(side)" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="name">Confirmar contraseña</label>
+
+                                <div class="col-md-6">
+                                    <input id="pasword" name="confirmPassword" type="password" placeholder=""
+                                           class="form-control input-md" ng-model="subscription.confirmPassword"
+                                           focus-me="{{needFocus('confirmPassword')}}" ng-enter="next()"
+                                           ng-sides="onSides(side)" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <form>
+                        <div class="row">
+                            <div class="col-lg-1"></div>
+                            <div class="col-lg-5">
+                                <div class="checkbox customize-checkbox">
+                                    <input type="checkbox" ng-model="subscription.terms"
+                                           focus-me="{{needFocus('terms')}}"
+                                           ng-enter="next()" ng-sides="onSides(side)" />
+                                    <label class="margin-l-1rem">Acepto
+                                        <a ng-click="showTerms()">términos y condiciones</a>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="checkbox customize-checkbox">
+                                    <input type="checkbox" ng-model="subscription.politics"
+                                           focus-me="{{needFocus('politics')}}" ng-enter="next()"
+                                           ng-sides="onSides(side)" />
+                                    <label class="margin-l-1rem">Acepto
+                                        <a href ng-click="showHabeasData()">politicas de privacidad</a>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-1"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-1"></div>
+                            <div class="col-lg-5">
+                                <div class="checkbox customize-checkbox">
+                                    <input type="checkbox" ng-model="subscription.requirements"
+                                           focus-me="{{needFocus('requirements')}}" ng-enter="next()"
+                                           ng-sides="onSides(side)" />
+                                    <label class="margin-l-1rem">
+                                        Acepto <a href ng-click="showVideoRequeriments()">requerimientos para reproducir video</a>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="checkbox customize-checkbox">
+                                    <input type="checkbox" ng-model="subscription.information"
+                                           focus-me="{{needFocus('information')}}" ng-enter="next()"
+                                           ng-sides="onSides(side)" />
+                                    <label class="margin-l-1rem">Deseo recibir información comercial</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-1"></div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Step 2 -->
+                <!------------>
+                <div class="step-two-container" ng-show="subscribeStep == 1">
+                    <br/>
+
+                    <div id="scrollbar-purchase">
+                        <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+
+                        <div class="viewport" custom-scroll-active="subscribeStep">
+                            <div class="overview full-width" style="height: 350px !important;">
+                                <div class="row">
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-5">
+                                        <div class="row">
+                                            <div class="col-lg-1"></div>
+                                            <label class="col-lg-11">Nombres:</label><br/>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-1"></div>
+                                            <div class="col-lg-11">
+                                                <input type="text" only-letters
+                                                       ng-model="subscription.name" class="form-control"
+                                                       focus-me="{{needFocus('name')}}" ng-enter="next()"
+                                                       focus-updated-scroll="0"
+                                                       ng-sides="onSides(side)" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="row">
+                                            <label class="col-lg-11">Apellidos:</label><br/>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-11">
+                                                <input type="text" only-letters ng-model="subscription.lastname"
+                                                       class="form-control" focus-me="{{needFocus('lastname')}}"
+                                                       focus-updated-scroll="0"
+                                                       ng-enter="next()" ng-sides="onSides(side)" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1"></div>
+                                </div>
+
+                                <div class="row my-row-step">
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-5">
+                                        <div class="row">
+                                            <div class="col-lg-1"></div>
+                                            <label class="col-lg-11">Tipo de documento:</label><br/>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-1"></div>
+                                            <div class="col-lg-11">
+                                                <select type="text" class="form-control customizeSelect"
+                                                        ng-model="subscription.documentType"
+                                                        ng-options="document.type for document in documentTypes"
+                                                        focus-me="{{needFocus('documentType')}}" ng-enter="next()"
+                                                        ng-sides="onSides(side)"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="row">
+                                            <label class="col-lg-11">Número de documento:</label><br/>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-11">
+                                                <input type="number" ng-model="subscription.documentNumber"
+                                                       class="form-control"
+                                                       focus-me="{{needFocus('documentNumber')}}" ng-enter="next()"
+                                                       ng-sides="onSides(side)" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row my-row-step">
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-5">
+                                        <div class="row">
+                                            <div class="col-lg-1"></div>
+                                            <label class="col-lg-11">Ciudad:</label><br/>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-1"></div>
+                                            <div class="col-lg-11">
+                                                <input type="text" ng-model="subscription.city" class="form-control"
+                                                       typeahead="address for address in getCities($viewValue)"
+                                                       typeahead-loading="loadingLocations"
+                                                       focus-me="{{needFocus('city')}}"
+                                                       focus-updated-scroll="50"
+                                                       ng-enter="next()" ng-sides="onSides(side)" />
+                                                <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="row">
+                                            <label class="col-lg-11">Dirección:</label><br/>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-11">
+                                                <input type="text"
+                                                       ng-model="subscription.address" class="form-control"
+                                                       focus-me="{{needFocus('address')}}" ng-enter="next()"
+                                                       ng-sides="onSides(side)" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row my-row-step">
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-5">
+                                        <div class="row">
+                                            <div class="col-lg-1"></div>
+                                            <label class="col-lg-11">Genero:</label><br/>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-1" ></div>
+                                            <div class="col-lg-11">
+                                                <select type="text" class="form-control customizeSelect" ng-model="subscription.gender"
+                                                        ng-options="g.name for g in genders"
+                                                        focus-me="{{needFocus('gender')}}"
+                                                        ng-enter="next()"
+                                                        ng-sides="onSides(side)"
+                                                        focus-updated-scroll="100" >
+                                                </select>
+                                                <!--<option value="" disabled>Seleccione</option>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="row">
+
+                                            <label class="col-lg-11">Fecha de nacimiento:</label><br/>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <select type="text" id="day-suscription" class="form-control customizeSelect" ng-model="subscription.birth_day"
+                                                        ng-options="day for day in days_month"
+                                                        focus-me="{{needFocus('birth_day')}}"
+                                                        ng-sides="onSides(side)" ng-enter="next()">
+                                                    <option value="" disabled>Día</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-6 " id="container-month-suscription">
+                                                <select type="text" class="form-control customizeSelect" ng-model="subscription.birth_month"
+                                                        ng-options="m.name for m in months"
+                                                        focus-me="{{needFocus('birth_month')}}"
+                                                        ng-sides="onSides(side)" ng-enter="next()">
+                                                    <option value="" disabled>Mes</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-3 " id="container-year-suscription">
+                                                <select type="text" class="form-control customizeSelect" ng-model="subscription.birth_year"
+                                                        ng-options="year for year in years_birth"
+                                                        focus-me="{{needFocus('birth_year')}}"
+                                                        ng-sides="onSides(side)" ng-enter="next()">
+                                                    <option value="" disabled>Año</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row my-row-step">
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-5">
+                                        <div class="row">
+                                            <div class="col-lg-1"></div>
+                                            <label class="col-lg-11">Número de telefono:</label><br/>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-1" ></div>
+                                            <div class="col-lg-11">
+                                                <input type="text"
+                                                       ng-model="subscription.phone" class="form-control"
+                                                       focus-me="{{needFocus('phone')}}" ng-enter="next()"
+                                                       ng-sides="onSides(side)" focus-updated-scroll="200"/>
+                                                <!--<option value="" disabled>Seleccione</option>-->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-5"></div>
+                                </div>
+
+                                <!--<div class="row my-row-step">-->
+                                    <!--<div class="col-lg-1"></div>-->
+                                    <!--<div class="col-lg-5">-->
+                                        <!--<div class="row">-->
+                                            <!--<div class="col-lg-1"></div>-->
+                                            <!--<label class="col-lg-11">Genero:</label><br/>-->
+                                        <!--</div>-->
+                                        <!--<div class="row">-->
+                                            <!--<div class="col-lg-1"></div>-->
+                                            <!--<div class="col-lg-11">-->
+                                                <!--<select type="text" class="form-control customizeSelect" ng-model="subscription.gender"-->
+                                                        <!--ng-options="document.type for document in documentTypes"-->
+                                                        <!--focus-me="{{needFocus('gender')}}"-->
+                                                        <!--focus-updated-scroll-->
+                                                        <!--ng-enter="next()" ng-sides="onSides(side)"></select>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-lg-5">-->
+                                        <!--<div class="row">-->
+
+                                            <!--<label class="col-lg-11">Fecha de nacimiento:</label><br/>-->
+                                        <!--</div>-->
+                                        <!--<div class="row">-->
+                                            <!--<div class="col-lg-3">-->
+                                                <!--<select type="text" class="form-control customizeSelect" ng-model="subscription.gender"-->
+                                                        <!--ng-options="document.type for document in documentTypes"-->
+                                                        <!--focus-me="{{needFocus('gender')}}"-->
+                                                        <!--ng-enter="next()" ng-sides="onSides(side)"></select>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-lg-3 ">-->
+                                                <!--<select type="text" class="form-control customizeSelect" ng-model="subscription.gender"-->
+                                                        <!--ng-options="document.type for document in documentTypes"-->
+                                                        <!--focus-me="{{needFocus('gender')}}"-->
+                                                        <!--ng-enter="next()" ng-sides="onSides(side)"></select>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-lg-5 ">-->
+                                                <!--<select type="text" class="form-control customizeSelect" ng-model="subscription.gender"-->
+                                                        <!--ng-options="document.type for document in documentTypes"-->
+                                                        <!--focus-me="{{needFocus('gender')}}"-->
+                                                        <!--ng-enter="next()" ng-sides="onSides(side)"></select>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <!--END Step 2 -->
+                <!--------------->
+
+                <!-- Step 3 -->
+                <div class="step-three-container" ng-show="subscribeStep == 2">
+                    <div class="row">
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-5">
+                            <div class="row">
+                                <div class="col-lg-1"></div>
+                                <label class="col-lg-11">Seleccionr tarjeta de credito:</label><br/>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-1"></div>
+                                <div class="col-lg-11">
+                                    <select type="text" class="form-control" ng-model="subscription.creditcard"
+                                            ng-options="card.type for card in creditcards"
+                                            focus-me="{{needFocus('creditcard')}}" ng-enter="next()"
+                                            ng-sides="onSides(side)">
+                                        <option value="">Seleccionar</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="row">
+                                <label class="col-lg-11">Numero de tarjeta:</label><br/>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-11">
+                                    <input type="text" maxlength="16" ng-model="subscription.creditNumber" class="form-control"
+                                           focus-me="{{needFocus('creditNumber')}}" ng-enter="next()"
+                                           ng-sides="onSides(side)" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-1"></div>
+                    </div>
+
+
+
+
+                    <div class="row my-row-step">
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-5">
+                            <div class="row">
+                                <div class="col-lg-1"></div>
+                                <label class="col-lg-11">Fecha de expiración:</label><br/>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-1"></div>
+                                <div class="col-lg-11">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <select type="expire.month" class="form-control"
+                                                    ng-model="subscription.month"
+                                                    ng-options="month.name for month in months"
+                                                    focus-me="{{needFocus('month')}}" ng-enter="next()"
+                                                    ng-sides="onSides(side)">
+                                                <option value="">Mes</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <select type="expire.year" class="form-control" ng-model="subscription.year"
+                                                    ng-options="year.name for year in years"
+                                                    focus-me="{{needFocus('year')}}" ng-enter="next()"
+                                                    ng-sides="onSides(side)">
+                                                <option value="">Año</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="row">
+                                <label class="col-lg-11">Codigo de seguridad:</label><br/>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <input type="text" class="form-control" ng-model="subscription.securityCode"
+                                           focus-me="{{needFocus('securityCode')}}" ng-enter="next()"
+                                           ng-sides="onSides(side)" />
+                                </div>
+                                <div class="col-lg-8">
+                                    <p>
+                                        <small>El codigo de seguridad se encuentra en la parte posterior de la tarjeta
+                                            de
+                                            credito.
+                                        </small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row my-row-step">
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-5">
+                            <div class="row">
+                                <div class="col-lg-1"></div>
+                                <div class="col-lg-11">
+                                    <div class="checkbox customize-checkbox" ng-show="isSubscription">
+                                        <input type="checkbox" ng-model="subscription.renewal"
+                                               focus-me="{{needFocus('renewal')}}" ng-enter="next()"
+                                               ng-sides="onSides(side)" />
+                                        <span id="title-renew">Renovar automaticamente</span>
+                                        <br/><br/>
+                                        <span>
+                                            Su plan se renovara automaticamente el {{expireDate | date:'dd/MM/yyyy'}}.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="place-to-pay-container">
+                        <img src="./assets/img/place-to-pay.png">
+                    </div>
+                </div>
+            </div>
+
+
+            <br/>
+
+            <div class="buttons-container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="col-lg-3"></div>
+                        <button class="btn caracol-btn-cancel col-lg-9" ng-click="onBackSuscription()"
+                                focus-me="{{needFocus('backSuscription')}}" ng-enter="next()" ng-sides="onSides(side)">
+                            Atrás
+                        </button>
+                    </div>
+                    <div class="col-lg-6">
+                        <button class="btn caracol-btn col-lg-9" ng-click="onNext()"
+                                focus-me="{{needFocus('nextSubscription')}}" ng-enter="next()" ng-sides="onSides(side)">
+                            Continuar
+                        </button>
+                        <div class="col-lg-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Redeem container -->
+        <div class="redeem-container" ng-show="redeemVisible">
+            <div class="row redeem-code-container">
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="name">Código:</label>
+
+                    <div class="col-md-6">
+                        <input id="name" name="name" type="text" placeholder="" class="form-control input-md"
+                               ng-model="redeemCode" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="buttons-container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="col-lg-3"></div>
+                        <button class="btn caracol-btn-cancel col-lg-9" ng-click="onBackSuscription()">Atrás</button>
+                    </div>
+                    <div class="col-lg-6">
+                        <button class="btn caracol-btn col-lg-9" ng-click="onRedeem()">Redimir</button>
+                        <div class="col-lg-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="purchase-support">
+            <div class="row">
+                <div class="col-lg-12">
+                    <center><h5>{{support}}</h5></center>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

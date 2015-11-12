@@ -1,0 +1,135 @@
+{
+	"recommended_products": [{
+		"product": {
+			"name": "San Tropel",
+			"type": "Telenovelas",
+			"id": "29",
+			"rate": "0",
+			"category_id": "258",
+			"image_url": "http://www.caracolplay.com/sites/default/files/styles/256x386/public/producciones/san_tropel.jpg",
+			"is_3g": "0",
+			"free": "0"
+		}
+	}, {
+		"product": {
+			"name": "La Suegra",
+			"type": "Telenovelas",
+			"id": "271",
+			"rate": "91",
+			"category_id": "258",
+			"image_url": "http://www.caracolplay.com/sites/default/files/styles/256x386/public/producciones/nuevolasuegrageneral.jpg",
+			"is_3g": "1",
+			"free": "0"
+		}
+	}, {
+		"product": {
+			"name": "La bella Ceci y el imprudente",
+			"type": "Telenovelas",
+			"id": "104",
+			"rate": "100",
+			"category_id": "258",
+			"image_url": "http://www.caracolplay.com/sites/default/files/styles/256x386/public/producciones/generallabellaceci.jpg?itok=KKCvZ-dV",
+			"is_3g": "1",
+			"free": "0"
+		}
+	}, {
+		"product": {
+			"name": "¿Quién Amará a María?",
+			"type": "Telenovelas",
+			"id": "128",
+			"rate": "100",
+			"category_id": "258",
+			"image_url": "http://www.caracolplay.com/sites/default/files/styles/256x386/public/producciones/generalquienamara.jpg",
+			"is_3g": "1",
+			"free": "0"
+		}
+	}, {
+		"product": {
+			"name": "Niche",
+			"type": "Telenovelas",
+			"id": "481",
+			"rate": "0",
+			"category_id": "258",
+			"image_url": "http://www.caracolplay.com/sites/default/files/styles/256x386/public/producciones/niche_general.jpg?itok=3xY11h6g",
+			"is_3g": "1",
+			"free": "0"
+		}
+	}, {
+		"product": {
+			"name": "Sobregiro de Amor",
+			"type": "Telenovelas",
+			"id": "33",
+			"rate": "100",
+			"category_id": "258",
+			"image_url": "http://www.caracolplay.com/sites/default/files/styles/256x386/public/producciones/sobregiro.jpg",
+			"is_3g": "0",
+			"free": "0"
+		}
+	}, {
+		"product": {
+			"name": "Vecinos",
+			"type": "Telenovelas",
+			"id": "35",
+			"rate": "97",
+			"category_id": "258",
+			"image_url": "http://www.caracolplay.com/sites/default/files/styles/256x386/public/producciones/vecinos.jpg",
+			"is_3g": "0",
+			"free": "0"
+		}
+	}, {
+		"product": {
+			"name": "Amar y Temer",
+			"type": "Telenovelas",
+			"id": "188",
+			"rate": "100",
+			"category_id": "258",
+			"image_url": "http://www.caracolplay.com/sites/default/files/styles/256x386/public/producciones/generalamarytemer.jpg",
+			"is_3g": "1",
+			"free": "0"
+		}
+	}, {
+		"product": {
+			"name": "La Ex",
+			"type": "Telenovelas",
+			"id": "178",
+			"rate": "100",
+			"category_id": "258",
+			"image_url": "http://www.caracolplay.com/sites/default/files/styles/256x386/public/producciones/generallaexo.jpg",
+			"is_3g": "1",
+			"free": "0"
+		}
+	}, {
+		"product": {
+			"name": "Cinco viudas Sueltas",
+			"type": "Telenovelas",
+			"id": "220",
+			"rate": "0",
+			"category_id": "258",
+			"image_url": "http://www.caracolplay.com/sites/default/files/styles/256x386/public/producciones/generalcincoviudas_0.jpg?itok=_1XESuTn",
+			"is_3g": "1",
+			"free": "0"
+		}
+	}, {
+		"product": {
+			"name": "Rafael Orozco, El ídolo",
+			"type": "Telenovelas",
+			"id": "67",
+			"rate": "96",
+			"category_id": "258",
+			"image_url": "http://www.caracolplay.com/sites/default/files/styles/256x386/public/producciones/orozco.jpg",
+			"is_3g": "1",
+			"free": "0"
+		}
+	}, {
+		"product": {
+			"name": "Pedro el Escamoso",
+			"type": "Telenovelas",
+			"id": "10",
+			"rate": "100",
+			"category_id": "258",
+			"image_url": "http://www.caracolplay.com/sites/default/files/styles/256x386/public/producciones/escamoso.jpg",
+			"is_3g": "0",
+			"free": "0"
+		}
+	}]
+}

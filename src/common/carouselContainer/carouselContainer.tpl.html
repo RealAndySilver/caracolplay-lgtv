@@ -1,12 +1,24 @@
-<carousel interval="CarouselContainerCtrl.myInterval">
-	<slide ng-repeat="slide in slides" active="slide.active" class="slide">
-		<img ng-src="{{slide.image}}" style="margin:auto; overflow-y:hidden; height:400px;" height='400' width='100%'>
-		<div class="carousel-caption">
-			<rating class="pull-left" ng-model="slide.rate" max="5" readonly="true" style="color:orange; font-size:16px; width: 100px;"></rating>
-			<br>
-			<h1 style="text-align:left;">{{slide.name}}</h1>
-			<h4 style="text-align:left; margin-left:0px;">{{slide.text}}</h4>
-			<p><a class="btn pull-left btn-lg btn-warning" ng-href="#/actividad">Ver Producción</a></p>
-		</div>
-	</slide>
-</carousel>
+<div class="carousel-container">
+	<carousel interval="CarouselContainerCtrl.myInterval" class="carousel slide">
+		<slide ng-repeat="slide in slides" active="slide.active" class="slide">
+
+			<img ng-src="{{slide.image}}" style="margin:auto; overflow-y:hidden;" width='100%'>
+			<!--<img style="margin:auto; overflow-y:hidden;" width='100%'>-->
+			<div class="carousel-caption">
+                <div class="clearfix container-year-rating">
+                    <span id="year-slide" class="pull-left" ng-show="slide.year != 0">{{slide.year}}</span>
+                    <rating class="pull-left rating-bar f37" ng-model="slide.rate" max="5" readonly="true"></rating>
+                </div>
+				<br>
+				<!-- <h1 style="text-align:left;">{{slide.name}}</h1> -->
+				<h5 class="text-slide-carousel">{{slide.text}}</h5>
+				<p>
+                    <a class="btn pull-left btn-lg" ng-class="{'caracol-btn':active, 'caracol-btn-cancel':!active}"
+                       ng-click="onClickButton()">
+                        Ver Producción
+                    </a>
+                </p>
+			</div>
+		</slide>
+	</carousel>
+</div>

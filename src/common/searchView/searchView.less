@@ -1,0 +1,117 @@
+/* Less file for searchView*/
+.preview-cover-search{
+	background-color: #000000;
+	position: fixed;
+	width: 30%;
+	z-index: 92;
+	right: 0;
+	top: 134px;
+	bottom: 0;
+	padding-left: 20px;
+	padding-bottom: 14px;
+	padding-right: 20px;
+	padding-top: 14px;
+
+	color: #f0f0f0;
+
+	.search-container{
+		position: relative;
+
+		h6{
+			width: 100%;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 5;
+			-webkit-box-orient: vertical;
+		}
+
+		.rating-bar{
+			color:#FEB60B;
+			font-size:60px !important;
+			width: 100%;
+			text-align: left;
+
+			.glyphicon{
+				font-size: 44px !important;
+			}
+
+			.glyphicon-star-empty{
+				color: transparent;
+			}
+		}
+	}
+
+	.preview-image {
+		width: 55%;
+		margin-top: 20px;
+		margin-bottom: 20px;
+		//max-height: 240px;
+	}
+}
+
+.search-result-container{
+	position: fixed;
+	width: 65%;
+	z-index: 94;
+	right: 30%;
+	top: 134px;
+	bottom: 0;
+
+	.up-button{
+		position: absolute;
+		right: 15px;
+		top: 15px;
+		z-index: 95;
+
+		color: #6F6E6C;
+
+		&:hover{
+			color: #fff;
+		}
+	}
+
+	.down-button{
+		position: absolute;
+		right: 15px;
+		bottom: 15px;
+		z-index: 95;
+
+		color: #6F6E6C;
+
+		&:hover{
+			color: #fff;
+		}
+	}
+}
+
+.search-results{
+	background-color: transparent;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	
+	padding-left: 14px;
+	padding-bottom: 14px;
+	padding-right: 80px;
+	padding-top: 0px;
+
+	overflow-y: scroll;
+	overflow-x: hidden;
+
+	color: #f0f0f0;
+};
+.background-blur-search{
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.search-bar{
+	&.active{
+		width: 65%;
+	}
+}
