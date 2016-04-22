@@ -1,4 +1,4 @@
-    (function (app) {
+(function (app) {
     var ModalInstanceService = function () {
         var self = this;
 
@@ -16,9 +16,9 @@
     app.constant('ModalInstance', {});
 
     var PurchaseViewController = function ($scope, hotkeys, UserService, PurchaseService, UserInfo,
-                                           $modalInstance, typeView, $state, AlertDialogService,
-                                           productionId, chapterId, ProgressDialog, TermsViewService,
-                                           DevInfo, name, $stateParams, $rootScope, RegisterUserService, $timeout) {
+            $modalInstance, typeView, $state, AlertDialogService,
+            productionId, chapterId, ProgressDialog, TermsViewService,
+            DevInfo, name, $stateParams, $rootScope, RegisterUserService, $timeout) {
         var itemSelected = 0;
 
         var self = this;
@@ -42,7 +42,7 @@
          * un código para redimir
          * @type {Object | null}
          */
-            //$rootScope.objectRedeem;
+        //$rootScope.objectRedeem;
 
         $scope.loginData = {};
 
@@ -93,15 +93,15 @@
             return UserInfo.mail;
         };
 
-        $scope.$on("$stateChangeStart", function (event, toState,toParams,fromState,fromParams) {
-            if(fromState.name === "purchase"){
+        $scope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
+            if (fromState.name === "purchase") {
                 var objSaved = {};
                 objSaved.susbscription = $scope.subscription;
                 $rootScope.scopePurchase = objSaved;
             }
         });
 
-        var clearSaved = function(){
+        var clearSaved = function () {
             delete $rootScope.scopePurchase;
         };
 
@@ -110,7 +110,7 @@
         $scope.subscribeParcels = [{name: '1 x $58.000'}];
         $scope.genders = [{name: 'Masculino', acronym: 'M'}, {name: 'Femenino', acronym: 'F'}];
         $scope.rentParcels = [{name: '1 x $34.800'}];
-        $scope.creditcards = [{type: 'VISA', id: 1}, {type: 'Mastercard', id: 2},{type:'Amex',id:3}];
+        $scope.creditcards = [{type: 'VISA', id: 1}, {type: 'Mastercard', id: 2}, {type: 'Amex', id: 3}];
         $scope.documentTypes = [
             {type: 'Tarjeta de Identidad', acronym: 'CC', id: 1},
             {type: 'Cedula de ciudadania', acronym: 'TI', id: 2},
@@ -159,8 +159,6 @@
             var promiseIsContentAvaliable = UserService.isContentAvailableForUser($scope.getChapterId());
 
             promiseIsContentAvaliable.then(function (response) {
-                console.log("isContentAvailable: ->:", response);
-                console.log("response.data.video.status:", response.data.video.status);
                 ProgressDialogService.dismiss();
                 if (response.data.status) {
                     if (response.data.video.status) {
@@ -170,11 +168,11 @@
                         });
                     } else {
                         AlertDialogService.show(
-                            'alert',
-                            response.data.video.message,
-                            'Aceptar',
-                            configHotkeys
-                        );
+                                'alert',
+                                response.data.video.message,
+                                'Aceptar',
+                                configHotkeys
+                                );
                         $timeout(function () {
                             $state.go('dashboard');
                         }, 1000);
@@ -204,7 +202,7 @@
         $scope.login = {
             title: 'Ingresar a la cuenta',
             description: 'Ingresa los datos si ya tienes un nombre de usuario y una contraseña ' +
-            'en CaracolPlay o en nuestra red de portales',
+                    'en CaracolPlay o en nuestra red de portales',
             support: 'Si tienes problemas para ver este contenido contáctanos a soporte@caracolplay.com'
         };
 
@@ -463,7 +461,6 @@
                                 $scope.subscribeStep = 1; // solo para pruebas
                                 $scope.subscribeStep = 0;
                             }
-                            console.log("caso 1", $scope.subscribeStep);
                             $scope.isSubscription = false;
                             $scope.isRent = true;
                             $scope.showOptions = false;
@@ -481,9 +478,7 @@
                                 $scope.subscribeStep = 1; //solo para pruebas
                                 $scope.subscribeStep = 0;
                             }
-
-                            console.log("caso 2", $scope.subscribeStep);
-
+                            
                             $scope.showOptions = false;
                             $scope.isRent = false;
                             $scope.isSubscription = true;
@@ -491,7 +486,6 @@
                             $scope.redeemVisible = false;
                             break;
                         case 3:
-                            console.log("caso 3");
                             $scope.showOptions = false;
                             $scope.isRent = false;
                             $scope.isSubscription = false;
@@ -510,19 +504,16 @@
             // check if user is login
             if (!$scope.redeemCode) {
                 AlertDialogService.show(
-                    'alert',
-                    'El codigo para redimir no puede estar vacio',
-                    'Aceptar',
-                    configHotkeys
-                );
+                        'alert',
+                        'El codigo para redimir no puede estar vacio',
+                        'Aceptar',
+                        configHotkeys
+                        );
                 return;
             }
-            console.log("$scope.redeemCode :" + 500, $scope.redeemCode);
             var redeemPromise = PurchaseService.validateCode($scope.redeemCode);
 
             redeemPromise.then(function (response) {
-                console.log(response);
-
                 if (response.data.status) {
                     if (response.data.info_code) {
                         if (response.data.info_code.type) {
@@ -538,22 +529,22 @@
 
                             $rootScope.objectRedeem = response;
                             $state.go('purchase', {
-                                    typeView: 4,
-                                    chapterId: $stateParams.productionId,
-                                    productionId: $stateParams.chapterId,
-                                    name: $stateParams.name
-                                }
+                                typeView: 4,
+                                chapterId: $stateParams.productionId,
+                                productionId: $stateParams.chapterId,
+                                name: $stateParams.name
+                            }
                             );
                             //$scope.options.length = 2;
                         }
                     }
                 } else {
                     AlertDialogService.show(
-                        'alert',
-                        response.data.response,
-                        'Aceptar',
-                        configHotkeys
-                    );
+                            'alert',
+                            response.data.response,
+                            'Aceptar',
+                            configHotkeys
+                            );
                 }
             });
         };
@@ -574,7 +565,6 @@
         $scope.citiesStrings = [];
 
         $scope.testLength = function () {
-            console.log($scope.objectRedeem);
         };
 
         $scope.getCities = function (val) {
@@ -590,81 +580,81 @@
         $scope.validateStepOne = function () {
             if ($scope.subscription.email === '') {
                 AlertDialogService.show(
-                    'warning',
-                    'El campo de email no puede estar vacio',
-                    'Aceptar',
-                    configHotkeys
-                );
+                        'warning',
+                        'El campo de email no puede estar vacio',
+                        'Aceptar',
+                        configHotkeys
+                        );
                 return false;
             }
 
             if ($scope.subscription.user === '') {
                 AlertDialogService.show(
-                    'alert',
-                    'El campo de usuario no puede estar vacio',
-                    'Aceptar',
-                    configHotkeys
-                );
+                        'alert',
+                        'El campo de usuario no puede estar vacio',
+                        'Aceptar',
+                        configHotkeys
+                        );
                 return false;
             }
 
             if ($scope.subscription.password === '') {
                 AlertDialogService.show(
-                    'alert',
-                    'El campo de contraseña no puede estar vacio',
-                    'Aceptar',
-                    configHotkeys
-                );
+                        'alert',
+                        'El campo de contraseña no puede estar vacio',
+                        'Aceptar',
+                        configHotkeys
+                        );
                 return false;
             }
 
             if ($scope.subscription.confirmPassword === '') {
                 AlertDialogService.show(
-                    'alert',
-                    'El campo de confirmar no puede estar vacio',
-                    'Aceptar',
-                    configHotkeys
-                );
+                        'alert',
+                        'El campo de confirmar no puede estar vacio',
+                        'Aceptar',
+                        configHotkeys
+                        );
                 return false;
             }
 
             if ($scope.subscription.password !== $scope.subscription.confirmPassword) {
                 AlertDialogService.show(
-                    'alert',
-                    'Las contraseñas no coiciden',
-                    'Aceptar',
-                    configHotkeys
-                );
+                        'alert',
+                        'Las contraseñas no coiciden',
+                        'Aceptar',
+                        configHotkeys
+                        );
                 return false;
             }
 
             if (!$scope.subscription.terms) {
                 AlertDialogService.show(
-                    'alert',
-                    'Debes aceptar los términos y condiciones',
-                    'Aceptar',
-                    configHotkeys
-                );
+                        'alert',
+                        'Debes aceptar los términos y condiciones',
+                        'Aceptar',
+                        configHotkeys
+                        );
                 return false;
             }
 
             if (!$scope.subscription.politics) {
                 AlertDialogService.show(
-                    'alert',
-                    'Debes aceptar los politicas de privacidad',
-                    'Aceptar',
-                    configHotkeys
-                );
+                        'alert',
+                        'Debes aceptar los politicas de privacidad',
+                        'Aceptar',
+                        configHotkeys
+                        );
                 return false;
             }
 
             if (!$scope.subscription.requirements) {
                 AlertDialogService.show(
-                    'alert',
-                    'Debes aceptar los requerimientos para reproducir video',
-                    'Aceptar',
-                    configHotkeys
-                );
+                        'alert',
+                        'Debes aceptar los requerimientos para reproducir video',
+                        'Aceptar',
+                        configHotkeys
+                        );
                 return false;
             }
 
@@ -674,63 +664,63 @@
         $scope.validateStepTwo = function () {
             if (!$scope.subscription.name) {
                 AlertDialogService.show(
-                    'alert',
-                    'El campo de nombres no puede estar vacio',
-                    'Aceptar',
-                    configHotkeys
-                );
+                        'alert',
+                        'El campo de nombres no puede estar vacio',
+                        'Aceptar',
+                        configHotkeys
+                        );
                 return false;
             }
 
             if (!$scope.subscription.lastname) {
                 AlertDialogService.show(
-                    'alert',
-                    'El campo de apellidos no puede estar vacio',
-                    'Aceptar',
-                    configHotkeys
-                );
+                        'alert',
+                        'El campo de apellidos no puede estar vacio',
+                        'Aceptar',
+                        configHotkeys
+                        );
                 return false;
             }
 
             if (!$scope.subscription.city) {
                 AlertDialogService.show(
-                    'alert',
-                    'El campo de ciudad no puede estar vacio',
-                    'Aceptar',
-                    configHotkeys
-                );
+                        'alert',
+                        'El campo de ciudad no puede estar vacio',
+                        'Aceptar',
+                        configHotkeys
+                        );
                 return false;
             }
 
             var positionSelectedCity = $scope.citiesStrings.indexOf($scope.subscription.city);
-            if(positionSelectedCity === -1 ){
+            if (positionSelectedCity === -1) {
                 $scope.subscription.city = '';
                 AlertDialogService.show(
-                    'alert',
-                    'Debe seleccionar la ciudad de nuevo, asegurese de seleccionar una de las opciones del autocompletado',
-                    'Aceptar',
-                    configHotkeys
-                );
+                        'alert',
+                        'Debe seleccionar la ciudad de nuevo, asegurese de seleccionar una de las opciones del autocompletado',
+                        'Aceptar',
+                        configHotkeys
+                        );
                 return false;
             }
 
             if (!$scope.subscription.documentType) {
                 AlertDialogService.show(
-                    'alert',
-                    'El campo de tipo de documento no puede estar vacio',
-                    'Aceptar',
-                    configHotkeys
-                );
+                        'alert',
+                        'El campo de tipo de documento no puede estar vacio',
+                        'Aceptar',
+                        configHotkeys
+                        );
                 return false;
             }
 
             if (!$scope.subscription.documentNumber) {
                 AlertDialogService.show(
-                    'alert',
-                    'El campo de numero de documento no puede estar vacio',
-                    'Aceptar',
-                    configHotkeys
-                );
+                        'alert',
+                        'El campo de numero de documento no puede estar vacio',
+                        'Aceptar',
+                        configHotkeys
+                        );
                 return false;
             }
             return true;
@@ -739,61 +729,61 @@
         $scope.validateStepThree = function () {
             if (!$scope.subscription.creditcard) {
                 AlertDialogService.show(
-                    'alert',
-                    'El campo de tipo de tarjeta de credito no puede estar vacio',
-                    'Aceptar',
-                    configHotkeys
-                );
+                        'alert',
+                        'El campo de tipo de tarjeta de credito no puede estar vacio',
+                        'Aceptar',
+                        configHotkeys
+                        );
                 return false;
             }
 
             if (!$scope.subscription.creditNumber) {
                 AlertDialogService.show(
-                    'alert',
-                    'El campo de numero de tarjeta de credito no puede estar vacio',
-                    'Aceptar',
-                    configHotkeys
-                );
+                        'alert',
+                        'El campo de numero de tarjeta de credito no puede estar vacio',
+                        'Aceptar',
+                        configHotkeys
+                        );
                 return false;
             }
 
             if (!$scope.subscription.month) {
                 AlertDialogService.show(
-                    'alert',
-                    'El campo de mes de expiracion no puede estar vacio',
-                    'Aceptar',
-                    configHotkeys
-                );
+                        'alert',
+                        'El campo de mes de expiracion no puede estar vacio',
+                        'Aceptar',
+                        configHotkeys
+                        );
                 return false;
             }
 
             if (!$scope.subscription.year) {
                 AlertDialogService.show(
-                    'alert',
-                    'El campo de año de expiracion no puede estar vacio',
-                    'Aceptar',
-                    configHotkeys
-                );
+                        'alert',
+                        'El campo de año de expiracion no puede estar vacio',
+                        'Aceptar',
+                        configHotkeys
+                        );
                 return false;
             }
 
             if (!$scope.subscription.securityCode) {
                 AlertDialogService.show(
-                    'alert',
-                    'El campo de codigo de seguridad no puede estar vacio',
-                    'Aceptar',
-                    configHotkeys
-                );
+                        'alert',
+                        'El campo de codigo de seguridad no puede estar vacio',
+                        'Aceptar',
+                        configHotkeys
+                        );
                 return false;
             }
 
             if (!$scope.subscription.parcel) {
                 AlertDialogService.show(
-                    'alert',
-                    'El campo de parcel no puede estar vacio',
-                    'Aceptar',
-                    configHotkeys
-                );
+                        'alert',
+                        'El campo de parcel no puede estar vacio',
+                        'Aceptar',
+                        configHotkeys
+                        );
                 return false;
             }
             return true;
@@ -813,28 +803,28 @@
                      $scope.subscription.politics,
                      $scope.subscription.terms,
                      $scope.subscription.information);
-
+                     
                      ProgressDialog.start();
                      var successCallbackCreateUser = function (response) {
                      ProgressDialog.dismiss();
-
+                     
                      UserInfo.alias = $scope.subscription.user;
                      UserInfo.password = $scope.subscription.password;
                      UserInfo.mail = $scope.subscription.email;
                      UserInfo.uid = response.data.uid;
-
+                     
                      localStorage.setItem('userInfo', JSON.stringify(UserInfo));
-
+                     
                      $scope.subscribeStep++;
                      $scope.activeQueue = $scope.rentQueueStep2;
                      $scope.active = $scope.activeQueue[0];
                      $scope.activeNumber = 0;
                      };
-
+                     
                      var failureCallbackCreateUser = function (response) {
-                     console.log('error', response);
+                     logs.set('error', response);
                      ProgressDialog.dismiss();
-
+                     
                      AlertDialogService.show(
                      'alert',
                      response.data.form_errors[0],
@@ -844,9 +834,9 @@
                      }
                      );
                      };
-
+                     
                      createUserPromise.then(successCallbackCreateUser, failureCallbackCreateUser);
-                     console.log($scope.subscription);
+                     logs.set($scope.subscription);
                      */
                     $scope.subscribeStep++;
                     $scope.activeQueue = $scope.rentQueueStep2;
@@ -864,16 +854,14 @@
                         return;
                     }
 
-                    if(UserInfo.alias){
+                    if (UserInfo.alias) {
                         $scope.activeQueue = $scope.rentQueueStep2;
                         $scope.subscribeStep++;
 
                         if ($scope.isRent) {
                             $scope.activeQueue = $scope.rentQueueStep2;
-                            console.log("entro por aca 1");
                         } else {
                             $scope.activeQueue = $scope.subscriptionQueueStep3;
-                            console.log("entro por aca 2");
                         }
                         $scope.active = $scope.activeQueue[0];
 
@@ -884,31 +872,29 @@
 
                     ProgressDialog.start();
                     var createUserPromise = PurchaseService.createUser(
-                        $scope.subscription.user,
-                        $scope.subscription.password,
-                        $scope.subscription.email,
-                        $scope.subscription.name,
-                        $scope.subscription.lastname,
-                        $scope.subscription.politics,
-                        $scope.subscription.terms,
-                        $scope.subscription.information
-                    );
+                            $scope.subscription.user,
+                            $scope.subscription.password,
+                            $scope.subscription.email,
+                            $scope.subscription.name,
+                            $scope.subscription.lastname,
+                            $scope.subscription.politics,
+                            $scope.subscription.terms,
+                            $scope.subscription.information
+                            );
 
                     var successCallbackCreateUser = function (response) {
-                        console.log("response create user", response);
-
                         if (response.data.form_errors && response.data.form_errors.length > 0) {
                             failureCallbackCreateUser(response);
                             return;
                         }
                         RegisterUserService.saveUserInfo(
-                            $scope.subscription.user,
-                            $scope.subscription.password,
-                            $scope.subscription.email,
-                            response.data.uid,
-                            $scope.subscription.name,
-                            $scope.subscription.lastname
-                        );
+                                $scope.subscription.user,
+                                $scope.subscription.password,
+                                $scope.subscription.email,
+                                response.data.uid,
+                                $scope.subscription.name,
+                                $scope.subscription.lastname
+                                );
                         //UserInfo.alias = $scope.subscription.user;
                         //UserInfo.password = $scope.subscription.password;
                         //UserInfo.mail = $scope.subscription.email;
@@ -925,16 +911,15 @@
                     };
 
                     var failureCallbackCreateUser = function (response) {
-                        console.log('error', response);
                         ProgressDialog.dismiss();
 
                         AlertDialogService.show(
-                            'alert',
-                            response.data.form_errors[0],
-                            'Aceptar',
-                            function () {
-                                configHotkeys();
-                            }
+                                'alert',
+                                response.data.form_errors[0],
+                                'Aceptar',
+                                function () {
+                                    configHotkeys();
+                                }
                         );
                         $scope.subscribeStep = 0;
                     };
@@ -950,10 +935,8 @@
 
                     if ($scope.isRent) {
                         $scope.activeQueue = $scope.rentQueueStep2;
-                        console.log("entro por aca 1");
                     } else {
                         $scope.activeQueue = $scope.subscriptionQueueStep3;
-                        console.log("entro por aca 2");
                     }
                     $scope.active = $scope.activeQueue[0];
                     $scope.activeNumber = 0;
@@ -967,47 +950,43 @@
 
                     ProgressDialog.start();
                     var successCallbackExecuteTransaction = function (response) {
-                        console.log("resultado de crear orden", response);
                         ProgressDialog.dismiss();
                         if (response.data.status === 'Aprobada') {
                             AlertDialogService.show(
-                                'alert',
-                                response.data.user + ': ' + response.data.result,
-                                'Aceptar',
-                                function () {
-                                    configHotkeys();
-                                    $state.go('videoModule', {
-                                        'chapterId': chapterId,
-                                        'productionId': productionId
+                                    'alert',
+                                    response.data.user + ': ' + response.data.result,
+                                    'Aceptar',
+                                    function () {
+                                        configHotkeys();
+                                        $state.go('videoModule', {
+                                            'chapterId': chapterId,
+                                            'productionId': productionId
+                                        });
                                     });
-                                });
                         } else {
                             AlertDialogService.show(
-                                'alert',
-                                response.data.msg,
-                                'Aceptar',
-                                configHotkeys
-                            );
+                                    'alert',
+                                    response.data.msg,
+                                    'Aceptar',
+                                    configHotkeys
+                                    );
                         }
                     };
 
                     var failureCallback = function (response) {
                         ProgressDialog.dismiss();
-                        console.log(response);
                         AlertDialogService.show(
-                            'alert',
-                            response.data[0],
-                            'Aceptar',
-                            configHotkeys
-                        );
+                                'alert',
+                                response.data[0],
+                                'Aceptar',
+                                configHotkeys
+                                );
                     };
 
                     var successCallbackCreateOrder = function (response) {
-                        console.log("successCallbackCreateOrder", response);
                         var order = response.data;
 
                         var positionSelectedCity = $scope.citiesStrings.indexOf($scope.subscription.city);
-                        console.log($scope.citiesStrings);
                         var transactionInfo = {
                             'order_id': order.order_id,
                             'card_info': {
@@ -1030,20 +1009,17 @@
                                 'city': $scope.cities[positionSelectedCity].id
                             }
                         };
-                        console.log(transactionInfo);
                         var promiseExecute = PurchaseService.executeTransactionWithCardFlow(transactionInfo);
 
                         promiseExecute.then(successCallbackExecuteTransaction, failureCallback);
                     };
 
                     var successCallbackLogin = function (response) {
-                        console.log("succesCallbackLogin", response);
                         if (response.data.user !== null) {
                             saveDataUserLogin(response, UserInfo.alias, UserInfo.password);
                         }
                         var promiseCreateOrder;
                         if ($scope.isRent) {
-                            console.log(chapterId);
                             promiseCreateOrder = PurchaseService.createRentOrderFlow(chapterId);
                         } else {
                             promiseCreateOrder = PurchaseService.createSubscriptionOrderFlow();
@@ -1051,7 +1027,6 @@
                         promiseCreateOrder.then(successCallbackCreateOrder, failureCallback);
                     };
 
-                    console.log('UserInfo', UserInfo);
                     var promiseLogin = UserService.authenticateUser(UserInfo.alias, UserInfo.password);
                     promiseLogin.then(successCallbackLogin, failureCallback);
 
@@ -1095,76 +1070,73 @@
 
         var registerUserRedeem = function () {
             var month = ($scope.subscription.birth_month !== '') ? $scope.subscription.birth_month.id : "null";
-            var year =  ($scope.subscription.birth_year !== '' ) ? $scope.subscription.birth_year : "null";
-            var validateDate = new Date( year, month, $scope.subscription.birth_day);
-            console.log("validateDate :1047:", validateDate);
+            var year = ($scope.subscription.birth_year !== '') ? $scope.subscription.birth_year : "null";
+            var validateDate = new Date(year, month, $scope.subscription.birth_day);
 
-            if(isNaN( validateDate.getTime() )){
-                AlertDialogService.show('alert','Debe seleccionar una fecha valida','Aceptar',
-                    function () {
-                        configHotkeys();
-                    }
+            if (isNaN(validateDate.getTime())) {
+                AlertDialogService.show('alert', 'Debe seleccionar una fecha valida', 'Aceptar',
+                        function () {
+                            configHotkeys();
+                        }
                 );
                 return;
             }
-            var gender = ($scope.subscription.gender !== '') ? $scope.subscription.gender.name :null;
-            if(gender === null){
-                AlertDialogService.show('alert','Debe seleccionar el genero','Aceptar',
-                    function () {
-                        configHotkeys();
-                    }
+            var gender = ($scope.subscription.gender !== '') ? $scope.subscription.gender.name : null;
+            if (gender === null) {
+                AlertDialogService.show('alert', 'Debe seleccionar el genero', 'Aceptar',
+                        function () {
+                            configHotkeys();
+                        }
                 );
                 return;
             }
 
             var createUserPromise = PurchaseService.createUser(
-                $scope.subscription.user,
-                $scope.subscription.password,
-                $scope.subscription.email,
-                $scope.subscription.name,
-                $scope.subscription.lastname,
-                $scope.subscription.politics,
-                $scope.subscription.terms,
-                $scope.subscription.information
-            );
+                    $scope.subscription.user,
+                    $scope.subscription.password,
+                    $scope.subscription.email,
+                    $scope.subscription.name,
+                    $scope.subscription.lastname,
+                    $scope.subscription.politics,
+                    $scope.subscription.terms,
+                    $scope.subscription.information
+                    );
 
             createUserPromise.then(function (response) {
                 if (response.data.form_errors && response.data.form_errors.length > 0) {
                     AlertDialogService.show(
+                            'alert',
+                            response.data.form_errors[0],
+                            'Aceptar',
+                            function () {
+                                configHotkeys();
+                            }
+                    );
+                    return;
+                }
+                RegisterUserService.saveUserInfo(
+                        $scope.subscription.user,
+                        $scope.subscription.password,
+                        $scope.subscription.email,
+                        response.data.uid,
+                        $scope.subscription.name,
+                        $scope.subscription.lastname,
+                        validateDate.getTime(),
+                        gender
+                        );
+
+                requestRedeemCode();
+                ProgressDialog.dismiss();
+            }, function (error) {
+                ProgressDialog.dismiss();
+
+                AlertDialogService.show(
                         'alert',
                         response.data.form_errors[0],
                         'Aceptar',
                         function () {
                             configHotkeys();
                         }
-                    );
-                    return;
-                }
-                RegisterUserService.saveUserInfo(
-                    $scope.subscription.user,
-                    $scope.subscription.password,
-                    $scope.subscription.email,
-                    response.data.uid,
-                    $scope.subscription.name,
-                    $scope.subscription.lastname,
-                    validateDate.getTime(),
-                    gender
-                );
-
-                console.log("create user for redeem", UserInfo);
-                requestRedeemCode();
-                ProgressDialog.dismiss();
-            }, function (error) {
-                console.log('error', response);
-                ProgressDialog.dismiss();
-
-                AlertDialogService.show(
-                    'alert',
-                    response.data.form_errors[0],
-                    'Aceptar',
-                    function () {
-                        configHotkeys();
-                    }
                 );
                 $scope.subscribeStep = 0;
             });
@@ -1177,7 +1149,6 @@
         var saveDataUserLogin = function (response, username, password) {
 
             var resObj = response.data;
-            console.log("response :1126 -----------------------------------", response);
             if (resObj.status) {
                 UserInfo.name = resObj.user.data.nombres;
                 UserInfo.lastname = resObj.user.data.apellidos;
@@ -1197,7 +1168,6 @@
          * una vez ha iniciado sesión el usuario
          */
         var requestRedeemCode = function () {
-            console.log($rootScope.objectRedeem);
             if ($rootScope.objectRedeem != null) {
                 ProgressDialog.start();
 
@@ -1211,36 +1181,33 @@
                 });
 
                 promise.then(function (response) {
-                    console.log(response);
-
                     ProgressDialog.dismiss();
                     if (response.data.code !== undefined && response.data.code != null) {
                         AlertDialogService.show(
-                            'alert',
-                            response.data.code.msg,
-                            'Aceptar',
-                            function(){
-                                configHotkeys();
-                                $state.go('dashboard');
-                            }
+                                'alert',
+                                response.data.code.msg,
+                                'Aceptar',
+                                function () {
+                                    configHotkeys();
+                                    $state.go('dashboard');
+                                }
                         );
 
-                        if(response.data.session){
+                        if (response.data.session) {
                             UserInfo.session = response.data.session;
                             UserInfo.uid = response.data.uid;
                         }
                     }
 
                 }, function (error) {
-                    console.log(error);
                     ProgressDialog.dismiss();
                     $state.go('dashboard');
                     AlertDialogService.show(
-                        'alert',
-                        "Se produjo un error al redimir el código",
-                        'Aceptar',
-                        configHotkeys
-                    );
+                            'alert',
+                            "Se produjo un error al redimir el código",
+                            'Aceptar',
+                            configHotkeys
+                            );
                 });
             }
         };
@@ -1252,7 +1219,6 @@
          */
         var getCallbackLoginForView = function () {
             if ($stateParams.typeView == 4) {
-                console.log("$stateParams.typeView :1204", $stateParams.typeView);
                 return requestRedeemCode;
             }
             return function () {
@@ -1264,22 +1230,21 @@
         $scope.onLogin = function () {
             ProgressDialog.start();
             var promiseLogin = UserService.authenticateUser($scope.loginData.username, $scope.loginData.password);
-                //PurchaseService.loginPaymentUserFlow($scope.loginData.username, $scope.loginData.password);
+            //PurchaseService.loginPaymentUserFlow($scope.loginData.username, $scope.loginData.password);
             promiseLogin.then(function (response) {
-                console.log('login', response.data);
 
                 ProgressDialog.dismiss();
                 saveDataUserLogin(response, $scope.loginData.username, $scope.loginData.password);
-                console.log('productId: ', productionId, 'chapterId', chapterId);
+
                 if ($stateParams.typeView !== "4") {
                     if (response.data.user !== undefined) {
-                        UserService.validatePlayerVideo(chapterId, productionId, configHotkeys, function(){
-                            console.log("");
+                        UserService.validatePlayerVideo(chapterId, productionId, configHotkeys, function () {
+
                         }, function () {
                             window.location = window.location.pathname;
                         });
                     }
-                }else{
+                } else {
                     requestRedeemCode();
                 }
 
@@ -1288,22 +1253,21 @@
                 //}
 
             }, function (error) {
-                console.log('login', error.data);
                 ProgressDialog.dismiss();
                 AlertDialogService.show(
-                    'alert',
-                    error.data[0],
-                    'Aceptar',
-                    configHotkeys
-                );
+                        'alert',
+                        error.data[0],
+                        'Aceptar',
+                        configHotkeys
+                        );
             });
 
             /*
              var authPromise = UserService.authenticateUser($scope.loginData.username, $scope.loginData.password);
-
+             
              authPromise.then(function(response) {
              var resObj = response.data;
-
+             
              if (resObj.status) {
              UserInfo.name = resObj.user.data.nombres;
              UserInfo.lastname = resObj.user.data.apellidos;
@@ -1314,9 +1278,9 @@
              UserInfo.uid = resObj.uid;
              UserInfo.isSubscription = resObj.user.is_suscription;
              UserInfo.timeEnds = resObj.user.time_ends;
-
+             
              localStorage.setItem('userInfo', JSON.stringify(UserInfo));
-
+             
              //
              // DEVELOPER NOTES: ADD CODE TO SHOW VIDEO
              //
@@ -1425,8 +1389,8 @@
                     $scope.subscription.parcel = $scope.parcels[0];
                 }
             });
-            
-            if($rootScope.scopePurchase && $rootScope.scopePurchase.susbscription){
+
+            if ($rootScope.scopePurchase && $rootScope.scopePurchase.susbscription) {
                 $scope.subscription = $rootScope.scopePurchase.susbscription;
                 clearSaved();
             }
@@ -1435,9 +1399,9 @@
         init();
 
         PurchaseService.loginPaymentUserFlow(UserInfo.alias, UserInfo.password).then(function (response) {
-            console.log(response.data);
+            logs.set(response.data);
         }, function (error) {
-            console.log(error);
+            logs.set(error);
         });
 
         /*
@@ -1449,7 +1413,7 @@
          true,
          true
          );
-
+         
          createUserPromise.then(function(response) {
          });
          */
@@ -1489,8 +1453,7 @@
         var productionId = $stateParams.productionId;
         var chapterId = $stateParams.chapterId;
         var name = $stateParams.name;
-
-        console.log('UserInfo', UserInfo);
+        
         //if (UserInfo.alias && UserInfo.alias === '') {
         //    window.history.back();
         //    return;
@@ -1530,19 +1493,19 @@
     };
 
     app.config(['$stateProvider', function ($stateProvider) {
-        $stateProvider.state('purchase', {
-            url: '/purchase/:typeView/:productionId/:chapterId/:name',
-            views: {
-                'main': {
-                    controller: 'DialogPurchaseController',
-                    templateUrl: 'generalitiesPage/header.tpl.html'
+            $stateProvider.state('purchase', {
+                url: '/purchase/:typeView/:productionId/:chapterId/:name',
+                views: {
+                    'main': {
+                        controller: 'DialogPurchaseController',
+                        templateUrl: 'generalitiesPage/header.tpl.html'
+                    }
+                },
+                data: {
+                    pageTitle: 'Purchase'
                 }
-            },
-            data: {
-                pageTitle: 'Purchase'
-            }
-        });
-    }]);
+            });
+        }]);
 
     app.controller('DialogPurchaseController', ['$scope', '$modal', '$stateParams', 'UserInfo', '$state', DialogPurchaseController]);
 
@@ -1586,24 +1549,24 @@
         };
     });
 
-    app.directive('onlyLetters',['AlertDialogService',function(AlertDialogService){
-        return {
-            link : function(scope,element,attrs){
-                element.bind("keydown",function(event){
-                    var key = event.keyCode || event.which;
-                    if(key !== 13 && key !== 37 && key !== 38 && key !==39 && key !== 40){
-                        if( key >= 48  && key <= 57){
-                            AlertDialogService.show(
-                                'alert',
-                                'Solo puede incluir letras en esta casilla',
-                                'Aceptar'
-                            );
+    app.directive('onlyLetters', ['AlertDialogService', function (AlertDialogService) {
+            return {
+                link: function (scope, element, attrs) {
+                    element.bind("keydown", function (event) {
+                        var key = event.keyCode || event.which;
+                        if (key !== 13 && key !== 37 && key !== 38 && key !== 39 && key !== 40) {
+                            if (key >= 48 && key <= 57) {
+                                AlertDialogService.show(
+                                        'alert',
+                                        'Solo puede incluir letras en esta casilla',
+                                        'Aceptar'
+                                        );
+                            }
                         }
-                    }
-                });
-            }
-        };
-    }]);
+                    });
+                }
+            };
+        }]);
     app.directive('focusUpdatedScroll', function () {
         return {
             link: function (scope, element, attrs) {

@@ -6,7 +6,7 @@
         $scope.MAX_STRING_SIZE = 400;
 
         $scope.options = $scope.options.filter(function (item) {
-            //console.log(item.label, item.verifyVisibility, UserInfo.alias, !(item.verifyVisibility && UserInfo.alias));
+            //logs.set(item.label, item.verifyVisibility, UserInfo.alias, !(item.verifyVisibility && UserInfo.alias));
             return !(item.verifyVisibility && UserInfo.alias === '');
         });
 
@@ -101,7 +101,7 @@
                 var promiseIsContentAvaliable = UserService.isContentAvailableForUser($scope.getChapterId());
 
                 promiseIsContentAvaliable.then(function (response) {
-                    console.log('isContentAvailableForUser', response);
+                    logs.set('isContentAvailableForUser', response);
                     ProgressDialogService.dismiss();
                     if (response.data.status) {
                         if (response.data.video.status) {
@@ -119,7 +119,7 @@
                             configHotkeys
                         );
                         $timeout(function () {
-                            console.log(
+                            logs.set(
                                 $scope.selected.type_view,
                                 $scope.getChapterId(),
                                 $scope.selected.id,
@@ -339,7 +339,7 @@
                 $scope.options[position].active = true;
 
                 var successAddList = function (response) {
-                    console.log('success', response);
+                    logs.set('success', response);
                     if (response.data.status) {
 
                         AlertDialogService.show(
@@ -362,7 +362,7 @@
                 };
 
                 var successRemoveList = function (response) {
-                    console.log('success', response);
+                    logs.set('success', response);
                     if (response.data.status) {
                         configHotkeys();
                         $scope.options[i].label = 'Añadir a mi lista';
@@ -387,7 +387,7 @@
                 };
 
                 var failureList = function (response) {
-                    console.log('error', response.data);
+                    logs.set('error', response.data);
                     AlertDialogService.show(
                         'warning',
                         'Ha ocurrido un problema intenta más tarde',
@@ -711,7 +711,7 @@
                 if (!newValue) {
                     return;
                 }
-                console.log(newValue);
+                logs.set(newValue);
                 self.seasonsButtons.length = 0;
                 var seasons = newValue.season_list;
 

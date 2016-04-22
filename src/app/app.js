@@ -1,19 +1,20 @@
 (function (app) {
 
-    app.config(function ($stateProvider, $urlRouterProvider) {
+    app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
+        $httpProvider.interceptors.push('Interceptor');
         $urlRouterProvider.otherwise(function ($injector, $location) {
             $injector.invoke(['$state', function ($state) {
-                $state.go('dashboard');
-            }]);
+                    $state.go('dashboard');
+                }]);
         });
     });
 
 
 
     var init = function ($rootScope, $state) {
-        $rootScope.$on("$stateChangeStart", function (event, toState,toParams,fromState,fromParams) {
+        $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
             if (toState.name != "start" && toState.name != "tutorialinit" &&
-                (!localStorage["tutorial"] || localStorage["tutorial"] != "finished2")) {
+                    (!localStorage["tutorial"] || localStorage["tutorial"] != "finished2")) {
                 //if( toState.name != "start" && toState.name != "tutorialinit" && !localStorage["tutorial"]){
                 event.preventDefault();
                 $state.go("start");
@@ -78,10 +79,10 @@
         };
     });
 
-    app.directive('ngSrcUnsafe',function(){
+    app.directive('ngSrcUnsafe', function () {
         return {
-            link : function(scope,element,attrs){
-                var unwatch = scope.$watch("slide.image_url",function(newValue){
+            link: function (scope, element, attrs) {
+                var unwatch = scope.$watch("slide.image_url", function (newValue) {
                     element[0].src = newValue;
                 });
 
@@ -90,21 +91,21 @@
     });
 
     app.directive('ngEnter', ['$timeout', function ($timeout) {
-        return function (scope, element, attrs) {
-            element.bind("keydown keypress", function (event) {
-                if (event.which === 13) {
-                    scope.$apply(function () {
-                        scope.$eval(attrs.ngEnter);
-                    });
-                    var e = document.createEvent("MouseEvents");
-                    e.initMouseEvent("mousedown", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-                    var worked = element[0].dispatchEvent(e);
+            return function (scope, element, attrs) {
+                element.bind("keydown keypress", function (event) {
+                    if (event.which === 13) {
+                        scope.$apply(function () {
+                            scope.$eval(attrs.ngEnter);
+                        });
+                        var e = document.createEvent("MouseEvents");
+                        e.initMouseEvent("mousedown", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+                        var worked = element[0].dispatchEvent(e);
 
-                    event.preventDefault();
-                }
-            });
-        };
-    }]);
+                        event.preventDefault();
+                    }
+                });
+            };
+        }]);
 
     app.directive('ngSides', function () {
         return {
@@ -138,36 +139,73 @@
 
     app.factory('bestWatch', ['$timeout', function ($timeout) {
 
-        this.watch = function (obj, nameProperty, eventName, initialize, $scope) {
-            initialize = initialize || false;
-            var virtualProperty;
+            this.watch = function (obj, nameProperty, eventName, initialize, $scope) {
+                initialize = initialize || false;
+                var virtualProperty;
 
-            if (typeof obj[nameProperty] !== "undefined") {
+                if (typeof obj[nameProperty] !== "undefined") {
 
-                virtualProperty = obj[nameProperty];
-                delete obj[nameProperty];
-            }
-
-            Object.defineProperty(obj, nameProperty, {
-                enumerable: true,
-                get: function () {
-                    return virtualProperty;
-                },
-                set: function (newValue) {
-                    var oldValue = virtualProperty;
-                    virtualProperty = newValue;
-                    $scope.$broadcast(eventName, virtualProperty, oldValue,obj);
+                    virtualProperty = obj[nameProperty];
+                    delete obj[nameProperty];
                 }
-            });
 
-            if (initialize === true) {
-                $scope.$broadcast(eventName, virtualProperty, null);
+                Object.defineProperty(obj, nameProperty, {
+                    enumerable: true,
+                    get: function () {
+                        return virtualProperty;
+                    },
+                    set: function (newValue) {
+                        var oldValue = virtualProperty;
+                        virtualProperty = newValue;
+                        $scope.$broadcast(eventName, virtualProperty, oldValue, obj);
+                    }
+                });
+
+                if (initialize === true) {
+                    $scope.$broadcast(eventName, virtualProperty, null);
+                }
+            };
+
+
+            return this;
+        }]);
+    app.factory('Interceptor', function ($q, $location, $window, $rootScope) {
+        return {
+            request: function (req) {
+                if (!$rootScope.callCounter) {
+                    $rootScope.callCounter = 0;
+                }
+                $rootScope.callCounter++;
+                $rootScope.showSpinner = true;
+                $('#mydiv').show();
+                return req;
+            },
+            'response': function (response) {
+                // do something on success
+                $rootScope.callCounter--;
+                if ($rootScope.callCounter === 0) {
+                    $('#mydiv').hide();
+                }
+
+                return response || $q.when(response);
+            },
+            'responseError': function (rejection) {
+                $rootScope.callCounter--;
+                if ($rootScope.callCounter === 0) {
+                    $('#mydiv').hide();
+                    if (rejection.status === 401) {
+                        if (app.isLogged()) {
+                            $rootScope.$broadcast('unauthorized');
+                        }
+                    }
+                }
+                if (rejection.status != 401) {
+                    $rootScope.$broadcast('failure');
+                }
+                return $q.reject(rejection);
             }
         };
-
-
-        return this;
-    }]);
+    });
 
 }(angular.module("caracolplaylgtvapp", [
     'pasvaz.bindonce',
@@ -201,3 +239,13 @@
     'caracolplaylgtvapp.termsView',
     'caracolplaylgtvapp.generalModalView'
 ])));
+
+var logs = {
+    "list": {},
+    "set": function (index, obj) {
+        logs.list[index] = obj;
+    },
+    "get": function (n) {
+        return logs.list[n];
+    }
+};

@@ -63,7 +63,7 @@
                         var node = $("a.right.carousel-control");
                         node[0].click();
                     } else {
-                        localStorage["tutorial"] = "finished";
+                        localStorage["tutorial"] = "finished2";
                         $rootScope.tutorial = true;
                         $state.go("dashboard");         //en el caso que no sea siguiente es por que el usuario ya ha visto todo el tutorial
                     }
