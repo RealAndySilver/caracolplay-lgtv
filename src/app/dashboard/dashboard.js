@@ -97,7 +97,6 @@
         $scope.onLogout = function () {
             var logoutPromise = UserService.logout(UserInfo.alias, UserInfo.password, UserInfo.session);
             logoutPromise.then(function (response) {
-                console.log('response', response);
 
                 if (response.data.status) {
                     AlertDialogService.show(
@@ -159,6 +158,13 @@
             var promiseRecentWatched = ProductService.getUserRecentlyWatched();
             promiseRecentWatched.then(function (response) {
                 if (response.data.length === 0) {
+                    for(var i=0,j = self.list.length; i<j; i++){
+                        var listC = self.list[i];
+                        if (listC.name === 'Ultimos vistos') {
+                            listC.splice(i,1);
+                            return;
+                        }
+                    }
                     return;
                 }
 
@@ -179,14 +185,14 @@
         self.getList = function () {
             var promiseGetList = ProductService.getList();
             promiseGetList.then(function (response) {
-                console.log('list', response.data);
+                if(response.data.my_list.length === 0){
+                    return;
+                }
                 MyListItems.list = response.data.my_list.map(function (item) {
                     item.inList = true;
                     item.feature_text = item.description;
                     return item;
                 });
-
-                console.log('MyListItems', MyListItems);
 
                 self.list.push({
                     name: 'Mi Lista',
@@ -263,7 +269,6 @@
         };
 
         var activeEventsBottomOptions = function () {
-            console.log("entro en el metodo activeEventsBottomOptions");
             //if (self.active + 1 < self.list.length +1) {
                 self.active++;
             //}
@@ -299,7 +304,7 @@
 
             var div = $('footer');
 
-            console.log('div', div, $(div).position().top);
+            //console.log('div', div, $(div).position().top);
             if ($(div).position()) {
                 $('.scroll-area').scrollTop($(div).position().top - 134);
             }
@@ -347,7 +352,6 @@
                             myFunction = $scope.logout;
                         }
                     }
-                    console.log(myFunction);
                     myFunction();
                 }
             });
@@ -504,7 +508,6 @@
                 var list = response.data.categories;
                 var promise = {};
                 var pos = 0;
-
                 var promiseFunction = function (pos) {
                     return function (res) {
                         if (res.data.products && res.data.products.length > 0) {
