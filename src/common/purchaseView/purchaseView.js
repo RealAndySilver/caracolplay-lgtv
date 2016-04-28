@@ -889,10 +889,17 @@
 										'productionId': productionId,
 									});
 								});
-						} else {
+						} if(response.data.status == "Pendiente"){
 							AlertDialogService.show(
 								'alert',
-								response.data.msg,
+								response.data.result,
+								'Aceptar',
+								configHotkeys
+							);
+						}else {
+							AlertDialogService.show(
+								'alert',
+                                response.data.msg,
 								'Aceptar',
 								configHotkeys
 							);
@@ -900,9 +907,19 @@
 					};
 
 					var failureCallback = function(response) {
-						AlertDialogService.show(
+                        console.error(response);
+                        if(response.data[0]){
+                            AlertDialogService.show(
+                                'alert',
+                                response.data[0],
+                                'Aceptar',
+                                configHotkeys
+                            );
+                            return;
+                        }
+                        AlertDialogService.show(
 							'alert',
-							response.data[0],
+							'En estos momentos no se puede conectar con Caracol Play Por favor intentanlo más tarde',
 							'Aceptar',
 							configHotkeys
 						);

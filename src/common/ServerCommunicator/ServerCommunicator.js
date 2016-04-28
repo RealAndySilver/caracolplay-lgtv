@@ -274,7 +274,7 @@
 		};
 	};
 
-	var PurchaseService = function($http, UserInfo) {
+	var     PurchaseService = function($http, UserInfo) {
 		var self = this;
 
 		self.getVideoRequeriments = function() {

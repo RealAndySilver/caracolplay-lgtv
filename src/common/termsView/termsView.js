@@ -43,6 +43,10 @@
 			});
 		};
 
+        self.ShowWhatIs = function(success,failure,showCancel){
+            self.show('¿Qué es Caracol Play?','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget elit libero. Phasellus faucibus diam ut dolor ornare, nec feugiat lectus fermentum. Sed laoreet et urna ac imperdiet. Integer vestibulum, leo vel scelerisque facilisis, eros arcu consectetur nisi, sit amet suscipit sem felis mollis ipsum. Donec tincidunt dictum massa, ac bibendum lectus mattis id. Nullam viverra cursus justo, quis rhoncus erat bibendum luctus. Nullam auctor volutpat condimentum. Ut convallis lorem vitae vestibulum pulvinar. Proin laoreet rhoncus malesuada. Vestibulum ut eros non eros iaculis pulvinar at non tellus. <br/> Vivamus libero arcu, pulvinar ac nisl vel, egestas sollicitudin leo. Cras odio magna, tempus sed blandit sed, ultricies in leo. Integer et arcu auctor, molestie nulla eget, sollicitudin velit. Nulla rutrum dui ex, ut tristique ipsum varius tempus. In hac habitasse platea dictumst. Aliquam et justo eu tellus malesuada porta. Fusce luctus dolor risus, vel ultricies nisl vulputate sit amet. Fusce ornare venenatis maximus. Cras ut dignissim erat. Maecenas magna nulla, pulvinar tempor erat et, tristique hendrerit massa. Nulla ullamcorper tellus eros, at blandit est ultrices cursus. Ut blandit, eros ut egestas faucibus, est nisi pretium justo, ut venenatis nisi sapien vitae ante. Aenean faucibus cursus nisl, quis pulvinar eros venenatis quis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum eget ligula pellentesque, placerat urna sed, consequat est.<br/><br/> Maecenas nec justo eget nisi mollis sagittis quis et libero. Nam massa est, gravida in lacus venenatis, accumsan ultrices ante. Nunc commodo pharetra egestas. Duis arcu lectus, vulputate ut mi ut, luctus fermentum sem. Vestibulum condimentum volutpat tempor. Fusce eget orci sit amet enim blandit vestibulum sed sed magna. Vestibulum justo sapien, efficitur at vestibulum suscipit, rutrum a odio. Vestibulum finibus consequat neque id maximus. Mauris sollicitudin dolor nunc, ac scelerisque nisl tempus quis. Sed tempor sem vitae felis laoreet, aliquet varius augue ultrices.<br/><br/>Integer mollis sodales mi, eu lobortis lorem pellentesque a. Nam sed sollicitudin nisi. Donec commodo rhoncus sagittis. Integer orci orci, maximus lacinia dolor in, consectetur ultrices nunc. Integer sit amet erat eget velit placerat dapibus. Vivamus arcu ipsum, vehicula et purus sit amet, rhoncus lacinia velit. Vestibulum lacinia fringilla neque, eu sodales eros consequat vitae. Aenean a lacinia nulla. Vestibulum a ex in lacus sollicitudin tincidunt a id nisl.<br/><br/> Mauris feugiat augue ullamcorper tellus feugiat, eu ullamcorper augue laoreet. Nunc vitae dui molestie, posuere purus egestas, vulputate enim. Aenean vitae nunc vitae lectus faucibus imperdiet. Suspendisse id elit faucibus, laoreet nisl sit amet, molestie nulla. Integer eu massa tempor, pellentesque lorem efficitur, sodales quam. Nulla aliquam, ligula nec rutrum gravida, dui urna dapibus sapien, non ornare mi mauris eget felis. Nulla sed sapien massa. Quisque fringilla ligula id euismod tempor.',showCancel,success,failure);
+        };
+
 		self.show = function(title, message, showCancel, success, failure) {
 			self.modalInstance = $modal.open({
 				controller: 'TermsViewDialogController',
@@ -78,11 +82,14 @@
 			$scope.showCancel = termsInfo.showCancel;
 
 			$scope.ok = function() {
+                console.log("-----<");
 				$modalInstance.close(true);
+                hotkeys.del('enter');
 			};
 
 			$scope.cancel = function() {
 				$modalInstance.dismiss('cancel');
+                hotkeys.del('enter');
 			};
 
 			$scope.onUp = function() {
@@ -107,8 +114,31 @@
 		}
 	};
 
+    var obj = {
+        combo : 'enter',
+        callback : function(event){
+            console.log("melisaaaaaaaa");
+            //elem[0].click();
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+        }
+    };
+
+    var directiveFocus = function($timeout,hotkeys){
+        return {
+            link : function(scope,elem,attrs){
+                $timeout(function(){
+                    elem[0].focus();
+                },50);
+
+                hotkeys.add(obj);
+            }
+        };
+    };
+
 	module.service('TermsViewService', ['$modal', 'PurchaseService', TermsViewService]);
 	module.controller('TermsViewDialogController', ['$scope', '$modalInstance', 'termsInfo', 'hotkeys', '$timeout', TermsViewDialogController]);
+    module.directive('forceFocus',['$timeout','hotkeys',directiveFocus]);
 }(angular.module("caracolplaylgtvapp.termsView", [
 	'ui.router'
 ])));
