@@ -50,8 +50,8 @@
 				resolve: {
 					message: function() {
 						return self.message;
-					},
-				},
+					}
+				}
 			});
 		};
 

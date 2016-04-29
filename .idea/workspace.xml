@@ -2,8 +2,84 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3e4c5eee-7fba-4036-9556-ac00513703e8" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/img/_header.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/img/arrow-down.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/img/tutorial/tutorial_1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/img/tutorial/tutorial_2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/img/tutorial/tutorial_3.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/img/tutorial/tutorial_4.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/img/tutorial/tutorial_5.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/img/tutorial/tutorial_6.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/img/tutorial/tutorial_7.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/assets/img/tutorial/tutorial_8.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/tutorial/tutorial.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/tutorial/tutorial.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/tutorial/tutorial.spec.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/tutorial/tutorial.tpl.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/common/cacheLocalImages/cacheImages.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/common/registerUser/registerUserService.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/assets/img/header.jpg" afterPath="$PROJECT_DIR$/src/assets/img/header.jpg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gruntfile.js" afterPath="$PROJECT_DIR$/Gruntfile.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bower.json" afterPath="$PROJECT_DIR$/bower.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/app.js" afterPath="$PROJECT_DIR$/src/app/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/dashboard/dashboard.js" afterPath="$PROJECT_DIR$/src/app/dashboard/dashboard.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/dashboard/dashboard.less" afterPath="$PROJECT_DIR$/src/app/dashboard/dashboard.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/dashboard/dashboard.tpl.html" afterPath="$PROJECT_DIR$/src/app/dashboard/dashboard.tpl.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/start/start.js" afterPath="$PROJECT_DIR$/src/app/start/start.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/start/start.spec.js" afterPath="$PROJECT_DIR$/src/app/start/start.spec.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/start/start.tpl.html" afterPath="$PROJECT_DIR$/src/app/start/start.tpl.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/ServerCommunicator/ServerCommunicator.js" afterPath="$PROJECT_DIR$/src/common/ServerCommunicator/ServerCommunicator.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/alertDialogView/alertDialogView.js" afterPath="$PROJECT_DIR$/src/common/alertDialogView/alertDialogView.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/alertDialogView/alertDialogView.spec.js" afterPath="$PROJECT_DIR$/src/common/alertDialogView/alertDialogView.spec.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/carouselContainer/carouselContainer.js" afterPath="$PROJECT_DIR$/src/common/carouselContainer/carouselContainer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/carouselContainer/carouselContainer.less" afterPath="$PROJECT_DIR$/src/common/carouselContainer/carouselContainer.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/carouselContainer/carouselContainer.tpl.html" afterPath="$PROJECT_DIR$/src/common/carouselContainer/carouselContainer.tpl.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/generalModalView/generalModalView.js" afterPath="$PROJECT_DIR$/src/common/generalModalView/generalModalView.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/generalModalView/generalModalView.spec.js" afterPath="$PROJECT_DIR$/src/common/generalModalView/generalModalView.spec.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/generalModalView/generalModalView.tpl.html" afterPath="$PROJECT_DIR$/src/common/generalModalView/generalModalView.tpl.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/generalitiesPage/header.tpl.html" afterPath="$PROJECT_DIR$/src/common/generalitiesPage/header.tpl.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/previewButton/previewButton.js" afterPath="$PROJECT_DIR$/src/common/previewButton/previewButton.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/previewButton/previewButton.less" afterPath="$PROJECT_DIR$/src/common/previewButton/previewButton.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/previewButton/previewButton.spec.js" afterPath="$PROJECT_DIR$/src/common/previewButton/previewButton.spec.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/previewList/previewList.js" afterPath="$PROJECT_DIR$/src/common/previewList/previewList.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/previewList/previewList.spec.js" afterPath="$PROJECT_DIR$/src/common/previewList/previewList.spec.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/previewList/previewList.tpl.html" afterPath="$PROJECT_DIR$/src/common/previewList/previewList.tpl.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/previewView/previewView.js" afterPath="$PROJECT_DIR$/src/common/previewView/previewView.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/previewView/previewView.less" afterPath="$PROJECT_DIR$/src/common/previewView/previewView.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/previewView/previewView.spec.js" afterPath="$PROJECT_DIR$/src/common/previewView/previewView.spec.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/previewView/previewView.tpl.html" afterPath="$PROJECT_DIR$/src/common/previewView/previewView.tpl.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/productsContainer/productsContainer.js" afterPath="$PROJECT_DIR$/src/common/productsContainer/productsContainer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/productsContainer/productsContainer.less" afterPath="$PROJECT_DIR$/src/common/productsContainer/productsContainer.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/productsContainer/productsContainer.tpl.html" afterPath="$PROJECT_DIR$/src/common/productsContainer/productsContainer.tpl.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/progressDialog/progressDialog.js" afterPath="$PROJECT_DIR$/src/common/progressDialog/progressDialog.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/progressDialog/progressDialog.spec.js" afterPath="$PROJECT_DIR$/src/common/progressDialog/progressDialog.spec.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/progressDialog/progressDialog.tpl.html" afterPath="$PROJECT_DIR$/src/common/progressDialog/progressDialog.tpl.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/purchaseView/purchaseView.js" afterPath="$PROJECT_DIR$/src/common/purchaseView/purchaseView.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/purchaseView/purchaseView.less" afterPath="$PROJECT_DIR$/src/common/purchaseView/purchaseView.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/purchaseView/purchaseView.spec.js" afterPath="$PROJECT_DIR$/src/common/purchaseView/purchaseView.spec.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/purchaseView/purchaseView.tpl.html" afterPath="$PROJECT_DIR$/src/common/purchaseView/purchaseView.tpl.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/rateAlert/rateAlert.js" afterPath="$PROJECT_DIR$/src/common/rateAlert/rateAlert.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/rateAlert/rateAlert.spec.js" afterPath="$PROJECT_DIR$/src/common/rateAlert/rateAlert.spec.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/searchView/searchView.js" afterPath="$PROJECT_DIR$/src/common/searchView/searchView.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/searchView/searchView.less" afterPath="$PROJECT_DIR$/src/common/searchView/searchView.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/searchView/searchView.spec.js" afterPath="$PROJECT_DIR$/src/common/searchView/searchView.spec.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/searchView/searchView.tpl.html" afterPath="$PROJECT_DIR$/src/common/searchView/searchView.tpl.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/seriesProduct/seriesProduct.js" afterPath="$PROJECT_DIR$/src/common/seriesProduct/seriesProduct.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/seriesProduct/seriesProduct.less" afterPath="$PROJECT_DIR$/src/common/seriesProduct/seriesProduct.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/seriesProduct/seriesProduct.spec.js" afterPath="$PROJECT_DIR$/src/common/seriesProduct/seriesProduct.spec.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/seriesProduct/seriesProduct.tpl.html" afterPath="$PROJECT_DIR$/src/common/seriesProduct/seriesProduct.tpl.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/termsView/termsView.js" afterPath="$PROJECT_DIR$/src/common/termsView/termsView.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/termsView/termsView.spec.js" afterPath="$PROJECT_DIR$/src/common/termsView/termsView.spec.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/termsView/termsView.tpl.html" afterPath="$PROJECT_DIR$/src/common/termsView/termsView.tpl.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/videoController/videoController.spec.js" afterPath="$PROJECT_DIR$/src/common/videoController/videoController.spec.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/videoModule/videoModule.js" afterPath="$PROJECT_DIR$/src/common/videoModule/videoModule.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/videoModule/videoModule.less" afterPath="$PROJECT_DIR$/src/common/videoModule/videoModule.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/videoModule/videoModule.spec.js" afterPath="$PROJECT_DIR$/src/common/videoModule/videoModule.spec.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/common/videoModule/videoModule.tpl.html" afterPath="$PROJECT_DIR$/src/common/videoModule/videoModule.tpl.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/index.html" afterPath="$PROJECT_DIR$/src/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/less/base.less" afterPath="$PROJECT_DIR$/src/less/base.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/less/main.less" afterPath="$PROJECT_DIR$/src/less/main.less" />
     </list>
     <ignored path="caracol-play.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,32 +100,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="purchaseView.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/common/purchaseView/purchaseView.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="463">
+              <caret line="1125" column="28" selection-start-line="1125" selection-start-column="28" selection-end-line="1125" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="purchaseView.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/common/purchaseView/purchaseView.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1173">
-              <caret line="841" column="36" selection-start-line="841" selection-start-column="36" selection-end-line="841" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dashboard.less" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/dashboard/dashboard.less">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1575">
-              <caret line="105" column="23" selection-start-line="105" selection-start-column="23" selection-end-line="105" selection-end-column="23" />
-              <folding />
+            <state relative-caret-position="1095">
+              <caret line="73" column="27" selection-start-line="73" selection-start-column="27" selection-end-line="73" selection-end-column="27" />
+              <folding>
+                <marker date="1461884586000" expanded="true" signature="16:19" placeholder="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -57,18 +125,8 @@
       <file leaf-file-name="base.less" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/less/base.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="37" column="50" selection-start-line="37" selection-start-column="50" selection-end-line="37" selection-end-column="50" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ServerCommunicator.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/common/ServerCommunicator/ServerCommunicator.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7065">
-              <caret line="471" column="54" selection-start-line="471" selection-start-column="49" selection-end-line="471" selection-end-column="54" />
+            <state relative-caret-position="555">
+              <caret line="37" column="49" selection-start-line="37" selection-start-column="49" selection-end-line="37" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -77,38 +135,28 @@
       <file leaf-file-name="dashboard.tpl.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/dashboard/dashboard.tpl.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="855">
-              <caret line="57" column="54" selection-start-line="57" selection-start-column="54" selection-end-line="57" selection-end-column="54" />
+            <state relative-caret-position="1260">
+              <caret line="84" column="127" selection-start-line="84" selection-start-column="127" selection-end-line="84" selection-end-column="127" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dashboard.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="dashboard.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/dashboard/dashboard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="326">
-              <caret line="306" column="14" selection-start-line="306" selection-start-column="14" selection-end-line="306" selection-end-column="14" />
+            <state relative-caret-position="8520">
+              <caret line="568" column="31" selection-start-line="568" selection-start-column="31" selection-end-line="568" selection-end-column="31" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="termsView.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/common/termsView/termsView.js">
+      <file leaf-file-name="tutorial.tpl.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/tutorial/tutorial.tpl.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1290">
-              <caret line="86" column="37" selection-start-line="86" selection-start-column="37" selection-end-line="86" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="termsView.tpl.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/common/termsView/termsView.tpl.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="78" selection-start-line="21" selection-start-column="78" selection-end-line="21" selection-end-column="78" />
+            <state relative-caret-position="240">
+              <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -117,8 +165,28 @@
       <file leaf-file-name="purchaseView.tpl.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/common/purchaseView/purchaseView.tpl.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2661">
-              <caret line="345" column="144" selection-start-line="345" selection-start-column="140" selection-end-line="345" selection-end-column="144" />
+            <state relative-caret-position="8790">
+              <caret line="586" column="93" selection-start-line="586" selection-start-column="93" selection-end-line="586" selection-end-column="93" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="termsView.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/common/termsView/termsView.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="675">
+              <caret line="45" column="23" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="purchaseView.less" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/common/purchaseView/purchaseView.less">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5610">
+              <caret line="374" column="4" selection-start-line="374" selection-start-column="4" selection-end-line="374" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -134,12 +202,19 @@
       <list>
         <option value="$PROJECT_DIR$/build/src/app/dashboard/dashboard.js" />
         <option value="$PROJECT_DIR$/src/common/termsView/termsView.tpl.html" />
+        <option value="$PROJECT_DIR$/src/common/ServerCommunicator/ServerCommunicator.js" />
+        <option value="$PROJECT_DIR$/src/app/tutorial/tutorial.less" />
+        <option value="$PROJECT_DIR$/src/app/tutorial/tutorial.tpl.html" />
+        <option value="$PROJECT_DIR$/src/less/base.less" />
         <option value="$PROJECT_DIR$/src/app/dashboard/dashboard.tpl.html" />
         <option value="$PROJECT_DIR$/src/common/termsView/termsView.js" />
-        <option value="$PROJECT_DIR$/src/common/ServerCommunicator/ServerCommunicator.js" />
-        <option value="$PROJECT_DIR$/src/common/purchaseView/purchaseView.js" />
-        <option value="$PROJECT_DIR$/src/less/base.less" />
         <option value="$PROJECT_DIR$/src/app/dashboard/dashboard.js" />
+        <option value="$PROJECT_DIR$/src/common/purchaseView/purchaseView.less" />
+        <option value="$PROJECT_DIR$/src/common/purchaseView/purchaseView.tpl.html" />
+        <option value="$PROJECT_DIR$/build/src/app/app.js" />
+        <option value="$PROJECT_DIR$/build/src/common/purchaseView/purchaseView.js" />
+        <option value="$PROJECT_DIR$/src/app/app.js" />
+        <option value="$PROJECT_DIR$/src/common/purchaseView/purchaseView.js" />
       </list>
     </option>
   </component>
@@ -201,6 +276,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -287,7 +364,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="termsView" />
+              <option name="myItemId" value="purchaseView" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -309,7 +386,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="purchaseView" />
+              <option name="myItemId" value="productsContainer" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -328,35 +405,11 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="caracol-play" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="caracol-play" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dashboard" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -440,33 +493,36 @@
       <workItem from="1461763783447" duration="12611000" />
       <workItem from="1461788495921" duration="944000" />
       <workItem from="1461850041207" duration="3743000" />
+      <workItem from="1461861719656" duration="3170000" />
+      <workItem from="1461868787633" duration="7051000" />
+      <workItem from="1461935352030" duration="237000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20634000" />
+    <option name="totallyTimeSpent" value="31092000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1703125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17008953" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Grunt " active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32913843" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905138" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -485,11 +541,162 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/app/app.js">
+    <entry file="file://$PROJECT_DIR$/src/common/purchaseView/purchaseView.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/less/base.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="37" column="49" selection-start-line="37" selection-start-column="49" selection-end-line="37" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/dashboard/dashboard.tpl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1260">
+          <caret line="84" column="127" selection-start-line="84" selection-start-column="127" selection-end-line="84" selection-end-column="127" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/dashboard/dashboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="915">
+          <caret line="61" column="54" selection-start-line="61" selection-start-column="54" selection-end-line="61" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/tutorial/tutorial.tpl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/tutorial/tutorial.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="750">
+          <caret line="50" column="29" selection-start-line="50" selection-start-column="29" selection-end-line="50" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/termsView/termsView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="45" column="23" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/termsView/termsView.tpl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="12" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/purchaseView/purchaseView.tpl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="32" selection-start-line="0" selection-start-column="32" selection-end-line="0" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1461884586000" expanded="true" signature="16:19" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/purchaseView/purchaseView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12615">
+          <caret line="841" column="36" selection-start-line="841" selection-start-column="36" selection-end-line="841" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/dashboard/dashboard.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1575">
+          <caret line="105" column="23" selection-start-line="105" selection-start-column="23" selection-end-line="105" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/less/base.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="37" column="12" selection-start-line="37" selection-start-column="12" selection-end-line="37" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/ServerCommunicator/ServerCommunicator.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7065">
+          <caret line="471" column="54" selection-start-line="471" selection-start-column="49" selection-end-line="471" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/dashboard/dashboard.tpl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="855">
+          <caret line="57" column="9" selection-start-line="57" selection-start-column="9" selection-end-line="57" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/dashboard/dashboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/termsView/termsView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1290">
+          <caret line="86" column="36" selection-start-line="86" selection-start-column="36" selection-end-line="86" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/termsView/termsView.tpl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="12" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/purchaseView/purchaseView.tpl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5175">
+          <caret line="345" column="42" selection-start-line="345" selection-start-column="42" selection-end-line="345" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1461884586000" expanded="true" signature="16:19" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -505,7 +712,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1575">
           <caret line="105" column="23" selection-start-line="105" selection-start-column="23" selection-end-line="105" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -513,7 +719,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1461884586000" expanded="true" signature="16:19" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -521,7 +729,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1461884586000" expanded="true" signature="16:19" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -543,7 +753,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="301" column="24" selection-start-line="301" selection-start-column="24" selection-end-line="301" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -551,7 +760,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="301" column="24" selection-start-line="301" selection-start-column="24" selection-end-line="301" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -573,86 +781,143 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="11745">
           <caret line="783" column="15" selection-start-line="783" selection-start-column="15" selection-end-line="783" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/dashboard/dashboard.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1530">
+          <caret line="102" column="23" selection-start-line="102" selection-start-column="23" selection-end-line="102" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/ServerCommunicator/ServerCommunicator.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3270">
+          <caret line="218" column="53" selection-start-line="218" selection-start-column="53" selection-end-line="218" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/termsView/termsView.tpl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="12" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/tutorial/tutorial.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="750">
+          <caret line="50" column="29" selection-start-line="50" selection-start-column="29" selection-end-line="50" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/productsContainer/productsContainer.tpl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/previewView/previewView.tpl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/src/common/ServerCommunicator/ServerCommunicator.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="457" column="33" selection-start-line="457" selection-start-column="33" selection-end-line="457" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/src/common/purchaseView/purchaseView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="234" column="24" selection-start-line="234" selection-start-column="15" selection-end-line="234" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/src/app/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="91" column="18" selection-start-line="91" selection-start-column="18" selection-end-line="91" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/purchaseView/purchaseView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="463">
+          <caret line="1125" column="28" selection-start-line="1125" selection-start-column="28" selection-end-line="1125" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/dashboard/dashboard.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1575">
-          <caret line="105" column="23" selection-start-line="105" selection-start-column="23" selection-end-line="105" selection-end-column="23" />
-          <folding />
+        <state relative-caret-position="1095">
+          <caret line="73" column="27" selection-start-line="73" selection-start-column="27" selection-end-line="73" selection-end-column="27" />
+          <folding>
+            <marker date="1461884586000" expanded="true" signature="16:19" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/less/base.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="37" column="50" selection-start-line="37" selection-start-column="50" selection-end-line="37" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/common/ServerCommunicator/ServerCommunicator.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7065">
-          <caret line="471" column="54" selection-start-line="471" selection-start-column="49" selection-end-line="471" selection-end-column="54" />
+        <state relative-caret-position="555">
+          <caret line="37" column="49" selection-start-line="37" selection-start-column="49" selection-end-line="37" selection-end-column="49" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/dashboard/dashboard.tpl.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="57" column="54" selection-start-line="57" selection-start-column="54" selection-end-line="57" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/common/termsView/termsView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1290">
-          <caret line="86" column="37" selection-start-line="86" selection-start-column="37" selection-end-line="86" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/common/termsView/termsView.tpl.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="78" selection-start-line="21" selection-start-column="78" selection-end-line="21" selection-end-column="78" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/common/purchaseView/purchaseView.tpl.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2661">
-          <caret line="345" column="144" selection-start-line="345" selection-start-column="140" selection-end-line="345" selection-end-column="144" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/common/purchaseView/purchaseView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1173">
-          <caret line="841" column="36" selection-start-line="841" selection-start-column="36" selection-end-line="841" selection-end-column="36" />
+        <state relative-caret-position="1260">
+          <caret line="84" column="127" selection-start-line="84" selection-start-column="127" selection-end-line="84" selection-end-column="127" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/dashboard/dashboard.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="306" column="14" selection-start-line="306" selection-start-column="14" selection-end-line="306" selection-end-column="14" />
+        <state relative-caret-position="8520">
+          <caret line="568" column="31" selection-start-line="568" selection-start-column="31" selection-end-line="568" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/tutorial/tutorial.tpl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/purchaseView/purchaseView.tpl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8790">
+          <caret line="586" column="93" selection-start-line="586" selection-start-column="93" selection-end-line="586" selection-end-column="93" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/termsView/termsView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="45" column="23" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/purchaseView/purchaseView.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5610">
+          <caret line="374" column="4" selection-start-line="374" selection-start-column="4" selection-end-line="374" selection-end-column="4" />
           <folding />
         </state>
       </provider>

@@ -1,5 +1,4 @@
 (function (app) {
-
     app.config(['$stateProvider', function ($stateProvider) {
         $stateProvider.state('dashboard', {
             url: '/',
@@ -16,9 +15,11 @@
         });
     }]);
 
-    var DashboardController = function ($scope, ProductService, UserInfo, hotkeys, $state, PreviewDataService, DevInfo, UserService, AlertDialogService, TermsViewService, MyListItems, GeneralModalViewService) {
+    var DashboardController = function ($scope, ProductService, UserInfo, hotkeys, $state, PreviewDataService, DevInfo,
+                                        UserService, AlertDialogService, TermsViewService, MyListItems,
+                                        GeneralModalViewService, bestWatch,$rootScope,$timeout) {
         var self = this;
-        var keyboardInit = angular.noop || {};
+        var keyboardInit;
 
         self.slides = [];
         self.list = [];
@@ -35,22 +36,33 @@
         $scope.termsSelected = false;
         $scope.whatIsSelected = false;
 
+        $scope.animations = {};
         self.beforeSearchIsPreviewActive = false;
 
+        $scope.$on("$stateChangeStart", function (event, toState,toParams,fromState,fromParams) {
+            if(fromState.name === "dashboard"){
+                var objSaved = {};
+                objSaved.active = self.active;
+                $rootScope.selfDashboard = objSaved;
+            }
+        });
+
         $scope.showTerms = function () {
-            TermsViewService.showTerms(function () {
-                if(self.active >= self.list.length +1 ){
-                    activeEventsBottomOptions();
-                }   
-            }, undefined, false);
+            $scope.animations.isOpenModal = true;
+            TermsViewService.showTerms(function(){
+                $scope.animations.isOpenModal = false;
+            }, function(){
+                $scope.animations.isOpenModal = false;
+            }, false);
         };
 
-        $scope.showWhatIs = function () {
-            TermsViewService.ShowWhatIs(function () {
-                if(self.active >= self.list.length +1 ){
-                    activeEventsBottomOptions();
-                }   
-            }, undefined, false);
+        $scope.showWhatIs = function(){
+            $scope.animations.isOpenModal = true;
+            TermsViewService.showWhatIs(function(){
+                $scope.animations.isOpenModal = false;
+            }, function(){
+                $scope.animations.isOpenModal = false;
+            }, false);
         };
 
         $scope.$watch('keywordToSearch', function (newValue, oldValue) {
@@ -95,28 +107,40 @@
         $scope.restartConfigKeyboard = {};
 
         $scope.onLogout = function () {
+            console.log(
+                UserInfo.alias,
+                UserInfo.password,
+                UserInfo.session
+            );
             var logoutPromise = UserService.logout(UserInfo.alias, UserInfo.password, UserInfo.session);
             logoutPromise.then(function (response) {
+                console.log('response', response);
 
                 if (response.data.status) {
                     AlertDialogService.show(
                         'warning',
                         response.data.message,
                         'Aceptar',
-                        keyboardInit
+                        function () {
+                            keyboardInit();
+                            localStorage.removeItem('userInfo');
+                            UserInfo.name = '';
+                            UserInfo.lastname = '';
+                            UserInfo.alias = '';
+                            UserInfo.mail = '';
+                            UserInfo.password = '';
+                            UserInfo.session = '';
+                            UserInfo.uid = '';
+                            UserInfo.isSubscription = false;
+                            UserInfo.timeEnds = '';
+                            $scope.mail = '';
+
+
+                            window.location = window.location.pathname;
+                        }
                     );
 
-                    localStorage.removeItem('userInfo');
-                    UserInfo.name = '';
-                    UserInfo.lastname = '';
-                    UserInfo.alias = '';
-                    UserInfo.mail = '';
-                    UserInfo.password = '';
-                    UserInfo.session = '';
-                    UserInfo.uid = '';
-                    UserInfo.isSubscription = false;
-                    UserInfo.timeEnds = '';
-                    $scope.mail = '';
+
                 } else {
                     AlertDialogService.show(
                         'warning',
@@ -136,10 +160,33 @@
         };
 
         $scope.logout = function () {
-            GeneralModalViewService.show('warning', '¿Seguro que desea cerrar su sesión?', 'Cerrar sesión', 'Cancelar', 'Aceptar', undefined,
+            var previous = self.active;
+            var boolean1 = $scope.signOutSelected;
+            var boolean2 = $scope.termsSelected;
+            $scope.signOutSelected = false;
+            $scope.termsSelected = false;
+            self.active = 9999;
+            $scope.animations.isOpenModal = true;
+            GeneralModalViewService.show('warning', '¿Seguro que desea cerrar su sesión?',
+                'Cerrar sesión', 'Cancelar', 'Aceptar', function(){
+
+                    self.active = previous;
+                    $scope.signOutSelected =  boolean1;
+                    $scope.termsSelected =  boolean2;
+                    $scope.animations.isOpenModal = false;
+                },
                 function () {
                     $scope.onLogout();
-                });
+                },'positive'
+            );
+        };
+
+        $scope.blurInput = function (event) {
+            if (event.keyCode === 40) {
+                event.target.blur();
+                self.shouldBeFocus = false;
+                self.active = 1;
+            }
         };
 
         self.isKeyboardActive = function (pos) {
@@ -158,13 +205,6 @@
             var promiseRecentWatched = ProductService.getUserRecentlyWatched();
             promiseRecentWatched.then(function (response) {
                 if (response.data.length === 0) {
-                    for(var i=0,j = self.list.length; i<j; i++){
-                        var listC = self.list[i];
-                        if (listC.name === 'Ultimos vistos') {
-                            listC.splice(i,1);
-                            return;
-                        }
-                    }
                     return;
                 }
 
@@ -183,21 +223,35 @@
         };
 
         self.getList = function () {
+            if(UserInfo.alias === '' || UserInfo.password === '' ||  UserInfo.session === ''){
+                console.log("no debería estar nulo se supone");
+                return;
+            }
             var promiseGetList = ProductService.getList();
             promiseGetList.then(function (response) {
-                if(response.data.my_list.length === 0){
+                if (response.data.status === false) {
+                    console.log("no debería dar esto",response);
                     return;
                 }
-                MyListItems.list = response.data.my_list.map(function (item) {
-                    item.inList = true;
-                    item.feature_text = item.description;
-                    return item;
-                });
+                if (typeof response.data.user === "undefined" || typeof response.data.my_list === "undefined") {
+                    $state.go("dashboard", {}, {reload: true});
+                    return;
+                }
+                console.log('list', response.data);
 
-                self.list.push({
-                    name: 'Mi Lista',
-                    products: MyListItems.list,
-                });
+                if (response.data.my_list !== undefined) {
+                    MyListItems.list = response.data.my_list.map(function (item) {
+                        item.inList = true;
+                        item.feature_text = item.description;
+                        return item;
+                    });
+                }
+                if (MyListItems.list.length > 0) {
+                    self.list.push({
+                        name: 'Mi Lista',
+                        products: MyListItems.list
+                    });
+                }
             });
         };
 
@@ -246,37 +300,25 @@
 
         var inAnimation = function () {
             $('.preview-cover').css('right', '0%');
-            /*
-             $('.preview-cover').stop().animate({
-             right: '0%',
-             }, 500, 'swing', function() {
-             self.isShowInfo = true;
-             });
-             */
             self.isShowInfo = true;
         };
 
         var outAnimation = function () {
             $('.preview-cover').css('right', '-30%');
-            /*
-             $('.preview-cover').stop().animate({
-             right: '-25%',
-             }, 500, 'swing', function() {
-             self.isShowInfo = false;
-             });
-             */
             self.isShowInfo = false;
         };
 
         var activeEventsBottomOptions = function () {
+            console.log("entro en el metodo activeEventsBottomOptions");
             //if (self.active + 1 < self.list.length +1) {
-                self.active++;
+            self.active++;
             //}
 
             self.quantityButtons = ($scope.mail) ? 3 : 2;
 
             self.downActive = 0; //variable que controla que funcion inferior esta activa
             var setFocusActive = function (value) {
+                console.log(value);
                 switch (value) {
                     case 0 :
                     {
@@ -304,7 +346,7 @@
 
             var div = $('footer');
 
-            //console.log('div', div, $(div).position().top);
+            console.log('div', div, $(div).position().top);
             if ($(div).position()) {
                 $('.scroll-area').scrollTop($(div).position().top - 134);
             }
@@ -352,6 +394,7 @@
                             myFunction = $scope.logout;
                         }
                     }
+                    console.log(myFunction);
                     myFunction();
                 }
             });
@@ -361,20 +404,19 @@
         $('.preview-cover').css('right', '-30%');
 
         keyboardInit = function () {
-
             var redButtonCallback = function () {
                 $state.reload();
             };
 
             hotkeys.add({
                 combo: 'red',
-                callback: redButtonCallback,
+                callback: redButtonCallback
             });
 
             if (DevInfo.isInDev) {
                 hotkeys.add({
                     combo: 'r',
-                    callback: redButtonCallback,
+                    callback: redButtonCallback
                 });
             }
 
@@ -398,7 +440,53 @@
                 combo: 'down',
                 callback: function (event) {
                     event.preventDefault();
+
                     if (self.active + 1 > self.list.length + 1) {
+                        /*self.active++;
+                        var div = $('footer');
+                        if ($(div).position()) {
+                            $('.scroll-area').scrollTop($(div).position().top - 134);
+                        }
+                        outAnimation();
+                        if ($scope.mail) {
+                            $scope.signOutSelected = true;
+
+                        } else {
+                            $scope.termsSelected = true;
+                        }
+
+                        hotkeys.add({
+                            combo: 'right',
+                            callback: function () {
+                                $scope.termsSelected = true;
+                                $scope.signOutSelected = false;
+                            }
+                        });
+
+                        hotkeys.add({
+                            combo: 'left',
+                            callback: function () {
+                                $scope.termsSelected = false;
+                                $scope.signOutSelected = true;
+                            }
+                        });
+
+                        hotkeys.add({
+                            combo: 'enter',
+                            callback: function () {
+                                if ($scope.termsSelected) {
+                                    if(!$scope.animations.isOpenModal){
+                                        $scope.showTerms();
+                                    }
+                                } else {
+                                    if(!$scope.animations.isOpenModal){
+                                        $scope.logout();
+                                    }
+                                }
+                            }
+                        });
+
+                        */
                         activeEventsBottomOptions();
                         return;
                     }
@@ -415,15 +503,16 @@
                 combo: 'up',
                 callback: function () {
                     event.preventDefault();
-                    if ($scope.signOutSelected || $scope.termsSelected || $scope.whatIsSelected) {
+                    if ($scope.signOutSelected || $scope.termsSelected) {
                         inAnimation();
                         self.active = self.list.length + 1;
                         $scope.signOutSelected = false;
                         $scope.termsSelected = false;
-                        $scope.whatIsSelected = false;
                         return;
                     }
                     if (self.active - 1 < 1) {
+                        self.active = 0;
+                        self.shouldBeFocus = true;
                         return;
                     }
                     self.active--;
@@ -453,7 +542,7 @@
 
                 authPromise.then(function (response) {
                     var resObj = response.data;
-
+                    console.log(response.data);
                     if (resObj.status) {
                         UserInfo.name = resObj.user.data.nombres;
                         UserInfo.lastname = resObj.user.data.apellidos;
@@ -466,33 +555,16 @@
                         UserInfo.timeEnds = resObj.user.time_ends;
 
                         $scope.mail = UserInfo.mail;
-
                         localStorage.setItem('userInfo', JSON.stringify(UserInfo));
-
-                        self.getList();
                     }
                 });
 
-                /*
-                 var userInfo = JSON.parse(userInfoStr);
 
-                 UserInfo.name = userInfo.name;
-                 UserInfo.lastname = userInfo.lastname;
-                 UserInfo.alias = userInfo.alias;
-                 UserInfo.mail = userInfo.mail;
-                 UserInfo.password = userInfo.password;
-                 UserInfo.session = userInfo.session;
-                 UserInfo.uid = userInfo.uid;
-                 UserInfo.isSubscription = userInfo.isSubscription;
-                 UserInfo.timeEnds = userInfo.timeEnds;
-
-                 $scope.mail = userInfo.mail;
-                 */
             }
 
             featuredPromise.then(function (response) {
                 var featuredArray = response.data.featured;
-
+                //console.log(response);
                 for (var i in featuredArray) {
                     self.slides.push({
                         id: featuredArray[i].id,
@@ -500,24 +572,53 @@
                         text: featuredArray[i].feature_text,
                         rate: (featuredArray[i].rate * 5) / 100,
                         name: featuredArray[i].name,
+                        year: featuredArray[i].year
                     });
                 }
+                //se eliminan los registros adicionales aunque NO estoy de acuerdo con esto
+                //esto se debería hacer desde el server y no por aca
+                self.slides.splice(8,4);
+                console.log(self.slides);
             });
 
             categoriesPromise.then(function (response) {
+                console.log("listado de categorías", response);
                 var list = response.data.categories;
                 var promise = {};
                 var pos = 0;
+                var responseArray = [], totalRequest = 0;
+
                 var promiseFunction = function (pos) {
                     return function (res) {
+                        //console.log(res);
                         if (res.data.products && res.data.products.length > 0) {
-                            self.list.push({
+                            //self.list.push({
+                            //	name: list[pos].name,
+                            //	products: res.data.products.map(function(item) {
+                            //		item.rate = item.rate * 5 / 100;
+                            //		return item;
+                            //	})
+                            //});
+                            responseArray.push({
                                 name: list[pos].name,
                                 products: res.data.products.map(function (item) {
                                     item.rate = item.rate * 5 / 100;
                                     return item;
                                 })
                             });
+
+                            if (totalRequest == responseArray.length) {
+                                orderContentDashboard(responseArray, 0);
+                                orderContentDashboard(responseArray, 0);
+                                self.list = responseArray;
+                                self.getList();
+                                if(typeof $rootScope.selfDashboard !== "undefined"){
+                                    $timeout(function(){
+                                        self.active = $rootScope.selfDashboard.active;
+                                        inAnimation();
+                                    },60);
+                                }
+                            }
                         }
                     };
                 };
@@ -526,17 +627,81 @@
                     if (list[i].id === '1') {
                         self.getUserRecentlyWatched();
                     } else {
+                        totalRequest++;
                         promise = ProductService.getListFromCategoryId(list[i].id);
                         promise.then(promiseFunction(i));
                     }
                 }
             });
-
         };
         init();
+
+        var orderContentDashboard = function (array, position) {
+            if (position >= array.length) {
+                return;
+            }
+
+            var findPosition = function (id) {
+                switch (id) {
+                    case "336" :{return 0;}
+                    case "274" :{return 1;}
+                    case "258" :{return 2;}
+                    case "252" :{return 3;}
+                    case "445" :{return 4;}
+                    default : return self.list.length;
+                }
+            };
+
+            var changePosition = function (currentArray, indexA, indexB) {
+                var tmp = currentArray[indexA];
+                currentArray[indexA] = currentArray[indexB];
+                currentArray[indexB] = tmp;
+
+            };
+
+            var c = array[position];
+            var cid = c.products[0].category_id;
+            if ( (c.id === "336" && position === 0) ||
+                 (c.id === "274" && position === 1) ||
+                 (c.id === "258" && position === 2) ||
+                 (c.id === "252" && position === 3) ||
+                 (c.id === "445" && position === 4) ) {
+                orderContentDashboard(array, ++position);
+            } else {
+                var fPosition = findPosition(cid);
+                changePosition(array, fPosition, position);
+                orderContentDashboard(array, ++position);
+            }
+        };
+
+        $scope.$on("updatedSelectItem", function (event, newValue, oldValue) {
+            //console.log(newValue);
+            self.selectedItem = newValue;
+        });
     };
 
-    app.controller('DashboardController', ['$scope', 'ProductService', 'UserInfo', 'hotkeys', '$state', 'PreviewDataService', 'DevInfo', 'UserService', 'AlertDialogService', 'TermsViewService', 'MyListItems', 'GeneralModalViewService', DashboardController]);
+
+    app.controller('DashboardController', [
+        '$scope', 'ProductService', 'UserInfo', 'hotkeys', '$state',
+        'PreviewDataService', 'DevInfo', 'UserService', 'AlertDialogService',
+        'TermsViewService', 'MyListItems', 'GeneralModalViewService', 'bestWatch',
+        '$rootScope','$timeout',
+        DashboardController
+    ]);
+
+    app.directive('ngValidateLength', function () {
+        return {
+            link: function (scope, element, attrs) {
+                var length = scope.$eval(attrs.ngValidateLength);
+                if (length === 0) {
+                    $(element[0]).addClass("remove-item-empty");
+                }
+                if (scope.$last === true) {
+                    $(".remove-item-empty").remove();
+                }
+            }
+        };
+    });
 
 }(angular.module("caracolplaylgtvapp.dashboard", [
     'ui.router',

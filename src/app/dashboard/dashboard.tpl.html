@@ -1,14 +1,20 @@
 <header class="toolbar">
-	<div id="logo"><h2 style="color:white;"><h2></div>
+	<div id="logo"><h2 style="color:white;"></h2></div>
 		<div class="search-bar">
-			<div class="input-group">
-				<span class="input-group-btn">
-					<button class="btn dark-btn" type="button">
-						<span class="glyphicon glyphicon-search"></span>
-					</button>
-				</span>
-				<input placeholder="Buscar" type="text" class="form-control" ng-model="keywordToSearch" focus-me="{{dashCtrl.shouldBeFocus}}">
-			</div><!-- /input-group -->
+			<!--<div class="input-group">-->
+				<!--<span class="input-group-btn">-->
+					<!--<button class="btn dark-btn" type="button">-->
+						<!--<span class="glyphicon glyphicon-search"></span>-->
+					<!--</button>-->
+				<!--</span>-->
+				<!--<input placeholder="Buscar" type="text" class="form-control" ng-model="keywordToSearch" ng-keydown="blurInput($event)" focus-me="{{dashCtrl.shouldBeFocus}}">-->
+			<!--</div>-->
+
+            <div class="input-group">
+                <input type="text" placeholder class="form-control" ng-model="keywordToSearch" ng-keydown="blurInput($event)" focus-me="{{dashCtrl.shouldBeFocus}}"/>
+                <span class="glyphicon glyphicon-search"></span>
+
+            </div>
 		</div>
 </header>
 
@@ -20,42 +26,63 @@
 
 	<div class="preview-cover">
 		<div class="background-blur">
-			<img src="./assets/img/imagenblurdef.jpg">
+			<!--<img src="./assets/img/_imagenblurdef.jpg">-->
+            <div class="background-gradient">
+
+            </div>
 		</div>
 		<div class="preview-content">
 			<h2>{{dashCtrl.selectedItem.name}}</h2>
-			<h6>{{dashCtrl.selectedItem.year}}</h6>
+			<h6 ng-if="dashCtrl.selectedItem.year != 0">{{dashCtrl.selectedItem.year}}</h6>
 			<rating class="pull-left rating-bar" ng-model="dashCtrl.selectedItem.rate" max="5" readonly="true"></rating>
 			<br/>
 			<h5 ng-bind-html="dashCtrl.selectedItem.feature_text | unsafe"></h5>
 			<div class="separator"></div>
 			<h6 ng-show="dashCtrl.selectedItem.seasons">Temporadas: {{dashCtrl.selectedItem.seasons}}</h6>
-			<h6 ng-show="dashCtrl.selectedItem.chapters">Capítulos: {{dashCtrl.selectedItem.chapters}}</h6>
+			<h6 ng-if="dashCtrl.selectedItem.chapters && dashCtrl.selectedItem.chapters != 0">Capítulos: {{dashCtrl.selectedItem.chapters}}</h6>
 			<h6 ng-show="dashCtrl.selectedItem.gender">Genero: {{dashCtrl.selectedItem.gender}}</h6>
 		</div>
 	</div>
 
-	{{dashCtrl.showInfo()}}
+	{{ dashCtrl.showInfo() }}
 
 	<div class="dashboard container">
 
 		<div style="height:115px; width: 100%;"></div>
 
-		<carousel-container id="Cover" href="#Cover" slides="dashCtrl.slides" title="Cover" active="dashCtrl.isKeyboardActive(1)" preview="dashCtrl.activePreview(value)" restart-keyboard="restartConfigKeyboard" item-selected="dashCtrl.selectedItem"></carousel-container>
 
-		<div ng-repeat="item in dashCtrl.list" ng-show="item.products.length !== 0" id="{{item.name | nospace}}" style="margin-top: -20px;">
-			<products-container href="{{'#' + item.name | nospace}}" slides="item.products" title="{{item.name}}" active="dashCtrl.isKeyboardActive($index + 2)" preview="dashCtrl.activePreview(value, item)" item-selected="dashCtrl.selectedItem" restart-keyboard="restartConfigKeyboard"></products-container>
+		<carousel-container id="Cover"
+                            href="#Cover"
+                            slides="dashCtrl.slides"
+                            title="Cover"
+                            active="dashCtrl.isKeyboardActive(1)"
+                            preview="dashCtrl.activePreview(value)"
+                            restart-keyboard="restartConfigKeyboard"
+                            item-selected="dashCtrl.selectedItem">
+        </carousel-container>
+
+
+		<div ng-repeat="item in dashCtrl.list"  class="verify-length" ng-validate-length="item.products.length" id="{{item.name | nospace}}" style="margin-top: -20px;">
+			<products-container href="{{'#' + item.name | nospace}}"
+                                slides="item.products"
+                                title="{{item.name}}"
+                                active="dashCtrl.isKeyboardActive($index + 2)"
+                                preview="dashCtrl.activePreview(value, item)"
+                                item-selected="dashCtrl.selectedItem"
+                                restart-keyboard="restartConfigKeyboard">
+
+            </products-container>
 		</div>
 
 		<footer>
 			<center>
 				<div>
-					<button class="btn inline" ng-class="{'caracol-btn':signOutSelected, 'caracol-btn-cancel':!signOutSelected}" ng-show="mail" ng-click="logout()">Cerrar sesión {{mail}}</button>
+					<button class="btn inline" ng-class="{'caracol-btn':signOutSelected, 'caracol-btn-cancel':!signOutSelected}" ng-show="mail" ng-click="logout()">Cerrar sesión </button>
 					<div class="inline">
 						<a href ng-click="showTerms()" ng-class="{'link-active':termsSelected, 'link-deactive':!termsSelected}"><h6>Términos y condiciones</h6></a>
 					</div>
                     <div class="inline">
-						<a href ng-click="showWhatIs()" ng-class="{'link-active':whatIsSelected, 'link-deactive':!whatIsSelected}"><h6> ¿Qué es Caracol Play? </h6></a>
+						<a href ng-click="showTerms()" ng-class="{'link-active':whatIsSelected, 'link-deactive':!whatIsSelected}"><h6> ¿Qué es Caracol Play? </h6></a>
 					</div>
 				</div>
 			</center>

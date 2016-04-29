@@ -30,10 +30,10 @@
 						return {
 							'type': type,
 							'message': message,
-							'button': button,
+							'button': button
 						};
-					},
-				},
+					}
+				}
 			});
 			
 			self.modalInstance.result.then(function() {
@@ -86,7 +86,7 @@
 						event.preventDefault();
 
 						$modalInstance.dismiss('cancel');
-					},
+					}
 				});
 			}, 10);
 		}

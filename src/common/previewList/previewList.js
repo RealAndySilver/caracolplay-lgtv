@@ -16,7 +16,7 @@
 				buttons: '=list',
 				id: '@',
 				click: '&onClick'
-			},
+			}
 		};
 	};
 

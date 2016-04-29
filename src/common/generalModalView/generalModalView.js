@@ -20,7 +20,8 @@
 
 		init();
 
-		self.show = function(image, text, title, positive, negative, onPositive, onNegative) {
+		self.show = function(image, text, title, positive, negative, onPositive, onNegative,focus) {
+            focus = focus || '';
 			self.modalInstance = $modal.open({
 				controller: 'GeneralModalViewController',
 				templateUrl: 'generalModalView/generalModalView.tpl.html',
@@ -33,10 +34,13 @@
 							'title': title,
 							'positive': positive,
 							'negative': negative,
+                            'focus' : focus
 						};
 					}
-				}
-			});
+				},
+                backdrop : 'static',
+                keyboard : false
+            });
 
 			self.modalInstance.result.then(function() {
 				if(onPositive) {
@@ -66,6 +70,7 @@
 		$scope.imageUrl = '';
 		$scope.positiveButton = '';
 		$scope.negativeButton = '';
+        $scope.focus = '';
 
 		$scope.positive = function() {
 			$modalInstance.close('ok');
@@ -82,28 +87,29 @@
 			$scope.message = modalInfo.text;
 			$scope.positiveButton = modalInfo.positive;
 			$scope.negativeButton = modalInfo.negative;
-
+            $scope.focus = modalInfo.focus;
 			switch(modalInfo.image) {
 				case 'alert':
-					$scope.imageUrl = './assets/img/alert.png';
+					$scope.imageUrl = 'assets/img/alert.png';
 					break;
 				case 'warning':
-					$scope.imageUrl = './assets/img/interrogative.png';
+					$scope.imageUrl = 'assets/img/interrogative.png';
 					break;
 				case 'redeem':
-					$scope.imageUrl = './assets/img/redeem-logo.png';
+					$scope.imageUrl = 'assets/img/redeem-logo.png';
 					break;
 				case 'rent':
-					$scope.imageUrl = './assets/img/rent-logo.png';
+					$scope.imageUrl = 'assets/img/rent-logo.png';
 					break;
 				case 'subscribe':
-					$scope.imageUrl = './assets/img/subscribe-logo.png';
+					$scope.imageUrl = 'assets/img/subscribe-logo.png';
 					break;
 				default:
 					$scope.imageUrl = modalInfo.image;
 					break;
 			}
 		}
+
 	};
 
 	var GeneralModalViewRouteController = function(GeneralModalViewService) {
@@ -125,6 +131,18 @@
 	module.controller('GeneralModalViewController', ['$scope', '$modalInstance', 'modalInfo', GeneralModalViewController]);
 	module.controller('GeneralModalViewRouteController', ['GeneralModalViewService', GeneralModalViewRouteController]);
 
+    module.directive('ngCustomFocus',['$timeout',function($timeout){
+        return {
+            link : function(scope,element,attrs){
+                var condition = scope.$eval(attrs.ngCustomFocus);
+                if(condition){
+                    $timeout(function(){
+                        element[0].focus();
+                    },200);
+                }
+            }
+        };
+    }]);
 }(angular.module("caracolplaylgtvapp.generalModalView", [
 	'ui.router'
 ])));

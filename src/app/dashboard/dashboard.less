@@ -115,3 +115,22 @@
 	margin-top: -28px;
 	position: absolute;
 }
+
+
+.input-group{
+  >span.glyphicon{
+    color: #CCC;
+    left: 13px;
+    position: absolute;
+    top: 13px;
+    z-index: 10;
+  }
+  >input[type="text"]:focus + span.glyphicon {
+    color: #333 !important;
+  }
+
+  >input{
+    border-radius: 30px !important;
+    padding-left: 60px !important;
+  }
+}

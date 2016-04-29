@@ -11,7 +11,8 @@
 	module.END_POINT = 'http://appsbetadev.caracolplay.com/';
 	module.TEST_END_POINT = 'http://192.168.1.129:1414/';
 
-	ssl.END_POINT = 'https://premium.icck.net/api/';
+    //ssl.END_POINT = 'http://operacionesplay.icck.net/api/';
+    ssl.END_POINT = 'https://premium.icck.net/api/';
 	ssl.user = 'icck';
 	ssl.password = 'K1qf(w#:';
 
@@ -28,6 +29,7 @@
 
 		var sslHeaders = false;
 		var isWithToken = false,
+            needTypeDevice = false,
 			sslToken = '';
 		var user = '',
 			password = '',
@@ -40,6 +42,10 @@
 				isWithToken = true;
 				sslToken = param2;
 			}
+
+            if(param3 === true){
+                needTypeDevice = true;
+            }
 		} else {
 			user = param1;
 			password = param2;
@@ -54,18 +60,21 @@
 			headers['Content-Type'] = 'application/json; charset=UTF-8';
 
 			if (isWithToken) {
-				headers['X-CSRF-Token'] = sslToken;
+                //headers['X-CSRF-Token'] = "pyqFTbUmILjJOqkqNOuwq2CjTYrZtxswj_7rmtJFHCg";
+                headers['X-CSRF-Token'] = sslToken;
 			}
+            if(needTypeDevice === true){
+                headers['X-Provider'] = 'Samsung';
+            }
+
 		} else {
 			var time = new Date();
 			var encodeKey = 'aREwKMVVmjA81aea0mVNFh';
 
 			var utc = time.getTime();
 			var authWithoutEncode = user + ':' + password + (session === '' ? '' : ':' + session);
-			console.log('auth', authWithoutEncode);
 			var auth = btoa(unescape(encodeURIComponent(btoa(unescape(encodeURIComponent(authWithoutEncode))))));
 			var token = btoa(unescape(encodeURIComponent(utc + encodeKey)));
-
 			var encodeStr = user + ':' + password + (session === '' ? '' : ':' + session);
 
 			headers.auth = auth;
@@ -80,14 +89,14 @@
 		var self = this;
 
 		self.getRecommendationsWithProductID = function(productId) {
-			if (test.withoutInternet) {
+			if (test.withoutInternet){
 				return $http.get('assets/dummy/recommended.json');
 			} else {
 				return $http({
 					crossDomain: true,
 					headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 					method: 'GET',
-					url: module.END_POINT + 'GetRecommendationsWithProductID/' + productId + '/?player_br=iam',
+					url: module.END_POINT + 'GetRecommendationsWithProductID/' + productId + '/?player_br=iam'
 				});
 			}
 		};
@@ -97,7 +106,8 @@
 				crossDomain: true,
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'GET',
-				url: module.END_POINT + 'UpdateUserFeedbackForProduct?player_br=aim/produccion/' + productId + '/' + (rate * 100.0 / 5.0),
+				//url: module.END_POINT + 'UpdateUserFeedbackForProduct?player_br=aim/produccion/' + productId + '/' + (rate * 100.0 / 5.0),
+				url: module.END_POINT + 'UpdateUserFeedbackForProduct/produccion/' + productId + '/' + (rate * 100.0 / 5.0)
 			});
 		};
 
@@ -135,7 +145,7 @@
 				crossDomain: true,
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'GET',
-				url: module.END_POINT + 'GetUserRecentlyWatched?player_br=aim',
+				url: module.END_POINT + 'GetUserRecentlyWatched?player_br=aim'
 			});
 		};
 
@@ -149,11 +159,11 @@
 
 		self.getListFromSearchWithKey = function(keyword) {
 			self.canceler = $q.defer;
-			console.log('self.canceler', self.canceler);
 			return $http.get(module.END_POINT + 'GetListFromSearchWithKey/' + keyword + '?player_br=aim', { timeout: self.canceler });
 		};
 
 		self.getProductWithID = function(id, uid) {
+            //console.log(id);
 			if (!uid || uid === '') {
 				uid = '0';
 			}
@@ -165,7 +175,7 @@
 					crossDomain: true,
 					headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 					method: 'GET',
-					url: module.END_POINT + 'GetProductWithID/' + id + '/' + uid + '?player_br=aim',
+					url: module.END_POINT + 'GetProductWithID/' + id + '/' + uid + '?player_br=aim'
 				});
 			}
 		};
@@ -176,11 +186,12 @@
 			} else {
 				type = 'produccion';
 			}
+            console.log("id -->",id);
 			return $http({
 				crossDomain: true,
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'POST',
-				url: module.END_POINT + 'my_list/add/' + type + '/' + id,
+				url: module.END_POINT + 'my_list/add/' + type + '/' + id
 			});
 		};
 
@@ -194,21 +205,23 @@
 				crossDomain: true,
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'POST',
-				url: module.END_POINT + 'my_list/remove/' + type + '/' + id,
+				url: module.END_POINT + 'my_list/remove/' + type + '/' + id
 			});
 		};
 
 		self.getList = function() {
+            //console.log("alias -> ",UserInfo);
+
 			return $http({
 				crossDomain: true,
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'GET',
-				url: module.END_POINT + 'my_list/get',
+				url: module.END_POINT + 'my_list/get'
 			});
 		};
 	};
 
-	var UserService = function($http, UserInfo) {
+	var UserService = function($http, UserInfo,AlertDialogService,$state) {
 		var self = this;
 
 		self.videoWatched = function(productId, time) {
@@ -216,9 +229,38 @@
 				crossDomain: true,
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				method: 'GET',
-				url: module.END_POINT + 'VideoWatched/' + productId + '/' + time + '?player_br=aim',
+				url: module.END_POINT + 'VideoWatched/' + productId + '/' + time + '?player_br=aim'
 			});
 		};
+
+        self.validatePlayerVideo = function(chapterId,productionId,configHotkeys,successCallback,errorCallback){
+            var prom = self.isContentAvailableForUser(chapterId);
+            errorCallback = errorCallback || null;
+            successCallback= successCallback|| null;
+
+            prom.then(function(response){
+                if(response.data.video.status){
+                    $state.go('videoModule', {
+                        chapterId: chapterId,
+                        productionId: productionId
+                    });
+                    if(successCallback !== null){
+                        successCallback();
+                    }
+                    return;
+                }
+
+                AlertDialogService.show(
+                    'alert',
+                    response.data.video.message,
+                    'Aceptar',
+                    configHotkeys
+                );
+                if(errorCallback !== null){
+                    errorCallback();
+                }
+            });
+        };
 
 		self.isContentAvailableForUser = function(episodeId) {
 			if (test.withoutInternet) {
@@ -228,7 +270,7 @@
 					crossDomain: true,
 					headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 					method: 'GET',
-					url: module.END_POINT + 'IsContentAvailableForUser/' + episodeId + '?player_br=aim',
+					url: module.END_POINT + 'IsContentAvailableForUser/' + episodeId + '?player_br=aim'
 				});
 			}
 		};
@@ -238,7 +280,7 @@
 				crossDomain: true,
 				headers: module.encode(username, password, session),
 				method: 'GET',
-				url: module.END_POINT + 'LogOut?player_br=aim',
+				url: module.END_POINT + 'LogOut?player_br=aim'
 			});
 		};
 
@@ -247,7 +289,7 @@
 				crossDomain: true,
 				headers: module.encode(username, password, ''),
 				method: 'GET',
-				url: module.END_POINT + 'AuthenticateUser?player_br=aim',
+				url: module.END_POINT + 'AuthenticateUser?player_br=aim'
 			});
 		};
 
@@ -255,15 +297,15 @@
 			var json = {
 				email: mail,
 				alias: alias,
-				password: password,
+				password: password
 			};
 			var encodedJson = btoa(unescape(encodeURIComponent(JSON.stringify(json).trim()))).trim();
 
 			return $http({
 				//crossDomain: true,
-				headers: {
-					'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
-				},
+                headers: {
+                    'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
 				method: 'POST',
 				transformRequest: module.jsonTransform,
 				data: {
@@ -274,7 +316,7 @@
 		};
 	};
 
-	var     PurchaseService = function($http, UserInfo) {
+	var PurchaseService = function($http, UserInfo) {
 		var self = this;
 
 		self.getVideoRequeriments = function() {
@@ -301,7 +343,8 @@
 			});
 		};
 
-		self.createUser = function(name, password, mail, privacyPolicity, termsAndConditions, bussinessInfo) {
+		self.createUser = function(name, password, mail,first_name,last_name, privacyPolicity, termsAndConditions, bussinessInfo) {
+            //console.log(first_name,last_name);
 			return $http({
 				headers: module.encode(true),
 				method: 'POST',
@@ -310,9 +353,11 @@
 					'name': name,
 					'pass': password,
 					'mail': mail,
+                    'first_name' : first_name,
+                    'last_name' : last_name,
 					'privacy_policy': privacyPolicity ? 1 : 0,
 					'terms_and_conditions': termsAndConditions ? 1 : 0,
-					'business_inf': bussinessInfo ? 1 : 0,
+					'business_inf': bussinessInfo ? 1 : 0
 				})
 			});
 		};
@@ -322,7 +367,7 @@
 				headers: module.encode(true),
 				method: 'POST',
 				data: '',
-				url: ssl.END_POINT + 'common/user/token.json',
+				url: ssl.END_POINT + 'common/user/token.json'
 			});
 		};
 
@@ -333,8 +378,8 @@
 				url: ssl.END_POINT + 'common/user/login.json',
 				data: JSON.stringify({
 					'username': username,
-					'password': password,
-				}),
+					'password': password
+				})
 			});
 		};
 
@@ -366,8 +411,8 @@
 				method: 'POST',
 				url: ssl.END_POINT + 'commerce/payment/cities.json',
 				data: JSON.stringify({
-					'city': city,
-				}),
+					'city': city
+				})
 			});
 		};
 
@@ -393,23 +438,32 @@
 		};
 
 		self.executeTransactionWithCard = function(paymentInfo, token) {
+
+            console.log(paymentInfo);
 			var encryptedJson = btoa(unescape(encodeURIComponent(btoa(unescape(encodeURIComponent(JSON.stringify(paymentInfo)))))));
 			return $http({
 				headers: module.encode(true, token),
 				method: 'POST',
 				url: ssl.END_POINT + 'commerce/payment/transaction.json',
 				data: JSON.stringify({
-					'info_tx': encryptedJson,
-				}),
+					'info_tx': encryptedJson
+				})
 			});
 		};
 
 		self.createSubscriptionOrder = function(token) {
-			return $http({
-				headers: module.encode(true, token),
+            var headers = module.encode(true, token);
+            console.log(headers.Authorization+" <--");
+            delete headers.Authorization;
+            console.log(headers);
+            console.log("");
+            console.log(ssl.END_POINT);
+            console.log("");
+            return $http({
+				headers: headers,
 				method: 'POST',
-				data: "",
-				url: ssl.END_POINT + 'commerce/payment/order_subscription.json',
+                data : '',
+				url: ssl.END_POINT + 'commerce/payment/order_subscription.json'
 			});
 		};
 
@@ -436,12 +490,12 @@
 
 		self.createRentOrder = function(token, nid) {
 			return $http({
-				headers: module.encode(true, token),
+				headers: module.encode(true, token,false),
 				method: 'POST',
 				data: JSON.stringify({
 					nid: nid
 				}),
-				url: ssl.END_POINT + 'commerce/payment/order_rent.json',
+				url: ssl.END_POINT + 'commerce/payment/order_rent.json'
 			});
 		};
 
@@ -495,9 +549,9 @@
 				data: {
 					'Id': id,
 					'Type': type,
-					'Action': action,
+					'Action': action
 				},
-				url: module.END_POINT + 'Get_Product?player_br=aim',
+				url: module.END_POINT + 'Get_Product?player_br=aim'
 			});
 		};
 
@@ -508,9 +562,9 @@
 				headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
 				data: {
 					'Id_Producto': productId,
-					'Id_user': userId,
+					'Id_user': userId
 				},
-				url: module.END_POINT + 'Create_Order?player_br=aim',
+				url: module.END_POINT + 'Create_Order?player_br=aim'
 			});
 		};
 
@@ -525,9 +579,9 @@
 					'Token_card': tokenCard,
 					'Exp_Date': expirationDate,
 					'CVV': cvv,
-					'Recurrencia': recurrence,
+					'Recurrencia': recurrence
 				},
-				url: module.END_POINT + 'Payment?player_br=aim',
+				url: module.END_POINT + 'Payment?player_br=aim'
 			});
 		};
 
@@ -535,9 +589,33 @@
 			return $http({
 				crossDomain: true,
 				method: 'GET',
-				url: module.END_POINT + 'ValidateCode/' + code + '?player_br=aim',
+				url: module.END_POINT + 'ValidateCode/' + code + '?player_br=aim'
 			});
 		};
+
+        self.redeemCode = function(code,userObj){
+            var obj = {
+                name : userObj.name,
+                lastname : userObj.lastname,
+                alias : userObj.alias,
+                email : userObj.email,
+                password : userObj.password,
+                genero : userObj.genero,
+                fecha_de_nacimiento : userObj.fecha_de_nacimiento
+            };
+            var encodedJson = btoa(unescape(encodeURIComponent(JSON.stringify(obj))));
+            return $http({
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                transformRequest: module.jsonTransform,
+                url: module.END_POINT+'RedeemCode/'+code,
+                data: {
+                    user_info : encodedJson
+                }
+            });
+        };
 
 		self.test = function() {
 			return $http({
@@ -554,7 +632,7 @@
 	};
 
 	app.service('ProductService', ['$http', 'UserInfo', '$q', ProductService]);
-	app.service('UserService', ['$http', 'UserInfo', UserService]);
+	app.service('UserService', ['$http', 'UserInfo','AlertDialogService','$state', UserService]);
 	app.service('PurchaseService', ['$http', 'UserInfo', PurchaseService]);
 
 }(angular.module("caracolplaylgtvapp.ServerCommunicator", [

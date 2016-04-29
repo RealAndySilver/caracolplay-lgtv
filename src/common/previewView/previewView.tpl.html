@@ -1,14 +1,20 @@
 <header class="toolbar">
 	<div id="logo" ng-click="home()"></div>
 		<div class="search-bar">
-			<div class="input-group">
-				<span class="input-group-btn">
-					<button class="btn dark-btn" type="button">
-						<span class="glyphicon glyphicon-search"></span>
-					</button>
-				</span>
-				<input type="text" class="form-control" ng-model="keywordToSearch">
-			</div><!-- /input-group -->
+			<!--<div class="input-group">-->
+				<!--<span class="input-group-btn">-->
+					<!--<button class="btn dark-btn" type="button">-->
+						<!--<span class="glyphicon glyphicon-search"></span>-->
+					<!--</button>-->
+				<!--</span>-->
+				<!--<input type="text" class="form-control" ng-model="keywordToSearch">-->
+			<!--</div>&lt;!&ndash; /input-group &ndash;&gt;-->
+
+            <div class="input-group">
+                <input type="text" placeholder class="form-control" ng-model="keywordToSearch"/>
+                <span class="glyphicon glyphicon-search"></span>
+
+            </div>
 		</div>
 </header>
 
@@ -16,15 +22,24 @@
 <div ng-show="isNews()">
 	<series-product selected-item="getSelected('Noticias')" display-options="newsOptions" restart-keyboard="restart"></series-product>
 </div>
+
 <div ng-show="isSeries()">
 	<series-product selected-item="getSelected('Series')" display-options="seriesOptions" restart-keyboard="restart"></series-product>
 </div>
+
 <div ng-show="isTelenovelas()">
 	<series-product selected-item="getSelected('Telenovelas')" display-options="telenovelasOptions" restart-keyboard="restart"></series-product>
 </div>
+
 <div ng-show="isMovie()" class="movie-container">
 	<series-product selected-item="getSelected('Películas')" display-options="moviesOptions" restart-keyboard="restart"></series-product>
 </div>
+
+<div ng-show="isOther()" class="movie-container">
+	<series-product selected-item="getSelected('other')" display-options="otherOptions" restart-keyboard="restart"></series-product>
+</div>
+
+
 
 <div class="preview-cover">
 	<!--<h2>{{selected.name}}</h2>-->

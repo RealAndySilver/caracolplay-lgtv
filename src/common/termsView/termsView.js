@@ -43,8 +43,9 @@
 			});
 		};
 
-        self.ShowWhatIs = function(success,failure,showCancel){
-            self.show('¿Qué es Caracol Play?','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget elit libero. Phasellus faucibus diam ut dolor ornare, nec feugiat lectus fermentum. Sed laoreet et urna ac imperdiet. Integer vestibulum, leo vel scelerisque facilisis, eros arcu consectetur nisi, sit amet suscipit sem felis mollis ipsum. Donec tincidunt dictum massa, ac bibendum lectus mattis id. Nullam viverra cursus justo, quis rhoncus erat bibendum luctus. Nullam auctor volutpat condimentum. Ut convallis lorem vitae vestibulum pulvinar. Proin laoreet rhoncus malesuada. Vestibulum ut eros non eros iaculis pulvinar at non tellus. <br/> Vivamus libero arcu, pulvinar ac nisl vel, egestas sollicitudin leo. Cras odio magna, tempus sed blandit sed, ultricies in leo. Integer et arcu auctor, molestie nulla eget, sollicitudin velit. Nulla rutrum dui ex, ut tristique ipsum varius tempus. In hac habitasse platea dictumst. Aliquam et justo eu tellus malesuada porta. Fusce luctus dolor risus, vel ultricies nisl vulputate sit amet. Fusce ornare venenatis maximus. Cras ut dignissim erat. Maecenas magna nulla, pulvinar tempor erat et, tristique hendrerit massa. Nulla ullamcorper tellus eros, at blandit est ultrices cursus. Ut blandit, eros ut egestas faucibus, est nisi pretium justo, ut venenatis nisi sapien vitae ante. Aenean faucibus cursus nisl, quis pulvinar eros venenatis quis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum eget ligula pellentesque, placerat urna sed, consequat est.<br/><br/> Maecenas nec justo eget nisi mollis sagittis quis et libero. Nam massa est, gravida in lacus venenatis, accumsan ultrices ante. Nunc commodo pharetra egestas. Duis arcu lectus, vulputate ut mi ut, luctus fermentum sem. Vestibulum condimentum volutpat tempor. Fusce eget orci sit amet enim blandit vestibulum sed sed magna. Vestibulum justo sapien, efficitur at vestibulum suscipit, rutrum a odio. Vestibulum finibus consequat neque id maximus. Mauris sollicitudin dolor nunc, ac scelerisque nisl tempus quis. Sed tempor sem vitae felis laoreet, aliquet varius augue ultrices.<br/><br/>Integer mollis sodales mi, eu lobortis lorem pellentesque a. Nam sed sollicitudin nisi. Donec commodo rhoncus sagittis. Integer orci orci, maximus lacinia dolor in, consectetur ultrices nunc. Integer sit amet erat eget velit placerat dapibus. Vivamus arcu ipsum, vehicula et purus sit amet, rhoncus lacinia velit. Vestibulum lacinia fringilla neque, eu sodales eros consequat vitae. Aenean a lacinia nulla. Vestibulum a ex in lacus sollicitudin tincidunt a id nisl.<br/><br/> Mauris feugiat augue ullamcorper tellus feugiat, eu ullamcorper augue laoreet. Nunc vitae dui molestie, posuere purus egestas, vulputate enim. Aenean vitae nunc vitae lectus faucibus imperdiet. Suspendisse id elit faucibus, laoreet nisl sit amet, molestie nulla. Integer eu massa tempor, pellentesque lorem efficitur, sodales quam. Nulla aliquam, ligula nec rutrum gravida, dui urna dapibus sapien, non ornare mi mauris eget felis. Nulla sed sapien massa. Quisque fringilla ligula id euismod tempor.',showCancel,success,failure);
+        self.showWhatIs = function(success,failure){
+            var text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc viverra urna justo, iaculis viverra turpis condimentum et. Sed consectetur nisi sit amet dolor varius, ultrices dignissim ipsum accumsan. Quisque vehicula, metus vel iaculis eleifend, justo massa viverra massa, luctus pretium nibh magna dapibus magna. Nam dolor purus, gravida ac tincidunt ut, consequat auctor nisi. Nam hendrerit est libero, vel vestibulum ipsum vulputate eget. Suspendisse potenti. Suspendisse potenti. Nam luctus laoreet sem at vestibulum. Duis at mollis mauris. Suspendisse vel porttitor urna. Aliquam sit amet lobortis orci. Vestibulum ut tortor tellus. Duis in tristique dui.<br/><br/>Maecenas condimentum turpis vitae rhoncus aliquam. Sed cursus scelerisque bibendum. Suspendisse sed leo bibendum ligula euismod posuere vel et metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum lobortis dolor quis efficitur. Cras faucibus posuere turpis. Nam fringilla nulla in sem hendrerit, ac porttitor ligula condimentum. Pellentesque at ipsum sagittis lorem porta consequat vel a est. Donec pulvinar sapien est, at bibendum mi pretium eget. Donec sed luctus libero. Quisque placerat quam tincidunt laoreet dapibus. Vestibulum molestie quam eu odio mattis, vel imperdiet lorem feugiat. Maecenas leo lorem, lobortis in enim a, dapibus mollis massa. Nullam massa massa, fringilla nec scelerisque et, consequat vitae purus.<br/><br/>Fusce faucibus nec augue ac gravida. Fusce at faucibus ex. Quisque tempor suscipit metus, vestibulum dictum mauris sagittis sit amet. Morbi dignissim est quis libero vehicula, vitae iaculis nulla lobortis. Integer bibendum justo sit amet vulputate accumsan. Donec tempus in metus sed tempus. Suspendisse et sem turpis. Integer et magna sed elit rhoncus dictum at ac massa. In nunc neque, finibus nec orci et, pellentesque tempor elit.<br/><br/>Ut ut erat efficitur enim convallis semper in at dolor. Integer scelerisque, eros sed sagittis tempor, ante sem fermentum libero, at bibendum eros nunc vel tortor. Curabitur commodo elit sed ante rhoncus porttitor. Aliquam elementum sed dui non volutpat. Donec ut maximus mi, sed semper purus. Fusce vel purus finibus, tincidunt mauris quis, commodo nunc. Mauris faucibus semper lorem, rutrum euismod metus pulvinar quis. Praesent dignissim pulvinar purus, vitae varius nibh dictum sit amet. Vestibulum nec volutpat tortor. Morbi aliquam justo orci, ut consectetur arcu fermentum in. Nunc diam elit, lacinia non semper vitae, lobortis sit amet felis. Suspendisse suscipit erat vitae diam iaculis semper. Vestibulum et mauris non ex lobortis blandit. Mauris suscipit dui nibh, at maximus odio efficitur vel. Mauris pulvinar at tellus a sodales. Etiam sagittis massa non lacus fringilla fermentum.<br/><br/>Suspendisse sodales condimentum felis rhoncus gravida. Proin quis condimentum arcu. Cras faucibus metus in pretium elementum. Duis non mollis nunc. Donec felis erat, feugiat ac pretium sed, mattis id nisl. Duis ut nisi sit amet leo convallis tincidunt. Praesent lectus leo, imperdiet a lacinia non, rutrum ultrices ipsum. Etiam aliquam ex id tempus varius. Curabitur commodo fringilla mauris, vel aliquet nunc mollis quis. Nulla dapibus ante et sem ultricies venenatis. Suspendisse potenti. Nullam sit amet sem elit. Sed suscipit, enim ultrices cursus volutpat, sapien metus tristique tellus, vel imperdiet est justo non nibh.';
+            self.show('¿Qué es Caracol Play?',text,false,success,failure);
         };
 
 		self.show = function(title, message, showCancel, success, failure) {
@@ -82,14 +83,11 @@
 			$scope.showCancel = termsInfo.showCancel;
 
 			$scope.ok = function() {
-                console.log("-----<");
 				$modalInstance.close(true);
-                hotkeys.del('enter');
 			};
 
 			$scope.cancel = function() {
 				$modalInstance.dismiss('cancel');
-                hotkeys.del('enter');
 			};
 
 			$scope.onUp = function() {
@@ -114,31 +112,8 @@
 		}
 	};
 
-    var obj = {
-        combo : 'enter',
-        callback : function(event){
-            console.log("melisaaaaaaaa");
-            //elem[0].click();
-            event.stopPropagation();
-            event.stopImmediatePropagation();
-        }
-    };
-
-    var directiveFocus = function($timeout,hotkeys){
-        return {
-            link : function(scope,elem,attrs){
-                $timeout(function(){
-                    elem[0].focus();
-                },50);
-
-                hotkeys.add(obj);
-            }
-        };
-    };
-
 	module.service('TermsViewService', ['$modal', 'PurchaseService', TermsViewService]);
 	module.controller('TermsViewDialogController', ['$scope', '$modalInstance', 'termsInfo', 'hotkeys', '$timeout', TermsViewDialogController]);
-    module.directive('forceFocus',['$timeout','hotkeys',directiveFocus]);
 }(angular.module("caracolplaylgtvapp.termsView", [
 	'ui.router'
 ])));

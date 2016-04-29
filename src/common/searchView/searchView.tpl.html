@@ -1,14 +1,20 @@
 <header class="toolbar">
 	<div id="logo" ng-click="home()"></div>
 		<div class="search-bar active">
-			<div class="input-group">
-				<span class="input-group-btn">
-					<button class="btn dark-btn" type="button">
-						<span class="glyphicon glyphicon-search"></span>
-					</button>
-				</span>
-				<input type="text" class="form-control" ng-model="keyword" ng-keydown="keydownCallback($event)" focus-me="{{shouldBeFocus}}">
-			</div><!-- /input-group -->
+			<!--<div class="input-group">-->
+				<!--<span class="input-group-btn">-->
+					<!--<button class="btn dark-btn" type="button">-->
+						<!--<span class="glyphicon glyphicon-search"></span>-->
+					<!--</button>-->
+				<!--</span>-->
+				<!--<input type="text" class="form-control" ng-model="keyword" ng-keydown="keydownCallback($event)" focus-me="{{shouldBeFocus}}">-->
+			<!--</div>-->
+
+            <div class="input-group">
+                <input type="text" placeholder class="form-control" ng-model="keyword" ng-keydown="keydownCallback($event)" focus-me="{{shouldBeFocus}}"/>
+                <span class="glyphicon glyphicon-search"></span>
+
+            </div>
 		</div>
 </header>
 
@@ -30,7 +36,10 @@
 	</div>
 </div>
 <div class="preview-cover-search" ng-show="isShowingPreview">
-	<img style="position:absolute; top:0; right:0; left:0; width:100%; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.0) !important;" src="./assets/img/imagenblurdef.jpg">
+	<!--<img style="position:absolute; top:0; right:0; left:0; width:100%; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.0) !important;" src="./assets/img/imagenblurdef.jpg">-->
+    <div class="background-blur-search">
+        <div class="background-gradient"></div>
+    </div>
 	<div ng-show="isItemSelected" class="search-container">
 		<h2>{{selected.name}}</h2>
 		<center><img  class="preview-image" ng-src="{{selected.image_url}}"></center>

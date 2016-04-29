@@ -40,7 +40,14 @@ body {
 }
 
 .form-control{
-	border-radius: 40px;
+	border-radius: 5px;
+
+  &:focus{
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+    outline: 0px !important;
+  }
 }
 
 input[type=checkbox]
@@ -118,10 +125,22 @@ h6{
 	font-size: 25px !important;
 }
 
+select{
+  appearance:none;
+  position: relative;
+  padding-right: 40px;
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  background: url("../assets/img/arrow-down.png") #333 no-repeat !important;
+  background-position-x: ~"calc(100% - 13px)" !important;
+  background-position-y: 20px !important;
+}
+
 .toolbar{
 		position: fixed;
 		background-image: url('../assets/img/header.jpg');
-		height: 134px;
+        background-repeat: repeat-x;
+  		height: 134px;
 		width: 100%;
 		z-index: 100;
 }
@@ -131,4 +150,11 @@ h6{
 	width: 375px;
 	height: 134px;
 	margin-left: 0px;
+}
+.margin-l-1rem{
+  margin-left: 1rem;
+}
+
+.full-width{
+  width: 100%;
 }

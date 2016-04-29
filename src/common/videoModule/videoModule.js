@@ -9,8 +9,12 @@
 				}
 			},
 			resolve: {
-				itemSelected: ['$stateParams', 'ProductService', function($stateParams, ProductService) {
-					var promiseProduct = ProductService.getProductWithID($stateParams.productionId);
+				itemSelected: ['$stateParams', 'ProductService','UserInfo', function($stateParams, ProductService,UserInfo) {
+                    var uid = 0;
+                    if(UserInfo.uid !== undefined && UserInfo.uid !== ''){
+                        uid = UserInfo.uid;
+                    }
+					var promiseProduct = ProductService.getProductWithID($stateParams.productionId,uid);
 
 					return promiseProduct.then(function(response) {
 						console.log(response);
@@ -20,7 +24,7 @@
 						}
 						return [];
 					});
-				}],
+				}]
 			},
 			data: {
 				pageTitle: 'VideoModule'
@@ -50,13 +54,13 @@
 
 			hotkeys.add({
 				combo: 'red',
-				callback: redButtonCallback,
+				callback: redButtonCallback
 			});
 
 			if (DevInfo.isInDev) {
 				hotkeys.add({
 					combo: 'r',
-					callback: redButtonCallback,
+					callback: redButtonCallback
 				});
 			}
 
@@ -73,7 +77,7 @@
 							$scope.options[$scope.optionSelected].active = true;
 						}
 					}
-				},
+				}
 			});
 
 			hotkeys.add({
@@ -99,7 +103,7 @@
 							$state.go('rate', {
 								'productId': $scope.selected.id,
 								'rate': $scope.selected.rate,
-								'type': $scope.selected.type,
+								'type': $scope.selected.type
 							});
 							break;
 						case 'Ver Tráiler':
@@ -173,7 +177,6 @@
 
 			var promise = ProductService.getRecommendationsWithProductID($scope.productId);
 			promise.then(function(response) {
-				console.log('recomendents', response);
 				$scope.recomendents = response.data.recommended_products.map(function(data) {
 					return data.product;
 				});

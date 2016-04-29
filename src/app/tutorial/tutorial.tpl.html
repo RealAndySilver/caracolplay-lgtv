@@ -1,0 +1,26 @@
+
+<style>
+    html{
+        overflow-x: hidden;
+    }
+</style>
+
+<div class="dashboard carousel-container">
+
+
+    <carousel interval="100000" no-wrap="{{ true }}">
+        <slide ng-repeat="slide in slides" active="slide.active" class="slide">
+
+            <img ng-src="{{slide.image}}" style="margin:auto; overflow-y:hidden;" width='100%'>
+        </slide>
+
+        <div class="text-center clearfix">
+            <button id="button-tutorial" class="next-button btn  btn-lg caracol-btn"
+                autofocus next-button-carousel="isButtonNext"
+                    hot-enter-key="isButtonNext" hot-right-key="isButtonNext" hot-left-key
+                ng-bind="isButtonNext == true ? 'Siguiente' : 'Finalizar' " style="">
+
+            </button>
+        </div>
+    </carousel>
+</div>

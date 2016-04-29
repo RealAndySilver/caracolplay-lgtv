@@ -1,7 +1,7 @@
 (function(module) {
 	module.config(function($stateProvider) {
 		$stateProvider.state('start', {
-			url: '/dashboard',
+			url: '/tutorial',
 			views: {
 				"main": {
 					controller: 'StartController as model',
@@ -20,9 +20,14 @@
 		init();
 
 		function init() {
+            if(localStorage["tutorial"] == "finished2"){
+                $state.go("dashboard");
+                return;
+            }
+
 			$timeout(function() {
-				$state.go('dashboard');
-			}, 1000 * 10);
+				$state.go('tutorialinit');
+			}, 1000 * 2);
 		}
 	}]);
 

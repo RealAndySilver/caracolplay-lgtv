@@ -1,9 +1,10 @@
 (function(app) {
 
-	var CarouselContainerController = function($scope, hotkeys, ProductService, ProgressDialogService, AlertDialogService) {
+	var CarouselContainerController = function($scope, hotkeys, ProductService, ProgressDialogService, AlertDialogService,$state,
+                                               bestWatch,$timeout) {
 		var self = this;
-
 		$scope.MAX_STRING_SIZE = 200;
+
 
 		var init = function() {
 			self.myInterval = 5000;
@@ -18,14 +19,23 @@
 			};
 
 			var rightCallback = function() {
-				var active = getSlideActive();
-				if (active + 1 >= $scope.slides.length) {
-					$scope.slides[0].active = true;
-					$scope.selected = $scope.slides[0];
-				} else {
-					$scope.slides[active + 1].active = true;
-					$scope.selected = $scope.slides[active + 1];
-				}
+
+                $timeout(function(){
+                    $("a.right.carousel-control")[0].click();
+                });
+				//var active = getSlideActive();
+				//if (active + 1 >= $scope.slides.length) {
+                 //   $timeout(function(){
+                 //       $scope.slides[0].active = true;
+                 //       $scope.selected = $scope.slides[0];
+                 //   },100);
+                //
+				//} else {
+                 //   $timeout(function(){
+                 //       $scope.slides[active + 1].active = true;
+                 //       $scope.selected = $scope.slides[active + 1];
+                 //   },100);
+				//}
 			};
 
 			var enterCallback = function() {
@@ -39,7 +49,7 @@
 						function() {
 							hotkeys.add({
 								combo: 'enter',
-								callback: enterCallback,
+								callback: enterCallback
 							});
 						}
 					);
@@ -75,15 +85,22 @@
 				});
 			};
 
-			var leftCallback = function() {
-				var active = getSlideActive();
-				if (active - 1 < 0) {
-					$scope.slides[$scope.slides.length - 1].active = true;
-					$scope.selected = $scope.slides[$scope.slides.length - 1];
-				} else {
-					$scope.slides[active - 1].active = true;
-					$scope.selected = $scope.slides[active - 1];
-				}
+			var leftCallback = function(){
+                $timeout(function(){
+                    $("a.left.carousel-control")[0].click();
+                });
+				//var active = getSlideActive();
+				//if (active - 1 < 0) {
+                 //   $timeout(function(){
+                 //       $scope.slides[$scope.slides.length - 1].active = true;
+                 //       $scope.selected = $scope.slides[$scope.slides.length - 1];
+                 //   },100);
+				//} else {
+                 //   $timeout(function(){
+                 //       $scope.slides[active - 1].active = true;
+                 //       $scope.selected = $scope.slides[active - 1];
+                 //   },100);
+				//}
 			};
 
 			var watchCallback = function(newValue, oldValue) {
@@ -98,8 +115,6 @@
 
 					$scope.selected = $scope.slides[getSlideActive()];
 
-					console.log('selected', $scope.selected);
-
 					hotkeys.add({
 						combo: 'right',
 						callback: rightCallback
@@ -112,17 +127,43 @@
 
 					hotkeys.add({
 						combo: 'enter',
-						callback: enterCallback,
+						callback: enterCallback
 					});
 					hotkeys.add({
 						combo: 'esc',
-						callback: escCallback,
+						callback: escCallback
 					});
 				}
 			};
 
-			$scope.$watch('active', watchCallback);
+			//$scope.$watch('active', watchCallback);
+
+            $scope.$on("eventActiveChange",function(event,newValue,oldValue){
+                watchCallback(newValue,oldValue);
+            });
+            bestWatch.watch($scope,"active","eventActiveChange",false,$scope);
 		};
+
+
+        var unregister = $scope.$watch("slides.length",function(newValue){
+            if($scope.slides.length > 0){
+                var addEvent = function(nameEvent){
+                    $scope.$on(nameEvent,function(event,newValue,oldValue,target){
+                        if(newValue){
+                            $scope.selected = target;
+                        }
+                    });
+                };
+
+                for(var i=0, j=$scope.slides.length; i<j; i++){
+                    var current = $scope.slides[i];
+                    addEvent("eventSlideActive"+i);
+                    bestWatch.watch(current,"active","eventSlideActive"+i,true,$scope);
+                }
+                unregister();
+            }
+
+        });
 
 		init();
 	};
@@ -139,13 +180,15 @@
 				active: '=',
 				preview: '&',
 				selected: '=itemSelected',
-				configKeyboard: '=restartKeyboard',
+				configKeyboard: '=restartKeyboard'
 			}
 		};
 	};
 
-	app.controller('CarouselContainerController', ['$scope', 'hotkeys', 'ProductService', 'ProgressDialogService', 'AlertDialogService', CarouselContainerController]);
+	app.controller('CarouselContainerController', ['$scope', 'hotkeys', 'ProductService', 'ProgressDialogService', 'AlertDialogService',
+        '$state','bestWatch','$timeout', CarouselContainerController]);
 	app.directive('carouselContainer', CarouselContainer);
+
 
 }(angular.module("caracolplaylgtvapp.carouselContainer", [
 	'ui.router',

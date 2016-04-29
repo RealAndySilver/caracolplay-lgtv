@@ -33,7 +33,7 @@
 				},
 				defaultType: function() {
 					return type;
-				},
+				}
 			}
 		});
 
@@ -45,7 +45,7 @@
     });
 	}]);
 
-	module.controller('RateAlertController', ['$scope', '$modalInstance', 'ProductService', 'productId', 'defaultRate', 'defaultType', 'hotkeys', 'DevInfo', '$state', function($scope, $modalInstance, ProductService, productId, defaultRate, defaultType, hotkeys, DevInfo, $state) {
+	module.controller('RateAlertController', ['$scope', '$modalInstance', 'ProductService', 'productId', 'defaultRate', 'defaultType', 'hotkeys', 'DevInfo', '$state','AlertDialogService','$timeout', function($scope, $modalInstance, ProductService, productId, defaultRate, defaultType, hotkeys, DevInfo, $state,AlertDialogService,$timeout) {
 		var model = this;
 
 		init();
@@ -158,7 +158,15 @@
 				var updatePromise = ProductService.updateUserFeedbackForProduct(productId, $scope.rate);
 
 				updatePromise.then(function(response) {
-					window.history.back();					
+					window.history.back();
+
+                    $timeout(function(){
+                        AlertDialogService.show(
+                            'warning',
+                            'Se realizo el registro de la calificación',
+                            'Aceptar'
+                        );
+                    },400);
 				});
 
 				

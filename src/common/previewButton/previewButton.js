@@ -53,11 +53,11 @@
 				active: '=isActive',
 				text: '@label',
 				index: '=position',
-				id: '@',
+				id: '@'
 			},
 			link: function(scope, element, attrs) {
 				scope.setElement(element.find('div'));
-			},
+			}
 		};
 	};
 

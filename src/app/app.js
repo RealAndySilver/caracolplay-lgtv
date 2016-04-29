@@ -1,143 +1,203 @@
-(function(app) {
+(function (app) {
 
-	app.config(function($stateProvider, $urlRouterProvider) {
-		$urlRouterProvider.otherwise('/dashboard');
-	});
+    app.config(function ($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.otherwise(function ($injector, $location) {
+            $injector.invoke(['$state', function ($state) {
+                $state.go('dashboard');
+            }]);
+        });
+    });
 
-	var init = function() {
 
-	};
 
-	app.run(init);
+    var init = function ($rootScope, $state) {
+        $rootScope.$on("$stateChangeStart", function (event, toState,toParams,fromState,fromParams) {
+            if (toState.name != "start" && toState.name != "tutorialinit" &&
+                (!localStorage["tutorial"] || localStorage["tutorial"] != "finished2")) {
+                //if( toState.name != "start" && toState.name != "tutorialinit" && !localStorage["tutorial"]){
+                event.preventDefault();
+                $state.go("start");
+                return;
+            }
+        });
+    };
 
-	var AppController = function($scope) {
-		var self = this;
+    app.run(init);
 
-		var init = function() {
+    var AppController = function ($scope) {
+        var self = this;
 
-		};
+        var init = function () {
 
-		init();
-	};
+        };
 
-	app.controller('AppController', ['$scope', AppController]);
-	app.value('UserInfo', {
-		name: '',
-		lastname: '',
-		alias: '',
-		mail: '',
-		password: '',
-		session: '',
-		uid: '',
-		isSubscription: false,
-		timeEnds: '',
-	});
+        init();
+    };
 
-	app.constant('DevInfo', {
-		isInDev: true,
-	});
+    app.controller('AppController', ['$scope', AppController]);
+    app.value('UserInfo', {
+        name: '',
+        lastname: '',
+        alias: '',
+        mail: '',
+        password: '',
+        session: '',
+        uid: '',
+        isSubscription: false,
+        timeEnds: ''
+    });
 
-	app.value('MyListItems', {
-		list: [],
-	});
+    app.constant('DevInfo', {
+        isInDev: true
+    });
 
-	app.filter('nospace', function() {
-		return function(value) {
-			return (!value) ? '' : value.replace(/ /g, '');
-		};
-	});
+    app.value('MyListItems', {
+        list: []
+    });
 
-	app.directive('focusMe', function($timeout) {
-		return {
-			scope: {
-				trigger: '@focusMe'
-			},
-			link: function(scope, element) {
-				scope.$watch('trigger', function(value) {
-					if (value === "true") {
-						$timeout(function() {
-							element[0].focus();
-						});
-					}
-				});
-			}
-		};
-	});
+    app.filter('nospace', function () {
+        return function (value) {
+            return (!value) ? '' : value.replace(/ /g, '');
+        };
+    });
 
-	app.directive('ngEnter', ['$timeout', function ($timeout) {
-		return function (scope, element, attrs) {
-			element.bind("keydown keypress", function (event) {
-				if(event.which === 13) {
-					scope.$apply(function (){
-						scope.$eval(attrs.ngEnter);
-					});
-					var e = document.createEvent("MouseEvents");
-					e.initMouseEvent("mousedown", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-					var worked = element[0].dispatchEvent(e);
+    app.directive('focusMe', function ($timeout) {
+        return {
+            scope: {
+                trigger: '@focusMe'
+            },
+            link: function (scope, element) {
+                scope.$watch('trigger', function (value) {
+                    if (value === "true") {
+                        $timeout(function () {
+                            element[0].focus();
+                        },3);
+                    }
+                });
+            }
+        };
+    });
 
-					event.preventDefault();
-				}
-			});
-		};
-	}]);
+    app.directive('ngSrcUnsafe',function(){
+        return {
+            link : function(scope,element,attrs){
+                var unwatch = scope.$watch("slide.image_url",function(newValue){
+                    element[0].src = newValue;
+                });
 
-	app.directive('ngSides', function () {
-		return {
-			link: function (scope, element, attrs) {
-				element.bind("keydown keypress", function (event) {
-					if(event.which === 38) {
-						scope.$apply(function (){
-							scope.$eval(attrs.ngSides, {side: 'up'});
-						});
-						event.preventDefault();
-					} else if(event.which === 39) {
-						scope.$apply(function (){
-							scope.$eval(attrs.ngSides, {side: 'right'});
-						});
-						event.preventDefault();
-					} else if(event.which === 40) {
-						scope.$apply(function (){
-							scope.$eval(attrs.ngSides, {side: 'down'});
-						});
-						event.preventDefault();
-					} else if(event.which === 37) {
-						scope.$apply(function (){
-							scope.$eval(attrs.ngSides, {side: 'left'});
-						});
-						event.preventDefault();
-					}
-				});
-			},
-		};
-	});
+            }
+        };
+    });
+
+    app.directive('ngEnter', ['$timeout', function ($timeout) {
+        return function (scope, element, attrs) {
+            element.bind("keydown keypress", function (event) {
+                if (event.which === 13) {
+                    scope.$apply(function () {
+                        scope.$eval(attrs.ngEnter);
+                    });
+                    var e = document.createEvent("MouseEvents");
+                    e.initMouseEvent("mousedown", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+                    var worked = element[0].dispatchEvent(e);
+
+                    event.preventDefault();
+                }
+            });
+        };
+    }]);
+
+    app.directive('ngSides', function () {
+        return {
+            link: function (scope, element, attrs) {
+                element.bind("keydown keypress", function (event) {
+                    if (event.which === 38) {
+                        scope.$apply(function () {
+                            scope.$eval(attrs.ngSides, {side: 'up'});
+                        });
+                        event.preventDefault();
+                    } else if (event.which === 39) {
+                        scope.$apply(function () {
+                            scope.$eval(attrs.ngSides, {side: 'right'});
+                        });
+                        event.preventDefault();
+                    } else if (event.which === 40) {
+                        scope.$apply(function () {
+                            scope.$eval(attrs.ngSides, {side: 'down'});
+                        });
+                        event.preventDefault();
+                    } else if (event.which === 37) {
+                        scope.$apply(function () {
+                            scope.$eval(attrs.ngSides, {side: 'left'});
+                        });
+                        event.preventDefault();
+                    }
+                });
+            }
+        };
+    });
+
+    app.factory('bestWatch', ['$timeout', function ($timeout) {
+
+        this.watch = function (obj, nameProperty, eventName, initialize, $scope) {
+            initialize = initialize || false;
+            var virtualProperty;
+
+            if (typeof obj[nameProperty] !== "undefined") {
+
+                virtualProperty = obj[nameProperty];
+                delete obj[nameProperty];
+            }
+
+            Object.defineProperty(obj, nameProperty, {
+                enumerable: true,
+                get: function () {
+                    return virtualProperty;
+                },
+                set: function (newValue) {
+                    var oldValue = virtualProperty;
+                    virtualProperty = newValue;
+                    $scope.$broadcast(eventName, virtualProperty, oldValue,obj);
+                }
+            });
+
+            if (initialize === true) {
+                $scope.$broadcast(eventName, virtualProperty, null);
+            }
+        };
+
+
+        return this;
+    }]);
 
 }(angular.module("caracolplaylgtvapp", [
-	//'ngAnimate',
-	'caracolplaylgtvapp.home',
-	'caracolplaylgtvapp.about',
-	'templates-app',
-	'templates-common',
-	'ui.router.state',
-	'ui.router',
-	'ui.select',
-	'ui.bootstrap',
-	'caracolplaylgtvapp.dashboard',
-	'caracolplaylgtvapp.ServerCommunicator',
-	'caracolplaylgtvapp.ProductsContainer',
-	'cfp.hotkeys',
-	'caracolplaylgtvapp.carouselContainer',
-	'caracolplaylgtvapp.previewView',
-	'caracolplaylgtvapp.previewButton',
-	'caracolplaylgtvapp.previewList',
-	'caracolplaylgtvapp.seriesProduct',
-	'caracolplaylgtvapp.searchView',
-	'caracolplaylgtvapp.purchaseView',
-	'caracolplaylgtvapp.alertDialogView',
-	'caracolplaylgtvapp.videoController',
-	'caracolplaylgtvapp.rateAlert',
-	'caracolplaylgtvapp.progressDialog',
-	'caracolplaylgtvapp.videoModule',
-  'caracolplaylgtvapp.start',
-  'caracolplaylgtvapp.termsView',
-  'caracolplaylgtvapp.generalModalView',
+    'pasvaz.bindonce',
+    'ngAnimate',
+    'caracolplaylgtvapp.tutorial',
+    'caracolplaylgtvapp.home',
+    'caracolplaylgtvapp.about',
+    'templates-app',
+    'templates-common',
+    'ui.router.state',
+    'ui.router',
+    'ui.select',
+    'ui.bootstrap',
+    'caracolplaylgtvapp.dashboard',
+    'caracolplaylgtvapp.ServerCommunicator',
+    'caracolplaylgtvapp.ProductsContainer',
+    'cfp.hotkeys',
+    'caracolplaylgtvapp.carouselContainer',
+    'caracolplaylgtvapp.previewView',
+    'caracolplaylgtvapp.previewButton',
+    'caracolplaylgtvapp.previewList',
+    'caracolplaylgtvapp.seriesProduct',
+    'caracolplaylgtvapp.searchView',
+    'caracolplaylgtvapp.purchaseView',
+    'caracolplaylgtvapp.alertDialogView',
+    'caracolplaylgtvapp.videoController',
+    'caracolplaylgtvapp.rateAlert',
+    'caracolplaylgtvapp.progressDialog',
+    'caracolplaylgtvapp.videoModule',
+    'caracolplaylgtvapp.start',
+    'caracolplaylgtvapp.termsView',
+    'caracolplaylgtvapp.generalModalView'
 ])));

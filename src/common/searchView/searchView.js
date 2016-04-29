@@ -130,7 +130,7 @@
 				if (DevInfo.isInDev) {
 					hotkeys.add({
 						combo: 'r',
-						callback: redButtonCallback,
+						callback: redButtonCallback
 					});
 				}
 
@@ -142,13 +142,16 @@
 							$scope.resultButtons[$scope.itemSelected].active = true;
 
 							$scope.selected = $scope.results[$scope.itemSelected];
-						}
+						}else{
+                            $scope.resultButtons[$scope.itemSelected--].active = false;
+                            $scope.shouldBeFocus = true;
+                        }
 
 						var div = $('#buttonchapters' + $scope.itemSelected);
 
 						slider = $('.search-results');
 						slider.stop().animate({
-							scrollTop: (div.height() + 14) * $scope.itemSelected,
+							scrollTop: (div.height() + 14) * $scope.itemSelected
 						});
 
 						event.preventDefault();
@@ -158,15 +161,16 @@
 				$scope.shouldBeFocus = true;
 
 				$scope.keydownCallback = function(event) {
-					if (event.keyIdentifier === 'Enter') {
-						if($scope.keyword === '') {
-							$window.history.back();
-							return;
-						}
 
-						event.target.blur();
-						configHotkeys();
-					}
+                    if(event.keyCode === 40 || event.keyCode == 13){
+                        if($scope.keyword === '') {
+                            $window.history.back();
+                            return;
+                        }
+                        event.target.blur();
+                        configHotkeys();
+                        $scope.shouldBeFocus = false;
+                    }
 				};
 
 				hotkeys.add({
@@ -197,8 +201,12 @@
 					combo: 'down',
 					callback: function(event) {
 						if ($scope.itemSelected + 1 < $scope.resultButtons.length) {
-							$scope.resultButtons[$scope.itemSelected++].active = false;
-							$scope.resultButtons[$scope.itemSelected].active = true;
+                            if($scope.itemSelected < 0 ){
+                                $scope.itemSelected = 0;
+                            }else{
+                                $scope.resultButtons[$scope.itemSelected++].active = false;
+                            }
+                            $scope.resultButtons[$scope.itemSelected].active = true;
 
 							$scope.selected = $scope.results[$scope.itemSelected];
 
@@ -206,7 +214,7 @@
 
 							slider = $('.search-results');
 							slider.stop().animate({
-								scrollTop: (div.height() + 14) * $scope.itemSelected,
+								scrollTop: (div.height() + 14) * $scope.itemSelected
 							});
 						}
 
