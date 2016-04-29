@@ -61,6 +61,14 @@
         };
     });
 
+    app.directive('forceFocus',function($timeout){
+        return {
+            link : function(scope,element,attr){
+
+            }
+        };
+    });
+
     app.directive('focusMe', function ($timeout) {
         return {
             scope: {
@@ -68,6 +76,7 @@
             },
             link: function (scope, element) {
                 scope.$watch('trigger', function (value) {
+                    console.log("entro en el focusMe %s",value);
                     if (value === "true") {
                         $timeout(function () {
                             element[0].focus();
