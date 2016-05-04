@@ -107,14 +107,8 @@
         $scope.restartConfigKeyboard = {};
 
         $scope.onLogout = function () {
-            console.log(
-                UserInfo.alias,
-                UserInfo.password,
-                UserInfo.session
-            );
             var logoutPromise = UserService.logout(UserInfo.alias, UserInfo.password, UserInfo.session);
             logoutPromise.then(function (response) {
-                console.log('response', response);
 
                 if (response.data.status) {
                     AlertDialogService.show(
@@ -224,20 +218,18 @@
 
         self.getList = function () {
             if(UserInfo.alias === '' || UserInfo.password === '' ||  UserInfo.session === ''){
-                console.log("no debería estar nulo se supone");
+                logs.set("notUser", "no debería estar nulo se supone");
                 return;
             }
             var promiseGetList = ProductService.getList();
             promiseGetList.then(function (response) {
                 if (response.data.status === false) {
-                    console.log("no debería dar esto",response);
                     return;
                 }
                 if (typeof response.data.user === "undefined" || typeof response.data.my_list === "undefined") {
                     $state.go("dashboard", {}, {reload: true});
                     return;
                 }
-                console.log('list', response.data);
 
                 if (response.data.my_list !== undefined) {
                     MyListItems.list = response.data.my_list.map(function (item) {
@@ -542,7 +534,6 @@
 
                 authPromise.then(function (response) {
                     var resObj = response.data;
-                    console.log(response.data);
                     if (resObj.status) {
                         UserInfo.name = resObj.user.data.nombres;
                         UserInfo.lastname = resObj.user.data.apellidos;
@@ -564,7 +555,6 @@
 
             featuredPromise.then(function (response) {
                 var featuredArray = response.data.featured;
-                //console.log(response);
                 for (var i in featuredArray) {
                     self.slides.push({
                         id: featuredArray[i].id,
@@ -582,7 +572,7 @@
             });
 
             categoriesPromise.then(function (response) {
-                console.log("listado de categorías", response);
+                logs.set("log1", response);
                 var list = response.data.categories;
                 var promise = {};
                 var pos = 0;
@@ -590,7 +580,6 @@
 
                 var promiseFunction = function (pos) {
                     return function (res) {
-                        //console.log(res);
                         if (res.data.products && res.data.products.length > 0) {
                             //self.list.push({
                             //	name: list[pos].name,
@@ -675,11 +664,9 @@
         };
 
         $scope.$on("updatedSelectItem", function (event, newValue, oldValue) {
-            //console.log(newValue);
             self.selectedItem = newValue;
         });
     };
-
 
     app.controller('DashboardController', [
         '$scope', 'ProductService', 'UserInfo', 'hotkeys', '$state',

@@ -1,30 +1,32 @@
 <!DOCTYPE html>
 <html ng-app="caracolplaylgtvapp" ng-controller="AppController">
-<head>
-	<meta charset="utf-8">
-	<title ng-bind="pageTitle"></title>
+    <head>
+        <meta charset="utf-8">
+        <title ng-bind="pageTitle"></title>
 
-	<!-- font awesome from BootstrapCDN -->
-	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1/css/bootstrap.min.css">
+        <!-- font awesome from BootstrapCDN -->
+        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1/css/bootstrap.min.css">
 
 
-	<link href="http://players.brightcove.net/videojs-overlay/lib/videojs-overlay.css" rel='stylesheet'>
-    <link rel="stylesheet" href="assets/tinyscrollbar.css"/>
-    <script src="http://players.brightcove.net/3823818084001/4a545938-84b5-4891-963e-8651d08d1c32_default/index.min.js"></script>
-    <script src="http://players.brightcove.net/videojs-overlay/lib/videojs-overlay.js"></script>
-  
-	<!-- compiled CSS --><% styles.forEach( function ( file ) { %>
-	<link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
+        <link href="http://players.brightcove.net/videojs-overlay/lib/videojs-overlay.css" rel='stylesheet'>
+        <link rel="stylesheet" href="assets/tinyscrollbar.css"/>
+        <script src="http://players.brightcove.net/3823818084001/4a545938-84b5-4891-963e-8651d08d1c32_default/index.min.js"></script>
+        <script src="http://players.brightcove.net/videojs-overlay/lib/videojs-overlay.js"></script>
 
-	<!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
-    <script type="text/javascript" src="<%= file %>"></script><% }); %>
-</head>
-<body>
-	<div ui-view="main"></div>
+        <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
+        <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
 
-	<footer class="container">
-		(c) <%= date %> <%= author %>
-	</footer>
-</body>
+        <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
+        <script type="text/javascript" src="<%= file %>"></script><% }); %>
+    </head>
+    <body>
+        <div ui-view="main"></div>
+        <div id="mydiv">
+            <img height="50" width="50" src="assets/img/ajax_loader.gif" class="ajax-loader"/>
+        </div>
+        <footer class="container">
+            (c) <%= date %> <%= author %>
+        </footer>
+    </body>
 </html>
