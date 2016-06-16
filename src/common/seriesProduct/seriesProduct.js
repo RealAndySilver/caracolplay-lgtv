@@ -103,6 +103,7 @@
                 promiseIsContentAvaliable.then(function (response) {
                     logs.set('isContentAvailableForUser', response);
                     ProgressDialogService.dismiss();
+                    console.log("Respuesta del server EN series",response);
                     if (response.data.status) {
                         if (response.data.video.status) {
                             $state.go('videoModule', {

@@ -817,49 +817,6 @@
                     if (!$scope.validateStepOne()) {
                         break;
                     }
-                    /*
-                     var createUserPromise = PurchaseService.createUser(
-                     $scope.subscription.user,
-                     $scope.subscription.password,
-                     $scope.subscription.email,
-                     $scope.subscription.politics,
-                     $scope.subscription.terms,
-                     $scope.subscription.information);
-
-                     //ProgressDialog.start();
-                     var successCallbackCreateUser = function (response) {
-                     //ProgressDialog.dismiss();
-
-                     UserInfo.alias = $scope.subscription.user;
-                     UserInfo.password = $scope.subscription.password;
-                     UserInfo.mail = $scope.subscription.email;
-                     UserInfo.uid = response.data.uid;
-
-                     localStorage.setItem('userInfo', JSON.stringify(UserInfo));
-
-                     $scope.subscribeStep++;
-                     $scope.activeQueue = $scope.rentQueueStep2;
-                     $scope.active = $scope.activeQueue[0];
-                     $scope.activeNumber = 0;
-                     };
-
-                     var failureCallbackCreateUser = function (response) {
-                     console.log('error', response);
-                     //ProgressDialog.dismiss();
-
-                     AlertDialogService.show(
-                     'alert',
-                     response.data.form_errors[0],
-                     'Aceptar',
-                     function () {
-                     configHotkeys();
-                     }
-                     );
-                     };
-
-                     createUserPromise.then(successCallbackCreateUser, failureCallbackCreateUser);
-                     console.log($scope.subscription);
-                     */
                     $scope.subscribeStep++;
                     $scope.activeQueue = $scope.rentQueueStep2;
                     $scope.active = $scope.activeQueue[0];
@@ -1071,7 +1028,7 @@
                     var successCallbackLogin = function (response) {
                         console.log("succesCallbackLogin", response);
                         if (response.data.user !== null) {
-                            saveDataUserLogin(response, UserInfo.alias, UserInfo.password);
+                            $rootScope.saveSessionInfo(response);
                         }
                         var promiseCreateOrder;
                         if ($scope.isRent) {
@@ -1203,27 +1160,7 @@
             });
         };
 
-        /**
-         * función encargada de almacenar la información del usuario una vez este ha iniciado sesión
-         * @param response
-         */
-        var saveDataUserLogin = function (response, username, password) {
-
-            var resObj = response.data;
-            console.log("response :1126 -----------------------------------", response);
-            if (resObj.status) {
-                UserInfo.name = resObj.user.data.nombres;
-                UserInfo.lastname = resObj.user.data.apellidos;
-                UserInfo.alias = resObj.user.data.alias;
-                UserInfo.mail = resObj.user.data.mail;
-                UserInfo.password = password;
-                UserInfo.session = resObj.session;
-                UserInfo.uid = resObj.uid;
-                UserInfo.isSubscription = resObj.user.is_suscription;
-                UserInfo.timeEnds = resObj.user.time_ends;
-                localStorage.setItem('userInfo', JSON.stringify(UserInfo));
-            }
-        };
+        
 
         /**
          * función encargada de realizar la solicitud al servidor de redimir un código
@@ -1292,25 +1229,23 @@
 
             };
         };
-
-
+        
         $scope.onLogin = function () {
-            //ProgressDialog.start();
             var promiseLogin = UserService.authenticateUser($scope.loginData.username, $scope.loginData.password);
-                //PurchaseService.loginPaymentUserFlow($scope.loginData.username, $scope.loginData.password);
             console.log("AUTENTICANDO ",$scope.loginData.username," ",$scope.loginData.password);
             promiseLogin.then(function (response) {
                 console.log('login', response.data);
                 if (response.data.status){
                     ////ProgressDialog.dismiss();
-                    saveDataUserLogin(response, $scope.loginData.username, $scope.loginData.password);
+                    $rootScope.saveSessionInfo(response);
                     console.log('productId: ', productionId, 'chapterId', chapterId, " stateParam ",$stateParams.typeView);
                     if ($stateParams.typeView !== "4") {
                         if (response.data.user !== undefined) {
                             UserService.validatePlayerVideo(chapterId, productionId, configHotkeys, function(){
                                 console.log("");
                             }, function () {
-                                window.location = window.location.pathname;
+                                $state.go("dashboard");
+                                //window.location = window.location.pathname;
                             });
                         }
                     }else{
@@ -1334,48 +1269,6 @@
                     configHotkeys
                 );
             });
-
-            /*
-             var authPromise = UserService.authenticateUser($scope.loginData.username, $scope.loginData.password);
-
-             authPromise.then(function(response) {
-             var resObj = response.data;
-
-             if (resObj.status) {
-             UserInfo.name = resObj.user.data.nombres;
-             UserInfo.lastname = resObj.user.data.apellidos;
-             UserInfo.alias = resObj.user.data.alias;
-             UserInfo.mail = resObj.user.data.mail;
-             UserInfo.password = $scope.loginData.password;
-             UserInfo.session = resObj.session;
-             UserInfo.uid = resObj.uid;
-             UserInfo.isSubscription = resObj.user.is_suscription;
-             UserInfo.timeEnds = resObj.user.time_ends;
-
-             localStorage.setItem('userInfo', JSON.stringify(UserInfo));
-
-             //
-             // DEVELOPER NOTES: ADD CODE TO SHOW VIDEO
-             //
-             AlertDialogService.show(
-             'alert',
-             'Show Video',
-             'Aceptar',
-             configHotkeys
-             );
-             $modalInstance.dismiss('cancel');
-             //$state.go('dashboard');
-             } else {
-             AlertDialogService.show(
-             'alert',
-             resObj.response,
-             'Aceptar',
-             configHotkeys
-             );
-             }
-             });
-             */
-
         };
 
         var setEssentialData = function (object) {

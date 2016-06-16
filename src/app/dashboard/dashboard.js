@@ -118,6 +118,7 @@
                         function () {
                             keyboardInit();
                             localStorage.removeItem('userInfo');
+                            localStorage.removeItem('sessionInfo');
                             UserInfo.name = '';
                             UserInfo.lastname = '';
                             UserInfo.alias = '';
@@ -198,6 +199,7 @@
         self.getUserRecentlyWatched = function () {
             var promiseRecentWatched = ProductService.getUserRecentlyWatched();
             promiseRecentWatched.then(function (response) {
+                console.log("Ultimos vistos ",response );
                 if (response.data.length === 0) {
                     return;
                 }
@@ -529,30 +531,9 @@
 
             if (userInfoStr) {
                 var userInfo = JSON.parse(userInfoStr);
-
                 var authPromise = UserService.authenticateUser(userInfo.alias, userInfo.password);
-
-                authPromise.then(function (response) {
-                    var resObj = response.data;
-                    if (resObj.status) {
-                        UserInfo.name = resObj.user.data.nombres;
-                        UserInfo.lastname = resObj.user.data.apellidos;
-                        UserInfo.alias = resObj.user.data.alias;
-                        UserInfo.mail = resObj.user.data.mail;
-                        UserInfo.password = userInfo.password;
-                        UserInfo.session = resObj.session;
-                        UserInfo.uid = resObj.uid;
-                        UserInfo.isSubscription = resObj.user.is_suscription;
-                        UserInfo.timeEnds = resObj.user.time_ends;
-
-                        $scope.mail = UserInfo.mail;
-                        localStorage.setItem('userInfo', JSON.stringify(UserInfo));
-                    }
-                });
-
-
+                authPromise.then($rootScope.saveSessionInfo(response));
             }
-
             featuredPromise.then(function (response) {
                 var featuredArray = response.data.featured;
                 for (var i in featuredArray) {
@@ -573,13 +554,15 @@
 
             categoriesPromise.then(function (response) {
                 logs.set("log1", response);
-                var list = response.data.categories;
+                //console.log("CATEGORIES ",response);
+                list = response.data.categories;
                 var promise = {};
                 var pos = 0;
                 var responseArray = [], totalRequest = 0;
 
                 var promiseFunction = function (pos) {
                     return function (res) {
+                        //console.log("LLEGO ",res);
                         if (res.data.products && res.data.products.length > 0) {
                             //self.list.push({
                             //	name: list[pos].name,
@@ -595,10 +578,10 @@
                                     return item;
                                 })
                             });
-
-                            if (totalRequest == responseArray.length) {
+                            //console.log("TOT RE ",totalRequest," RES LENGTH",responseArray.length);
+                            if (totalRequest == responseArray.length+1) {
                                 orderContentDashboard(responseArray, 0);
-                                orderContentDashboard(responseArray, 0);
+                                //orderContentDashboard(responseArray, 0);
                                 self.list = responseArray;
                                 self.getList();
                                 if(typeof $rootScope.selfDashboard !== "undefined"){

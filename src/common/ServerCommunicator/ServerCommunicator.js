@@ -85,16 +85,17 @@
         return headers;
     };
 
-    var ProductService = function ($http, UserInfo, $q) {
+    var ProductService = function ($http, $rootScope, $q) {
         var self = this;
 
         self.getRecommendationsWithProductID = function (productId) {
+            var sessionInfo=$rootScope.getSessionInfo();
             if (test.withoutInternet) {
                 return $http.get('assets/dummy/recommended.json');
             } else {
                 return $http({
                     crossDomain: true,
-                    headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+                    headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
                     method: 'GET',
                     url: module.END_POINT + 'GetRecommendationsWithProductID/' + productId + '/?player_br=iam'
                 });
@@ -102,9 +103,10 @@
         };
 
         self.updateUserFeedbackForProduct = function (productId, rate) {
+            var sessionInfo=$rootScope.getSessionInfo();
             return $http({
                 crossDomain: true,
-                headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
                 method: 'GET',
                 //url: module.END_POINT + 'UpdateUserFeedbackForProduct?player_br=aim/produccion/' + productId + '/' + (rate * 100.0 / 5.0),
                 url: module.END_POINT + 'UpdateUserFeedbackForProduct/produccion/' + productId + '/' + (rate * 100.0 / 5.0)
@@ -141,9 +143,10 @@
         };
 
         self.getUserRecentlyWatched = function () {
+            var sessionInfo=$rootScope.getSessionInfo();
             return $http({
                 crossDomain: true,
-                headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
                 method: 'GET',
                 url: module.END_POINT + 'GetUserRecentlyWatched?player_br=aim'
             });
@@ -163,6 +166,7 @@
         };
 
         self.getProductWithID = function (id, uid) {
+            var sessionInfo=$rootScope.getSessionInfo();
             //console.log(id);
             if (!uid || uid === '') {
                 uid = '0';
@@ -172,8 +176,9 @@
                 return $http.get('assets/dummy/product.json');
             } else {
                 return $http({
+
                     crossDomain: true,
-                    headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+                    headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
                     method: 'GET',
                     url: module.END_POINT + 'GetProductWithID/' + id + '/' + uid + '?player_br=aim'
                 });
@@ -181,6 +186,7 @@
         };
 
         self.addItemToList = function (type, id) {
+            var sessionInfo=$rootScope.getSessionInfo();
             if (type === 'Películas') {
                 type = 'pelicula';
             } else {
@@ -189,7 +195,7 @@
             console.log("id -->", id);
             return $http({
                 crossDomain: true,
-                headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
                 method: 'POST',
                 url: module.END_POINT + 'my_list/add/' + type + '/' + id
             });
@@ -203,31 +209,32 @@
             }
             return $http({
                 crossDomain: true,
-                headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
                 method: 'POST',
                 url: module.END_POINT + 'my_list/remove/' + type + '/' + id
             });
         };
 
         self.getList = function () {
-            //console.log("alias -> ",UserInfo);
-
+            var sessionInfo=$rootScope.getSessionInfo();
             return $http({
                 crossDomain: true,
-                headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
                 method: 'GET',
                 url: module.END_POINT + 'my_list/get'
             });
         };
     };
 
-    var UserService = function ($http, UserInfo, AlertDialogService, $state) {
+    var UserService = function ($http, AlertDialogService, $state,$rootScope) {
         var self = this;
 
+
         self.videoWatched = function (productId, time) {
+            var sessionInfo=$rootScope.getSessionInfo();
             return $http({
                 crossDomain: true,
-                headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
                 method: 'GET',
                 url: module.END_POINT + 'VideoWatched/' + productId + '/' + time + '?player_br=aim'
             });
@@ -240,7 +247,8 @@
 
             prom.then(function (response) {
                 try {
-                    if (response.data.video.status) {
+                    console.log("Respuesta del server ",response);
+                    if (response.data.status && response.data.video.status) {
                         $state.go('videoModule', {
                             chapterId: chapterId,
                             productionId: productionId
@@ -249,6 +257,8 @@
                             successCallback();
                         }
                         return;
+                    }else{
+                        $state.go('dashboard');
                     }
                 } catch (e) {
                     logs.set("videoStatus", e);
@@ -271,12 +281,13 @@
         };
 
         self.isContentAvailableForUser = function (episodeId) {
+            var sessionInfo=$rootScope.getSessionInfo();
             if (test.withoutInternet) {
                 return $http.get('assets/dummy/validateUserReponse.json');
             } else {
                 return $http({
                     crossDomain: true,
-                    headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+                    headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
                     method: 'GET',
                     url: module.END_POINT + 'IsContentAvailableForUser/' + episodeId + '?player_br=aim'
                 });
@@ -324,28 +335,31 @@
         };
     };
 
-    var PurchaseService = function ($http, UserInfo) {
+    var PurchaseService = function ($http, $rootScope) {
         var self = this;
 
         self.getVideoRequeriments = function () {
+            var sessionInfo=$rootScope.getSessionInfo();
             return $http({
-                headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
                 method: 'GET',
                 url: module.END_POINT + 'smart-tv/video-requirements'
             });
         };
 
         self.getHabeasData = function () {
+            var sessionInfo=$rootScope.getSessionInfo();
             return $http({
-                headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
                 method: 'GET',
                 url: module.END_POINT + 'smart-tv/habeas-data'
             });
         };
 
         self.getTerms = function () {
+            var sessionInfo=$rootScope.getSessionInfo();
             return $http({
-                headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
                 method: 'GET',
                 url: module.END_POINT + 'GetTerms'
             });
@@ -550,9 +564,10 @@
         };
 
         self.getProduct = function (id, type, action) {
+            var sessionInfo=$rootScope.getSessionInfo();
             return $http({
                 crossDomain: true,
-                headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
                 method: 'POST',
                 data: {
                     'Id': id,
@@ -564,10 +579,11 @@
         };
 
         self.createOrder = function (productId, userId) {
+            var sessionInfo=$rootScope.getSessionInfo();
             return $http({
                 crossDomain: true,
                 method: 'POST',
-                headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
                 data: {
                     'Id_Producto': productId,
                     'Id_user': userId
@@ -577,10 +593,11 @@
         };
 
         self.payment = function (orderId, userId, tokenCard, expirationDate, cvv, recurrence) {
+            var sessionInfo=$rootScope.getSessionInfo();
             return $http({
                 crossDomain: true,
                 method: 'POST',
-                headers: module.encode(UserInfo.alias, UserInfo.password, UserInfo.session),
+                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
                 data: {
                     'Id_Order': orderId,
                     'Id_User': userId,
@@ -639,9 +656,9 @@
         };
     };
 
-    app.service('ProductService', ['$http', 'UserInfo', '$q', ProductService]);
-    app.service('UserService', ['$http', 'UserInfo', 'AlertDialogService', '$state', UserService]);
-    app.service('PurchaseService', ['$http', 'UserInfo', PurchaseService]);
+    app.service('ProductService', ['$http','$q','$rootScope', ProductService]);
+    app.service('UserService', ['$http', 'AlertDialogService', '$state','$rootScope', UserService]);
+    app.service('PurchaseService', ['$http', '$rootScope', PurchaseService]);
 
 }(angular.module("caracolplaylgtvapp.ServerCommunicator", [
     'ui.router'

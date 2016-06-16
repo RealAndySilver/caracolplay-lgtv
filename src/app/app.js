@@ -9,9 +9,48 @@
         });
     });
 
+    app.config(['$httpProvider', function($httpProvider) {
+        $httpProvider.defaults.useXDomain = true;
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    }
+    ]);
 
 
     var init = function ($rootScope, $state) {
+
+
+
+        /**
+         * Esta funcion almacena en el localStorage la informacion de la sesion
+         * */
+        $rootScope.saveSessionInfo = function (response) {
+            var resObj = response.data;
+            console.log("EN SAVE SESSION INFO", response);
+            if (resObj.status) {
+                UserInfo.name = resObj.user.data.nombres;
+                UserInfo.lastname = resObj.user.data.apellidos;
+                UserInfo.alias = resObj.user.data.alias;
+                UserInfo.mail = resObj.user.data.mail;
+                UserInfo.password = password;
+                UserInfo.session = resObj.session;
+                UserInfo.uid = resObj.uid;
+                UserInfo.isSubscription = resObj.user.is_suscription;
+                UserInfo.timeEnds = resObj.user.time_ends;
+                localStorage.setItem('sessionInfo', JSON.stringify(UserInfo));
+            }
+        };
+
+        /**
+         * Esta funcion almacena en el localStorage la informacion de la sesion
+         * */
+        $rootScope.getSessionInfo = function () {
+            if (localStorage.getItem('sessionInfo')){
+                return JSON.parse(localStorage.getItem('sessionInfo'));
+            }else{
+                return null;
+            }
+        };
+
         $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
             if (toState.name != "start" && toState.name != "tutorialinit" &&
                     (localStorage.getItem("tutorial") != "finished2")) {
@@ -35,17 +74,6 @@
     };
 
     app.controller('AppController', ['$scope', AppController]);
-    app.value('UserInfo', {
-        name: '',
-        lastname: '',
-        alias: '',
-        mail: '',
-        password: '',
-        session: '',
-        uid: '',
-        isSubscription: false,
-        timeEnds: ''
-    });
 
     app.constant('DevInfo', {
         isInDev: true
@@ -177,6 +205,9 @@
 
             return this;
         }]);
+
+
+
     app.factory('Interceptor', function ($q, $location, $window, $rootScope) {
         return {
             request: function (req) {
