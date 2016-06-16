@@ -45,7 +45,7 @@
         };
 
         var init = function () {
-            if(localStorage["tutorial"] == "finished2"){
+            if(localStorage.getItem("tutorial")== "finished2"){
                 $state.go("dashboard");
             }
         };
@@ -63,7 +63,7 @@
                         var node = $("a.right.carousel-control");
                         node[0].click();
                     } else {
-                        localStorage["tutorial"] = "finished2";
+                        localStorage.setItem("tutorial","finished2");
                         $rootScope.tutorial = true;
                         $state.go("dashboard");         //en el caso que no sea siguiente es por que el usuario ya ha visto todo el tutorial
                     }
@@ -85,7 +85,7 @@
                         if(ce){
                             document.querySelector("a.right.carousel-control").click();
                         }else{
-                            localStorage["tutorial"] = "finished2";
+                            localStorage.setItem("tutorial]","finished2");
                             $state.go("dashboard");         //en el caso que no sea siguiente es por que el usuario ya ha visto todo el tutorial
                         }
                     });
@@ -112,7 +112,7 @@
                             var node = $("a.right.carousel-control");
                             node[0].click();
                         }else{
-                            localStorage["tutorial"] = "finished2";
+                            localStorage.setItem("tutorial]","finished2");
                             $state.go("dashboard");         //en el caso que no sea siguiente es por que el usuario ya ha visto todo el tutorial
                         }
                     });

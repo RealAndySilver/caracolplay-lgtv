@@ -7,11 +7,11 @@
 
     test.withoutInternet = false;
     
-//    module.END_POINT = 'http://apps.caracolplay.com/';
-    module.END_POINT = 'http://appsbetadev.caracolplay.com/';
+    //module.END_POINT = 'http://apps.caracolplay.com/';
+    module.END_POINT = 'http://appsdev.caracolplay.com/';
     module.TEST_END_POINT = 'http://192.168.1.129:1414/';
 
-//    ssl.END_POINT = 'http://operacionesplay.icck.net/api/';
+    //ssl.END_POINT = 'http://operacionesplay.icck.net/api/';
     ssl.END_POINT = 'https://premium.icck.net/api/';
     ssl.user = 'icck';
     ssl.password = 'K1qf(w#:';
@@ -392,7 +392,7 @@
         };
 
         self.loginPaymentUserFlow = function (username, password) {
-
+            console.log("USERNAME ",username," PASWD ",password);
             var asyncResponse = function (makeFunction) {
                 this.then = function (success, error) {
                     makeFunction(success, error);

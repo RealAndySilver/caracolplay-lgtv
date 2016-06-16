@@ -14,8 +14,7 @@
     var init = function ($rootScope, $state) {
         $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
             if (toState.name != "start" && toState.name != "tutorialinit" &&
-                    (!localStorage["tutorial"] || localStorage["tutorial"] != "finished2")) {
-                //if( toState.name != "start" && toState.name != "tutorialinit" && !localStorage["tutorial"]){
+                    (localStorage.getItem("tutorial") != "finished2")) {
                 event.preventDefault();
                 $state.go("start");
                 return;
@@ -77,7 +76,7 @@
             },
             link: function (scope, element) {
                 scope.$watch('trigger', function (value) {
-                    console.log("entro en el focusMe %s",value);
+                    //console.log("entro en el focusMe %s",value);
                     if (value === "true") {
                         $timeout(function () {
                             element[0].focus();

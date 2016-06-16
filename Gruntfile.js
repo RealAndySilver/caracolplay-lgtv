@@ -90,7 +90,8 @@ module.exports = function(grunt) {
                 'vendor/angular-ui-select/dist/select.min.js',
                 'vendor/angular-animate/angular-animate.min.js',
                 'vendor/TinyScrollbar/lib/jquery.tinyscrollbar.js',
-                'vendor/angular-bindonce/bindonce.min.js'
+                'vendor/angular-bindonce/bindonce.min.js',
+                'vendor/angular-mocks/angular-mocks.js'
             ],
             css: [
             ],
@@ -99,6 +100,7 @@ module.exports = function(grunt) {
                 'vendor/bootstrap/dist/fonts/glyphicons-halflings-regular.svg',
                 'vendor/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf',
                 'vendor/bootstrap/dist/fonts/glyphicons-halflings-regular.woff',
+                'vendor/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2',
             ],
             assets: [
                 'vendor/angular-animate/angular-animate.min.js.map',

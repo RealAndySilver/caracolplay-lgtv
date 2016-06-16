@@ -155,13 +155,13 @@
         };
 
         $scope.playVideo = function () {
-            ProgressDialogService.start();
+            //ProgressDialogService.start();
             var promiseIsContentAvaliable = UserService.isContentAvailableForUser($scope.getChapterId());
 
             promiseIsContentAvaliable.then(function (response) {
                 console.log("isContentAvailable: ->:", response);
                 console.log("response.data.video.status:", response.data.video.status);
-                ProgressDialogService.dismiss();
+                //ProgressDialogService.dismiss();
                 if (response.data.status) {
                     if (response.data.video.status) {
                         $state.go('videoModule', {
@@ -826,9 +826,9 @@
                      $scope.subscription.terms,
                      $scope.subscription.information);
 
-                     ProgressDialog.start();
+                     //ProgressDialog.start();
                      var successCallbackCreateUser = function (response) {
-                     ProgressDialog.dismiss();
+                     //ProgressDialog.dismiss();
 
                      UserInfo.alias = $scope.subscription.user;
                      UserInfo.password = $scope.subscription.password;
@@ -845,7 +845,7 @@
 
                      var failureCallbackCreateUser = function (response) {
                      console.log('error', response);
-                     ProgressDialog.dismiss();
+                     //ProgressDialog.dismiss();
 
                      AlertDialogService.show(
                      'alert',
@@ -890,11 +890,11 @@
                         $scope.active = $scope.activeQueue[0];
 
                         $scope.activeNumber = 0;
-                        ProgressDialog.dismiss();
+                        //ProgressDialog.dismiss();
                         return;
                     }
 
-                    ProgressDialog.start();
+                    //ProgressDialog.start();
                     var createUserPromise = PurchaseService.createUser(
                         $scope.subscription.user,
                         $scope.subscription.password,
@@ -933,12 +933,12 @@
                         $scope.activeQueue = $scope.rentQueueStep3;
                         $scope.active = $scope.activeQueue[0];
                         $scope.activeNumber = 0;
-                        ProgressDialog.dismiss();
+                        //ProgressDialog.dismiss();
                     };
 
                     var failureCallbackCreateUser = function (response) {
                         console.log('error', response);
-                        ProgressDialog.dismiss();
+                        //ProgressDialog.dismiss();
 
                         AlertDialogService.show(
                             'alert',
@@ -977,10 +977,10 @@
                         break;
                     }
 
-                    ProgressDialog.start();
+                    //ProgressDialog.start();
                     var successCallbackExecuteTransaction = function (response) {
                         console.log("resultado de crear orden", response);
-                        ProgressDialog.dismiss();
+                        //ProgressDialog.dismiss();
                         if (response.data.status === 'Aprobada') {
                             AlertDialogService.show(
                                 'alert',
@@ -1004,7 +1004,7 @@
                     };
 
                     var failureCallback = function (response) {
-                        ProgressDialog.dismiss();
+                        //ProgressDialog.dismiss();
                         console.log(response);
                         if(!response.data){
                             AlertDialogService.show(
@@ -1032,7 +1032,7 @@
                                 'Aceptar',
                                 configHotkeys
                             );
-                            ProgressDialog  .dismiss();
+                            //ProgressDialog  .dismiss();
                             return;
                         }
                         console.log("successCallbackCreateOrder", response);
@@ -1186,10 +1186,10 @@
 
                 console.log("create user for redeem", UserInfo);
                 requestRedeemCode();
-                ProgressDialog.dismiss();
+                //ProgressDialog.dismiss();
             }, function (error) {
                 console.log('error', response);
-                ProgressDialog.dismiss();
+                //ProgressDialog.dismiss();
 
                 AlertDialogService.show(
                     'alert',
@@ -1232,7 +1232,7 @@
         var requestRedeemCode = function () {
             console.log($rootScope.objectRedeem);
             if ($rootScope.objectRedeem != null) {
-                ProgressDialog.start();
+                //ProgressDialog.start();
 
                 var infoCode = $rootScope.objectRedeem.data.info_code[0];
                 var code = (infoCode.promo !== undefined) ? infoCode.promo : infoCode.codigo;
@@ -1246,7 +1246,7 @@
                 promise.then(function (response) {
                     console.log(response);
 
-                    ProgressDialog.dismiss();
+                    //ProgressDialog.dismiss();
                     if (response.data.code !== undefined && response.data.code != null) {
                         AlertDialogService.show(
                             'alert',
@@ -1266,7 +1266,7 @@
 
                 }, function (error) {
                     console.log(error);
-                    ProgressDialog.dismiss();
+                    //ProgressDialog.dismiss();
                     $state.go('dashboard');
                     AlertDialogService.show(
                         'alert',
@@ -1295,34 +1295,38 @@
 
 
         $scope.onLogin = function () {
-            ProgressDialog.start();
+            //ProgressDialog.start();
             var promiseLogin = UserService.authenticateUser($scope.loginData.username, $scope.loginData.password);
                 //PurchaseService.loginPaymentUserFlow($scope.loginData.username, $scope.loginData.password);
+            console.log("AUTENTICANDO ",$scope.loginData.username," ",$scope.loginData.password);
             promiseLogin.then(function (response) {
                 console.log('login', response.data);
-
-                ProgressDialog.dismiss();
-                saveDataUserLogin(response, $scope.loginData.username, $scope.loginData.password);
-                console.log('productId: ', productionId, 'chapterId', chapterId);
-                if ($stateParams.typeView !== "4") {
-                    if (response.data.user !== undefined) {
-                        UserService.validatePlayerVideo(chapterId, productionId, configHotkeys, function(){
-                            console.log("");
-                        }, function () {
-                            window.location = window.location.pathname;
-                        });
+                if (response.data.status){
+                    ////ProgressDialog.dismiss();
+                    saveDataUserLogin(response, $scope.loginData.username, $scope.loginData.password);
+                    console.log('productId: ', productionId, 'chapterId', chapterId, " stateParam ",$stateParams.typeView);
+                    if ($stateParams.typeView !== "4") {
+                        if (response.data.user !== undefined) {
+                            UserService.validatePlayerVideo(chapterId, productionId, configHotkeys, function(){
+                                console.log("");
+                            }, function () {
+                                window.location = window.location.pathname;
+                            });
+                        }
+                    }else{
+                        requestRedeemCode();
                     }
                 }else{
-                    requestRedeemCode();
+                    AlertDialogService.show(
+                        'alert',
+                        response.data.response,
+                        'Aceptar',
+                        configHotkeys
+                    );
                 }
-
-                //if(response.data.user !== undefined){
-                //    getCallbackLoginForView()();
-                //}
-
             }, function (error) {
                 console.log('login', error.data);
-                ProgressDialog.dismiss();
+                ////ProgressDialog.dismiss();
                 AlertDialogService.show(
                     'alert',
                     error.data[0],
@@ -1467,11 +1471,11 @@
 
         init();
 
-        PurchaseService.loginPaymentUserFlow(UserInfo.alias, UserInfo.password).then(function (response) {
+        /*PurchaseService.loginPaymentUserFlow(UserInfo.alias, UserInfo.password).then(function (response) {
             console.log(response.data);
         }, function (error) {
             console.log(error);
-        });
+        });*/
 
         /*
          var createUserPromise = PurchaseService.createUser(
