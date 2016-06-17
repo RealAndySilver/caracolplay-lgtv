@@ -15,24 +15,50 @@
     app.service('ModalInstanceService', [ModalInstanceService]);
     app.constant('ModalInstance', {});
 
-    var PurchaseViewController = function ($scope, hotkeys, UserService, PurchaseService, UserInfo,
+    var PurchaseViewController = function ($scope, hotkeys, UserService, PurchaseService,
                                            $modalInstance, typeView, $state, AlertDialogService,
                                            productionId, chapterId, ProgressDialog, TermsViewService,
                                            DevInfo, name, $stateParams, $rootScope, RegisterUserService, $timeout) {
         var itemSelected = 0;
+        var model = this;
 
-        var self = this;
 
+        var LOGIN_OPTION_INFO = {
+            'title': 'Ingresar como usuario',
+            'image': 'assets/img/login-logo.png',
+            id: 0,
+            active: false
+        };
+
+        var RENT_OPTION_INFO = {
+            'title': 'Alquilar este contenido',
+            'image': 'assets/img/rent-logo.png',
+            id: 1,
+            active: false
+        };
+
+        var SUBSCRIPTION_OPTION_INFO = {
+            'title': 'Suscribirse a CaracolPlay',
+            'image': 'assets/img/subscribe-logo.png',
+            id: 2,
+            active: false
+        };
+
+        var REDEEM_OPTION_INFO= {
+            'title': 'Redimir codigo',
+            'image': 'assets/img/redeem-logo.png',
+            id: 3,
+            active: false
+        };
+
+        model.isVisibleMainOptionsScreen=true;
         $scope.name = name;
 
-        $scope.showOptions = true;
         $scope.loginVisible = false;
         $scope.boughtVisible = false;
         $scope.redeemVisible = false;
-
         $scope.isSubscription = false;
         $scope.isRent = false;
-
         $scope.subscribeStep = 0;
         $scope.defaultDocumentTypeIndex = 1;
         $scope.defaultCreditcardIndex = 0;
@@ -90,7 +116,7 @@
         ];
 
         $scope.getMail = function () {
-            return UserInfo.mail;
+            return $rootScope.getSessionInfo().email;
         };
 
         $scope.$on("$stateChangeStart", function (event, toState,toParams,fromState,fromParams) {
@@ -393,12 +419,12 @@
             hotkeys.add({
                 combo: 'right',
                 callback: function () {
-                    if (itemSelected + 1 >= $scope.options.length) {
+                    if (itemSelected + 1 >= model.optionsAvailable.length) {
                         return;
                     }
 
-                    $scope.options[itemSelected++].active = false;
-                    $scope.options[itemSelected].active = true;
+                    model.optionsAvailable[itemSelected++].active = false;
+                    model.optionsAvailable[itemSelected].active = true;
                 }
             });
 
@@ -425,8 +451,8 @@
                         return;
                     }
                     console.log('el item seleccionado es',itemSelected);
-                    $scope.options[itemSelected--].active = false;
-                    $scope.options[itemSelected].active = true;
+                    model.optionsAvailable[itemSelected--].active = false;
+                    model.optionsAvailable[itemSelected].active = true;
                 }
             });
 
@@ -437,13 +463,13 @@
                         $scope.disableKeyEnter = false;
                         return;
                     }
-                    switch ($scope.options[itemSelected].id) {
+                    switch (model.optionsAvailable[itemSelected].id) {
                         case 0:
                             $scope.activeQueue = $scope.loginQueue;
                             $scope.active = $scope.activeQueue[0];
                             $scope.activeNumber = 0;
 
-                            $scope.showOptions = false;
+                            model.isVisibleMainOptionsScreen = false;
                             $scope.loginVisible = true;
                             $scope.redeemVisible = false;
                             break;
@@ -452,10 +478,10 @@
                             $scope.active = $scope.activeQueue[0];
                             $scope.activeNumber = 0;
 
-                            if (UserInfo.alias) {
+                            if ($rootScope.getSessionInfo().alias) {
                                 $scope.subscribeStep = 1;
-                                $scope.subscription.name = UserInfo.name;
-                                $scope.subscription.lastname = UserInfo.lastname;
+                                $scope.subscription.name = $rootScope.getSessionInfo().name;
+                                $scope.subscription.lastname = $rootScope.getSessionInfo().lastname;
                                 $scope.activeQueue = $scope.rentQueueStep2;
                                 $scope.active = $scope.activeQueue[0];
                                 $scope.activeNumber = 0;
@@ -466,12 +492,12 @@
                             console.log("caso 1", $scope.subscribeStep);
                             $scope.isSubscription = false;
                             $scope.isRent = true;
-                            $scope.showOptions = false;
+                            model.isVisibleMainOptionsScreen  = false;
                             $scope.boughtVisible = true;
                             $scope.redeemVisible = false;
                             break;
                         case 2:
-                            $scope.showOptions = false;
+                            model.isVisibleMainOptionsScreen = false;
                             $scope.isRent = false;
                             $scope.isSubscription = true;
                             $scope.redeemVisible = false;
@@ -486,7 +512,7 @@
                                 console.log('este es el new value: %s',newVal);
                             });
 
-                            if (UserInfo.alias) {
+                            if ($rootScope.getSessionInfo().alias) {
                                 $scope.subscribeStep = 1;
                             } else {
                                 $scope.subscribeStep = 1; //solo para pruebas
@@ -504,7 +530,7 @@
                             break;
                         case 3:
                             console.log("caso 3");
-                            $scope.showOptions = false;
+                            model.isVisibleMainOptionsScreen  = false;
                             $scope.isRent = false;
                             $scope.isSubscription = false;
                             $scope.boughtVisible = false;
@@ -542,7 +568,7 @@
                                 $scope.playVideo();
                             }
                         } else {
-                            $scope.showOptions = true;
+                            model.isVisibleMainOptionsScreen  = true;
                             $scope.isRent = false;
                             $scope.isSubscription = false;
                             $scope.boughtVisible = false;
@@ -556,7 +582,7 @@
                                     name: $stateParams.name
                                 }
                             );
-                            //$scope.options.length = 2;
+                            //model.optionsAvailable.length = 2;
                         }
                     }
                 } else {
@@ -833,7 +859,7 @@
                         return;
                     }
 
-                    if(UserInfo.alias){
+                    if($rootScope.getSessionInfo().alias){
                         $scope.activeQueue = $scope.rentQueueStep2;
                         $scope.subscribeStep++;
 
@@ -878,15 +904,6 @@
                             $scope.subscription.name,
                             $scope.subscription.lastname
                         );
-                        //UserInfo.alias = $scope.subscription.user;
-                        //UserInfo.password = $scope.subscription.password;
-                        //UserInfo.mail = $scope.subscription.email;
-                        //UserInfo.uid = response.data.uid;
-                        //UserInfo.name = $scope.subscription.name;
-                        //UserInfo.lastname = $scope.subscription.lastname;
-                        //
-                        //localStorage.setItem('userInfo', JSON.stringify(UserInfo));
-
                         $scope.activeQueue = $scope.rentQueueStep3;
                         $scope.active = $scope.activeQueue[0];
                         $scope.activeNumber = 0;
@@ -1028,7 +1045,7 @@
                     var successCallbackLogin = function (response) {
                         console.log("succesCallbackLogin", response);
                         if (response.data.user !== null) {
-                            $rootScope.saveSessionInfo(response);
+                            $rootScope.saveSessionInfo(response,$scope.subscription.password);
                         }
                         var promiseCreateOrder;
                         if ($scope.isRent) {
@@ -1040,10 +1057,8 @@
                         promiseCreateOrder.then(successCallbackCreateOrder, failureCallback);
                     };
 
-                    console.log('UserInfo', UserInfo);
-                    var promiseLogin = UserService.authenticateUser(UserInfo.alias, UserInfo.password);
+                    var promiseLogin = UserService.authenticateUser($rootScope.getSessionInfo().alias, $rootScope.getSessionInfo().password);
                     promiseLogin.then(successCallbackLogin, failureCallback);
-
                     break;
             }
         };
@@ -1053,7 +1068,7 @@
             if ($scope.subscribeStep - 1 >= 0) {
                 $scope.subscribeStep--;
 
-                if (UserInfo.alias && $scope.subscribeStep === 0) {
+                if ($rootScope.getSessionInfo().alias && $scope.subscribeStep === 0) {
                     $scope.onBack();
                     return;
                 }
@@ -1079,7 +1094,7 @@
             $scope.loginVisible = false;
             $scope.boughtVisible = false;
             $scope.redeemVisible = false;
-            $scope.showOptions = true;
+            model.isVisibleMainOptionsScreen  = true;
             configHotkeys();
         };
 
@@ -1141,7 +1156,6 @@
                     gender
                 );
 
-                console.log("create user for redeem", UserInfo);
                 requestRedeemCode();
                 //ProgressDialog.dismiss();
             }, function (error) {
@@ -1237,14 +1251,35 @@
                 console.log('login', response.data);
                 if (response.data.status){
                     ////ProgressDialog.dismiss();
-                    $rootScope.saveSessionInfo(response);
+                    $rootScope.saveSessionInfo(response,$scope.loginData.password);
+                    localStorage.setItem('loginCredentials',JSON.stringify($scope.loginData));
                     console.log('productId: ', productionId, 'chapterId', chapterId, " stateParam ",$stateParams.typeView);
                     if ($stateParams.typeView !== "4") {
                         if (response.data.user !== undefined) {
-                            UserService.validatePlayerVideo(chapterId, productionId, configHotkeys, function(){
-                                console.log("");
-                            }, function () {
-                                $state.go("dashboard");
+                            UserService.validatePlayerVideo(chapterId, productionId, configHotkeys, function(response){
+                                if (response.data.video.status) {
+                                    $state.go('videoModule', {
+                                        chapterId: chapterId,
+                                        productionId: productionId
+                                    });
+                                }else{
+                                    console.log("POR EL BAD BUENO");
+                                    AlertDialogService.show(
+                                        'alert',
+                                        response.data.video.message,
+                                        'Aceptar',
+                                        $state.reload
+                                    );
+                                }
+                            }, function (response) {
+                                console.log("POR EL BAD");
+                                AlertDialogService.show(
+                                    'alert',
+                                    response.data.message,
+                                    'Aceptar',
+                                    $state.reload
+                                );
+                                //$state.reload();
                                 //window.location = window.location.pathname;
                             });
                         }
@@ -1277,35 +1312,44 @@
             $scope.support = object.support;
         };
 
-        var setOptionsByTypeView = function () {
-            switch (typeView) {
+
+        /**
+         * Este metodo determina con base en el usuario y en el tipo de produccion las opciones
+         * que estan disponibles para el usuario.
+         * */
+        model.getAvailableOptionsByView=function(pTypeView){
+            console.log("Este es el pTypeView ",pTypeView);
+            var tempOptions=[];
+            //Si el usuario no esta logueado se agrega la opcion de LOGIN
+            if (!$rootScope.isUserLogged()) {
+                tempOptions.push(LOGIN_OPTION_INFO);
+            }
+            if ($rootScope.isUserLogged() && !$rootScope.getSessionInfo().isSubscription && (pTypeView==2 || pTypeView==3 || pTypeView==4)){
+                tempOptions.push(SUBSCRIPTION_OPTION_INFO);
+            }
+
+            switch (pTypeView) {
                 case 1:
-                    $scope.options.push($scope.rentOptions);
-                    $scope.options.push($scope.redeemOptions);
+                case 3:
+                case 5:
+                    tempOptions.push(RENT_OPTION_INFO);
+                    tempOptions.push(REDEEM_OPTION_INFO);
                     break;
                 case 2:
-                    $scope.options.push($scope.subscriptionOption);
-                    $scope.options.push($scope.redeemOptions);
-                    break;
-                case 3:
-                    $scope.options.push($scope.subscriptionOption);
-                    $scope.options.push($scope.rentOptions);
-                    $scope.options.push($scope.redeemOptions);
-                    break;
-                case 4:
-                    $scope.options.push($scope.subscriptionOption);
-                    break;
-                case 5:
-                    $scope.options.push($scope.rentOptions);
-                    $scope.options.push($scope.redeemOptions);
+                    tempOptions.push(REDEEM_OPTION_INFO);
                     break;
                 default:
                     break;
             }
+            itemSelected=0;
+            tempOptions[itemSelected].active=true;
+            return tempOptions;
         };
 
         var init = function () {
             configHotkeys();
+
+            model.optionsAvailable=model.getAvailableOptionsByView(typeView);
 
             $scope.expireDate = new Date();
             $scope.expireDate.setFullYear($scope.expireDate.getFullYear() + 1);
@@ -1316,23 +1360,17 @@
                 }
             });
 
-            $scope.$watch('showOptions', function (newValue, oldValue) {
+            $scope.$watch('model.isVisibleMainOptionsScreen', function (newValue, oldValue) {
                 if (newValue) {
                     configHotkeys();
-                    if (UserInfo.alias !== '' && UserInfo.password !== '' && UserInfo.session !== '' && !UserInfo.isSubscription) {
-                        $scope.options = [];
-                        setOptionsByTypeView();
-                    } else {
-                        $scope.options = [];
-                        $scope.options.push($scope.loginOptions);
-                        setOptionsByTypeView();
-                    }
+                    var sessionInfo = $rootScope.getSessionInfo();
+                    model.optionsAvailable = model.getAvailableOptionsByView(typeView);
 
-                    if (itemSelected < $scope.options.length) {
-                        $scope.options[itemSelected].active = false;
+                    if (itemSelected < model.optionsAvailable.length) {
+                        model.optionsAvailable[itemSelected].active = false;
                     }
                     itemSelected = 0;
-                    $scope.options[itemSelected].active = true;
+                    model.optionsAvailable[itemSelected].active = true;
                     setEssentialData($scope.menu);
                 }
             });
@@ -1364,71 +1402,22 @@
 
         init();
 
-        /*PurchaseService.loginPaymentUserFlow(UserInfo.alias, UserInfo.password).then(function (response) {
-            console.log(response.data);
-        }, function (error) {
-            console.log(error);
-        });*/
-
-        /*
-         var createUserPromise = PurchaseService.createUser(
-         'user_ws_iam_6',
-         '123',
-         'Dp1yTwumd6LY6@iam.com',
-         true,
-         true,
-         true
-         );
-
-         createUserPromise.then(function(response) {
-         });
-         */
-
-        $scope.subscriptionOption = {
-            'title': 'Suscribirse a CaracolPlay',
-            'image': 'assets/img/subscribe-logo.png',
-            id: 2,
-            active: false
-        };
-
-        $scope.rentOptions = {
-            'title': 'Alquilar este contenido',
-            'image': 'assets/img/rent-logo.png',
-            id: 1,
-            active: false
-        };
-
-        $scope.redeemOptions = {
-            'title': 'Redimir codigo',
-            'image': 'assets/img/redeem-logo.png',
-            id: 3,
-            active: false
-        };
-
-        $scope.loginOptions = {
-            'title': 'Ingresar como usuario',
-            'image': 'assets/img/login-logo.png',
-            id: 0,
-            active: true
+        this.funciona=function(){
+            console.log("ESTA MI");
+            return "Esta mierda funciona";
         };
 
     };
 
-    var DialogPurchaseController = function ($scope, $modal, $stateParams, UserInfo, $state) {
+    var DialogPurchaseController = function ($scope, $modal, $stateParams, $state) {
         var typeView = $stateParams.typeView;
         var productionId = $stateParams.productionId;
         var chapterId = $stateParams.chapterId;
         var name = $stateParams.name;
 
-        console.log('UserInfo', UserInfo);
-        //if (UserInfo.alias && UserInfo.alias === '') {
-        //    window.history.back();
-        //    return;
-        //}
-
         var modalInstance = $modal.open({
             templateUrl: 'purchaseView/purchaseView.tpl.html',
-            controller: 'PurchaseViewController',
+            controller: 'PurchaseViewController as model',
             size: 'lg',
             resolve: {
                 name: function () {
@@ -1474,14 +1463,13 @@
         });
     }]);
 
-    app.controller('DialogPurchaseController', ['$scope', '$modal', '$stateParams', 'UserInfo', '$state', DialogPurchaseController]);
+    app.controller('DialogPurchaseController', ['$scope', '$modal', '$stateParams', '$state', DialogPurchaseController]);
 
     app.controller('PurchaseViewController', [
         '$scope',
         'hotkeys',
         'UserService',
         'PurchaseService',
-        'UserInfo',
         '$modalInstance',
         'typeView',
         '$state',

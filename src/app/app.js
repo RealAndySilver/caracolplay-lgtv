@@ -23,31 +23,65 @@
         /**
          * Esta funcion almacena en el localStorage la informacion de la sesion
          * */
-        $rootScope.saveSessionInfo = function (response) {
+        $rootScope.saveSessionInfo = function (response,password) {
             var resObj = response.data;
             console.log("EN SAVE SESSION INFO", response);
             if (resObj.status) {
-                UserInfo.name = resObj.user.data.nombres;
-                UserInfo.lastname = resObj.user.data.apellidos;
-                UserInfo.alias = resObj.user.data.alias;
-                UserInfo.mail = resObj.user.data.mail;
-                UserInfo.password = password;
-                UserInfo.session = resObj.session;
-                UserInfo.uid = resObj.uid;
-                UserInfo.isSubscription = resObj.user.is_suscription;
-                UserInfo.timeEnds = resObj.user.time_ends;
-                localStorage.setItem('sessionInfo', JSON.stringify(UserInfo));
+                var userInfo={};
+                userInfo.name = resObj.user.data.nombres;
+                userInfo.lastname = resObj.user.data.apellidos;
+                userInfo.alias = resObj.user.data.alias;
+                userInfo.mail = resObj.user.data.mail;
+                userInfo.password = password;
+                userInfo.session = resObj.session;
+                userInfo.uid = resObj.uid;
+                userInfo.isSubscription = resObj.user.is_suscription;
+                userInfo.timeEnds = resObj.user.time_ends;
+                sessionStorage.setItem('sessionInfo', JSON.stringify(userInfo));
             }
         };
 
         /**
-         * Esta funcion almacena en el localStorage la informacion de la sesion
+         * Limpia del cache toda la informacion relacionada con la sesion y las credenciales para ingresar
+         * a la aplicacion
+         * */
+        $rootScope.clearAllCacheData=function(){
+            localStorage.removeItem('loginCredentials');
+            sessionStorage.removeItem('sessionInfo');
+        };
+
+
+        /**
+         * Esta funcion almacena en el localStorage la informacion de logueo
+         * */
+        $rootScope.getLoginCredentials = function () {
+            if (localStorage.getItem('loginCredentials')){
+                return JSON.parse(localStorage.getItem('loginCredentials'));
+            }else{
+                return {};
+            }
+        };
+
+        /**
+         * Esta funcion almacena en el sessionStorage la informacion de la sesion
          * */
         $rootScope.getSessionInfo = function () {
-            if (localStorage.getItem('sessionInfo')){
-                return JSON.parse(localStorage.getItem('sessionInfo'));
+            if (sessionStorage.getItem('sessionInfo')){
+                return JSON.parse(sessionStorage.getItem('sessionInfo'));
             }else{
-                return null;
+                return {};
+            }
+        };
+
+        /**
+         * Esta funcion retorna true si el usuario tiene una session activa
+         *
+         * * */
+        $rootScope.isUserLogged = function () {
+            if (sessionStorage.getItem('sessionInfo')){
+                return true;
+            }else{
+                return false;
             }
         };
 
@@ -74,6 +108,17 @@
     };
 
     app.controller('AppController', ['$scope', AppController]);
+    app.value('UserInfo', {
+        name: '',
+        lastname: '',
+        alias: '',
+        mail: '',
+        password: '',
+        session: '',
+        uid: '',
+        isSubscription: false,
+        timeEnds: ''
+    });
 
     app.constant('DevInfo', {
         isInDev: true

@@ -20,7 +20,7 @@
 		init();
 
 		function init() {
-            if(localStorage["tutorial"] == "finished2"){
+            if(localStorage.tutorial === "finished2"){
                 $state.go("dashboard");
                 return;
             }

@@ -85,17 +85,18 @@
         return headers;
     };
 
-    var ProductService = function ($http, $rootScope, $q) {
+    var ProductService = function ($http, $q,$rootScope) {
         var self = this;
 
         self.getRecommendationsWithProductID = function (productId) {
+            var credentials=$rootScope.getLoginCredentials();
             var sessionInfo=$rootScope.getSessionInfo();
             if (test.withoutInternet) {
                 return $http.get('assets/dummy/recommended.json');
             } else {
                 return $http({
                     crossDomain: true,
-                    headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
+                    headers: module.encode(credentials.username, credentials.password, sessionInfo.session),
                     method: 'GET',
                     url: module.END_POINT + 'GetRecommendationsWithProductID/' + productId + '/?player_br=iam'
                 });
@@ -103,10 +104,11 @@
         };
 
         self.updateUserFeedbackForProduct = function (productId, rate) {
+            var credentials=$rootScope.getLoginCredentials();
             var sessionInfo=$rootScope.getSessionInfo();
             return $http({
                 crossDomain: true,
-                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
+                headers: module.encode(credentials.username, credentials.password, sessionInfo.session),
                 method: 'GET',
                 //url: module.END_POINT + 'UpdateUserFeedbackForProduct?player_br=aim/produccion/' + productId + '/' + (rate * 100.0 / 5.0),
                 url: module.END_POINT + 'UpdateUserFeedbackForProduct/produccion/' + productId + '/' + (rate * 100.0 / 5.0)
@@ -143,10 +145,11 @@
         };
 
         self.getUserRecentlyWatched = function () {
+            var credentials=$rootScope.getLoginCredentials();
             var sessionInfo=$rootScope.getSessionInfo();
             return $http({
                 crossDomain: true,
-                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
+                headers: module.encode(credentials.username, credentials.password, sessionInfo.session),
                 method: 'GET',
                 url: module.END_POINT + 'GetUserRecentlyWatched?player_br=aim'
             });
@@ -167,6 +170,7 @@
 
         self.getProductWithID = function (id, uid) {
             var sessionInfo=$rootScope.getSessionInfo();
+            var credentials=$rootScope.getLoginCredentials();
             //console.log(id);
             if (!uid || uid === '') {
                 uid = '0';
@@ -178,7 +182,7 @@
                 return $http({
 
                     crossDomain: true,
-                    headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
+                    headers: module.encode(credentials.username, credentials.password, sessionInfo.session),
                     method: 'GET',
                     url: module.END_POINT + 'GetProductWithID/' + id + '/' + uid + '?player_br=aim'
                 });
@@ -186,6 +190,7 @@
         };
 
         self.addItemToList = function (type, id) {
+            var credentials=$rootScope.getLoginCredentials();
             var sessionInfo=$rootScope.getSessionInfo();
             if (type === 'Películas') {
                 type = 'pelicula';
@@ -195,13 +200,15 @@
             console.log("id -->", id);
             return $http({
                 crossDomain: true,
-                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
+                headers: module.encode(credentials.username, credentials.password, sessionInfo.session),
                 method: 'POST',
                 url: module.END_POINT + 'my_list/add/' + type + '/' + id
             });
         };
 
         self.removeItemToList = function (type, id) {
+            var credentials=$rootScope.getLoginCredentials();
+            var sessionInfo=$rootScope.getSessionInfo();
             if (type === 'Películas') {
                 type = 'pelicula';
             } else {
@@ -209,17 +216,18 @@
             }
             return $http({
                 crossDomain: true,
-                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
+                headers: module.encode(credentials.username, credentials.password, sessionInfo.session),
                 method: 'POST',
                 url: module.END_POINT + 'my_list/remove/' + type + '/' + id
             });
         };
 
         self.getList = function () {
+            var credentials=$rootScope.getLoginCredentials();
             var sessionInfo=$rootScope.getSessionInfo();
             return $http({
                 crossDomain: true,
-                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
+                headers: module.encode(credentials.username, credentials.password, sessionInfo.session),
                 method: 'GET',
                 url: module.END_POINT + 'my_list/get'
             });
@@ -231,10 +239,11 @@
 
 
         self.videoWatched = function (productId, time) {
+            var credentials=$rootScope.getLoginCredentials();
             var sessionInfo=$rootScope.getSessionInfo();
             return $http({
                 crossDomain: true,
-                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
+                headers: module.encode(credentials.username, credentials.password, sessionInfo.session),
                 method: 'GET',
                 url: module.END_POINT + 'VideoWatched/' + productId + '/' + time + '?player_br=aim'
             });
@@ -248,31 +257,14 @@
             prom.then(function (response) {
                 try {
                     console.log("Respuesta del server ",response);
-                    if (response.data.status && response.data.video.status) {
-                        $state.go('videoModule', {
-                            chapterId: chapterId,
-                            productionId: productionId
-                        });
+                    if (response.data.status){
                         if (successCallback !== null) {
-                            successCallback();
+                            successCallback(response);
                         }
-                        return;
                     }else{
-                        $state.go('dashboard');
-                    }
-                } catch (e) {
-                    logs.set("videoStatus", e);
-                }
-                
-                try{
-                    AlertDialogService.show(
-                            'alert',
-                            response.data.video.message,
-                            'Aceptar',
-                            configHotkeys
-                            );
-                    if (errorCallback !== null) {
-                        errorCallback();
+                        if (errorCallback !== null) {
+                            errorCallback(response);
+                        }
                     }
                 } catch (e) {
                     logs.set("videoMessage", e);
@@ -281,13 +273,14 @@
         };
 
         self.isContentAvailableForUser = function (episodeId) {
+            var credentials=$rootScope.getLoginCredentials();
             var sessionInfo=$rootScope.getSessionInfo();
             if (test.withoutInternet) {
                 return $http.get('assets/dummy/validateUserReponse.json');
             } else {
                 return $http({
                     crossDomain: true,
-                    headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
+                    headers: module.encode(credentials.username, credentials.password, sessionInfo.session),
                     method: 'GET',
                     url: module.END_POINT + 'IsContentAvailableForUser/' + episodeId + '?player_br=aim'
                 });
@@ -339,27 +332,27 @@
         var self = this;
 
         self.getVideoRequeriments = function () {
-            var sessionInfo=$rootScope.getSessionInfo();
+            var credentials=$rootScope.getLoginCredentials();
             return $http({
-                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
+                headers: module.encode(credentials.username, credentials.password, sessionInfo.session),
                 method: 'GET',
                 url: module.END_POINT + 'smart-tv/video-requirements'
             });
         };
 
         self.getHabeasData = function () {
-            var sessionInfo=$rootScope.getSessionInfo();
+            var credentials=$rootScope.getLoginCredentials();
             return $http({
-                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
+                headers: module.encode(credentials.username, credentials.password, sessionInfo.session),
                 method: 'GET',
                 url: module.END_POINT + 'smart-tv/habeas-data'
             });
         };
 
         self.getTerms = function () {
-            var sessionInfo=$rootScope.getSessionInfo();
+            var credentials=$rootScope.getLoginCredentials();
             return $http({
-                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
+                headers: module.encode(credentials.username, credentials.password, sessionInfo.session),
                 method: 'GET',
                 url: module.END_POINT + 'GetTerms'
             });
@@ -564,10 +557,10 @@
         };
 
         self.getProduct = function (id, type, action) {
-            var sessionInfo=$rootScope.getSessionInfo();
+            var credentials=$rootScope.getLoginCredentials();
             return $http({
                 crossDomain: true,
-                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
+                headers: module.encode(credentials.username, credentials.password, sessionInfo.session),
                 method: 'POST',
                 data: {
                     'Id': id,
@@ -579,11 +572,11 @@
         };
 
         self.createOrder = function (productId, userId) {
-            var sessionInfo=$rootScope.getSessionInfo();
+            var credentials=$rootScope.getLoginCredentials();
             return $http({
                 crossDomain: true,
                 method: 'POST',
-                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
+                headers: module.encode(credentials.username, credentials.password, sessionInfo.session),
                 data: {
                     'Id_Producto': productId,
                     'Id_user': userId
@@ -593,11 +586,11 @@
         };
 
         self.payment = function (orderId, userId, tokenCard, expirationDate, cvv, recurrence) {
-            var sessionInfo=$rootScope.getSessionInfo();
+            var credentials=$rootScope.getLoginCredentials();
             return $http({
                 crossDomain: true,
                 method: 'POST',
-                headers: module.encode(sessionInfo.alias, sessionInfo.password, sessionInfo.session),
+                headers: module.encode(credentials.username, credentials.password, sessionInfo.session),
                 data: {
                     'Id_Order': orderId,
                     'Id_User': userId,

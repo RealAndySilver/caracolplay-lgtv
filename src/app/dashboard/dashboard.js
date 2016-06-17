@@ -15,7 +15,7 @@
         });
     }]);
 
-    var DashboardController = function ($scope, ProductService, UserInfo, hotkeys, $state, PreviewDataService, DevInfo,
+    var DashboardController = function ($scope, ProductService, hotkeys, $state, PreviewDataService, DevInfo,
                                         UserService, AlertDialogService, TermsViewService, MyListItems,
                                         GeneralModalViewService, bestWatch,$rootScope,$timeout) {
         var self = this;
@@ -31,7 +31,7 @@
         self.selectedItem = {};
         self.isInSearch = false;
 
-        $scope.mail = UserInfo.mail;
+        $scope.mail = $rootScope.isUserLogged?$rootScope.getSessionInfo().mail:null;
         $scope.signOutSelected = false;
         $scope.termsSelected = false;
         $scope.whatIsSelected = false;
@@ -83,31 +83,16 @@
                 });
             } else {
                 self.isInSearch = false;
-
                 keyboardInit();
-
-                /*
-                 if(self.beforeSearchIsPreviewActive) {
-                 self.isPreviewActive = true;
-                 self.beforeSearchIsPreviewActive = false;
-
-                 if($scope.restartConfigKeyboard.restart) {
-                 $scope.restartConfigKeyboard.restart();
-                 }
-
-                 if($scope.restartConfigKeyboard.restartHotkeysSeriesProduct) {
-                 $scope.restartConfigKeyboard.restartHotkeysSeriesProduct();
-                 }
-
-                 }
-                 */
             }
         });
 
         $scope.restartConfigKeyboard = {};
 
         $scope.onLogout = function () {
-            var logoutPromise = UserService.logout(UserInfo.alias, UserInfo.password, UserInfo.session);
+            var credentials=$rootScope.getLoginCredentials();
+            var sessionInfo=$rootScope.getSessionInfo();
+            var logoutPromise = UserService.logout(credentials.alias, credentials.password, sessionInfo.session);
             logoutPromise.then(function (response) {
 
                 if (response.data.status) {
@@ -117,25 +102,8 @@
                         'Aceptar',
                         function () {
                             keyboardInit();
-                            localStorage.removeItem('userInfo');
-                            localStorage.removeItem('sessionInfo');
-                            UserInfo.name = '';
-                            UserInfo.lastname = '';
-                            UserInfo.alias = '';
-                            UserInfo.mail = '';
-                            UserInfo.password = '';
-                            UserInfo.session = '';
-                            UserInfo.uid = '';
-                            UserInfo.isSubscription = false;
-                            UserInfo.timeEnds = '';
-                            $scope.mail = '';
-
-
-                            window.location = window.location.pathname;
                         }
                     );
-
-
                 } else {
                     AlertDialogService.show(
                         'warning',
@@ -144,6 +112,8 @@
                         keyboardInit
                     );
                 }
+                $rootScope.clearAllCacheData();
+                $state.reload();
             }, function (response) {
                 AlertDialogService.show(
                     'warning',
@@ -219,9 +189,8 @@
         };
 
         self.getList = function () {
-            if(UserInfo.alias === '' || UserInfo.password === '' ||  UserInfo.session === ''){
-                logs.set("notUser", "no debería estar nulo se supone");
-                return;
+            if (!$rootScope.isUserLogged()){
+                return ;
             }
             var promiseGetList = ProductService.getList();
             promiseGetList.then(function (response) {
@@ -436,51 +405,6 @@
                     event.preventDefault();
 
                     if (self.active + 1 > self.list.length + 1) {
-                        /*self.active++;
-                        var div = $('footer');
-                        if ($(div).position()) {
-                            $('.scroll-area').scrollTop($(div).position().top - 134);
-                        }
-                        outAnimation();
-                        if ($scope.mail) {
-                            $scope.signOutSelected = true;
-
-                        } else {
-                            $scope.termsSelected = true;
-                        }
-
-                        hotkeys.add({
-                            combo: 'right',
-                            callback: function () {
-                                $scope.termsSelected = true;
-                                $scope.signOutSelected = false;
-                            }
-                        });
-
-                        hotkeys.add({
-                            combo: 'left',
-                            callback: function () {
-                                $scope.termsSelected = false;
-                                $scope.signOutSelected = true;
-                            }
-                        });
-
-                        hotkeys.add({
-                            combo: 'enter',
-                            callback: function () {
-                                if ($scope.termsSelected) {
-                                    if(!$scope.animations.isOpenModal){
-                                        $scope.showTerms();
-                                    }
-                                } else {
-                                    if(!$scope.animations.isOpenModal){
-                                        $scope.logout();
-                                    }
-                                }
-                            }
-                        });
-
-                        */
                         activeEventsBottomOptions();
                         return;
                     }
@@ -527,12 +451,12 @@
             self.slides.length = 0;
             self.list.length = 0;
 
-            var userInfoStr = localStorage.getItem('userInfo');
+            var loginCredentialsStr = localStorage.getItem('loginCredentials');
 
-            if (userInfoStr) {
-                var userInfo = JSON.parse(userInfoStr);
-                var authPromise = UserService.authenticateUser(userInfo.alias, userInfo.password);
-                authPromise.then($rootScope.saveSessionInfo(response));
+            if (!$rootScope.isUserLogged() && loginCredentialsStr) {
+                var loginCredentials = JSON.parse(loginCredentialsStr);
+                var authPromise = UserService.authenticateUser(loginCredentials.username, loginCredentials.password);
+                authPromise.then(function (response) {$rootScope.saveSessionInfo(response);});
             }
             featuredPromise.then(function (response) {
                 var featuredArray = response.data.featured;
@@ -652,7 +576,7 @@
     };
 
     app.controller('DashboardController', [
-        '$scope', 'ProductService', 'UserInfo', 'hotkeys', '$state',
+        '$scope', 'ProductService' , 'hotkeys', '$state',
         'PreviewDataService', 'DevInfo', 'UserService', 'AlertDialogService',
         'TermsViewService', 'MyListItems', 'GeneralModalViewService', 'bestWatch',
         '$rootScope','$timeout',

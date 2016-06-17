@@ -2,7 +2,6 @@
     <div id="purchase-logo" ng-click="testLength()"></div>
     <div id="purchase-title">
         <h2 ng-hide="boughtVisible && !isSubscription">{{title}}</h2>
-
         <div ng-show="boughtVisible && !isSubscription" class="title-bought">
             <h3>{{title}}</h3>
             <h5 ng-show="subscribeStep == 0">{{name}}</h5>
@@ -19,10 +18,10 @@
         </div>
 
         <!-- options div -->
-        <div class="purchase-buttons" ng-show="showOptions">
-            <div class="button-container" ng-class="{ 'active':item.active }" ng-repeat="item in options" >
-                <img ng-src="{{item.image}}">
-                <center><h3 class="item-title">{{item.title}}</h3></center>
+        <div class="purchase-buttons" ng-show="model.isVisibleMainOptionsScreen">
+            <div class="button-container" ng-class="{ 'active':option.active }" ng-repeat="option in model.optionsAvailable" >
+                <img ng-src="{{option.image}}">
+                <center><h3 class="item-title">{{option.title}}</h3></center>
             </div>
             <div class="clear"></div>
         </div>
@@ -404,52 +403,6 @@
 
                                     <div class="col-lg-5"></div>
                                 </div>
-
-                                <!--<div class="row my-row-step">-->
-                                    <!--<div class="col-lg-1"></div>-->
-                                    <!--<div class="col-lg-5">-->
-                                        <!--<div class="row">-->
-                                            <!--<div class="col-lg-1"></div>-->
-                                            <!--<label class="col-lg-11">Genero:</label><br/>-->
-                                        <!--</div>-->
-                                        <!--<div class="row">-->
-                                            <!--<div class="col-lg-1"></div>-->
-                                            <!--<div class="col-lg-11">-->
-                                                <!--<select type="text" class="form-control customizeSelect" ng-model="subscription.gender"-->
-                                                        <!--ng-options="document.type for document in documentTypes"-->
-                                                        <!--focus-me="{{needFocus('gender')}}"-->
-                                                        <!--focus-updated-scroll-->
-                                                        <!--ng-enter="next()" ng-sides="onSides(side)"></select>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                    <!--<div class="col-lg-5">-->
-                                        <!--<div class="row">-->
-
-                                            <!--<label class="col-lg-11">Fecha de nacimiento:</label><br/>-->
-                                        <!--</div>-->
-                                        <!--<div class="row">-->
-                                            <!--<div class="col-lg-3">-->
-                                                <!--<select type="text" class="form-control customizeSelect" ng-model="subscription.gender"-->
-                                                        <!--ng-options="document.type for document in documentTypes"-->
-                                                        <!--focus-me="{{needFocus('gender')}}"-->
-                                                        <!--ng-enter="next()" ng-sides="onSides(side)"></select>-->
-                                            <!--</div>-->
-                                            <!--<div class="col-lg-3 ">-->
-                                                <!--<select type="text" class="form-control customizeSelect" ng-model="subscription.gender"-->
-                                                        <!--ng-options="document.type for document in documentTypes"-->
-                                                        <!--focus-me="{{needFocus('gender')}}"-->
-                                                        <!--ng-enter="next()" ng-sides="onSides(side)"></select>-->
-                                            <!--</div>-->
-                                            <!--<div class="col-lg-5 ">-->
-                                                <!--<select type="text" class="form-control customizeSelect" ng-model="subscription.gender"-->
-                                                        <!--ng-options="document.type for document in documentTypes"-->
-                                                        <!--focus-me="{{needFocus('gender')}}"-->
-                                                        <!--ng-enter="next()" ng-sides="onSides(side)"></select>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
                             </div>
                         </div>
                     </div>
@@ -493,10 +446,6 @@
                         </div>
                         <div class="col-lg-1"></div>
                     </div>
-
-
-
-
                     <div class="row my-row-step">
                         <div class="col-lg-1"></div>
                         <div class="col-lg-5">

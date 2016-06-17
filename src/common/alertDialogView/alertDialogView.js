@@ -21,6 +21,7 @@
 		self.modalInstance = {};
 
 		self.show = function(type, message, button, onDismiss) {
+			console.log("ENTRO AL SHOW");
 			self.modalInstance = $modal.open({
 				controller: 'AlertDialogViewController',
 				templateUrl: 'alertDialogView/alertDialogView.tpl.html',

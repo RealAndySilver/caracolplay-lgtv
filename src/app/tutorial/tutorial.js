@@ -45,7 +45,7 @@
         };
 
         var init = function () {
-            if(localStorage.getItem("tutorial")== "finished2"){
+            if(localStorage.getItem("tutorial")==="finished2"){
                 $state.go("dashboard");
             }
         };

@@ -207,25 +207,6 @@
                     'rate': $scope.selected.rate,
                     'type': $scope.selected.type
                 });
-
-                /*
-                 var modalInstance = $modal.open({
-                 templateUrl: 'rateAlert/rateAlert.tpl.html',
-                 controller: 'RateAlertController',
-                 size: 'sm',
-                 resolve: {
-                 items: function() {
-                 return $scope.items;
-                 }
-                 }
-                 });
-
-                 modalInstance.result.then(function(selectedItem) {
-                 $scope.selected = selectedItem;
-                 }, function() {
-                 $log.info('Modal dismissed at: ' + new Date());
-                 });
-                 */
             };
 
             $scope.onDownSeasons = function () {
@@ -439,6 +420,7 @@
                         if (UserInfo.alias && UserInfo.alias !== '') {
                             $scope.onRate();
                         } else {
+                            console.log("IENDO A PURCHASE CON TYPE ",$scope.selected.type_view);
                             $state.go('purchase', {
                                 typeView: $scope.selected.type_view,
                                 chapterId: $scope.getChapterId(),
