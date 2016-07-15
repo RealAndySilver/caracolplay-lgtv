@@ -60,6 +60,27 @@
             $state.go('dashboard');
         };
 
+        $scope.$watch('keywordToSearch', function (newValue, oldValue) {
+            if (newValue && newValue !== '') {
+                self.isInSearch = true;
+
+                $state.go('search', {
+                    'keyword': $scope.keywordToSearch
+                });
+            } else {
+                self.isInSearch = false;
+                //keyboardInit();
+            }
+        });
+
+        $scope.blurInput = function (event) {
+            if (event.keyCode === 40) {
+                event.target.blur();
+                self.shouldBeFocus = false;
+                self.active = 1;
+            }
+        };
+
         var init = function() {
             $scope.items = ['item1', 'item2', 'item3'];
 

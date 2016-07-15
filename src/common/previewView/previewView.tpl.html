@@ -1,21 +1,21 @@
 <header class="toolbar">
 	<div id="logo" ng-click="home()"></div>
-		<div class="search-bar">
-			<!--<div class="input-group">-->
-				<!--<span class="input-group-btn">-->
-					<!--<button class="btn dark-btn" type="button">-->
-						<!--<span class="glyphicon glyphicon-search"></span>-->
-					<!--</button>-->
-				<!--</span>-->
-				<!--<input type="text" class="form-control" ng-model="keywordToSearch">-->
-			<!--</div>&lt;!&ndash; /input-group &ndash;&gt;-->
+	<div class="search-bar">
+		<!--<div class="input-group">-->
+		<!--<span class="input-group-btn">-->
+		<!--<button class="btn dark-btn" type="button">-->
+		<!--<span class="glyphicon glyphicon-search"></span>-->
+		<!--</button>-->
+		<!--</span>-->
+		<!--<input placeholder="Buscar" type="text" class="form-control" ng-model="keywordToSearch" ng-keydown="blurInput($event)" focus-me="{{dashCtrl.shouldBeFocus}}">-->
+		<!--</div>-->
 
-            <div class="input-group">
-                <input type="text" placeholder class="form-control" ng-model="keywordToSearch"/>
-                <span class="glyphicon glyphicon-search"></span>
+		<div class="input-group">
+			<input type="text" placeholder class="form-control" ng-model="keywordToSearch" ng-keydown="blurInput($event)" focus-me="{{dashCtrl.shouldBeFocus}}"/>
+			<span class="glyphicon glyphicon-search"></span>
 
-            </div>
 		</div>
+	</div>
 </header>
 
 <div class="cp-preview-father" ></div> <!-- ng-show="show" -->

@@ -11,7 +11,7 @@
 			<!--</div>-->
 
             <div class="input-group">
-                <input type="text" placeholder class="form-control" ng-model="keyword" ng-keydown="keydownCallback($event)" focus-me="{{shouldBeFocus}}"/>
+                <input type="text" placeholder class="form-control" ng-model="keyword" ng-change="searchValueChanged()" ng-keydown="keydownCallback($event)" focus-me="{{shouldBeFocus}}"/>
                 <span class="glyphicon glyphicon-search"></span>
 
             </div>

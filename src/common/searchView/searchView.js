@@ -63,15 +63,10 @@
 
 			var slider = {};
 			var canceller = {};
-			$scope.$watch('keyword', function(newValue) {
-				ProductService.cancel();
+			var id;
 
-				if(newValue === '') {
-					$scope.results = [];
-					$scope.resultButtons = [];
-					return;
-				}
-				
+			function performSearch(){
+				clearInterval(id);
 				var searchPremise = ProductService.getListFromSearchWithKey($scope.keyword);
 
 				configHotkeys();
@@ -101,7 +96,17 @@
 						$scope.isItemSelected = false;
 					}
 				});
-			});
+			}
+
+			$scope.searchValueChanged=function(){
+				clearInterval(id);
+				if(!$scope.keyword || $scope.keyword==='') {
+					$scope.results = [];
+					$scope.resultButtons = [];
+					return;
+				}
+				id = setInterval(performSearch, 400);
+			};
 
 			$scope.onEnterItem = function(position) {
 				$scope.resultButtons[$scope.itemSelected].active = false;

@@ -180,7 +180,6 @@
                 return $http.get('assets/dummy/product.json');
             } else {
                 return $http({
-
                     crossDomain: true,
                     headers: module.encode(credentials.username, credentials.password, sessionInfo.session),
                     method: 'GET',
@@ -275,6 +274,8 @@
         self.isContentAvailableForUser = function (episodeId) {
             var credentials=$rootScope.getLoginCredentials();
             var sessionInfo=$rootScope.getSessionInfo();
+            console.log("CREDENTIALS ",credentials);
+            console.log("SESSION ",sessionInfo);
             if (test.withoutInternet) {
                 return $http.get('assets/dummy/validateUserReponse.json');
             } else {
@@ -341,18 +342,18 @@
         };
 
         self.getHabeasData = function () {
-            var credentials=$rootScope.getLoginCredentials();
+            //var credentials=$rootScope.getLoginCredentials();
             return $http({
-                headers: module.encode(credentials.username, credentials.password, sessionInfo.session),
+               // headers: module.encode(credentials.username, credentials.password, sessionInfo.session),
                 method: 'GET',
                 url: module.END_POINT + 'smart-tv/habeas-data'
             });
         };
 
         self.getTerms = function () {
-            var credentials=$rootScope.getLoginCredentials();
+            //var credentials=$rootScope.getLoginCredentials();
             return $http({
-                headers: module.encode(credentials.username, credentials.password, sessionInfo.session),
+                //headers: module.encode(credentials.username, credentials.password, sessionInfo.session),
                 method: 'GET',
                 url: module.END_POINT + 'GetTerms'
             });

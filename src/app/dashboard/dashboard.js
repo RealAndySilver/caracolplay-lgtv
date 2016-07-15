@@ -453,7 +453,7 @@
 
             var loginCredentialsStr = localStorage.getItem('loginCredentials');
 
-            if (!$rootScope.isUserLogged() && loginCredentialsStr) {
+            if (loginCredentialsStr) {
                 var loginCredentials = JSON.parse(loginCredentialsStr);
                 var authPromise = UserService.authenticateUser(loginCredentials.username, loginCredentials.password);
                 authPromise.then(function (response) {$rootScope.saveSessionInfo(response);});
@@ -478,7 +478,7 @@
 
             categoriesPromise.then(function (response) {
                 logs.set("log1", response);
-                //console.log("CATEGORIES ",response);
+                console.log("CATEGORIES ",response);
                 list = response.data.categories;
                 var promise = {};
                 var pos = 0;
@@ -486,7 +486,7 @@
 
                 var promiseFunction = function (pos) {
                     return function (res) {
-                        //console.log("LLEGO ",res);
+                        console.log("LLEGO ",res);
                         if (res.data.products && res.data.products.length > 0) {
                             //self.list.push({
                             //	name: list[pos].name,
@@ -502,11 +502,12 @@
                                     return item;
                                 })
                             });
-                            //console.log("TOT RE ",totalRequest," RES LENGTH",responseArray.length);
-                            if (totalRequest == responseArray.length+1) {
+                            console.log("TOT RE ",totalRequest," RES LENGTH",responseArray.length);
+                            if (totalRequest == responseArray.length) {
                                 orderContentDashboard(responseArray, 0);
                                 //orderContentDashboard(responseArray, 0);
                                 self.list = responseArray;
+                                console.log("LIST ",self.list);
                                 self.getList();
                                 if(typeof $rootScope.selfDashboard !== "undefined"){
                                     $timeout(function(){

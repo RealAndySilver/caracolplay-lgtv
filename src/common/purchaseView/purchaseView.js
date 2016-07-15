@@ -1256,7 +1256,9 @@
                     console.log('productId: ', productionId, 'chapterId', chapterId, " stateParam ",$stateParams.typeView);
                     if ($stateParams.typeView !== "4") {
                         if (response.data.user !== undefined) {
-                            UserService.validatePlayerVideo(chapterId, productionId, configHotkeys, function(response){
+                            var promiseValidateContent=UserService.isContentAvailableForUser(chapterId);
+                            promiseValidateContent.then(function(response){
+                                console.log("RESPONSE ",response);
                                 if (response.data.video.status) {
                                     $state.go('videoModule', {
                                         chapterId: chapterId,
@@ -1271,16 +1273,6 @@
                                         $state.reload
                                     );
                                 }
-                            }, function (response) {
-                                console.log("POR EL BAD");
-                                AlertDialogService.show(
-                                    'alert',
-                                    response.data.message,
-                                    'Aceptar',
-                                    $state.reload
-                                );
-                                //$state.reload();
-                                //window.location = window.location.pathname;
                             });
                         }
                     }else{
@@ -1324,7 +1316,7 @@
             if (!$rootScope.isUserLogged()) {
                 tempOptions.push(LOGIN_OPTION_INFO);
             }
-            if ($rootScope.isUserLogged() && !$rootScope.getSessionInfo().isSubscription && (pTypeView==2 || pTypeView==3 || pTypeView==4)){
+            if (pTypeView==2 || pTypeView==3 || pTypeView==4){
                 tempOptions.push(SUBSCRIPTION_OPTION_INFO);
             }
 

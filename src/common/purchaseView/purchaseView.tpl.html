@@ -302,8 +302,8 @@
                                         <div class="row">
                                             <div class="col-lg-1"></div>
                                             <div class="col-lg-11">
-                                                <input type="text" ng-model="subscription.city" class="form-control"
-                                                       typeahead="address for address in getCities($viewValue)"
+                                                <input type="text" ng-keyup="getCities(subscription.city)" ng-model="subscription.city" class="form-control"
+                                                       typeahead="address for address in citiesStrings"
                                                        typeahead-loading="loadingLocations"
                                                        focus-me="{{needFocus('city')}}"
                                                        focus-updated-scroll="50"
@@ -418,7 +418,7 @@
                         <div class="col-lg-5">
                             <div class="row">
                                 <div class="col-lg-1"></div>
-                                <label class="col-lg-11">Seleccionr tarjeta de credito:</label><br/>
+                                <label class="col-lg-11">Seleccionar tarjeta de credito:</label><br/>
                             </div>
                             <div class="row">
                                 <div class="col-lg-1"></div>
