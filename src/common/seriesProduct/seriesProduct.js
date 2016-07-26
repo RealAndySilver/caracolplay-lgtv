@@ -127,7 +127,7 @@
                                 $scope.selected.name
                             );
                             $state.go('purchase', {
-                                typeView: 5,
+                                typeView: $scope.selected.type_view,
                                 chapterId: $scope.getChapterId(),
                                 productionId: $scope.selected.id,
                                 name: $scope.selected.name

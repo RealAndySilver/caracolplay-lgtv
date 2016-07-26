@@ -21,6 +21,7 @@
                                            DevInfo, name, $stateParams, $rootScope, RegisterUserService, $timeout) {
         var itemSelected = 0;
         var model = this;
+        var id=0;
 
 
         var LOGIN_OPTION_INFO = {
@@ -38,7 +39,7 @@
         };
 
         var SUBSCRIPTION_OPTION_INFO = {
-            'title': 'Suscribirse a CaracolPlay',
+            'title': 'Suscríbete',
             'image': 'assets/img/subscribe-logo.png',
             id: 2,
             active: false
@@ -575,13 +576,14 @@
                             $scope.redeemVisible = false;
 
                             $rootScope.objectRedeem = response;
-                            $state.go('purchase', {
+                            /*$state.go('purchase', {
                                     typeView: 4,
                                     chapterId: $stateParams.productionId,
                                     productionId: $stateParams.chapterId,
                                     name: $stateParams.name
                                 }
-                            );
+                            );*/
+                            $state.reload();
                             //model.optionsAvailable.length = 2;
                         }
                     }
@@ -615,14 +617,23 @@
             console.log($scope.objectRedeem);
         };
 
-        $scope.getCities = function (val) {
-            return PurchaseService.searchCityFlow(val).then(function (response) {
+        model.findCities=function(){
+            clearInterval(id);
+            PurchaseService.searchCityFlow($scope.subscription.city).then(function (response) {
                 $scope.cities = response.data;
                 $scope.citiesStrings = $scope.cities.map(function (item) {
                     return item.name;
                 });
                 return $scope.citiesStrings;
             });
+        };
+
+        $scope.getCities = function (val) {
+            clearInterval(id);
+            if(!val || val==='') {
+                return;
+            }
+            id = setInterval(model.findCities, 400);
         };
 
         $scope.validateStepOne = function () {
@@ -1044,20 +1055,27 @@
 
                     var successCallbackLogin = function (response) {
                         console.log("succesCallbackLogin", response);
-                        if (response.data.user !== null) {
-                            $rootScope.saveSessionInfo(response,$scope.subscription.password);
+                        if (!response.data.session_name) {
+                            AlertDialogService.show(
+                                'alert',
+                                'En estos momentos no se pudo realizar la operacion. '+response.data,
+                                'Aceptar',
+                                configHotkeys
+                            );
+                            return;
                         }
                         var promiseCreateOrder;
+                        var cookie=response.data.session_name+'='+response.data.sessid;
                         if ($scope.isRent) {
                             console.log(chapterId);
-                            promiseCreateOrder = PurchaseService.createRentOrderFlow(chapterId);
+                            promiseCreateOrder = PurchaseService.createRentOrderFlow(chapterId,cookie);
                         } else {
-                            promiseCreateOrder = PurchaseService.createSubscriptionOrderFlow();
+                            promiseCreateOrder = PurchaseService.createSubscriptionOrderFlow(cookie);
                         }
                         promiseCreateOrder.then(successCallbackCreateOrder, failureCallback);
                     };
 
-                    var promiseLogin = UserService.authenticateUser($rootScope.getSessionInfo().alias, $rootScope.getSessionInfo().password);
+                    var promiseLogin = PurchaseService.loginPaymentUserFlow($rootScope.getLoginCredentials().username, $rootScope.getLoginCredentials().password);
                     promiseLogin.then(successCallbackLogin, failureCallback);
                     break;
             }
@@ -1259,16 +1277,21 @@
                             var promiseValidateContent=UserService.isContentAvailableForUser(chapterId);
                             promiseValidateContent.then(function(response){
                                 console.log("RESPONSE ",response);
-                                if (response.data.video.status) {
+                                if (response.data.video && response.data.video.status) {
                                     $state.go('videoModule', {
                                         chapterId: chapterId,
                                         productionId: productionId
                                     });
                                 }else{
                                     console.log("POR EL BAD BUENO");
+                                    var message ='';
+                                    if (response.data.video){
+                                        message=response.data.video.message;
+                                    }else{
+                                        message=response.data.response;
+                                    }
                                     AlertDialogService.show(
-                                        'alert',
-                                        response.data.video.message,
+                                        'alert',message,
                                         'Aceptar',
                                         $state.reload
                                     );
@@ -1310,29 +1333,20 @@
          * que estan disponibles para el usuario.
          * */
         model.getAvailableOptionsByView=function(pTypeView){
-            console.log("Este es el pTypeView ",pTypeView);
+            //console.log("Este es el pTypeView ",pTypeView);
             var tempOptions=[];
             //Si el usuario no esta logueado se agrega la opcion de LOGIN
             if (!$rootScope.isUserLogged()) {
                 tempOptions.push(LOGIN_OPTION_INFO);
             }
-            if (pTypeView==2 || pTypeView==3 || pTypeView==4){
+            if (pTypeView==2 || pTypeView==3){
                 tempOptions.push(SUBSCRIPTION_OPTION_INFO);
             }
-
-            switch (pTypeView) {
-                case 1:
-                case 3:
-                case 5:
-                    tempOptions.push(RENT_OPTION_INFO);
-                    tempOptions.push(REDEEM_OPTION_INFO);
-                    break;
-                case 2:
-                    tempOptions.push(REDEEM_OPTION_INFO);
-                    break;
-                default:
-                    break;
+            if (pTypeView==1 || pTypeView==3){
+                tempOptions.push(RENT_OPTION_INFO);
             }
+            tempOptions.push(REDEEM_OPTION_INFO);
+
             itemSelected=0;
             tempOptions[itemSelected].active=true;
             return tempOptions;

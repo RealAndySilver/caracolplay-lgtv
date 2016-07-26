@@ -24,6 +24,23 @@
         return str.join("&");
     };
 
+    /**
+     * Construye los headers para las peticiones SSL
+     * añade el X-CSRF-Token y el Cookie
+     * */
+    module.getSSLHeaders=function(token,cookie){
+        console.log("LOGIN INGO ",token,' ',cookie);
+        var headers = {};
+        var sslAuth = btoa(unescape(encodeURIComponent(ssl.user + ':' + ssl.password)));
+        headers.Authorization = 'Basic ' + sslAuth;
+        headers['Content-Type'] = 'application/json; charset=UTF-8';
+
+            //headers['X-CSRF-Token'] = "pyqFTbUmILjJOqkqNOuwq2CjTYrZtxswj_7rmtJFHCg";
+        headers['X-CSRF-Token'] = token;
+        headers['Cookie'] =cookie;
+        return headers;
+    };
+
     module.encode = function (param1, param2, param3) {
         var headers = {};
 
@@ -40,7 +57,7 @@
 
             if (param2) {
                 isWithToken = true;
-                sslToken = param2;
+                sslToken = param2.token;
             }
 
             if (param3 === true) {
@@ -379,8 +396,10 @@
         };
 
         self.getToken = function () {
+            var headers =module.encode(true);
+            console.log("HEADERS GET TOKEN ",headers);
             return $http({
-                headers: module.encode(true),
+                headers: headers,
                 method: 'POST',
                 data: '',
                 url: ssl.END_POINT + 'common/user/token.json'
@@ -388,6 +407,10 @@
         };
 
         self.loginPaymentUser = function (username, password, token) {
+            console.log("DATA USER ",JSON.stringify({
+                'username': username,
+                'password': password
+            }));
             return $http({
                 headers: module.encode(true, token),
                 method: 'POST',
@@ -455,7 +478,7 @@
 
         self.executeTransactionWithCard = function (paymentInfo, token) {
 
-            console.log(paymentInfo);
+            console.log("EN EXECUTE ",paymentInfo);
             var encryptedJson = btoa(unescape(encodeURIComponent(btoa(unescape(encodeURIComponent(JSON.stringify(paymentInfo)))))));
             return $http({
                 headers: module.encode(true, token),
@@ -467,10 +490,10 @@
             });
         };
 
-        self.createSubscriptionOrder = function (token) {
-            var headers = module.encode(true, token);
+        self.createSubscriptionOrder = function (token,cookie) {
+            var headers = module.getSSLHeaders(token,cookie);
             console.log(headers.Authorization + " <--");
-            delete headers.Authorization;
+            //delete headers.Authorization;
             console.log(headers);
             console.log("");
             console.log(ssl.END_POINT);
@@ -483,7 +506,7 @@
             });
         };
 
-        self.createSubscriptionOrderFlow = function () {
+        self.createSubscriptionOrderFlow = function (cookie) {
             var asyncResponse = function (makeFunction) {
                 this.then = function (success, error) {
                     return makeFunction(success, error);
@@ -497,8 +520,9 @@
             return asyncResponse(function (sucessCallback, errorCallback) {
                 var tokenPromise = self.getToken();
                 return tokenPromise.then(function (response) {
+                    console.log("ASYNCRESPONSE",response);
                     var token = response.data.token;
-                    var promise = self.createSubscriptionOrder(token);
+                    var promise = self.createSubscriptionOrder(token,cookie);
                     return promise.then(sucessCallback, errorCallback);
                 }, errorCallback);
             });

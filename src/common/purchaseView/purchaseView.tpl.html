@@ -302,13 +302,12 @@
                                         <div class="row">
                                             <div class="col-lg-1"></div>
                                             <div class="col-lg-11">
-                                                <input type="text" ng-keyup="getCities(subscription.city)" ng-model="subscription.city" class="form-control"
+                                                <input type="text" ng-change="getCities(subscription.city)" ng-model="subscription.city" class="form-control"
                                                        typeahead="address for address in citiesStrings"
                                                        typeahead-loading="loadingLocations"
                                                        focus-me="{{needFocus('city')}}"
                                                        focus-updated-scroll="50"
                                                        ng-enter="next()" ng-sides="onSides(side)" />
-                                                <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
                                             </div>
                                         </div>
                                     </div>

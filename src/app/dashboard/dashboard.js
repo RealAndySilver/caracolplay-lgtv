@@ -24,6 +24,8 @@
         self.slides = [];
         self.list = [];
 
+        self.totalCategoryResponse=0;
+
         self.active = 0;
         self.isPreviewActive = false;
         self.isShowInfo = false;
@@ -167,24 +169,18 @@
         };
 
         self.getUserRecentlyWatched = function () {
+            //console.log("Ultimos vistos LLAMADO" );
             var promiseRecentWatched = ProductService.getUserRecentlyWatched();
             promiseRecentWatched.then(function (response) {
-                console.log("Ultimos vistos ",response );
+                //console.log("Ultimos vistos ",response );
                 if (response.data.length === 0) {
                     return;
                 }
-
-                for (var list in self.list) {
-                    if (list.name === 'Ultimos vistos') {
-                        list.products = response.data;
-                        return;
-                    }
-                }
-
                 self.list.push({
-                    name: 'Ultimos vistos',
+                    name: 'Ultimos Vistos',
                     products: response.data
                 });
+                //orderContentDashboard(self.list,self.list.length-1);
             });
         };
 
@@ -194,6 +190,7 @@
             }
             var promiseGetList = ProductService.getList();
             promiseGetList.then(function (response) {
+                //console.log("MY LIST ",response);
                 if (response.data.status === false) {
                     return;
                 }
@@ -272,7 +269,7 @@
         };
 
         var activeEventsBottomOptions = function () {
-            console.log("entro en el metodo activeEventsBottomOptions");
+            //console.log("entro en el metodo activeEventsBottomOptions");
             //if (self.active + 1 < self.list.length +1) {
             self.active++;
             //}
@@ -444,6 +441,35 @@
         };
         keyboardInit();
 
+        var getProductsByCategoryPromise = function (responseArray,totalRequest,categoryName) {
+            return function (res) {
+                self.totalCategoryResponse++;
+                //console.log("LLEGO ",res);
+                if (res.data.products && res.data.products.length > 0) {
+                    responseArray.push({
+                        name: categoryName,
+                        products: res.data.products.map(function (item) {
+                            item.rate = item.rate * 5 / 100;
+                            return item;
+                        })
+                    });
+                }
+                //console.log("TOT REQ "+totalRequest+" TOTAL RES "+self.totalCategoryResponse);
+                if (totalRequest === self.totalCategoryResponse) {
+                    orderContentDashboard(responseArray, 0);
+                    //orderContentDashboard(responseArray, 0);
+                    self.list=self.list.concat(responseArray);
+                    //console.log("LIST ",self.list);
+                    if(typeof $rootScope.selfDashboard !== "undefined"){
+                        $timeout(function(){
+                            self.active = $rootScope.selfDashboard.active;
+                            inAnimation();
+                        },60);
+                    }
+                }
+            };
+        };
+
         var init = function () {
             var featuredPromise = ProductService.getFeatured();
             var categoriesPromise = ProductService.getCategories();
@@ -456,7 +482,13 @@
             if (loginCredentialsStr) {
                 var loginCredentials = JSON.parse(loginCredentialsStr);
                 var authPromise = UserService.authenticateUser(loginCredentials.username, loginCredentials.password);
-                authPromise.then(function (response) {$rootScope.saveSessionInfo(response);});
+                authPromise.then(
+                    function (response) {
+                        $rootScope.saveSessionInfo(response);
+                        $scope.mail = $rootScope.isUserLogged()?$rootScope.getSessionInfo().mail:null;
+                        self.getUserRecentlyWatched();
+                        self.getList();
+                    });
             }
             featuredPromise.then(function (response) {
                 var featuredArray = response.data.featured;
@@ -473,60 +505,29 @@
                 //se eliminan los registros adicionales aunque NO estoy de acuerdo con esto
                 //esto se debería hacer desde el server y no por aca
                 self.slides.splice(8,4);
-                console.log(self.slides);
+                //console.log(self.slides);
             });
 
             categoriesPromise.then(function (response) {
                 logs.set("log1", response);
-                console.log("CATEGORIES ",response);
-                list = response.data.categories;
+                //console.log("CATEGORIES ",response);
+                var tempCategories = response.data.categories;
                 var promise = {};
-                var pos = 0;
-                var responseArray = [], totalRequest = 0;
+                var responseArray = [], totalRequest = tempCategories.length;
+                self.totalCategoryResponse=0;
 
-                var promiseFunction = function (pos) {
-                    return function (res) {
-                        console.log("LLEGO ",res);
-                        if (res.data.products && res.data.products.length > 0) {
-                            //self.list.push({
-                            //	name: list[pos].name,
-                            //	products: res.data.products.map(function(item) {
-                            //		item.rate = item.rate * 5 / 100;
-                            //		return item;
-                            //	})
-                            //});
-                            responseArray.push({
-                                name: list[pos].name,
-                                products: res.data.products.map(function (item) {
-                                    item.rate = item.rate * 5 / 100;
-                                    return item;
-                                })
-                            });
-                            console.log("TOT RE ",totalRequest," RES LENGTH",responseArray.length);
-                            if (totalRequest == responseArray.length) {
-                                orderContentDashboard(responseArray, 0);
-                                //orderContentDashboard(responseArray, 0);
-                                self.list = responseArray;
-                                console.log("LIST ",self.list);
-                                self.getList();
-                                if(typeof $rootScope.selfDashboard !== "undefined"){
-                                    $timeout(function(){
-                                        self.active = $rootScope.selfDashboard.active;
-                                        inAnimation();
-                                    },60);
-                                }
-                            }
-                        }
-                    };
-                };
-                for (var i in list) {
-                    pos = i;
-                    if (list[i].id === '1') {
-                        self.getUserRecentlyWatched();
-                    } else {
-                        totalRequest++;
-                        promise = ProductService.getListFromCategoryId(list[i].id);
-                        promise.then(promiseFunction(i));
+                //Primero revisamos si las categorias especiales vienen, 1 "Ultimos Vistos" 2 "Mi Lista"
+                //estas se cargan solo despues de que el usuario se loguea, se eliminan del totalrequest
+                for (var i=0; i<tempCategories.length; i++){
+                    if (tempCategories[i].id === '1' || tempCategories[i].id === '2') {
+                        totalRequest--;
+                    }
+                }
+
+                for (i=0; i<tempCategories.length; i++) {
+                    if (tempCategories[i].id !== '1' && tempCategories[i].id !== '2') {
+                        promise = ProductService.getListFromCategoryId(tempCategories[i].id);
+                        promise.then(getProductsByCategoryPromise(responseArray,totalRequest,tempCategories[i].name));
                     }
                 }
             });

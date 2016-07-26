@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/caracol-play.iml" filepath="$PROJECT_DIR$/.idea/caracol-play.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/CaracolPlayLG.iml" filepath="$PROJECT_DIR$/.idea/CaracolPlayLG.iml" />
     </modules>
   </component>
 </project>

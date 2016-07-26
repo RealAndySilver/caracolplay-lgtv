@@ -186,6 +186,7 @@
                 var productPremise = ProductService.getProductWithID($scope.slides[item].id, '');
 
                 productPremise.then(function (res) {
+                    console.log("EN PREVIEW ",res);
                     $scope.slides[active].active = false;
                     active = item;
                     $scope.slides[active].active = true;

@@ -11,7 +11,9 @@
 
     app.config(['$httpProvider', function($httpProvider) {
         $httpProvider.defaults.useXDomain = true;
+        $httpProvider.defaults.withCredentials=true;
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
+        //$httpProvider.defaults.headers.common["request-origin"]='lg';
     }
     ]);
 
@@ -25,7 +27,7 @@
          * */
         $rootScope.saveSessionInfo = function (response,password) {
             var resObj = response.data;
-            console.log("EN SAVE SESSION INFO", response);
+            //console.log("EN SAVE SESSION INFO", response);
             if (resObj.status) {
                 var userInfo={};
                 userInfo.name = resObj.user.data.nombres;
@@ -259,6 +261,10 @@
                 if (!$rootScope.callCounter) {
                     $rootScope.callCounter = 0;
                 }
+
+                if (req.url.indexOf("http://www.caracolplay.com")>-1){
+                    req.headers['request-origin']='lg';
+                }
                 $rootScope.callCounter++;
                 $rootScope.showSpinner = true;
                 $('#mydiv').show();
@@ -277,14 +283,6 @@
                 $rootScope.callCounter--;
                 if ($rootScope.callCounter === 0) {
                     $('#mydiv').hide();
-                    if (rejection.status === 401) {
-                        if (app.isLogged()) {
-                            $rootScope.$broadcast('unauthorized');
-                        }
-                    }
-                }
-                if (rejection.status != 401) {
-                    $rootScope.$broadcast('failure');
                 }
                 return $q.reject(rejection);
             }
