@@ -12,6 +12,8 @@
     app.config(['$httpProvider', function($httpProvider) {
         $httpProvider.defaults.useXDomain = true;
         $httpProvider.defaults.withCredentials=true;
+        $httpProvider.defaults.xsrfHeaderName = 'Cookie';
+        $httpProvider.defaults.xsrfCookieName = 'CPLAY_COOKIE';
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
         //$httpProvider.defaults.headers.common["request-origin"]='lg';
     }
@@ -292,6 +294,7 @@
 }(angular.module("caracolplaylgtvapp", [
     'pasvaz.bindonce',
     'ngAnimate',
+    'ngCookies',
     'caracolplaylgtvapp.tutorial',
     'caracolplaylgtvapp.home',
     'caracolplaylgtvapp.about',

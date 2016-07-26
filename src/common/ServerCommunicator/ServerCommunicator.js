@@ -37,7 +37,7 @@
 
             //headers['X-CSRF-Token'] = "pyqFTbUmILjJOqkqNOuwq2CjTYrZtxswj_7rmtJFHCg";
         headers['X-CSRF-Token'] = token;
-        headers['Cookie'] =cookie;
+        //headers['Cookie'] =cookie;
         return headers;
     };
 
@@ -479,9 +479,11 @@
         self.executeTransactionWithCard = function (paymentInfo, token) {
 
             console.log("EN EXECUTE ",paymentInfo);
+            var tempHEaders=module.getSSLHeaders(token,null);
+            console.log('HEADERS ',tempHEaders);
             var encryptedJson = btoa(unescape(encodeURIComponent(btoa(unescape(encodeURIComponent(JSON.stringify(paymentInfo)))))));
             return $http({
-                headers: module.encode(true, token),
+                headers: tempHEaders,
                 method: 'POST',
                 url: ssl.END_POINT + 'commerce/payment/transaction.json',
                 data: JSON.stringify({
@@ -575,6 +577,7 @@
                 var tokenPromise = self.getToken();
                 return tokenPromise.then(function (response) {
                     var token = response.data.token;
+                    console.log("RESPONSE DE CARD FLOW ",response);
                     var promise = self.executeTransactionWithCard(paymentInfo, token);
                     return promise.then(sucessCallback, errorCallback);
                 }, errorCallback);

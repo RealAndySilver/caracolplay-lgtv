@@ -17,7 +17,7 @@
 
     var DashboardController = function ($scope, ProductService, hotkeys, $state, PreviewDataService, DevInfo,
                                         UserService, AlertDialogService, TermsViewService, MyListItems,
-                                        GeneralModalViewService, bestWatch,$rootScope,$timeout) {
+                                        GeneralModalViewService, bestWatch,$rootScope,$timeout,$cookies) {
         var self = this;
         var keyboardInit;
 
@@ -581,7 +581,7 @@
         '$scope', 'ProductService' , 'hotkeys', '$state',
         'PreviewDataService', 'DevInfo', 'UserService', 'AlertDialogService',
         'TermsViewService', 'MyListItems', 'GeneralModalViewService', 'bestWatch',
-        '$rootScope','$timeout',
+        '$rootScope','$timeout','$cookies',
         DashboardController
     ]);
 

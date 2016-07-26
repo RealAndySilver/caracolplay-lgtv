@@ -18,7 +18,7 @@
     var PurchaseViewController = function ($scope, hotkeys, UserService, PurchaseService,
                                            $modalInstance, typeView, $state, AlertDialogService,
                                            productionId, chapterId, ProgressDialog, TermsViewService,
-                                           DevInfo, name, $stateParams, $rootScope, RegisterUserService, $timeout) {
+                                           DevInfo, name, $stateParams, $rootScope, RegisterUserService, $timeout,$cookies) {
         var itemSelected = 0;
         var model = this;
         var id=0;
@@ -981,10 +981,12 @@
                         } else {
                             AlertDialogService.show(
                                 'alert',
-                                response.data.msg,
+                                response.data.status + ': ' + response.data.result,
                                 'Aceptar',
-                                configHotkeys
-                            );
+                                function () {
+                                    configHotkeys();
+                                    $state.reload();
+                                });
                         }
                     };
 
@@ -1066,6 +1068,9 @@
                         }
                         var promiseCreateOrder;
                         var cookie=response.data.session_name+'='+response.data.sessid;
+                        console.log('VALOR COOKIE',cookie);
+                        $cookies.CPLAY_COOKIE=cookie;
+                        //SETEAR LA COOKIE ACA
                         if ($scope.isRent) {
                             console.log(chapterId);
                             promiseCreateOrder = PurchaseService.createRentOrderFlow(chapterId,cookie);
@@ -1490,6 +1495,7 @@
         '$rootScope',
         'RegisterUserService',
         '$timeout',
+        '$cookies',
         PurchaseViewController
     ]);
 

@@ -91,7 +91,8 @@ module.exports = function(grunt) {
                 'vendor/angular-animate/angular-animate.min.js',
                 'vendor/TinyScrollbar/lib/jquery.tinyscrollbar.js',
                 'vendor/angular-bindonce/bindonce.min.js',
-                'vendor/angular-mocks/angular-mocks.js'
+                'vendor/angular-mocks/angular-mocks.js',
+                'vendor/angular-cookies/angular-cookies.min.js'
             ],
             css: [
             ],
@@ -108,7 +109,6 @@ module.exports = function(grunt) {
                 'vendor/select2/select2.css',
                 'vendor/selectize/dist/css/selectize.default.css',
                 'vendor/TinyScrollbar/docs/css/tinyscrollbar.css'
-
             ]
         }
     };
