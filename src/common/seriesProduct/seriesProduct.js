@@ -108,7 +108,8 @@
                         if (response.data.video.status) {
                             $state.go('videoModule', {
                                 chapterId: $scope.getChapterId(),
-                                productionId: $scope.selected.id
+                                productionId: $scope.selected.id,
+                                brightcoveId: response.data.video.embed_hd
                             });
                             return;
                         }
@@ -142,29 +143,6 @@
                             productionId: $scope.selected.id,
                             name: $scope.selected.name
                         });
-
-                        /*
-                         var modalInstance = $modal.open({
-                         templateUrl: 'purchaseView/purchaseView.tpl.html',
-                         controller: 'PurchaseViewController',
-                         size: size,
-                         resolve: {
-                         typeView: function() {
-                         return $scope.selected.type_view;
-                         },
-                         items: function() {
-                         return $scope.items;
-                         }
-                         }
-                         });
-
-                         modalInstance.result.then(function(selectedItem) {
-                         $scope.selected = selectedItem;
-                         configHotkeys();
-                         }, function() {
-                         configHotkeys();
-                         });
-                         */
                     }
                 });
             };

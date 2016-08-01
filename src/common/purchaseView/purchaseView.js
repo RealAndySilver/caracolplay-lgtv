@@ -193,7 +193,8 @@
                     if (response.data.video.status) {
                         $state.go('videoModule', {
                             chapterId: $scope.getChapterId(),
-                            productionId: $scope.selected.id
+                            productionId: $scope.selected.id,
+                            brightcoveId: response.data.video.embed_hd
                         });
                     } else {
                         AlertDialogService.show(
@@ -1285,7 +1286,8 @@
                                 if (response.data.video && response.data.video.status) {
                                     $state.go('videoModule', {
                                         chapterId: chapterId,
-                                        productionId: productionId
+                                        productionId: productionId,
+                                        brightcoveId: response.data.video.embed_hd
                                     });
                                 }else{
                                     console.log("POR EL BAD BUENO");

@@ -1,27 +1,49 @@
-<div ng-class="videoCss" ng-init="videoCss='video-container'">
-	<div class="video-module">
-		<center><h1>VideoModule</h1></center>
+<div ng-hide="streamingComplete">
+		<div id="player">
+			<div id="bc-video"></div>
+			<div id="bc-back">
+				<a class="back" href="#" tabindex="1" data-tab-row="1"></a>
+			</div>
+			<div id="bc-controls-background"></div>
+			<div id="bc-controls" data-tab-row="1" tabindex="1" data-tab-main="true">
+				<div id="bc-buttons">
+					<a href="#" id="bc-play-control" class="icon" tabindex="2" data-tab-row="2"></a>
+					<a href="#" id="bc-rw-control" class="icon" tabindex="3" data-tab-row="2"></a>
+					<a href="#" id="bc-ff-control" class="icon" tabindex="4" data-tab-row="2"></a>
+					<!--<a href="#" id="bc-info-control" class="icon" tabindex="5" data-tab-row="2"></a>-->
+					<div id="bc-buttons-text">
+					</div>
+				</div>
+
+				<div id="bc-progress-holder">
+					<div id="bc-load-progress"></div>
+					<div id="bc-play-progress"></div>
+				</div>
+				<div id="bc-time-control">00:00 / 00:00</div>
+				<div id="bc-play-indicator"></div>
+				<div id="bc-video-title"></div>
+			</div>
 	</div>
 </div>
+<div class="video-container-ended" ng-show="streamingComplete">
+	<div class="video-actions">
+		<products-container href="#Recomendadas"
+							slides="recomendents"
+							title="Otro contenido que te puede interesar"
+							active="isRecomendents"
+							item-selected="itemSelected"
+							restart-keyboard="keyboardInit">
 
-<div class="video-actions">
-	<products-container href="#Recomendadas"
-                        slides="recomendents"
-                        title="Otro contenido que te puede interesar"
-                        active="isRecomendents"
-                        item-selected="itemSelected"
-                        restart-keyboard="keyboardInit">
+		</products-container>
+	</div>
+	<div class="image-container">
+		<img class="preview-image" ng-src="{{selected.image_url}}" err-src="http://www.caracolplay.com/sites/default/files/styles/256x386/public/producciones/noticias2_0.jpg">
+	</div>
 
-    </products-container>
-</div>
-
-<div class="image-container">
-	<img class="preview-image" ng-src="{{selected.image_url}}" err-src="http://www.caracolplay.com/sites/default/files/styles/256x386/public/producciones/noticias2_0.jpg">
-</div>
-
-<div class="preview-video">
-	<h4>Acabas de ver:</h4>
-	<h3>{{selected.name}}</h3>
-	<div class="space"></div>
-	<preview-list list="options" class="options"></preview-list>
+	<div class="preview-video">
+		<h4>Acabas de ver:</h4>
+		<h3>{{selected.name}}</h3>
+		<div class="space"></div>
+		<preview-list list="options" class="options"></preview-list>
+	</div>
 </div>

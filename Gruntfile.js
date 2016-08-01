@@ -108,6 +108,7 @@ module.exports = function(grunt) {
                 'vendor/angular-ui-select/dist/select.min.css',
                 'vendor/select2/select2.css',
                 'vendor/selectize/dist/css/selectize.default.css',
+                'common/videoModule/player/player_style.css',
                 'vendor/TinyScrollbar/docs/css/tinyscrollbar.css'
             ]
         }
@@ -371,7 +372,8 @@ module.exports = function(grunt) {
                 noarg: true,
                 sub: true,
                 boss: true,
-                eqnull: true
+                eqnull: true,
+                ignores: ['src/common/videoModule/player/*.js']
             },
             globals: {}
         },
