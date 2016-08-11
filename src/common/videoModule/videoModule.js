@@ -10,10 +10,10 @@
 			},
 			resolve: {
 				itemSelected: ['$stateParams', 'ProductService','UserInfo', function($stateParams, ProductService,UserInfo) {
-                    var uid = 0;
-                    if(UserInfo.uid !== undefined && UserInfo.uid !== ''){
-                        uid = UserInfo.uid;
-                    }
+					var uid = 0;
+					if(UserInfo.uid !== undefined && UserInfo.uid !== ''){
+						uid = UserInfo.uid;
+					}
 					var promiseProduct = ProductService.getProductWithID($stateParams.productionId,uid);
 
 					return promiseProduct.then(function(response) {
@@ -99,6 +99,14 @@
 			hotkeys.add({
 				combo: 'enter',
 				callback: function(event) {
+					if(!$scope.streamingComplete){
+						if (model.video.isPlaying()) {
+							model.handlePauseFunction(event);
+						}else{
+							model.handlePlayFunction(event);
+						}
+						return;
+					}
 					switch ($scope.options[$scope.optionSelected].label) {
 						case 'Calificar':
 							$state.go('rate', {
@@ -172,10 +180,6 @@
 				active: false
 			}, ];
 
-			/*$timeout(function() {
-				$scope.isFinishingVideo = true;
-			}, 3000);*/
-
 			var promise = ProductService.getRecommendationsWithProductID($scope.productId);
 			promise.then(function(response) {
 				$scope.recomendents = response.data.recommended_products.map(function(data) {
@@ -219,9 +223,13 @@
 			//inicializa botones
 			// fast forward button
 			model.controls.ffControl.bind("click", function(event) {
+				window.alert('ENTRO');
 				event.stopPropagation();
+				window.alert('ENTRO 1');
 				clearTimeout(model.timeoutId);
+				window.alert('ENTRO 2');
 				model.video.fastForward();
+				window.alert('ENTRO 3');
 			});
 
 			model.controls.rwControl.bind("click", function(event) {
@@ -339,9 +347,9 @@
 				$scope.streamingComplete=true;
 				$scope.$apply();
 				//$scope.videoCss = 'video-container-ended';
-            };
+			};
 
-            model.handleFastForwardFunction=function(){
+			model.handleFastForwardFunction=function(){
 				if(event.position === 0) {
 					video.stop();
 					model.updateVideoControls();
@@ -372,16 +380,18 @@
 				} else {
 					model.hidePlayer();
 				}
-					AlertDialogService.show('warning',
-						LG.copy['video_error'][LG.config.lang],'Aceptar', function () {keyboardInit();});
+				AlertDialogService.show('warning',
+					LG.copy['video_error'][LG.config.lang],'Aceptar', function () {keyboardInit();});
 			};
 
 			model.handlePlayFunction=function(event) {
 				model.controls.playControl.addClass("pause");
+				model.displayControls(true);
 			};
 
 			model.handlePauseFunction=function(event) {
 				model.controls.playControl.removeClass("pause");
+				model.displayControls();
 			};
 
 			model.handleBeforeLoadFunction = function(event) {
@@ -390,21 +400,115 @@
 
 			model.handleLoadFunction = function(event, video) {
 				$('#mydiv').hide();
-				$("#player, #media, #bc-video, #video-container").css({"width": "100%", "height": "100%"});
 				/*//var popup = infoWindows[ video.id ];
-
-				updateVideoControls();
-				controls.videoTitle.html(video.name);
+					updateVideoControls();
+					controls.videoTitle.html(video.name);
 
 				if(popup) {
-					popup.show();
+				popup.show();
 				} else {
-					infoWindows[ video.id ] = new LG.Info( video );
+				infoWindows[ video.id ] = new LG.Info( video );
 				}*/
 			};
 
+			model.handleKeydown =function (event) {
+				var currState = state.get();
+
+				switch (event.keyCode) {
+					case 38: // up
+					case 40: //down
+						if( currState === "video" ) {
+							model.displayControls();
+						}
+						//handleKeyMovement( event.which );
+						break;
+					case 37: // left
+					case 39: // right
+						if( currState === "video" ) {
+							model.displayControls();
+						}
+						//handleKeyMovement( event.which );
+						break;
+					case 66: // b
+					case 83: // s
+					case 461: // back
+					case 413: // stop
+						if (currState === "video") {
+							if(model.video.isAdPlaying()) {
+								model.video.clearAd(); // clear the setting of current playing ad.
+								model.video.handleComplete();
+							}
+							model.video.stop();
+							model.hidePlayer();
+							state.change("main");
+						} /*else if(currState === "main") {
+					LG.isNative && window.NetCastBack();
+					} else if(currState === "error" ) {
+					//model.handleBackButton();
+					}*/
+						break;
+					case 13: // enter
+						//handleEnter(event);
+						break;
+					case 412: // rewind
+						if (model.video.isAdPlaying()) {
+							return;
+						}
+						model.video.rewind();
+						break;
+					case 417: //fast forward
+						if (model.video.isAdPlaying()){
+							return;
+						}
+						model.video.fastForward();
+						break;
+					case 80: // p
+						if (model.video.isAdPlaying()){
+							return;
+						}
+						if (model.video.isPlaying()) {
+							pause();
+						} else {
+							play();
+						}
+						break;
+					case 79: // o
+						clearTimeout(timeoutId);
+						if( state.get() !== "video" ) {
+							return;
+						}
+						if(model.controls.main.is(":visible") ) {
+							model.hideControls();
+						} else {
+							model.displayControls();
+						}
+						break;
+					case 415: // play
+						play();
+						break;
+					case 19: // pause
+						pause();
+						break;
+					case 73: // i
+					case 457: // info
+						if (video.isAdPlaying()){
+							return;
+						}
+						if (player.is(":visible")) {
+							//toggleInfo();
+						}
+						break;
+				}
+			};
+
+
+			model.adjustPLayerSize=function(){
+				$("#player, #media, #bc-video, #video-container, #bc-controls-background").css({"width": "100%", "height": "100%"});
+				$("#bc-controls, #bc-load-progress, #bc-play-progress").css({"width": "100%"});
+			};
 
 			model.playVideo=function(pVideo) {
+				model.adjustPLayerSize();
 				// short circuit if there's already a video playing, and that video
 				// is the same video the user is attempting to play.
 				if (model.video.getCurrentVideo() && model.video.getCurrentVideo() !== undefined && model.video.isPlaying() && pVideo.id === video.getCurrentVideo().id) {
@@ -433,6 +537,8 @@
 			model.video.addEventListener("pause", model.handlePauseFunction);
 			model.video.addEventListener("beforeload", model.handleBeforeLoadFunction);
 			model.video.addEventListener("load", model.handleLoadFunction);
+
+			$(window).keydown(model.handleKeydown);
 			/*model.video.addEventListener("adStart", handleAdStart);
 			model.video.addEventListener("adComplete", handleAdComplete);*/
 

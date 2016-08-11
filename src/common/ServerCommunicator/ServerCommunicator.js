@@ -8,7 +8,7 @@
     test.withoutInternet = false;
     
     //module.END_POINT = 'http://apps.caracolplay.com/';
-    module.END_POINT = 'http://appsdev.caracolplay.com/';
+    module.END_POINT = 'http://appsbetadev.caracolplay.com/';
     module.TEST_END_POINT = 'http://192.168.1.129:1414/';
 
     //ssl.END_POINT = 'http://operacionesplay.icck.net/api/';
