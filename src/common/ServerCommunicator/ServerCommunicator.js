@@ -8,11 +8,11 @@
     test.withoutInternet = false;
     
     //module.END_POINT = 'http://apps.caracolplay.com/';
-    module.END_POINT = 'http://appsbetadev.caracolplay.com/';
+    module.END_POINT = 'http://smarttvdev.caracolplay.com/';
     module.TEST_END_POINT = 'http://192.168.1.129:1414/';
 
     //ssl.END_POINT = 'http://operacionesplay.icck.net/api/';
-    ssl.END_POINT = 'https://premium.icck.net/api/';
+    ssl.END_POINT = ' http://dev.caracolplay.com/api/';
     ssl.user = 'icck';
     ssl.password = 'K1qf(w#:';
 
@@ -57,7 +57,7 @@
 
             if (param2) {
                 isWithToken = true;
-                sslToken = param2.token;
+                sslToken = param2;
             }
 
             if (param3 === true) {
@@ -98,7 +98,7 @@
             headers.TS70 = '' + utc;
             headers.token = token;
         }
-
+        console.log("HEADERS SSL ",headers);
         return headers;
     };
 
@@ -150,7 +150,7 @@
 
         self.getListFromCategoryId = function (id, filter) {
             var url = module.END_POINT;
-            if (filter) {
+            if (!filter) {
                 filter = 1;
             }
 
