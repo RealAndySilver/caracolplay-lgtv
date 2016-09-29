@@ -1081,7 +1081,13 @@
                         promiseCreateOrder.then(successCallbackCreateOrder, failureCallback);
                     };
 
-                    var promiseLogin = PurchaseService.loginPaymentUserFlow($rootScope.getLoginCredentials().username, $rootScope.getLoginCredentials().password);
+
+                    var promiseLogin;
+                    if ($rootScope.isUserLogged()){
+                        promiseLogin = PurchaseService.loginPaymentUserFlow($rootScope.getLoginCredentials().username, $rootScope.getLoginCredentials().password);
+                    }else{
+                        promiseLogin = PurchaseService.loginPaymentUserFlow($scope.subscription.user,$scope.subscription.password);
+                    }
                     promiseLogin.then(successCallbackLogin, failureCallback);
                     break;
             }

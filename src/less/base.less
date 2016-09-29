@@ -35,7 +35,7 @@ body {
 	width: 100%;
 	height: 100%;
 	background-color: #333;
-	background-image: url('../assets/img/fondo.png');
+	background-image: url('../assets/img/fondo.jpg');
 	position:relative;
 }
 
@@ -164,17 +164,15 @@ select{
   top:0;
   left:0;
   width:100%;
-  height:2000px;
+  height:100vh;
   z-index:100000000;
   background-color:#000000;
   opacity: .3;
 }
 
 .ajax-loader {
-  position: absolute;
-  left: 50%;
-  top: 25%;
-  margin-left: -32px; /*  image width / 2 */
-  margin-top: -32px;  /*  image height / 2 */
-  display: block;
+  	position: relative;
+  	display: block;
+	margin:auto;
+	top: ~"calc(50vh - 150px)";
 }

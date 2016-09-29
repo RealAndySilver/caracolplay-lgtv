@@ -264,7 +264,7 @@
                 var i = 0;
                 $scope.slides.map(function (item) {
                     item.index = i++;
-                    cacheImage.cache(item.image_url,true,item,"image_url");
+                    //cacheImage.cache(item.image_url,true,item,"image_url");
                 });
                 $scope.slides2 = $scope.slides.slice(0, active + 5);
                 //var index = 0;

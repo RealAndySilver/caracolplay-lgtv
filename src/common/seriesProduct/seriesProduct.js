@@ -97,6 +97,15 @@
             };
 
             $scope.open = function (size) {
+                if (!$rootScope.isUserLogged()){
+                    $state.go('purchase', {
+                        typeView: $scope.selected.type_view,
+                        chapterId: $scope.getChapterId(),
+                        productionId: $scope.selected.id,
+                        name: $scope.selected.name
+                    });
+                    return;
+                }
                 ProgressDialogService.start();
                 var promiseIsContentAvaliable = UserService.isContentAvailableForUser($scope.getChapterId());
 
