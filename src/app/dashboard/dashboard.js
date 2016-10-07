@@ -109,7 +109,7 @@
                 } else {
                     AlertDialogService.show(
                         'warning',
-                        response.data.response,
+                        "Sesión cerrada exitosamente",
                         'Aceptar',
                         keyboardInit
                     );
