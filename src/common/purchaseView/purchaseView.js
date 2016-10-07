@@ -509,10 +509,10 @@
                             $scope.active = $scope.activeQueue[0];
                             $scope.activeNumber = 0;
 
-                            console.log($scope.activeQueue,'::::::::');
+                           /* console.log($scope.activeQueue,'::::::::');
                             $scope.$watch('activeNumber',function(newVal){
                                 console.log('este es el new value: %s',newVal);
-                            });
+                            });*/
 
                             if ($rootScope.getSessionInfo().alias) {
                                 $scope.subscribeStep = 1;
@@ -610,8 +610,6 @@
         };
         $scope.subscription.gender = $scope.genders[0];
 
-
-        $scope.cities = [];
         $scope.citiesStrings = [];
 
         $scope.testLength = function () {
@@ -621,11 +619,15 @@
         model.findCities=function(){
             clearInterval(id);
             PurchaseService.searchCityFlow($scope.subscription.city).then(function (response) {
-                $scope.cities = response.data;
-                $scope.citiesStrings = $scope.cities.map(function (item) {
-                    return item.name;
-                });
+                $scope.citiesStrings = response.data;
+                if($scope.citiesStrings.length >= 1){
+                    $scope.citysShow = true;
+                }else if($scope.citiesStrings.length){
+                    $scope.citysShow = false;
+                }
+
                 return $scope.citiesStrings;
+                
             });
         };
 
@@ -634,8 +636,17 @@
             if(!val || val==='') {
                 return;
             }
-            id = setInterval(model.findCities, 400);
+            id = setInterval(model.findCities, 1000);
+            for(var i = 0; i < $scope.citiesStrings.length; i ++){
+                $scope.citiesStrings
+            }
         };
+        
+        $scope.llenar = function(num){
+            $scope.subscription.city =  $scope.citiesStrings[num].name;
+            $scope.citysShow = false;
+        }
+        
 
         $scope.validateStepOne = function () {
             if ($scope.subscription.email === '') {
@@ -948,10 +959,10 @@
 
                     if ($scope.isRent) {
                         $scope.activeQueue = $scope.rentQueueStep2;
-                        console.log("entro por aca 1");
+                        //console.log("entro por aca 1");
                     } else {
                         $scope.activeQueue = $scope.subscriptionQueueStep3;
-                        console.log("entro por aca 2");
+                        //console.log("entro por aca 2");
                     }
                     $scope.active = $scope.activeQueue[0];
                     $scope.activeNumber = 0;

@@ -62,8 +62,9 @@
         </carousel-container>
 
 
-		<div ng-repeat="item in dashCtrl.list"  class="verify-length" ng-validate-length="item.products.length" id="{{item.name | nospace}}" style="margin-top: -20px;">
-			<products-container href="{{'#' + item.name | nospace}}"
+		<div ng-repeat="item in dashCtrl.list"  class="verify-length" ng-validate-length="item.products.length" id="{{item.name | nospace}}">
+			<products-container 
+                                href="{{'#' + item.name | nospace}}"
                                 slides="item.products"
                                 title="{{item.name}}"
                                 active="dashCtrl.isKeyboardActive($index + 2)"

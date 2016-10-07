@@ -302,12 +302,19 @@
                                         <div class="row">
                                             <div class="col-lg-1"></div>
                                             <div class="col-lg-11">
-                                                <input type="text" ng-change="getCities(subscription.city)" ng-model="subscription.city" class="form-control"
-                                                       typeahead="address for address in citiesStrings"
-                                                       typeahead-loading="loadingLocations"
+                                                <input 
+                                                       type="text" 
+                                                       ng-change="getCities(subscription.city)" 
+                                                       ng-model="subscription.city" 
+                                                       class="form-control"
                                                        focus-me="{{needFocus('city')}}"
                                                        focus-updated-scroll="50"
-                                                       ng-enter="next()" ng-sides="onSides(side)" />
+                                                       ng-enter="next()" 
+                                                       ng-sides="onSides(side)" />
+                                                
+                                                <ul class="dropdown-menu city-list" ng-show="citysShow" >
+                                                    <li ng-repeat="item in citiesStrings track by $index"><a ng-click="llenar($index)">{{item.name}}</a></li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
