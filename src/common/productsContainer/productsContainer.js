@@ -2,8 +2,6 @@
 
     var ProductsContainerController = function ($scope, hotkeys, ProductService, AlertDialogService,
                                                 ProgressDialogService, bestWatch, cacheImage) {
-        var self = this;
-
         var active = 0;
 
         var slider = {},
@@ -20,7 +18,8 @@
             rightCallback();
         };
 
-        var updateSlides2 = function (isLeft) {
+        var updateSlides = function (isLeft) {
+            
             var a = $scope.slides;
             var s2 = $scope.slides2;
             var newSlide = a[active];
@@ -84,16 +83,14 @@
                 active = 0;
                 $scope.slides[active].active = true;
                 onChangeActive();
-                updateSlides2(false);
+                updateSlides(false);
 
                 return;
             }
             $scope.slides[active++].active = false;
             $scope.slides[active].active = true;
             onChangeActive();
-            updateSlides2(false);
-
-            //console.log($scope.slides2);
+            updateSlides(false);
 
         };
 
@@ -104,18 +101,34 @@
                 active = $scope.slidesToShow.length - 1;
                 $scope.slides[active].active = true;
                 onChangeActive();
-                updateSlides2(true);
+                updateSlides(true);
                 return;
             }
             $scope.slides[active--].active = false;
             $scope.slides[active].active = true;
             onChangeActive();
-            updateSlides2(true);
+            updateSlides(true);
+            console.log($scope.slides);
+            console.log($scope.slides2);
 
         };
 
+        //funcion de apertura de datos de la produccion por enter 
         var enterCallback = function () {
+            callDetails();
+        };
 
+        //funcion de apertura de datos de la produccion por click 
+        $scope.onItemSelected = function (item) {
+            callDetails(item);
+        };
+        
+        function callDetails(item){
+            
+            if(item != undefined){
+                active = item;
+            }
+            
             if ($scope.slides[active]['progress_sec'] !== undefined && $scope.slides[active]['progress_sec'] !== "") {
                 AlertDialogService.show(
                     'alert',
@@ -125,11 +138,11 @@
                 );
                 return;
             }
-            var productPremise = ProductService.getProductWithID($scope.slides[active].id, '');
 
             ProgressDialogService.start();
 
-            productPremise.then(function (res) {
+            ProductService.getProductWithID($scope.slides[active].id, '')
+                .then(function (res) {
 
                 ProgressDialogService.dismiss();
                 $scope.selected = res.data.products['0'][0];
@@ -143,39 +156,8 @@
                     configHotkeys();
                 };
             });
-        };
-
-        $scope.onItemSelected = function (item) {
-            //console.log('item', $scope.slides[item]);
-
-            if ($scope.slides[item]['progress_sec'] !== undefined) {
-                AlertDialogService.show(
-                    'alert',
-                    'Show video',
-                    'Aceptar',
-                    configHotkeys
-                );
-                return;
-            }
-            var productPremise = ProductService.getProductWithID($scope.slides[item].id, '');
-
-            productPremise.then(function (res) {
-                //console.log("EN PREVIEW ",res);
-                $scope.slides[active].active = false;
-                active = item;
-                $scope.slides[active].active = true;
-                $scope.selected = res.data.products['0'][0];
-
-                $scope.preview({
-                    value: true,
-                    item: $scope.selected
-                });
-            });
-            $scope.configKeyboard.restart = function () {
-                configHotkeys();
-            };
-          console.log("breaking point");
-        };
+            
+        }
 
         var escCallback = function () {
             $scope.configKeyboard.restart = function () {
