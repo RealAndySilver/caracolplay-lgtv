@@ -82,10 +82,8 @@
                 $scope.slides[active].active = false;
                 active = 0;
                 $scope.slides[active].active = true;
-                onChangeActive();
+                //onChangeActive();
                 updateSlides(false);
-
-                return;
             }
             $scope.slides[active++].active = false;
             $scope.slides[active].active = true;
@@ -100,16 +98,13 @@
                 $scope.slides[active].active = false;
                 active = $scope.slidesToShow.length - 1;
                 $scope.slides[active].active = true;
-                onChangeActive();
+                //onChangeActive();
                 updateSlides(true);
-                return;
             }
             $scope.slides[active--].active = false;
             $scope.slides[active].active = true;
             onChangeActive();
             updateSlides(true);
-            console.log($scope.slides);
-            console.log($scope.slides2);
 
         };
 
@@ -222,30 +217,11 @@
                 //cacheImage.cache(item.image_url,true,item,"image_url");
             });
             $scope.slides2 = $scope.slides.slice(0, active + 5);
-            //var index = 0;
-            //if (newValue) {
-            //    if (newValue.length > minimum) {
-            //        $scope.slides = newValue.concat(newValue.map(function (item) {
-            //            item.uniqueId = newValue.indexOf(item);
-            //            return item;
-            //        })).map(function (item) {
-            //            if (item.uniqueId === undefined) {
-            //                item.uniqueId = newValue.indexOf(item) + newValue.length;
-            //            }
-            //            item.index = index++;
-            //            return item;
-            //        });
-            //    } else {
-            //        $scope.slides = newValue.map(function (item) {
-            //            item.uniqueId = newValue.indexOf(item);
-            //            return item;
-            //        });
-            //    }
-            //}
         });
         bestWatch.watch($scope, 'slidesToShow', 'eventSlidesToShow', true, $scope);
 
         $scope.slides2 = $scope.slides.slice(0, active + 5);
+        $scope.slides3 = $scope.slides;
 
     };
 

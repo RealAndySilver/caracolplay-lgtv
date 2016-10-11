@@ -8,15 +8,16 @@
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </div>
             <ul class="list-inline">
-                <li class="ProductionItem" ng-repeat="slide in slides2 track by slide.index+'_'+$index" ng-index="{{slide.index}}" ng-click="onItemSelected(slide.index)">
+                <!--<li class="ProductionItem" ng-repeat="slide in slides track by slide.index+'_'+$index" ng-index="{{slide.index}}" ng-click="onItemSelected(slide.index)">-->
+                <li class="ProductionItem" ng-repeat="slide in slides2 track by $index"  ng-click="onItemSelected(slide.index)">
                 <div class="image-cover" ng-class="{selected:slide.active}">
                     <div class="cover slide-production">
                         <img ng-src="{{slide.image_url}}"/>
                     </div>
                 </div>
                 </li>
-                <!--<li class="free-zone"></li>-->
             </ul>
+            <h1>{{slide.active}}</h1>
             <div class="arrow right ng-hide">
                 <span class="glyphicon glyphicon-chevron-right"></span>
             </div>

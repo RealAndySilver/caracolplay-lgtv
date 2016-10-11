@@ -158,6 +158,7 @@
 
         self.isKeyboardActive = function (pos) {
             return pos === self.active;
+            console.log(self.active);
         };
 
         self.showPreview = function () {
@@ -169,10 +170,8 @@
         };
 
         self.getUserRecentlyWatched = function () {
-            //console.log("Ultimos vistos LLAMADO" );
             var promiseRecentWatched = ProductService.getUserRecentlyWatched();
             promiseRecentWatched.then(function (response) {
-                //console.log("Ultimos vistos ",response );
                 if (response.data.length === 0) {
                     return;
                 }
@@ -190,7 +189,6 @@
             }
             var promiseGetList = ProductService.getList();
             promiseGetList.then(function (response) {
-                //console.log("MY LIST ",response);
                 if (response.data.status === false) {
                     return;
                 }
@@ -269,7 +267,6 @@
         };
 
         var activeEventsBottomOptions = function () {
-            //console.log("entro en el metodo activeEventsBottomOptions");
             //if (self.active + 1 < self.list.length +1) {
             self.active++;
             //}
@@ -306,7 +303,7 @@
 
             var div = $('footer');
 
-            console.log('div', div, $(div).position().top);
+            //console.log('div', div, $(div).position().top);
             if ($(div).position()) {
                 $('.scroll-area').scrollTop($(div).position().top - 134);
             }
@@ -354,7 +351,7 @@
                             myFunction = $scope.logout;
                         }
                     }
-                    console.log(myFunction);
+                    //console.log(myFunction);
                     myFunction();
                 }
             });
@@ -444,7 +441,6 @@
         var getProductsByCategoryPromise = function (responseArray,totalRequest,categoryName) {
             return function (res) {
                 self.totalCategoryResponse++;
-                //console.log("LLEGO ",res);
                 if (res.data.products && res.data.products.length > 0) {
                     responseArray.push({
                         name: categoryName,
@@ -454,12 +450,10 @@
                         })
                     });
                 }
-                //console.log("TOT REQ "+totalRequest+" TOTAL RES "+self.totalCategoryResponse);
                 if (totalRequest === self.totalCategoryResponse) {
                     orderContentDashboard(responseArray, 0);
                     //orderContentDashboard(responseArray, 0);
                     self.list=self.list.concat(responseArray);
-                    //console.log("LIST ",self.list);
                     if(typeof $rootScope.selfDashboard !== "undefined"){
                         $timeout(function(){
                             self.active = $rootScope.selfDashboard.active;
@@ -505,12 +499,10 @@
                 //se eliminan los registros adicionales aunque NO estoy de acuerdo con esto
                 //esto se debería hacer desde el server y no por aca
                 self.slides.splice(8,4);
-                //console.log(self.slides);
             });
 
             categoriesPromise.then(function (response) {
                 logs.set("log1", response);
-                //console.log("CATEGORIES ",response);
                 var tempCategories = response.data.categories;
                 var promise = {};
                 var responseArray = [], totalRequest = tempCategories.length;
