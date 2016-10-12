@@ -1,5 +1,13 @@
 /* Less file for carouselContainer*/
 
+#button-tutorial{
+    background: #fff;
+    outline: none;
+    color: #000;
+    border: none;
+    border-radius: 0;   
+}
+
 .active-carousel{
 	border: 4px solid #FF7600;
 }
@@ -11,8 +19,21 @@
 
 .carousel-container{
   	margin-top: -3px;
+    .carousel{
+        .carousel-indicators{
+            bottom: 0 !important;
+            .active{
+                background-color: #fff;
+                border-color:  #FFF;
+            }
+        }
+    }
 	.caracol-btn-cancel, .caracol-btn {
 		padding: 10px 40px;
+        background: #fff;
+        border-radius: 0;
+        color: #000;
+        margin: 0 auto;
 	}
 	.carousel-control{
 		.glyphicon-chevron-left{
@@ -44,16 +65,15 @@
 .carousel-caption{
 	left: 135px !important;
 	padding: 25px !important;
-	bottom: 60px !important;
-
+	bottom: 220px !important;
 	background-color: transparent !important;
-
 	h5{
 		overflow: hidden;
 		text-overflow: ellipsis;
 		display: -webkit-box;
 		-webkit-line-clamp: 4;
 		-webkit-box-orient: vertical;
+        margin-bottom: 30px;
 	}
 
 	.rating-bar{
