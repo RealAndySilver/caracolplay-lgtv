@@ -18,7 +18,7 @@
     var PurchaseViewController = function ($scope, hotkeys, UserService, PurchaseService,
                                            $modalInstance, typeView, $state, AlertDialogService,
                                            productionId, chapterId, ProgressDialog, TermsViewService,
-                                           DevInfo, name, $stateParams, $rootScope, RegisterUserService, $timeout,$cookies) {
+                                           DevInfo, name, $stateParams, $rootScope, RegisterUserService, $timeout,$cookies,$location) {
         var itemSelected = 0;
         var model = this;
         var id=0;
@@ -127,6 +127,16 @@
                 $rootScope.scopePurchase = objSaved;
             }
         });
+        
+        var prevousPage = document.URL;
+        
+        
+        $scope.closeModal = function(){
+            console.log("entro en le cerrado")
+
+            $modalInstance.dismiss('cancel');
+            $location.path("/preview/dashboard");
+        }
 
         var clearSaved = function(){
             delete $rootScope.scopePurchase;
@@ -611,10 +621,6 @@
         $scope.subscription.gender = $scope.genders[0];
 
         $scope.citiesStrings = [];
-
-        $scope.testLength = function () {
-            console.log($scope.objectRedeem);
-        };
 
         model.findCities=function(){
             clearInterval(id);
@@ -1515,6 +1521,7 @@
         'RegisterUserService',
         '$timeout',
         '$cookies',
+        '$location',
         PurchaseViewController
     ]);
 

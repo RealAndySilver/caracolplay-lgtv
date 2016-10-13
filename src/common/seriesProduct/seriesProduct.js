@@ -1,6 +1,6 @@
 (function (app) {
 
-    var SeriesProductController = function ($scope, hotkeys, $modal, UserService, UserInfo, $state, DevInfo, $rootScope, ProgressDialogService, AlertDialogService, ProductService, $timeout, $window) {
+    var SeriesProductController = function ($scope, hotkeys, $modal, UserService, UserInfo, $state, DevInfo, $rootScope, ProgressDialogService, AlertDialogService, ProductService, $timeout, $window,$location) {
         var self = this;
 
         $scope.MAX_STRING_SIZE = 400;
@@ -28,7 +28,9 @@
             self.sectionActive = 0;
 
             $scope.onBack = function () {
-                $window.history.back();
+                //$window.history.back();
+                $location.path("/#");
+                console.log("entro en la nueva funcion")
             };
 
             $scope.getSeasonLabel = function () {
@@ -442,6 +444,7 @@
             };
 
             $scope.onEnterChapter = function (position) {
+                console.log("entro en la carga");
                 self.sectionActive = self.EPISODES_SECTION;
                 self.episodesButtons[0].active = true;
                 if (self.seasonSelected === 0) {
@@ -787,6 +790,7 @@
         'ProductService',
         '$timeout',
         '$window',
+        '$location',
         SeriesProductController
     ]);
     app.directive('seriesProduct', SeriesProductDirective);

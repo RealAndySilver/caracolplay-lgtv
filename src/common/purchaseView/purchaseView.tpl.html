@@ -1,5 +1,5 @@
 <div class="container-purchase">
-    <div id="purchase-logo" ng-click="testLength()"></div>
+    <div id="purchase-logo"></div>
     <div id="purchase-title">
         <h2 ng-hide="boughtVisible && !isSubscription">{{title}}</h2>
         <div ng-show="boughtVisible && !isSubscription" class="title-bought">
@@ -8,6 +8,7 @@
             <h5 ng-show="subscribeStep == 1">{{getMail()}}</h5>
         </div>
     </div>
+    <span class=" close" ng-click="closeModal()">x</span>
     <div class="purchase-content">
         <div id="purchase-description">
             <div class="row">
@@ -23,6 +24,11 @@
                 <img ng-src="{{option.image}}">
                 <center><h3 class="item-title">{{option.title}}</h3></center>
             </div>
+<!--            <div class="col-lg-6">
+                <button class="btn caracol-btn-cancel col-lg-9" ng-click="closeModal()"
+                        focus-me="{{needFocus('back')}}" ng-enter="next()">cerrar
+                </button>
+            </div>-->
             <div class="clear"></div>
         </div>
         <!-- login div -->

@@ -54,10 +54,21 @@
 }
 
 #purchase-title {
-  position: fixed;
+  position: absolute;
   right: 30px;
   top: 30px;
   color: rgb(230, 230, 230);
+}
+.close{
+    position: relative;
+    top: 10px;
+    right: 17px;
+    color: #fff;
+    opacity: 0.8;
+    &:hover{
+        opacity: 1;
+        color: #fff;
+    }
 }
 
 .modal-content {
@@ -294,6 +305,18 @@ textarea, input, input[type], .uneditable-input{
   bottom: 70px;
   left: 0;
   right: 0;
+    .caracol-btn{
+        background-color: #fff;
+        color: #000;
+    }
+    .caracol-btn-cancel{
+        background-color: #a7a7a7;
+        color: #000;
+    }
+    .btn{
+        border: none;
+        border-radius: 0;
+    }
 }
 
 .redeem-container {
