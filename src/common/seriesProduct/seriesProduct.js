@@ -30,7 +30,6 @@
             $scope.onBack = function () {
                 //$window.history.back();
                 $location.path("/#");
-                console.log("entro en la nueva funcion")
             };
 
             $scope.getSeasonLabel = function () {

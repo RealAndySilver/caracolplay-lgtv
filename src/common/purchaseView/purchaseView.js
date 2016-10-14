@@ -132,11 +132,9 @@
         
         
         $scope.closeModal = function(){
-            console.log("entro en le cerrado")
-
             $modalInstance.dismiss('cancel');
             $location.path("/preview/dashboard");
-        }
+        };
 
         var clearSaved = function(){
             delete $rootScope.scopePurchase;
@@ -643,15 +641,12 @@
                 return;
             }
             id = setInterval(model.findCities, 1000);
-            for(var i = 0; i < $scope.citiesStrings.length; i ++){
-                $scope.citiesStrings
-            }
         };
         
         $scope.llenar = function(num){
             $scope.subscription.city =  $scope.citiesStrings[num].name;
             $scope.citysShow = false;
-        }
+        };
         
 
         $scope.validateStepOne = function () {

@@ -88,7 +88,7 @@
                 self.isInSearch = false;
                 keyboardInit();
             } 
-        }
+        };
 
         $scope.restartConfigKeyboard = {};
 
@@ -150,7 +150,7 @@
         };
 
         $scope.blurInput = function (event) {
-            console.log("entro en el evento")
+            console.log("entro en el evento");
             if (event.keyCode === 40) {
                 event.target.blur();
                 self.shouldBeFocus = false;
@@ -160,7 +160,6 @@
 
         self.isKeyboardActive = function (pos) {
             return pos === self.active;
-            console.log(self.active);
         };
 
         self.showPreview = function () {

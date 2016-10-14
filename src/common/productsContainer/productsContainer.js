@@ -120,7 +120,7 @@
         
         function callDetails(item){
             
-            if(item != undefined){
+            if(item !== undefined){
                 active = item;
             }
             
