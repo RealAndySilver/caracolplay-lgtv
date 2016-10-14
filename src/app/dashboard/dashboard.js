@@ -67,8 +67,9 @@
             }, false);
         };
 
-        $scope.$watch('keywordToSearch', function (newValue, oldValue) {
-            if (newValue !== undefined && newValue !== '') {
+        $scope.cambiobusqueda = function(){
+            
+            if ($scope.keywordToSearch !== undefined && $scope.keywordToSearch !== '') {
                 self.isInSearch = true;
 
                 if ($scope.restartConfigKeyboard.searchRestart) {
@@ -86,8 +87,8 @@
             } else {
                 self.isInSearch = false;
                 keyboardInit();
-            }
-        });
+            } 
+        }
 
         $scope.restartConfigKeyboard = {};
 
@@ -149,6 +150,7 @@
         };
 
         $scope.blurInput = function (event) {
+            console.log("entro en el evento")
             if (event.keyCode === 40) {
                 event.target.blur();
                 self.shouldBeFocus = false;

@@ -2,13 +2,13 @@
 	<div id="logo"><h2 style="color:white;"></h2></div>
 		<div class="search-bar">
             <div class="input-group">
-                <input type="text" placeholder class="form-control" ng-model="keywordToSearch" ng-keydown="blurInput($event)" focus-me="{{dashCtrl.shouldBeFocus}}"/>
+                <input type="text" placeholder="Buscar" class="form-control" ng-model="keywordToSearch" ng-keydown="blurInput($event)" focus-me="{{self.shouldBeFocus}}" ng-change="cambiobusqueda()"/>
                 <span class="glyphicon glyphicon-search"></span>
             </div>
 		</div>
 </header>
 
-<div class="scroll-area">
+<div class="scro ll-area">
 
 	<div class="preview-cover">
 		<div class="background-blur">
@@ -49,16 +49,17 @@
 
 
 		<div ng-repeat="item in dashCtrl.list"  class="verify-length" ng-validate-length="item.products.length" id="{{item.name | nospace}}">
-			<products-container 
-                                href="{{'#' + item.name | nospace}}"
-                                slides="item.products"
-                                title="{{item.name}}"
-                                active="dashCtrl.isKeyboardActive($index + 2)"
-                                preview="dashCtrl.activePreview(value, item)"
-                                item-selected="dashCtrl.selectedItem"
-                                restart-keyboard="restartConfigKeyboard">
+            
+        <products-container 
+                            href="{{'#' + item.name | nospace}}"
+                            slides="item.products"
+                            title="{{item.name}}"
+                            active="dashCtrl.isKeyboardActive($index + 2)"
+                            preview="dashCtrl.activePreview(value, item)"
+                            item-selected="dashCtrl.selectedItem"
+                            restart-keyboard="restartConfigKeyboard">
 
-            </products-container>
+        </products-container>
 		</div>
 
 		<footer>
