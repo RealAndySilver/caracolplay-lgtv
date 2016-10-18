@@ -48,18 +48,18 @@
         </carousel-container>
 
 
-		<div ng-repeat="item in dashCtrl.list"  class="verify-length" ng-validate-length="item.products.length" id="{{item.name | nospace}}">
+		<div ng-repeat="item in dashCtrl.list"  class="verify-length" ng-validate-length="item.products.length" id="{{item.name | nospace}}" ng-show="item.products.length != undefined">
             
-        <products-container 
-                            href="{{'#' + item.name | nospace}}"
-                            slides="item.products"
-                            title="{{item.name}}"
-                            active="dashCtrl.isKeyboardActive($index + 2)"
-                            preview="dashCtrl.activePreview(value, item)"
-                            item-selected="dashCtrl.selectedItem"
-                            restart-keyboard="restartConfigKeyboard">
+            <products-container 
+                                href="{{'#' + item.name | nospace}}"
+                                slides="item.products"
+                                title="{{item.name}}"
+                                active="dashCtrl.isKeyboardActive($index + 2)"
+                                preview="dashCtrl.activePreview(value, item)"
+                                item-selected="dashCtrl.selectedItem"
+                                restart-keyboard="restartConfigKeyboard">
 
-        </products-container>
+            </products-container>
 		</div>
 
 		<footer>

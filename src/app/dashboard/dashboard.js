@@ -150,7 +150,6 @@
         };
 
         $scope.blurInput = function (event) {
-            console.log("entro en el evento");
             if (event.keyCode === 40) {
                 event.target.blur();
                 self.shouldBeFocus = false;
@@ -276,7 +275,6 @@
 
             self.downActive = 0; //variable que controla que funcion inferior esta activa
             var setFocusActive = function (value) {
-                console.log(value);
                 switch (value) {
                     case 0 :
                     {

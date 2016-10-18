@@ -83,12 +83,12 @@
                 active = 0;
                 $scope.slides[active].active = true;
                 //onChangeActive();
-                updateSlides(false);
+                //updateSlides(false);
             }
+            updateSlides(false);
             $scope.slides[active++].active = false;
             $scope.slides[active].active = true;
             onChangeActive();
-            updateSlides(false);
 
         };
 
@@ -99,12 +99,12 @@
                 active = $scope.slidesToShow.length - 1;
                 $scope.slides[active].active = true;
                 //onChangeActive();
-                updateSlides(true);
+                //updateSlides(true);
             }
+            updateSlides(true);
             $scope.slides[active--].active = false;
             $scope.slides[active].active = true;
             onChangeActive();
-            updateSlides(true);
 
         };
 
@@ -164,6 +164,7 @@
         };
 
         var watchCallback = function (newValue, oldValue) {
+            
             if (newValue) {
                 //if(!$scope.slides) { return; }
                 if ($scope.slides[active] === undefined) {
@@ -197,11 +198,13 @@
                     }
                 }
             }
+            
         };
 
         $scope.$on("eventActiveChange", function (event, newValue, oldValue) {
             watchCallback(newValue, oldValue);
         });
+        
         bestWatch.watch($scope, 'active', "eventActiveChange", true, $scope);
 
         $scope.$on("eventSlidesToShow", function (event, newValue, oldValue) {
