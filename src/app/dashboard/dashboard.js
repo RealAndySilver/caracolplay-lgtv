@@ -67,6 +67,7 @@
             }, false);
         };
 
+            
         $scope.cambiobusqueda = function(){
             
             if ($scope.keywordToSearch !== undefined && $scope.keywordToSearch !== '') {
@@ -183,12 +184,13 @@
             });
         };
 
+        
         self.getList = function () {
             if (!$rootScope.isUserLogged()){
                 return ;
             }
-            var promiseGetList = ProductService.getList();
-            promiseGetList.then(function (response) {
+            
+            ProductService.getList().then(function (response) {
                 if (response.data.status === false) {
                     return;
                 }
@@ -302,7 +304,6 @@
 
             var div = $('footer');
 
-            //console.log('div', div, $(div).position().top);
             if ($(div).position()) {
                 $('.scroll-area').scrollTop($(div).position().top - 134);
             }
@@ -350,7 +351,6 @@
                             myFunction = $scope.logout;
                         }
                     }
-                    //console.log(myFunction);
                     myFunction();
                 }
             });
@@ -453,11 +453,16 @@
                     orderContentDashboard(responseArray, 0);
                     //orderContentDashboard(responseArray, 0);
                     self.list=self.list.concat(responseArray);
-                    if(typeof $rootScope.selfDashboard !== "undefined"){
+                    if(typeof $rootScope.selfDashboard != "undefined"){
                         $timeout(function(){
                             self.active = $rootScope.selfDashboard.active;
                             inAnimation();
                         },60);
+                    }
+                }
+                for(var i =0 ; i<self.list.length; i++){
+                    if(self.list[i] == undefined){
+                        self.list.splice(i, 1)
                     }
                 }
             };

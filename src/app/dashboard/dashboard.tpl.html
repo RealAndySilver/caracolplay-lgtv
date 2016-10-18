@@ -48,7 +48,7 @@
         </carousel-container>
 
 
-		<div ng-repeat="item in dashCtrl.list"  class="verify-length" ng-validate-length="item.products.length" id="{{item.name | nospace}}" ng-show="item.products.length != undefined">
+		<div ng-repeat="item in dashCtrl.list"  class="verify-length" ng-validate-length="item.products.length" id="{{item.name | nospace}}">
             
             <products-container 
                                 href="{{'#' + item.name | nospace}}"

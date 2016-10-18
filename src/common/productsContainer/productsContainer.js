@@ -82,8 +82,7 @@
                 $scope.slides[active].active = false;
                 active = 0;
                 $scope.slides[active].active = true;
-                //onChangeActive();
-                //updateSlides(false);
+                updateSlides(false);
             }
             updateSlides(false);
             $scope.slides[active++].active = false;
@@ -98,8 +97,7 @@
                 $scope.slides[active].active = false;
                 active = $scope.slidesToShow.length - 1;
                 $scope.slides[active].active = true;
-                //onChangeActive();
-                //updateSlides(true);
+                updateSlides(true);
             }
             updateSlides(true);
             $scope.slides[active--].active = false;
