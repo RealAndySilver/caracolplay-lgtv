@@ -113,7 +113,6 @@
                 promiseIsContentAvaliable.then(function (response) {
                     logs.set('isContentAvailableForUser', response);
                     ProgressDialogService.dismiss();
-                    console.log("Respuesta del server EN series",response);
                     if (response.data.status) {
                         if (response.data.video.status) {
                             $state.go('videoModule', {
@@ -408,7 +407,6 @@
                         if (UserInfo.alias && UserInfo.alias !== '') {
                             $scope.onRate();
                         } else {
-                            console.log("IENDO A PURCHASE CON TYPE ",$scope.selected.type_view);
                             $state.go('purchase', {
                                 typeView: $scope.selected.type_view,
                                 chapterId: $scope.getChapterId(),
@@ -443,7 +441,6 @@
             };
 
             $scope.onEnterChapter = function (position) {
-                console.log("entro en la carga");
                 self.sectionActive = self.EPISODES_SECTION;
                 self.episodesButtons[0].active = true;
                 if (self.seasonSelected === 0) {

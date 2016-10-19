@@ -265,6 +265,25 @@
             }
         };
     });
+        
+    app.directive('onErrorSrc', function() {
+      return {
+        link: function(scope, element, attrs) {
+          element.bind('error', function() {
+            if (attrs.src != attrs.onErrorSrc) {
+              attrs.$set('src', attrs.onErrorSrc);
+            }
+          });
+        }
+      }
+    });
+
+    app.controller("MyCtrl", function($scope) {
+        $scope.images = [
+            'http://upload.wikimedia.org/wikipedia/en/6/66/SallyCD.jpg',
+            'any.png' //WRONG URL
+        ];
+    });
 
 
     app.controller('ProductsContainerController', ['$scope', 'hotkeys', 'ProductService',

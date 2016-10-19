@@ -12,7 +12,7 @@
                 <li class="ProductionItem" ng-repeat="slide in slides2 track by $index"  ng-click="onItemSelected(slide.index)">
                 <div class="image-cover" ng-class="{selected:slide.active}">
                     <div class="cover slide-production">
-                        <img ng-src="{{slide.image_url}}"/>
+                        <img ng-src="{{slide.image_url}}" on-error-src="http://premium.icck.net/sites/default/files/blur.jpg"/>
                     </div>
                 </div>
                 </li>

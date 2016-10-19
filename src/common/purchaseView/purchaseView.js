@@ -485,7 +485,6 @@
             
         }
         function ingresar(num){
-            console.log(model.optionsAvailable[num].id);
             itemSelected = num;
             if ($scope.disableKeyEnter) {
                 $scope.disableKeyEnter = false;
@@ -546,7 +545,6 @@
 
                     break;
                 case 3:
-                    console.log("caso 3");
                     model.isVisibleMainOptionsScreen  = false;
                     $scope.isRent = false;
                     $scope.isSubscription = false;
@@ -567,11 +565,9 @@
                 );
                 return;
             }
-            console.log("$scope.redeemCode :" + 500, $scope.redeemCode);
             var redeemPromise = PurchaseService.validateCode($scope.redeemCode);
 
             redeemPromise.then(function (response) {
-                console.log(response);
 
                 if (response.data.status) {
                     if (response.data.info_code) {
@@ -891,10 +887,8 @@
 
                         if ($scope.isRent) {
                             $scope.activeQueue = $scope.rentQueueStep2;
-                            console.log("entro por aca 1");
                         } else {
                             $scope.activeQueue = $scope.subscriptionQueueStep3;
-                            console.log("entro por aca 2");
                         }
                         $scope.active = $scope.activeQueue[0];
 
@@ -916,7 +910,6 @@
                     );
 
                     var successCallbackCreateUser = function (response) {
-                        console.log("response create user", response);
 
                         if (response.data.form_errors && response.data.form_errors.length > 0) {
                             failureCallbackCreateUser(response);
@@ -937,8 +930,6 @@
                     };
 
                     var failureCallbackCreateUser = function (response) {
-                        console.log('error', response);
-                        //ProgressDialog.dismiss();
 
                         AlertDialogService.show(
                             'alert',
@@ -962,10 +953,8 @@
 
                     if ($scope.isRent) {
                         $scope.activeQueue = $scope.rentQueueStep2;
-                        //console.log("entro por aca 1");
                     } else {
                         $scope.activeQueue = $scope.subscriptionQueueStep3;
-                        //console.log("entro por aca 2");
                     }
                     $scope.active = $scope.activeQueue[0];
                     $scope.activeNumber = 0;
@@ -979,7 +968,6 @@
 
                     //ProgressDialog.start();
                     var successCallbackExecuteTransaction = function (response) {
-                        console.log("resultado de crear orden", response);
                         //ProgressDialog.dismiss();
                         if (response.data.status === 'Aprobada') {
                             AlertDialogService.show(
@@ -1007,7 +995,6 @@
 
                     var failureCallback = function (response) {
                         //ProgressDialog.dismiss();
-                        console.log(response);
                         if(!response.data){
                             AlertDialogService.show(
                                 'alert',
@@ -1026,7 +1013,6 @@
                     };
 
                     var successCallbackCreateOrder = function (response) {
-                        console.log(response);
                         if(response.data.length === 0){
                             AlertDialogService.show(
                                 'alert',
@@ -1037,11 +1023,9 @@
                             //ProgressDialog  .dismiss();
                             return;
                         }
-                        console.log("successCallbackCreateOrder", response);
                         var order = response.data;
 
                         var positionSelectedCity = $scope.citiesStrings.indexOf($scope.subscription.city);
-                        console.log($scope.citiesStrings);
                         var transactionInfo = {
                             'order_id': order.order_id,
                             'card_info': {
@@ -1064,14 +1048,12 @@
                                 'city': $scope.cities[positionSelectedCity].id
                             }
                         };
-                        console.log(transactionInfo);
                         var promiseExecute = PurchaseService.executeTransactionWithCardFlow(transactionInfo);
 
                         promiseExecute.then(successCallbackExecuteTransaction, failureCallback);
                     };
 
                     var successCallbackLogin = function (response) {
-                        console.log("succesCallbackLogin", response);
                         if (!response.data.session_name) {
                             AlertDialogService.show(
                                 'alert',
@@ -1083,11 +1065,9 @@
                         }
                         var promiseCreateOrder;
                         var cookie=response.data.session_name+'='+response.data.sessid;
-                        console.log('VALOR COOKIE',cookie);
                         $cookies.CPLAY_COOKIE=cookie;
                         //SETEAR LA COOKIE ACA
                         if ($scope.isRent) {
-                            console.log(chapterId);
                             promiseCreateOrder = PurchaseService.createRentOrderFlow(chapterId,cookie);
                         } else {
                             promiseCreateOrder = PurchaseService.createSubscriptionOrderFlow(cookie);
@@ -1109,6 +1089,13 @@
 
 
         $scope.onBackSuscription = function () {
+            
+            for(var i = 0; i<model.optionsAvailable.length;i++){
+                model.optionsAvailable[i].active = false;
+            }
+                
+            model.optionsAvailable[0].active = true;
+            
             if ($scope.subscribeStep - 1 >= 0) {
                 $scope.subscribeStep--;
 
@@ -1146,7 +1133,6 @@
             var month = ($scope.subscription.birth_month !== '') ? $scope.subscription.birth_month.id : "null";
             var year =  ($scope.subscription.birth_year !== '' ) ? $scope.subscription.birth_year : "null";
             var validateDate = new Date( year, month, $scope.subscription.birth_day);
-            console.log("validateDate :1047:", validateDate);
 
             if(isNaN( validateDate.getTime() )){
                 AlertDialogService.show('alert','Debe seleccionar una fecha valida','Aceptar',
@@ -1203,7 +1189,6 @@
                 requestRedeemCode();
                 //ProgressDialog.dismiss();
             }, function (error) {
-                console.log('error', response);
                 //ProgressDialog.dismiss();
 
                 AlertDialogService.show(
@@ -1218,14 +1203,11 @@
             });
         };
 
-        
-
         /**
          * función encargada de realizar la solicitud al servidor de redimir un código
          * una vez ha iniciado sesión el usuario
          */
         var requestRedeemCode = function () {
-            console.log($rootScope.objectRedeem);
             if ($rootScope.objectRedeem != null) {
                 //ProgressDialog.start();
 
@@ -1239,7 +1221,6 @@
                 });
 
                 promise.then(function (response) {
-                    console.log(response);
 
                     //ProgressDialog.dismiss();
                     if (response.data.code !== undefined && response.data.code != null) {
@@ -1260,7 +1241,6 @@
                     }
 
                 }, function (error) {
-                    console.log(error);
                     //ProgressDialog.dismiss();
                     $state.go('dashboard');
                     AlertDialogService.show(
@@ -1280,7 +1260,6 @@
          */
         var getCallbackLoginForView = function () {
             if ($stateParams.typeView == 4) {
-                console.log("$stateParams.typeView :1204", $stateParams.typeView);
                 return requestRedeemCode;
             }
             return function () {
@@ -1290,19 +1269,15 @@
         
         $scope.onLogin = function () {
             var promiseLogin = UserService.authenticateUser($scope.loginData.username, $scope.loginData.password);
-            console.log("AUTENTICANDO ",$scope.loginData.username," ",$scope.loginData.password);
             promiseLogin.then(function (response) {
-                console.log('login', response.data);
                 if (response.data.status){
                     ////ProgressDialog.dismiss();
                     $rootScope.saveSessionInfo(response,$scope.loginData.password);
                     localStorage.setItem('loginCredentials',JSON.stringify($scope.loginData));
-                    console.log('productId: ', productionId, 'chapterId', chapterId, " stateParam ",$stateParams.typeView);
                     if ($stateParams.typeView !== "4") {
                         if (response.data.user !== undefined) {
                             var promiseValidateContent=UserService.isContentAvailableForUser(chapterId);
                             promiseValidateContent.then(function(response){
-                                console.log("RESPONSE ",response);
                                 if (response.data.video && response.data.video.status) {
                                     $state.go('videoModule', {
                                         chapterId: chapterId,
@@ -1310,7 +1285,6 @@
                                         brightcoveId: response.data.video.embed_hd
                                     });
                                 }else{
-                                    console.log("POR EL BAD BUENO");
                                     var message ='';
                                     if (response.data.video){
                                         message=response.data.video.message;
@@ -1360,7 +1334,6 @@
          * que estan disponibles para el usuario.
          * */
         model.getAvailableOptionsByView=function(pTypeView){
-            //console.log("Este es el pTypeView ",pTypeView);
             var tempOptions=[];
             //Si el usuario no esta logueado se agrega la opcion de LOGIN
             if (!$rootScope.isUserLogged()) {
