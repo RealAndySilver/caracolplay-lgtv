@@ -460,7 +460,6 @@
                     if (itemSelected - 1 < 0) {
                         return;
                     }
-                    console.log('el item seleccionado es',itemSelected);
                     model.optionsAvailable[itemSelected--].active = false;
                     model.optionsAvailable[itemSelected].active = true;
                 }
@@ -473,86 +472,89 @@
                         $scope.disableKeyEnter = false;
                         return;
                     }
-                    switch (model.optionsAvailable[itemSelected].id) {
-                        case 0:
-                            $scope.activeQueue = $scope.loginQueue;
-                            $scope.active = $scope.activeQueue[0];
-                            $scope.activeNumber = 0;
-
-                            model.isVisibleMainOptionsScreen = false;
-                            $scope.loginVisible = true;
-                            $scope.redeemVisible = false;
-                            break;
-                        case 1:
-                            $scope.activeQueue = $scope.rentQueue;
-                            $scope.active = $scope.activeQueue[0];
-                            $scope.activeNumber = 0;
-
-                            if ($rootScope.getSessionInfo().alias) {
-                                $scope.subscribeStep = 1;
-                                $scope.subscription.name = $rootScope.getSessionInfo().name;
-                                $scope.subscription.lastname = $rootScope.getSessionInfo().lastname;
-                                $scope.activeQueue = $scope.rentQueueStep2;
-                                $scope.active = $scope.activeQueue[0];
-                                $scope.activeNumber = 0;
-                            } else {
-                                $scope.subscribeStep = 1; // solo para pruebas
-                                $scope.subscribeStep = 0;
-                            }
-                            console.log("caso 1", $scope.subscribeStep);
-                            $scope.isSubscription = false;
-                            $scope.isRent = true;
-                            model.isVisibleMainOptionsScreen  = false;
-                            $scope.boughtVisible = true;
-                            $scope.redeemVisible = false;
-                            break;
-                        case 2:
-                            model.isVisibleMainOptionsScreen = false;
-                            $scope.isRent = false;
-                            $scope.isSubscription = true;
-                            $scope.redeemVisible = false;
-                            $scope.boughtVisible = true;
-
-                            $scope.activeQueue = $scope.rentQueue;
-                            $scope.active = $scope.activeQueue[0];
-                            $scope.activeNumber = 0;
-
-                           /* console.log($scope.activeQueue,'::::::::');
-                            $scope.$watch('activeNumber',function(newVal){
-                                console.log('este es el new value: %s',newVal);
-                            });*/
-
-                            if ($rootScope.getSessionInfo().alias) {
-                                $scope.subscribeStep = 1;
-                            } else {
-                                $scope.subscribeStep = 1; //solo para pruebas
-                                $scope.subscribeStep = 0;
-                            }
-
-                            console.log("caso 2", $scope.subscribeStep);
-                            /*
-                            $scope.showOptions = false;
-                            $scope.isRent = false;
-                            $scope.isSubscription = true;
-                            $scope.boughtVisible = true;
-                            $scope.redeemVisible = false;
-                            */
-                            break;
-                        case 3:
-                            console.log("caso 3");
-                            model.isVisibleMainOptionsScreen  = false;
-                            $scope.isRent = false;
-                            $scope.isSubscription = false;
-                            $scope.boughtVisible = false;
-                            $scope.redeemVisible = true;
-                            break;
-                    }
+                    ingresar(itemSelected);
                 }
             });
 
             $scope.active = $scope.activeQueue[0];
             $scope.activeNumber = 0;
         };
+        
+        $scope.enterIn  = function(num){
+            ingresar(num);
+            
+        }
+        function ingresar(num){
+            console.log(model.optionsAvailable[num].id);
+            itemSelected = num;
+            if ($scope.disableKeyEnter) {
+                $scope.disableKeyEnter = false;
+                return;
+            }
+            switch (model.optionsAvailable[itemSelected].id) {
+            
+                case 0:
+                    $scope.activeQueue = $scope.loginQueue;
+                    $scope.active = $scope.activeQueue[0];
+                    $scope.activeNumber = 0;
+
+                    model.isVisibleMainOptionsScreen = false;
+                    $scope.loginVisible = true;
+                    $scope.redeemVisible = false;
+                    break;
+                case 1:
+                    $scope.activeQueue = $scope.rentQueue;
+                    $scope.active = $scope.activeQueue[0];
+                    $scope.activeNumber = 0;
+
+                    if ($rootScope.getSessionInfo().alias) {
+                        $scope.subscribeStep = 1;
+                        $scope.subscription.name = $rootScope.getSessionInfo().name;
+                        $scope.subscription.lastname = $rootScope.getSessionInfo().lastname;
+                        $scope.activeQueue = $scope.rentQueueStep2;
+                        $scope.active = $scope.activeQueue[0];
+                        $scope.activeNumber = 0;
+                    } else {
+                        $scope.subscribeStep = 1; // solo para pruebas
+                        $scope.subscribeStep = 0;
+                    }
+                    $scope.isSubscription = false;
+                    $scope.isRent = true;
+                    model.isVisibleMainOptionsScreen  = false;
+                    $scope.boughtVisible = true;
+                    $scope.redeemVisible = false;
+                    break;
+                case 2:
+                    model.isVisibleMainOptionsScreen = false;
+                    $scope.isRent = false;
+                    $scope.isSubscription = true;
+                    $scope.redeemVisible = false;
+                    $scope.boughtVisible = true;
+
+                    $scope.activeQueue = $scope.rentQueue;
+                    $scope.active = $scope.activeQueue[0];
+                    $scope.activeNumber = 0;
+
+
+                    if ($rootScope.getSessionInfo().alias) {
+                        $scope.subscribeStep = 1;
+                    } else {
+                        $scope.subscribeStep = 1; //solo para pruebas
+                        $scope.subscribeStep = 0;
+                    }
+
+
+                    break;
+                case 3:
+                    console.log("caso 3");
+                    model.isVisibleMainOptionsScreen  = false;
+                    $scope.isRent = false;
+                    $scope.isSubscription = false;
+                    $scope.boughtVisible = false;
+                    $scope.redeemVisible = true;
+                    break;
+            }
+        }
 
         $scope.onRedeem = function () {
             // check if user is login
@@ -1434,7 +1436,6 @@
         init();
 
         this.funciona=function(){
-            console.log("ESTA MI");
             return "Esta mierda funciona";
         };
 

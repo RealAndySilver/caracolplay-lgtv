@@ -84,9 +84,9 @@
                 $scope.slides[active].active = true;
                 updateSlides(false);
             }
-            updateSlides(false);
             $scope.slides[active++].active = false;
             $scope.slides[active].active = true;
+            updateSlides(false);
             onChangeActive();
 
         };
@@ -99,9 +99,9 @@
                 $scope.slides[active].active = true;
                 updateSlides(true);
             }
-            updateSlides(true);
             $scope.slides[active--].active = false;
             $scope.slides[active].active = true;
+            updateSlides(true);
             onChangeActive();
 
         };
