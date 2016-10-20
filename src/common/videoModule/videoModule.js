@@ -32,7 +32,7 @@
 		});
 	});
 
-	function VideoModuleController($scope, $timeout, ProductService, UserInfo, itemSelected, hotkeys, $state, AlertDialogService, DevInfo,$stateParams) {
+	function VideoModuleController($scope, $timeout, ProductService, UserInfo, itemSelected, hotkeys, $state, AlertDialogService, DevInfo,$stateParams,$location) {
 		var model = this;
 		$scope.selected = itemSelected;
 		$scope.productId = itemSelected.id;
@@ -342,7 +342,8 @@
 					return;
 				}
 				model.hidePlayer();
-
+                console.log("entro en el final del video");
+                $location.path("/preview/dashboard")
 				//state.change("main");
 				$scope.streamingComplete=true;
 				$scope.$apply();
@@ -559,6 +560,7 @@
 		'AlertDialogService',
 		'DevInfo',
 		'$stateParams',
+		'$location',
 		VideoModuleController
 	]);
 

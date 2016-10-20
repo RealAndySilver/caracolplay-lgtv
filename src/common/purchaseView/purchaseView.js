@@ -192,8 +192,9 @@
         $scope.playVideo = function () {
             //ProgressDialogService.start();
             var promiseIsContentAvaliable = UserService.isContentAvailableForUser($scope.getChapterId());
-
+            
             promiseIsContentAvaliable.then(function (response) {
+                console.log($scope.selected);
                 console.log("isContentAvailable: ->:", response);
                 console.log("response.data.video.status:", response.data.video.status);
                 //ProgressDialogService.dismiss();

@@ -308,6 +308,7 @@
                 $scope.options[position].active = true;
 
                 var successAddList = function (response) {
+                    
                     logs.set('success', response);
                     if (response.data.status) {
 
@@ -402,6 +403,7 @@
                                  */
                                 break;
                         }
+                        console.log(self.sectionActive);
                         break;
                     case 'Calificar':
                         if (UserInfo.alias && UserInfo.alias !== '') {
@@ -417,8 +419,16 @@
                         break;
                     case 'Ver tráiler':
                         $state.go('videoModule', {
-                            productId: $scope.id
+                            chapterId: $scope.getChapterId(),
+                            productionId: $scope.selected.id,
+                            //name: $scope.selected.name,
+                            brightcoveId: $scope.selected.trailer,
                         });
+                                        
+                        console.log(self.sectionActive);
+                        console.log("ver trailer");
+                        console.log($scope.selected);
+
                         break;
                     case 'Añadir a mi lista':
                         if (UserInfo.alias && UserInfo.alias !== '') {
