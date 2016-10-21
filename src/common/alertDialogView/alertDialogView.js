@@ -1,27 +1,10 @@
 (function(app) {
-	/*
-	app.config(['$stateProvider', function($stateProvider) {
-		$stateProvider.state('alertDialogView', {
-			url: '/alertView/:type/:message/:button',
-			views: {
-				"main": {
-					controller: 'ShowAlertDialogViewController',
-					template: ''
-				}
-			},
-			data: {
-				pageTitle: 'AlertDialogView'
-			}
-		});
-	}]);
-	*/
 
 	var AlertDialogService = function($modal) {
 		var self = this;
 		self.modalInstance = {};
 
 		self.show = function(type, message, button, onDismiss) {
-			console.log("ENTRO AL SHOW");
 			self.modalInstance = $modal.open({
 				controller: 'AlertDialogViewController',
 				templateUrl: 'alertDialogView/alertDialogView.tpl.html',
@@ -53,7 +36,7 @@
 		};
 	};
 
-	var AlertDialogViewController = function($scope, $modalInstance, alertInfo, hotkeys, $timeout) {
+	var AlertDialogViewController = function($scope, $modalInstance, alertInfo, hotkeys, $timeout, $location) {
 		init();
 
 		function init() {
@@ -71,6 +54,7 @@
 
 			$scope.dismiss = function() {
 				$modalInstance.dismiss('cancel');
+                $location.path("/preview/dashboard");
 			};
 
 			$scope.$on('$stateChangeStart', function(event, newUrl, oldUrl) {
@@ -94,7 +78,7 @@
 	};
 
 	app.service('AlertDialogService', ['$modal', AlertDialogService]);
-	app.controller('AlertDialogViewController', ['$scope', '$modalInstance', 'alertInfo', 'hotkeys', '$timeout', AlertDialogViewController]);
+	app.controller('AlertDialogViewController', ['$scope', '$modalInstance', 'alertInfo', 'hotkeys', '$timeout','$location', AlertDialogViewController]);
 
 }(angular.module("caracolplaylgtvapp.alertDialogView", [
 	'ui.router'
