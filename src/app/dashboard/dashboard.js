@@ -461,8 +461,8 @@
                     }
                 }
                 for(var i =0 ; i<self.list.length; i++){
-                    if(self.list[i] == undefined){
-                        self.list.splice(i, 1)
+                    if(self.list[i] === undefined){
+                        self.list.splice(i, 1);
                     }
                 }
             };

@@ -484,7 +484,7 @@
         $scope.enterIn  = function(num){
             ingresar(num);
             
-        }
+        };
         function ingresar(num){
             itemSelected = num;
             if ($scope.disableKeyEnter) {

@@ -343,7 +343,7 @@
 				}
 				model.hidePlayer();
                 console.log("entro en el final del video");
-                $location.path("/preview/dashboard")
+                $location.path("/preview/dashboard");
 				//state.change("main");
 				$scope.streamingComplete=true;
 				$scope.$apply();
