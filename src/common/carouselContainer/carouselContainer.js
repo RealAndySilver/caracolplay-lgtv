@@ -5,7 +5,6 @@
 		var self = this;
 		$scope.MAX_STRING_SIZE = 200;
 
-
 		var init = function() {
 			self.myInterval = 5000;
 
@@ -23,19 +22,6 @@
                 $timeout(function(){
                     $("a.right.carousel-control")[0].click();
                 });
-				//var active = getSlideActive();
-				//if (active + 1 >= $scope.slides.length) {
-                 //   $timeout(function(){
-                 //       $scope.slides[0].active = true;
-                 //       $scope.selected = $scope.slides[0];
-                 //   },100);
-                //
-				//} else {
-                 //   $timeout(function(){
-                 //       $scope.slides[active + 1].active = true;
-                 //       $scope.selected = $scope.slides[active + 1];
-                 //   },100);
-				//}
 			};
 
 			var enterCallback = function() {
@@ -89,21 +75,10 @@
                 $timeout(function(){
                     $("a.left.carousel-control")[0].click();
                 });
-				//var active = getSlideActive();
-				//if (active - 1 < 0) {
-                 //   $timeout(function(){
-                 //       $scope.slides[$scope.slides.length - 1].active = true;
-                 //       $scope.selected = $scope.slides[$scope.slides.length - 1];
-                 //   },100);
-				//} else {
-                 //   $timeout(function(){
-                 //       $scope.slides[active - 1].active = true;
-                 //       $scope.selected = $scope.slides[active - 1];
-                 //   },100);
-				//}
 			};
 
 			var watchCallback = function(newValue, oldValue) {
+                
 				if (newValue) {
 					var div = $('#' + $scope.title)/*.attr('href')*/;
 					$('.scroll-area').scrollTop($(div).position().top - 134);
@@ -160,6 +135,8 @@
                     addEvent("eventSlideActive"+i);
                     bestWatch.watch(current,"active","eventSlideActive"+i,true,$scope);
                 }
+                
+                console.log($scope.slides);
                 unregister();
             }
 

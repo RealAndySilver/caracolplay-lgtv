@@ -1,4 +1,4 @@
-<div ng-hide="streamingComplete">
+<div ng-hide="streamingComplete" ng-mouseenter="model.showbuttons()">
 		<div id="player">
 			<div id="bc-video"></div>
 			<div id="bc-back">
@@ -25,7 +25,7 @@
 			</div>
 	</div>
 </div>
-<div class="video-container-ended" ng-show="streamingComplete">
+<div class="video-container-ended" ng-show="streamingComplete" >
 	<div class="video-actions">
 		<products-container href="#Recomendadas"
 							slides="recomendents"

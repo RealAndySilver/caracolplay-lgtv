@@ -189,14 +189,22 @@
 
 
 			//LOGICA PLAYER
-
+            
+            //funcio para mostrar los votones de el video
+            model.showbuttons = function (){
+                console.log("entro en el over ")
+                model.displayControls();
+                setTimeout(function () {
+                        model.hideControls()
+                }, 3000);
+            };
+            
 			model.timeoutId=0;
 			model.videoProgress = false;
 			model.controls = {};
 			model.body = $(document.body);
 			model.player = $("#player");
 			model.video = new VideoPlayer($("#bc-video"), null);
-
 			model.controls.main = $("#bc-controls");
 			model.controls.back = $("#bc-back");
 			model.controls.background = $("#bc-controls-background");
@@ -424,6 +432,9 @@
 						//handleKeyMovement( event.which );
 						break;
 					case 37: // left
+                        console.log("entro en el izquierdo");
+                        model.controls.ffControl = $("#bc-ff-control");
+                        break
 					case 39: // right
 						if( currState === "video" ) {
 							model.displayControls();
@@ -516,7 +527,7 @@
 					return;
 				}
 
-				model.videoProgress = false;
+				model.videoProgress = true;
 				model.controls.main.hide();
 				model.controls.playProgress.width(0);
 				model.controls.timeControl.html("00:00 / 00:00");
