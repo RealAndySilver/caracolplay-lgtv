@@ -425,10 +425,6 @@
                             brightcoveId: $scope.selected.trailer,
                         });
                                         
-                        console.log(self.sectionActive);
-                        console.log("ver trailer");
-                        console.log($scope.selected);
-
                         break;
                     case 'Añadir a mi lista':
                         if (UserInfo.alias && UserInfo.alias !== '') {

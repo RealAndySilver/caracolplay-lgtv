@@ -17,7 +17,6 @@
 					var promiseProduct = ProductService.getProductWithID($stateParams.productionId,uid);
 
 					return promiseProduct.then(function(response) {
-						console.log(response);
 						if (response.data.length !== 0) {
 							response.data.products['0'][0].productId = $stateParams.productId;
 							return response.data.products['0'][0];
@@ -32,7 +31,7 @@
 		});
 	});
 
-	function VideoModuleController($scope, $timeout, ProductService, UserInfo, itemSelected, hotkeys, $state, AlertDialogService, DevInfo,$stateParams,$location) {
+	function VideoModuleController($scope, $timeout, ProductService, UserInfo, itemSelected, hotkeys, $state, AlertDialogService, DevInfo,$stateParams,$location,$window) {
 		var model = this;
 		$scope.selected = itemSelected;
 		$scope.productId = itemSelected.id;
@@ -192,7 +191,6 @@
             
             //funcio para mostrar los votones de el video
             model.showbuttons = function (){
-                console.log("entro en el over ")
                 model.displayControls();
                 setTimeout(function () {
                         model.hideControls()
@@ -425,6 +423,9 @@
 
 				switch (event.keyCode) {
 					case 38: // up
+					case 27: // up
+                        $window.history.back();
+                        break
 					case 40: //down
 						if( currState === "video" ) {
 							model.displayControls();
@@ -432,9 +433,6 @@
 						//handleKeyMovement( event.which );
 						break;
 					case 37: // left
-                        console.log("entro en el izquierdo");
-                        model.controls.ffControl = $("#bc-ff-control");
-                        break
 					case 39: // right
 						if( currState === "video" ) {
 							model.displayControls();
@@ -536,7 +534,7 @@
 				model.controls.back.hide();
 				model.player.show();
 				state.change("video");
-				console.log("PVIDEO ",pVideo);
+				//console.log("PVIDEO ",pVideo);
 				model.video.loadVideo(pVideo.id);
 			};
 
@@ -572,6 +570,7 @@
 		'DevInfo',
 		'$stateParams',
 		'$location',
+		'$window',
 		VideoModuleController
 	]);
 

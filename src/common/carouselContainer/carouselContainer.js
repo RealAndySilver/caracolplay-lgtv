@@ -136,7 +136,6 @@
                     bestWatch.watch(current,"active","eventSlideActive"+i,true,$scope);
                 }
                 
-                console.log($scope.slides);
                 unregister();
             }
 
