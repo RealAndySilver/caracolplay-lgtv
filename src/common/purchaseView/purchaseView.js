@@ -763,8 +763,28 @@
                 return false;
             }
 
-            var positionSelectedCity = $scope.citiesStrings.indexOf($scope.subscription.city);
+            /*var positionSelectedCity = $scope.citiesStrings.indexOf($scope.subscription.city);
             if(positionSelectedCity === -1 ){
+                $scope.subscription.city = '';
+                AlertDialogService.show(
+                    'alert',
+                    'Debe seleccionar la ciudad de nuevo, asegurese de seleccionar una de las opciones del autocompletado',
+                    'Aceptar',
+                    configHotkeys
+                );
+                return false;
+            }*/
+            
+            var positionSelectedCity = false;
+            
+            for(var i = 0; i<$scope.citiesStrings.length; i ++){
+                if($scope.citiesStrings[i].name == $scope.subscription.city){
+                    console.log($scope.citiesStrings[i].name);
+                    positionSelectedCity = true;
+                };
+            }
+            if(positionSelectedCity == false){
+
                 $scope.subscription.city = '';
                 AlertDialogService.show(
                     'alert',
