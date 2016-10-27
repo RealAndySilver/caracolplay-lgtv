@@ -196,6 +196,10 @@
                         model.hideControls()
                 }, 3000);
             };
+            //funcion para cerra el video 
+            model.cerraVideo = function(){
+                $window.history.back();
+            };
             
 			model.timeoutId=0;
 			model.videoProgress = false;
@@ -348,7 +352,6 @@
 					return;
 				}
 				model.hidePlayer();
-                console.log("entro en el final del video");
                 $location.path("/preview/dashboard");
 				//state.change("main");
 				$scope.streamingComplete=true;
@@ -534,7 +537,6 @@
 				model.controls.back.hide();
 				model.player.show();
 				state.change("video");
-				//console.log("PVIDEO ",pVideo);
 				model.video.loadVideo(pVideo.id);
 			};
 
