@@ -190,12 +190,38 @@
 			//LOGICA PLAYER
             
             //funcio para mostrar los votones de el video
-            model.showbuttons = function (){
-                model.displayControls();
-                setTimeout(function () {
-                        model.hideControls()
+                
+            var timeout = null;
+            //var movimiento = false;
+            model.showbuttons  = function(){
+                
+                var movimiento = 0;//iniciar variable de tiempo sobre movimiento del mouse
+                
+                clearTimeout(timeout);
+                
+                movimiento = timeout; // darele el valor anterior del tiempo 
+                   
+                    
+                /* funcion de espera */
+                timeout = setTimeout(function() { 
+                    //comparacion para ver que si tiene 
+                    if(timeout >= movimiento && timeout <= movimiento + 10){
+                        model.hideControls();//ocultar los controles 
+                        console.log("entro en elfi ")
+                    }
+                    //console.log(movimiento);
+                    //console.log(timeout);
                 }, 3000);
-            };
+                
+                if(timeout == movimiento  + 1){
+                    model.displayControls();// mostrar los controles del video 
+                }
+                    
+                
+                
+            }
+            
+            
             //funcion para cerra el video 
             model.cerraVideo = function(){
                 $window.history.back();
