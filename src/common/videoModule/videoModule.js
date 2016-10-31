@@ -207,10 +207,7 @@
                     //comparacion para ver que si tiene 
                     if(timeout >= movimiento && timeout <= movimiento + 10){
                         model.hideControls();//ocultar los controles 
-                        console.log("entro en elfi ")
                     }
-                    //console.log(movimiento);
-                    //console.log(timeout);
                 }, 3000);
                 
                 if(timeout == movimiento  + 1){
