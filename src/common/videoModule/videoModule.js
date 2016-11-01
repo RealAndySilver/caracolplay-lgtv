@@ -402,7 +402,7 @@
 
 			model.handleErrorFunction=function(event, data) {
 				var currState = state.get();
-
+                console.log(currState);
 				if( currState === "video" && state.previous(3) === "info" ) {
 					//toggleInfo(true);
 					video.play();

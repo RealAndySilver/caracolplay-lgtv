@@ -497,9 +497,7 @@
             console.log(headers.Authorization + " <--");
             //delete headers.Authorization;
             console.log(headers);
-            console.log("");
             console.log(ssl.END_POINT);
-            console.log("");
             return $http({
                 headers: headers,
                 method: 'POST',

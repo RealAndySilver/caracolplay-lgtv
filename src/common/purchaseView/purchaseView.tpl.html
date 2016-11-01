@@ -232,8 +232,8 @@
                         <div class="viewport" custom-scroll-active="subscribeStep">
                             <div class="overview full-width" style="height: 350px !important;">
                                 <div class="row">
-                                    <div class="col-lg-1"></div>
-                                    <div class="col-lg-5">
+                                    <!--<div class="col-lg-1"></div>-->
+                                    <div class="col-lg-5 col-md-offset-1">
                                         <div class="row">
                                             <div class="col-lg-1"></div>
                                             <label class="col-lg-11">Nombres:</label><br/>
@@ -266,8 +266,7 @@
                                 </div>
 
                                 <div class="row my-row-step">
-                                    <div class="col-lg-1"></div>
-                                    <div class="col-lg-5">
+                                    <div class="col-lg-5 col-md-offset-1">
                                         <div class="row">
                                             <div class="col-lg-1"></div>
                                             <label class="col-lg-11">Tipo de documento:</label><br/>
@@ -299,8 +298,7 @@
                                 </div>
 
                                 <div class="row my-row-step">
-                                    <div class="col-lg-1"></div>
-                                    <div class="col-lg-5">
+                                    <div class="col-lg-5 col-md-offset-1">
                                         <div class="row">
                                             <div class="col-lg-1"></div>
                                             <label class="col-lg-11">Ciudad:</label><br/>
@@ -341,8 +339,7 @@
                                 </div>
 
                                 <div class="row my-row-step">
-                                    <div class="col-lg-1"></div>
-                                    <div class="col-lg-5">
+                                    <div class="col-lg-5 col-md-offset-1">
                                         <div class="row">
                                             <div class="col-lg-1"></div>
                                             <label class="col-lg-11">Genero:</label><br/>
@@ -396,8 +393,7 @@
                                 </div>
 
                                 <div class="row my-row-step">
-                                    <div class="col-lg-1"></div>
-                                    <div class="col-lg-5">
+                                    <div class="col-lg-5 col-md-offset-1">
                                         <div class="row">
                                             <div class="col-lg-1"></div>
                                             <label class="col-lg-11">Número de telefono:</label><br/>
@@ -427,8 +423,7 @@
                 <!-- Step 3 -->
                 <div class="step-three-container" ng-show="subscribeStep == 2">
                     <div class="row">
-                        <div class="col-lg-1"></div>
-                        <div class="col-lg-5">
+                        <div class="col-lg-5 col-md-offset-1">
                             <div class="row">
                                 <div class="col-lg-1"></div>
                                 <label class="col-lg-11">Seleccionar tarjeta de credito:</label><br/>
@@ -460,8 +455,7 @@
                         <div class="col-lg-1"></div>
                     </div>
                     <div class="row my-row-step">
-                        <div class="col-lg-1"></div>
-                        <div class="col-lg-5">
+                        <div class="col-lg-5 col-md-offset-1">
                             <div class="row">
                                 <div class="col-lg-1"></div>
                                 <label class="col-lg-11">Fecha de expiración:</label><br/>
@@ -512,10 +506,8 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row my-row-step">
-                        <div class="col-lg-1"></div>
-                        <div class="col-lg-5">
+                        <div class="col-lg-5 col-md-offset-1">
                             <div class="row">
                                 <div class="col-lg-1"></div>
                                 <div class="col-lg-11">
@@ -533,7 +525,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="place-to-pay-container">
+                    <div class="place-to-pay-container col-md-offset-1">
                         <img src="./assets/img/place-to-pay.png">
                     </div>
                 </div>
@@ -545,8 +537,7 @@
             <div class="buttons-container">
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="col-lg-3"></div>
-                        <button class="btn caracol-btn-cancel col-lg-9" ng-click="onBackSuscription()"
+                        <button class="btn caracol-btn-cancel col-lg-9 col-md-offset-2" ng-click="onBackSuscription()"
                                 focus-me="{{needFocus('backSuscription')}}" ng-enter="next()" ng-sides="onSides(side)">
                             Atrás
                         </button>
