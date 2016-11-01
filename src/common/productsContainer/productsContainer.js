@@ -2,28 +2,33 @@
 
     var ProductsContainerController = function ($scope, hotkeys, ProductService, AlertDialogService,
                                                 ProgressDialogService, bestWatch, cacheImage) {
-        var active = 0;
+        
+        var active = 0;// variable por defecto de el elemento selecionado 
 
         var slider = {},
             cover = {};
 
-        $scope.slides = [];
-        $scope.slides2 = [];
+        $scope.slides = [];// array donde se gunadan el listado completo de las produciones 
+        $scope.slides2 = [];// array donde se guardan los 5 producciones mostradas por categoria
 
+        /* llamado de la funcion para correr el slider a la izquierda */
         $scope.left = function () {
             leftCallback();
         };
 
+        /* llamado de la funcion para correr el slider a la derecha */
         $scope.right = function () {
             rightCallback();
         };
 
+        /**funcion que actuliza el listado de elemento de slide2 **/
         var updateSlides = function (isLeft) {
             
-            var a = $scope.slides;
-            var s2 = $scope.slides2;
-            var newSlide = a[active];
+            var a = $scope.slides;// variable local que contiene el listado original 
+            var s2 = $scope.slides2;// variable local que contiene el listado mostrado 
+            var newSlide = a[active];// variable que contiene la producion activa o selecionada
 
+            /**discriminacion de la direcion en que se cambia el slider**/
             if (isLeft && a.length > 1) {
                 s2.splice(s2.length - 1, 1);
                 s2.unshift(newSlide);
@@ -47,6 +52,11 @@
             }
         };
 
+        /** setup de los hotkeys que va a usar el componenete 
+        *combo es el nombre concreto de la tecla 
+        *callback la funcion que se llama cuando se preciona la tecla señalada en "combo"
+        **/
+        
         var configHotkeys = function () {
             hotkeys.add({
                 combo: 'right',
@@ -66,16 +76,23 @@
                 callback: escCallback
             });
         };
-
+        
+        /**$broadcast es la activación de un suceso inferior 
+        *en este caso cuando se cambia de categoria en la navegacion
+        **/
         var triggerEvent = function (index) {
             $scope.$broadcast("changeSlideActive", index);
         };
 
+        /**$emit es la activación de un suceso superior 
+        *en este caso cuando se actuliza de categoria en la navegacion
+        **/
         var onChangeActive = function () {
             $scope.selected = $scope.slides[active];
             $scope.$emit("updatedSelectItem", $scope.selected);
         };
-
+        
+        /** funcion de cambio a la derecha **/
         var rightCallback = function () {
 
             if (active + 1 > $scope.slides.length - 1) {
@@ -91,6 +108,7 @@
 
         };
 
+        /** funcion de cambio a la izquierda **/
         var leftCallback = function () {
 
             if (active - 1 < 0) {
@@ -116,12 +134,14 @@
             callDetails(item);
         };
         
+        /** funcion que se ejecuta cuando se selecciona una produccion **/
         function callDetails(item){
             
-            if(item !== undefined){
-                active = item;
+            //discriminacion si es por click o por enter 
+            if(item !== undefined){// si el elemento no esta indefinido 
+                active = item; //igula el valor de active con item que es la posicion del elemento
             }
-            
+            /*discriminacion si cumple con todos los requerimientos para reproducir el video directamente */
             if ($scope.slides[active]['progress_sec'] !== undefined && $scope.slides[active]['progress_sec'] !== "") {
                 AlertDialogService.show(
                     'alert',
@@ -164,7 +184,6 @@
         var watchCallback = function (newValue, oldValue) {
             
             if (newValue) {
-                //if(!$scope.slides) { return; }
                 if ($scope.slides[active] === undefined) {
                     return;
                 }
@@ -181,11 +200,7 @@
 
                 $('.free-zone').width(cover.outerWidth(true) * $scope.slides.length);
                 triggerEvent(active);
-                /*
-                 $('.scroll-area').stop().animate({
-                 scrollTop: $(div).position().top - 134
-                 }, 500);
-                 */
+     
                 $scope.$emit("updatedSelectItem", $scope.selected);
                 configHotkeys();
             } else {
@@ -243,29 +258,12 @@
 
         };
     };
-
-    app.directive('errSrc', function () {
-        return {
-            link: function (scope, element, attrs) {
-                element.bind('error', function () {
-                    if (attrs.src != attrs.errSrc) {
-                        attrs.$set('src', attrs.errSrc);
-                    }
-                });
-            }
-        };
-    });
-
-    app.directive('ngSrcNoBind', function () {
-        return {
-            link: function (scope, element, attrs) {
-                var image = scope.$eval(attrs.ngSrcNoBind);
-                element[0].src = image;
-                //$(element[0]).attr('src',image);
-            }
-        };
-    });
-        
+       
+    /** 
+    *directiva encargada de leer y remplazar links 
+    *caidos o inexistentes 
+    *de las imagenes 
+    **/
     app.directive('onErrorSrc', function() {
       return {
         link: function(scope, element, attrs) {
@@ -277,14 +275,6 @@
         }
       };
     });
-
-    app.controller("MyCtrl", function($scope) {
-        $scope.images = [
-            'http://upload.wikimedia.org/wikipedia/en/6/66/SallyCD.jpg',
-            'any.png' //WRONG URL
-        ];
-    });
-
 
     app.controller('ProductsContainerController', ['$scope', 'hotkeys', 'ProductService',
         'AlertDialogService', 'ProgressDialogService', 'bestWatch',

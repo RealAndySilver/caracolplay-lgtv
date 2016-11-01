@@ -214,8 +214,6 @@
                     model.displayControls();// mostrar los controles del video 
                 }
                     
-                
-                
             }
             
             
@@ -323,8 +321,6 @@
 					//LG.isNative && window.NetCastMouseOff(0);
 				}, 8000);
 			};
-
-
 
 			model.displayControls= function (hideAfterDelay) {
 				clearTimeout(model.timeoutId);
