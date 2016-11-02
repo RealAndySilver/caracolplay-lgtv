@@ -194,7 +194,6 @@
             var promiseIsContentAvaliable = UserService.isContentAvailableForUser($scope.getChapterId());
             
             promiseIsContentAvaliable.then(function (response) {
-                console.log($scope.selected);
                 console.log("isContentAvailable: ->:", response);
                 console.log("response.data.video.status:", response.data.video.status);
                 //ProgressDialogService.dismiss();
@@ -375,6 +374,7 @@
         $scope.activeQueue = [];
 
         $scope.next = function () {
+            console.log("entro en el next");
             $scope.disableKeyEnter = true;
             switch ($scope.active) {
                 case 'next':
@@ -628,7 +628,6 @@
                 }else if($scope.citiesStrings.length){
                     $scope.citysShow = false;
                 }
-                console.log($scope.citiesStrings);
                 return $scope.citiesStrings;
                 
             });
@@ -654,7 +653,8 @@
                     'warning',
                     'El campo de email no puede estar vacio',
                     'Aceptar',
-                    configHotkeys
+                    configHotkeys,
+                    false
                 );
                 return false;
             }
@@ -664,7 +664,8 @@
                     'alert',
                     'El campo de usuario no puede estar vacio',
                     'Aceptar',
-                    configHotkeys
+                    configHotkeys,
+                    false
                 );
                 return false;
             }
@@ -674,7 +675,8 @@
                     'alert',
                     'El campo de contraseña no puede estar vacio',
                     'Aceptar',
-                    configHotkeys
+                    configHotkeys,
+                    false
                 );
                 return false;
             }
@@ -684,7 +686,8 @@
                     'alert',
                     'El campo de confirmar no puede estar vacio',
                     'Aceptar',
-                    configHotkeys
+                    configHotkeys,
+                    false
                 );
                 return false;
             }
@@ -694,7 +697,8 @@
                     'alert',
                     'Las contraseñas no coiciden',
                     'Aceptar',
-                    configHotkeys
+                    configHotkeys,
+                    false
                 );
                 return false;
             }
@@ -704,7 +708,8 @@
                     'alert',
                     'Debes aceptar los términos y condiciones',
                     'Aceptar',
-                    configHotkeys
+                    configHotkeys,
+                    false
                 );
                 return false;
             }
@@ -714,7 +719,8 @@
                     'alert',
                     'Debes aceptar los politicas de privacidad',
                     'Aceptar',
-                    configHotkeys
+                    configHotkeys,
+                    false
                 );
                 return false;
             }
@@ -724,7 +730,8 @@
                     'alert',
                     'Debes aceptar los requerimientos para reproducir video',
                     'Aceptar',
-                    configHotkeys
+                    configHotkeys,
+                    false
                 );
                 return false;
             }
@@ -737,8 +744,9 @@
                 AlertDialogService.show(
                     'alert',
                     'El campo de nombres no puede estar vacio',
-                    'Aceptar',
-                    configHotkeys
+                    'nombre hombre',
+                    configHotkeys,
+                    false
                 );
                 return false;
             }
@@ -748,7 +756,8 @@
                     'alert',
                     'El campo de apellidos no puede estar vacio',
                     'Aceptar',
-                    configHotkeys
+                    configHotkeys,
+                    false
                 );
                 return false;
             }
@@ -758,7 +767,8 @@
                     'alert',
                     'El campo de ciudad no puede estar vacio',
                     'Aceptar',
-                    configHotkeys
+                    configHotkeys,
+                    false
                 );
                 return false;
             }
@@ -779,7 +789,6 @@
             
             for(var i = 0; i<$scope.citiesStrings.length; i ++){
                 if($scope.citiesStrings[i].name == $scope.subscription.city){
-                    console.log($scope.citiesStrings[i].name);
                     positionSelectedCity = true;
                 };
             }
@@ -881,6 +890,7 @@
         };
 
         $scope.onNext = function () {
+            console.log("entro en el on next");
             switch ($scope.subscribeStep) {
                 case 0:
                     if (!$scope.validateStepOne()) {
@@ -1429,9 +1439,9 @@
 
         init();
 
-        this.funciona=function(){
+        /*this.funciona=function(){
             return "Esta mierda funciona";
-        };
+        };*/
 
     };
 

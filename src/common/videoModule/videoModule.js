@@ -402,11 +402,14 @@
 
 			model.handleErrorFunction=function(event, data) {
 				var currState = state.get();
-                console.log(currState);
+                console.log(data);
+                console.log(event);
 				if( currState === "video" && state.previous(3) === "info" ) {
+                    console.log("entro en el if");
 					//toggleInfo(true);
 					video.play();
 				} else {
+                    console.log("entro en el else");
 					model.hidePlayer();
 				}
 				AlertDialogService.show('warning',

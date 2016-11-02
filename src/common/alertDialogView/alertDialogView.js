@@ -4,7 +4,7 @@
 		var self = this;
 		self.modalInstance = {};
 
-		self.show = function(type, message, button, onDismiss) {
+		self.show = function(type, message, button, onDismiss, succeso) {
 			self.modalInstance = $modal.open({
 				controller: 'AlertDialogViewController',
 				templateUrl: 'alertDialogView/alertDialogView.tpl.html',
@@ -14,7 +14,8 @@
 						return {
 							'type': type,
 							'message': message,
-							'button': button
+							'button': button,
+                            'succeso': succeso
 						};
 					}
 				}
@@ -36,13 +37,14 @@
 		};
 	};
 
-	var AlertDialogViewController = function($scope, $modalInstance, alertInfo, hotkeys, $timeout, $location) {
+	var AlertDialogViewController = function($scope, $modalInstance, alertInfo, hotkeys, $timeout, $window) {
 		init();
 
 		function init() {
 			$scope.message = alertInfo.message;
 			$scope.buttonMessage = alertInfo.button;
 			$scope.type = alertInfo.type;
+            console.log(alertInfo.succeso);
 
 			if(!$scope.type) {
 				$scope.type = 'warning';
@@ -53,8 +55,13 @@
 			}
 
 			$scope.dismiss = function() {
-				$modalInstance.dismiss('cancel');
-                $location.path("/preview/dashboard");
+                if(alertInfo.succeso != undefined){
+                    $modalInstance.dismiss('cancel');
+                }
+                else{
+                    $window.history.back();
+                    console.log("entro en el debolver");
+                }
 			};
 
 			$scope.$on('$stateChangeStart', function(event, newUrl, oldUrl) {
@@ -78,7 +85,15 @@
 	};
 
 	app.service('AlertDialogService', ['$modal', AlertDialogService]);
-	app.controller('AlertDialogViewController', ['$scope', '$modalInstance', 'alertInfo', 'hotkeys', '$timeout','$location', AlertDialogViewController]);
+	app.controller('AlertDialogViewController', [
+        '$scope', 
+        '$modalInstance', 
+        'alertInfo', 
+        'hotkeys', 
+        '$timeout', 
+        '$window', 
+        AlertDialogViewController
+    ]);
 
 }(angular.module("caracolplaylgtvapp.alertDialogView", [
 	'ui.router'
