@@ -44,7 +44,6 @@
 			$scope.message = alertInfo.message;
 			$scope.buttonMessage = alertInfo.button;
 			$scope.type = alertInfo.type;
-            console.log(alertInfo.succeso);
 
 			if(!$scope.type) {
 				$scope.type = 'warning';
@@ -59,8 +58,8 @@
                     $modalInstance.dismiss('cancel');
                 }
                 else{
+                    $modalInstance.dismiss('cancel');
                     $window.history.back();
-                    console.log("entro en el debolver");
                 }
 			};
 
