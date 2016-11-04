@@ -397,7 +397,7 @@
 
         self.getToken = function () {
             var headers =module.encode(true);
-            console.log("HEADERS GET TOKEN ",headers);
+            //console.log("HEADERS GET TOKEN ",headers);
             return $http({
                 headers: headers,
                 method: 'POST',

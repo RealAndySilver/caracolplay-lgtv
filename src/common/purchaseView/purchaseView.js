@@ -194,8 +194,8 @@
             var promiseIsContentAvaliable = UserService.isContentAvailableForUser($scope.getChapterId());
             
             promiseIsContentAvaliable.then(function (response) {
-                console.log("isContentAvailable: ->:", response);
-                console.log("response.data.video.status:", response.data.video.status);
+                //console.log("isContentAvailable: ->:", response);
+                //console.log("response.data.video.status:", response.data.video.status);
                 //ProgressDialogService.dismiss();
                 if (response.data.status) {
                     if (response.data.video.status) {
@@ -374,7 +374,6 @@
         $scope.activeQueue = [];
 
         $scope.next = function () {
-            console.log("entro en el next");
             $scope.disableKeyEnter = true;
             switch ($scope.active) {
                 case 'next':
@@ -890,7 +889,6 @@
         };
 
         $scope.onNext = function () {
-            console.log("entro en el on next");
             switch ($scope.subscribeStep) {
                 case 0:
                     if (!$scope.validateStepOne()) {
@@ -996,11 +994,12 @@
                     if (!$scope.validateStepThree()) {
                         break;
                     }
-
-                    //ProgressDialog.start();
                     var successCallbackExecuteTransaction = function (response) {
                         //ProgressDialog.dismiss();
+                        console.log("entro successCallbackExecuteTransaction");
                         if (response.data.status === 'Aprobada') {
+                            console.log("entro en el if");
+                            console.log(response);
                             AlertDialogService.show(
                                 'alert',
                                 response.data.user + ': ' + response.data.result,
@@ -1013,6 +1012,8 @@
                                     });
                                 });
                         } else {
+                            console.log("entro en el else");
+                            console.log(response);
                             AlertDialogService.show(
                                 'alert',
                                 response.data.status + ': ' + response.data.result,
@@ -1044,10 +1045,12 @@
                     };
 
                     var successCallbackCreateOrder = function (response) {
+                        console.log(response);
                         if(response.data.length === 0){
+                            console.log("entro en el if")
                             AlertDialogService.show(
                                 'alert',
-                                'En estos momentos no se pudo realizar la operacion. Inténtalo más tarde.',
+                                'En estos momentos no se pudo realizar la operacion. Inténtalo más tarde. aqui esta el error',
                                 'Aceptar',
                                 configHotkeys
                             );
@@ -1108,6 +1111,7 @@
 
 
                     var promiseLogin;
+                    
                     if ($rootScope.isUserLogged()){
                         promiseLogin = PurchaseService.loginPaymentUserFlow($rootScope.getLoginCredentials().username, $rootScope.getLoginCredentials().password);
                     }else{
