@@ -639,10 +639,11 @@
             }
             id = setInterval(model.findCities, 1000);
         };
-        
+        var selectecCity;
         $scope.llenar = function(num){
             $scope.subscription.city =  $scope.citiesStrings[num].name;
             $scope.citysShow = false;
+            selectecCity = $scope.citiesStrings[num];
         };
         
 
@@ -996,10 +997,7 @@
                     }
                     var successCallbackExecuteTransaction = function (response) {
                         //ProgressDialog.dismiss();
-                        console.log("entro successCallbackExecuteTransaction");
                         if (response.data.status === 'Aprobada') {
-                            console.log("entro en el if");
-                            console.log(response);
                             AlertDialogService.show(
                                 'alert',
                                 response.data.user + ': ' + response.data.result,
@@ -1012,8 +1010,6 @@
                                     });
                                 });
                         } else {
-                            console.log("entro en el else");
-                            console.log(response);
                             AlertDialogService.show(
                                 'alert',
                                 response.data.status + ': ' + response.data.result,
@@ -1045,7 +1041,6 @@
                     };
 
                     var successCallbackCreateOrder = function (response) {
-                        console.log(response);
                         if(response.data.length === 0){
                             AlertDialogService.show(
                                 'alert',
@@ -1078,7 +1073,7 @@
                                 'phone': $scope.subscription.phone,
                                 'address': $scope.subscription.address,
                                 'renovation': '1',
-                                'city': $scope.cities[positionSelectedCity].id
+                                'city': selectecCity.id
                             }
                         };
                         var promiseExecute = PurchaseService.executeTransactionWithCardFlow(transactionInfo);
