@@ -214,7 +214,7 @@
                     model.displayControls();// mostrar los controles del video 
                 }
                     
-            }
+            };
             
             
             //funcion para cerra el video 
@@ -450,7 +450,7 @@
 					case 38: // up
 					case 27: // up
                         $window.history.back();
-                        break
+                        break;
 					case 40: //down
 						if( currState === "video" ) {
 							model.displayControls();

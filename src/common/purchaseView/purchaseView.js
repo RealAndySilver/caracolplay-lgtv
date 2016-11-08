@@ -789,9 +789,9 @@
             for(var i = 0; i<$scope.citiesStrings.length; i ++){
                 if($scope.citiesStrings[i].name == $scope.subscription.city){
                     positionSelectedCity = true;
-                };
+                }
             }
-            if(positionSelectedCity == false){
+            if(positionSelectedCity === false){
 
                 $scope.subscription.city = '';
                 AlertDialogService.show(
@@ -1047,7 +1047,6 @@
                     var successCallbackCreateOrder = function (response) {
                         console.log(response);
                         if(response.data.length === 0){
-                            console.log("entro en el if")
                             AlertDialogService.show(
                                 'alert',
                                 'En estos momentos no se pudo realizar la operacion. Inténtalo más tarde. aqui esta el error',
