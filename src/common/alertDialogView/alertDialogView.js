@@ -54,7 +54,6 @@
 			}
 
             /** funcion parra cerrar las alertas **/
-            console.log(alertInfo.succeso);
 			$scope.dismiss = function() {
                 if(alertInfo.succeso !== undefined){
                     $modalInstance.dismiss('cancel');

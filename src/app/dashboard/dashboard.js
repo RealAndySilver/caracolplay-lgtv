@@ -106,15 +106,18 @@
                         'Aceptar',
                         function () {
                             keyboardInit();
-                        }
+                        },
+                        false
                     );
                 } else {
                     AlertDialogService.show(
                         'warning',
                         "Sesión cerrada exitosamente",
                         'Aceptar',
-                        keyboardInit
+                        keyboardInit,
+                        false
                     );
+                    console.log("entro en el else");
                 }
                 $rootScope.clearAllCacheData();
                 $state.reload();

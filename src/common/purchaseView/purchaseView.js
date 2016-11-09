@@ -234,33 +234,38 @@
         $scope.menu = {
             title: 'Reproducir contenido',
             description: 'Para reproducir este contenido puedes usar una de las siguientes opciones',
-            support: 'Si tienes problemas para ver este contenido contáctanos a soporte@caracolplay.com'
+            support: 'Si tienes problemas para ver este contenido contáctanos a soporte@caracolplay.com',
+            active:false
         };
 
         $scope.login = {
             title: 'Ingresar a la cuenta',
             description: 'Ingresa los datos si ya tienes un nombre de usuario y una contraseña ' +
             'en CaracolPlay o en nuestra red de portales',
-            support: 'Si tienes problemas para ver este contenido contáctanos a soporte@caracolplay.com'
+            support: 'Si tienes problemas para ver este contenido contáctanos a soporte@caracolplay.com',
+            active:false
         };
 
         $scope.register = {
             title: 'Suscríbase por $58.000 el año',
             description: '',
-            support: 'Si tienes problemas para ver este contenido contáctanos a soporte@caracolplay.com'
+            support: 'Si tienes problemas para ver este contenido contáctanos a soporte@caracolplay.com',
+            active:false
         };
 
         $scope.rent = {
             title: 'Alquiler por $34.800',
             description: '',
-            support: 'Si tienes problemas para ver este contenido contáctanos a soporte@caracolplay.com'
+            support: 'Si tienes problemas para ver este contenido contáctanos a soporte@caracolplay.com',
+            active:false
         };
 
         $scope.redeem = {
             title: 'Redimir código',
             description: 'Si tienes un código hazlo efectivo aquí y empieza a disfrutar del contenido que tenemos para ti',
             //description: 'Ingresa el codigo para disfrutar el contenido',
-            support: 'Si tienes problemas para ver este contenido contáctanos a soporte@caracolplay.com'
+            support: 'Si tienes problemas para ver este contenido contáctanos a soporte@caracolplay.com',
+            active:false
         };
 
         $scope.title = $scope.login.title;
@@ -561,7 +566,8 @@
                     'alert',
                     'El codigo para redimir no puede estar vacio',
                     'Aceptar',
-                    configHotkeys
+                    configHotkeys,
+                    false
                 );
                 return;
             }
@@ -599,7 +605,8 @@
                         'alert',
                         response.data.response,
                         'Aceptar',
-                        configHotkeys
+                        configHotkeys,
+                        false
                     );
                 }
             });
@@ -799,7 +806,8 @@
                     'alert',
                     'Debe seleccionar la ciudad de nuevo, asegurese de seleccionar una de las opciones del autocompletado',
                     'Aceptar',
-                    configHotkeys
+                    configHotkeys,
+                    false
                 );
                 return false;
             }
@@ -809,7 +817,8 @@
                     'alert',
                     'El campo de tipo de documento no puede estar vacio',
                     'Aceptar',
-                    configHotkeys
+                    configHotkeys,
+                    false
                 );
                 return false;
             }
@@ -819,7 +828,8 @@
                     'alert',
                     'El campo de numero de documento no puede estar vacio',
                     'Aceptar',
-                    configHotkeys
+                    configHotkeys,
+                    false
                 );
                 return false;
             }
@@ -832,7 +842,8 @@
                     'alert',
                     'El campo de tipo de tarjeta de credito no puede estar vacio',
                     'Aceptar',
-                    configHotkeys
+                    configHotkeys,
+                    false
                 );
                 return false;
             }
@@ -842,7 +853,8 @@
                     'alert',
                     'El campo de numero de tarjeta de credito no puede estar vacio',
                     'Aceptar',
-                    configHotkeys
+                    configHotkeys,
+                    false
                 );
                 return false;
             }
@@ -852,7 +864,8 @@
                     'alert',
                     'El campo de mes de expiracion no puede estar vacio',
                     'Aceptar',
-                    configHotkeys
+                    configHotkeys,
+                    false
                 );
                 return false;
             }
@@ -862,7 +875,8 @@
                     'alert',
                     'El campo de año de expiracion no puede estar vacio',
                     'Aceptar',
-                    configHotkeys
+                    configHotkeys,
+                    false
                 );
                 return false;
             }
@@ -872,7 +886,8 @@
                     'alert',
                     'El campo de codigo de seguridad no puede estar vacio',
                     'Aceptar',
-                    configHotkeys
+                    configHotkeys,
+                    false
                 );
                 return false;
             }
@@ -882,7 +897,8 @@
                     'alert',
                     'El campo de parcel no puede estar vacio',
                     'Aceptar',
-                    configHotkeys
+                    configHotkeys,
+                    false
                 );
                 return false;
             }
@@ -967,7 +983,8 @@
                             'Aceptar',
                             function () {
                                 configHotkeys();
-                            }
+                            },
+                            false
                         );
                         $scope.subscribeStep = 0;
                     };
@@ -1008,7 +1025,9 @@
                                         'chapterId': chapterId,
                                         'productionId': productionId
                                     });
-                                });
+                                },
+                                false
+                            );
                         } else {
                             AlertDialogService.show(
                                 'alert',
@@ -1017,7 +1036,10 @@
                                 function () {
                                     configHotkeys();
                                     $state.reload();
-                                });
+                                },
+                                false
+                                    
+                            );
                         }
                     };
 
@@ -1044,7 +1066,7 @@
                         if(response.data.length === 0){
                             AlertDialogService.show(
                                 'alert',
-                                'En estos momentos no se pudo realizar la operacion. Inténtalo más tarde. aqui esta el error',
+                                'En estos momentos no se pudo realizar la operacion. Inténtalo más tarde.',
                                 'Aceptar',
                                 configHotkeys
                             );
@@ -1164,19 +1186,27 @@
             var validateDate = new Date( year, month, $scope.subscription.birth_day);
 
             if(isNaN( validateDate.getTime() )){
-                AlertDialogService.show('alert','Debe seleccionar una fecha valida','Aceptar',
+                AlertDialogService.show(
+                    'alert',
+                    'Debe seleccionar una fecha valida',
+                    'Aceptar',
                     function () {
                         configHotkeys();
-                    }
+                    },
+                    false
                 );
                 return;
             }
             var gender = ($scope.subscription.gender !== '') ? $scope.subscription.gender.name :null;
             if(gender === null){
-                AlertDialogService.show('alert','Debe seleccionar el genero','Aceptar',
+                AlertDialogService.show(
+                    'alert',
+                    'Debe seleccionar el genero',
+                    'Aceptar',
                     function () {
                         configHotkeys();
-                    }
+                    },
+                    false
                 );
                 return;
             }
@@ -1200,7 +1230,8 @@
                         'Aceptar',
                         function () {
                             configHotkeys();
-                        }
+                        },
+                        false
                     );
                     return;
                 }
@@ -1226,7 +1257,8 @@
                     'Aceptar',
                     function () {
                         configHotkeys();
-                    }
+                    },
+                    false
                 );
                 $scope.subscribeStep = 0;
             });
@@ -1276,7 +1308,8 @@
                         'alert',
                         "Se produjo un error al redimir el código",
                         'Aceptar',
-                        configHotkeys
+                        configHotkeys,
+                        false
                     );
                 });
             }
@@ -1336,7 +1369,8 @@
                         'alert',
                         response.data.response,
                         'Aceptar',
-                        configHotkeys
+                        configHotkeys,
+                        false
                     );
                 }
             }, function (error) {
@@ -1346,7 +1380,8 @@
                     'alert',
                     error.data[0],
                     'Aceptar',
-                    configHotkeys
+                    configHotkeys,
+                    false
                 );
             });
         };
@@ -1550,7 +1585,8 @@
                             AlertDialogService.show(
                                 'alert',
                                 'Solo puede incluir letras en esta casilla',
-                                'Aceptar'
+                                'Aceptar',
+                                false
                             );
                         }
                     }
