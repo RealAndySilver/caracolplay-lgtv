@@ -1356,7 +1356,8 @@
                                     AlertDialogService.show(
                                         'alert',message,
                                         'Aceptar',
-                                        $state.reload
+                                        $state.reload,
+                                        false
                                     );
                                 }
                             });
