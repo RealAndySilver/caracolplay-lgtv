@@ -254,13 +254,13 @@
 			//inicializa botones
 			// fast forward button
 			model.controls.ffControl.bind("click", function(event) {
-				window.alert('ENTRO');
+				//window.alert('ENTRO');
 				event.stopPropagation();
-				window.alert('ENTRO 1');
+				//window.alert('ENTRO 1');
 				clearTimeout(model.timeoutId);
-				window.alert('ENTRO 2');
+				//window.alert('ENTRO 2');
 				model.video.fastForward();
-				window.alert('ENTRO 3');
+				//window.alert('ENTRO 3');
 			});
 
 			model.controls.rwControl.bind("click", function(event) {
