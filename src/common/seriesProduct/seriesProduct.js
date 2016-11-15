@@ -299,6 +299,7 @@
             };
 
             $scope.onEnterOptions = function (position) {
+                 
                 for (var i in $scope.options) {
                     if ($scope.options[i].active) {
                         $scope.options[i].active = false;
@@ -306,10 +307,10 @@
                     }
                 }
                 $scope.options[position].active = true;
-
+                
                 var successAddList = function (response) {
-                    
-                    logs.set('success', response);
+                console.log("entro en el success");
+                    console.log(response);
                     if (response.data.status) {
 
                         AlertDialogService.show(
@@ -326,7 +327,8 @@
                             'warning',
                             'Ha ocurrido un problema intenta más tarde',
                             'Aceptar',
-                            configHotkeys
+                            configHotkeys,
+                            false
                         );
                     }
                 };
@@ -403,7 +405,7 @@
                                  */
                                 break;
                         }
-                        console.log(self.sectionActive);
+                        //console.log(self.sectionActive);
                         break;
                     case 'Calificar':
                         if (UserInfo.alias && UserInfo.alias !== '') {
@@ -429,6 +431,7 @@
                     case 'Añadir a mi lista':
                         if (UserInfo.alias && UserInfo.alias !== '') {
                             var addPromise = ProductService.addItemToList($scope.selected.type, $scope.selected.id);
+                            successAddList;
                             addPromise.then(successAddList, failureList);
                         } else {
                             $state.go('purchase', {

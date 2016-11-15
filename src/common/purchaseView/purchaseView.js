@@ -1,7 +1,8 @@
-    (function (app) {
+(function (app) {
     var ModalInstanceService = function () {
         var self = this;
 
+        console.log("entro en el modal");
         self.modalInstance = {};
         self.setModalInstance = function (modalInstance) {
             self.modalInstance = modalInstance;
@@ -13,17 +14,18 @@
     };
 
     app.service('ModalInstanceService', [ModalInstanceService]);
-    app.constant('ModalInstance', {});
 
+    /**declaracion de controlador **/
     var PurchaseViewController = function ($scope, hotkeys, UserService, PurchaseService,
                                            $modalInstance, typeView, $state, AlertDialogService,
                                            productionId, chapterId, ProgressDialog, TermsViewService,
                                            DevInfo, name, $stateParams, $rootScope, RegisterUserService, $timeout,$cookies,$location) {
-        var itemSelected = 0;
-        var model = this;
+       
+        var itemSelected = 0;//inicializar el valor del elemento selecionado  
+        var model = this;//declaracion del modelo 
         var id=0;
 
-
+        /** declaracion de la opcion de ingresar como usuario**/
         var LOGIN_OPTION_INFO = {
             'title': 'Ingresar como usuario',
             'image': 'assets/img/login-logo.png',
@@ -31,6 +33,7 @@
             active: false
         };
 
+        /** declaracion de la opcion de Alquilar este contenido**/
         var RENT_OPTION_INFO = {
             'title': 'Alquilar este contenido',
             'image': 'assets/img/rent-logo.png',
@@ -38,6 +41,7 @@
             active: false
         };
 
+        /** declaracion de la opcion de Suscríbete**/
         var SUBSCRIPTION_OPTION_INFO = {
             'title': 'Suscríbete',
             'image': 'assets/img/subscribe-logo.png',
@@ -45,6 +49,7 @@
             active: false
         };
 
+        /** declaracion de la opcion de Redimir codigo**/
         var REDEEM_OPTION_INFO= {
             'title': 'Redimir codigo',
             'image': 'assets/img/redeem-logo.png',
@@ -73,6 +78,7 @@
 
         $scope.loginData = {};
 
+        /**dias disponibles del mes**/
         $scope.days_month = [
             1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
             11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
@@ -80,6 +86,7 @@
             31
         ];
 
+        /** objeto que contienen los meses del año**/
         $scope.months = [
             {name: 'Enero', value: '01', id: 0},
             {name: 'Febrero', value: '02', id: 1},
@@ -95,6 +102,7 @@
             {name: 'Diciembre', value: '12', id: 11}
         ];
 
+        /**Años disponibles para selecionar en targeta **/
         $scope.years = [
             {name: '2014', value: '14', id: 0},
             {name: '2015', value: '15', id: 1},
@@ -107,6 +115,7 @@
             {name: '2022', value: '22', id: 8}
         ];
 
+        /**Años disponibles para la fecha de naciomiento en el formulario **/
         $scope.years_birth = [
             1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969,
             1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979,
@@ -116,6 +125,7 @@
             2010, 2011, 2012, 2013, 2014, 2015
         ];
 
+        /**igualar el valor del email con el que hay en secion  **/
         $scope.getMail = function () {
             return $rootScope.getSessionInfo().email;
         };
@@ -128,12 +138,16 @@
             }
         });
         
-        var prevousPage = document.URL;
+        /** funcion que se llama cuando se cierra el modal **/
+        function backPague(){
+            $location.path("/preview/dashboard");
+        }
         
+        /** funcion encargada de llamar la pagina anterior al cerra modal **/
+        $modalInstance.result.then(null, backPague);
         
         $scope.closeModal = function(){
             $modalInstance.dismiss('cancel');
-            $location.path("/preview/dashboard");
         };
 
         var clearSaved = function(){
@@ -1503,18 +1517,6 @@
                     return chapterId;
                 }
             }
-        });
-
-        $scope.$on('$stateChangeStart', function (event, newUrl, oldUrl) {
-            if (modalInstance) {
-                modalInstance.dismiss('cancel');
-            }
-        });
-
-        modalInstance.result.then(function () {
-            //configHotkeys();
-        }, function () {
-            //configHotkeys();
         });
     };
 

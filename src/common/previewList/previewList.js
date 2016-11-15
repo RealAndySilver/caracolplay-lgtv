@@ -2,8 +2,7 @@
 	var PreviewListController = function($scope) {
 
 		var init = function() {};
-
-		init();
+        init();
 	};
 
 	var PreviewListDirective = function() {

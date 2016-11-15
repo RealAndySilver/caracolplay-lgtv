@@ -50,7 +50,6 @@
 
     var PreviewViewController = function($scope, $modal, itemSelected, $stateParams, hotkeys, DevInfo, $state, MyListItems, UserInfo) {
         var self = this;
-
         $scope.from = $stateParams.from;
         $scope.selected = itemSelected;
 
