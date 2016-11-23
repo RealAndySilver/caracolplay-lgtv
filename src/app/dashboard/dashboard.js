@@ -183,7 +183,6 @@
                     name: 'Ultimos Vistos',
                     products: response.data
                 });
-                //orderContentDashboard(self.list,self.list.length-1);
             });
         };
 
@@ -275,7 +274,6 @@
             //if (self.active + 1 < self.list.length +1) {
             self.active++;
             //}
-
             self.quantityButtons = ($scope.mail) ? 3 : 2;
 
             self.downActive = 0; //variable que controla que funcion inferior esta activa
@@ -394,20 +392,22 @@
                     callback: yellowButtonCallback
                 });
             }
-
+            var contador = 1 ;
             hotkeys.add({
                 combo: 'down',
                 callback: function (event) {
+                    contador ++ ;
                     event.preventDefault();
-
                     if (self.active + 1 > self.list.length + 1) {
                         activeEventsBottomOptions();
+                        self.active = 1;
                         return;
                     }
                     self.active++;
                     if (self.active === 1) {
                         outAnimation();
-                    } else {
+                        contador = 0;
+                    }else {
                         inAnimation();
                     }
                 }

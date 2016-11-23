@@ -219,7 +219,9 @@
             
             //funcion para cerra el video 
             model.cerraVideo = function(){
-                $window.history.back();
+                //$window.history.back();
+                $location.path("/preview/dashboard");
+                console.log("se cerro");
             };
             
 			model.timeoutId=0;
@@ -254,13 +256,9 @@
 			//inicializa botones
 			// fast forward button
 			model.controls.ffControl.bind("click", function(event) {
-				//window.alert('ENTRO');
 				event.stopPropagation();
-				//window.alert('ENTRO 1');
 				clearTimeout(model.timeoutId);
-				//window.alert('ENTRO 2');
 				model.video.fastForward();
-				//window.alert('ENTRO 3');
 			});
 
 			model.controls.rwControl.bind("click", function(event) {
