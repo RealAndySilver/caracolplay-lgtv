@@ -431,7 +431,7 @@
                     case 'Añadir a mi lista':
                         if (UserInfo.alias && UserInfo.alias !== '') {
                             var addPromise = ProductService.addItemToList($scope.selected.type, $scope.selected.id);
-                            successAddList;
+                            //successAddList;
                             addPromise.then(successAddList, failureList);
                         } else {
                             $state.go('purchase', {
