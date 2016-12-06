@@ -23,7 +23,7 @@
         <div class="purchase-buttons" ng-show="model.isVisibleMainOptionsScreen">
             <div class="button-container" ng-class="{ 'active':option.active }" ng-repeat="option in model.optionsAvailable track by $index" ng-click="enterIn($index)">
                 <img ng-src="{{option.image}}"> 
-                <center><h3 class="item-title">{{option.title}} titulo</h3></center>
+                <center><h3 class="item-title">{{option.title}}</h3></center>
             </div>
 <!--            <div class="col-lg-6">
                 <button class="btn caracol-btn-cancel col-lg-9" ng-click="closeModal()"
